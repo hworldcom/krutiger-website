@@ -1,0 +1,51 @@
+@theme inline {
+  --font-sans: var(--font-body);
+  --font-display: var(--font-heading);
+  --font-thai: var(--font-brand-thai);
+
+  --color-canvas: var(--krutiger-canvas);
+  --color-panel: var(--krutiger-panel);
+  --color-panel-raised: var(--krutiger-panel-raised);
+  --color-copy: var(--krutiger-copy);
+  --color-copy-muted: var(--krutiger-copy-muted);
+  --color-warm-canvas: var(--krutiger-warm-canvas);
+  --color-ink: var(--krutiger-ink);
+  --color-ink-muted: var(--krutiger-ink-muted);
+  --color-line: var(--krutiger-line);
+  --color-brand: var(--krutiger-brand);
+  --color-brand-hover: var(--krutiger-brand-hover);
+  --color-brand-ink: var(--krutiger-brand-ink);
+  --color-signal: var(--krutiger-signal);
+  --color-focus: var(--krutiger-focus);
+
+  --container-shell: 76rem;
+  --container-copy: 48rem;
+  --container-narrow: 36rem;
+  --breakpoint-xs: 30rem;
+  --spacing-section: clamp(4.5rem, 10vw, 8rem);
+  --radius-control: 0.25rem;
+  --radius-card: 0.75rem;
+  --radius-pill: 999px;
+  --shadow-card: 0 1.5rem 4rem rgb(0 0 0 / 0.24);
+  --shadow-header: 0 0.75rem 2rem rgb(0 0 0 / 0.2);
+  --ease-brand: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+:root {
+  --krutiger-canvas: #080808;
+  --krutiger-panel: #151515;
+  --krutiger-panel-raised: #202020;
+  --krutiger-copy: #fafafa;
+  --krutiger-copy-muted: #c7c1ba;
+  --krutiger-warm-canvas: #f5f0e8;
+  --krutiger-ink: #17120f;
+  --krutiger-ink-muted: #6b625b;
+  --krutiger-line: #4a433d;
+  --krutiger-brand: #f96900;
+  --krutiger-brand-hover: #ff7f24;
+  --krutiger-brand-ink: #080808;
+  --krutiger-signal: #f8003d;
+  --krutiger-focus: #ff9a57;
+  --duration-fast: 150ms;
+  --duration-standard: 240ms;
+}
