@@ -19,14 +19,14 @@ export type LogoProps = LogoAltProps &
   }>;
 
 const displayClasses: Record<LogoDisplay, string> = {
-  header: "h-12 w-12",
-  footer: "h-20 w-20",
+  header: "h-16 w-16",
+  footer: "h-28 w-28",
   hero: "h-auto w-full",
 };
 
 const displaySizes: Record<LogoDisplay, string> = {
-  header: "3rem",
-  footer: "5rem",
+  header: "4rem",
+  footer: "7rem",
   hero: "(min-width: 1024px) 36vw, 80vw",
 };
 
@@ -43,12 +43,12 @@ export function Logo({
       alt={resolvedAlt}
       aria-hidden={decorative || undefined}
       className={displayClasses[display]}
-      data-logo="krutiger-badge"
-      height={1000}
+      data-logo="kru-tiger-logo"
+      height={1254}
       preload={preload}
       sizes={displaySizes[display]}
-      src="/brand/krutiger-badge.png"
-      width={1000}
+      src="/images/home/kru-tiger-logo.png"
+      width={1254}
     />
   );
 }

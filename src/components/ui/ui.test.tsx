@@ -80,6 +80,8 @@ describe("core UI primitives", () => {
     const decorative = renderToStaticMarkup(<Logo decorative />);
 
     expect(meaningful).toContain('alt="KRUTIGER Muay Thai"');
+    expect(meaningful).toContain("images%2Fhome%2Fkru-tiger-logo.png");
+    expect(meaningful).toContain('data-logo="kru-tiger-logo"');
     expect(decorative).toContain('alt=""');
     expect(decorative).toContain('aria-hidden="true"');
   });

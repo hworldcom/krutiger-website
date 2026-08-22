@@ -81,7 +81,7 @@ const en = {
         "Verified memberships, passes, and conditions will be presented here for clear comparison.",
     },
     coaches: {
-      navigationLabel: "Coaches",
+      navigationLabel: "Team",
       eyebrow: "Coaching team",
       title: "Meet the people behind the training",
       description:
@@ -90,9 +90,9 @@ const en = {
     about: {
       navigationLabel: "About",
       eyebrow: "About KRUTIGER",
-      title: "Thai experience, Berlin community",
+      title: "Real Muay Thai. Real roots.",
       description:
-        "This page will tell the story, values, and training philosophy of KRUTIGER Muay Thai Berlin.",
+        "Kru Tiger stands for traditional Muay Thai, shaped by years of experience in Thailand and now passed on in Berlin.",
     },
     faq: {
       navigationLabel: "FAQ",
@@ -128,6 +128,146 @@ const en = {
       title: "Privacy policy",
       description:
         "This page is reserved for the current, legally reviewed privacy policy. The final text will follow before launch.",
+    },
+  },
+  homePage: {
+    hero: {
+      eyebrow: "Traditional Muay Thai · Berlin",
+      titleLines: ["Authentic", "Muay Thai", "in Berlin"],
+      introduction:
+        "Real Muay Thai in an open and respectful atmosphere. Discipline, respect, and solidarity—values we live by in training and beyond.",
+      imageAlt:
+        "Kru Tiger gives a thumbs-up inside a Muay Thai gym in Thailand.",
+      trialAction: "Request a trial class",
+      scheduleAction: "View schedule",
+    },
+    schedule: {
+      title: "Today at Kru Tiger",
+      action: "View schedule",
+      placeholderNotice:
+        "Preview with sample data: class times and the address will be verified and updated after the bsport connection.",
+      classes: [
+        {
+          time: "17:00",
+          title: "Beginners",
+          details: "60 min · All levels",
+        },
+        {
+          time: "18:30",
+          title: "Muay Thai All Levels",
+          details: "90 min · All levels",
+        },
+        {
+          time: "20:00",
+          title: "Sparring",
+          details: "90 min · Advanced",
+        },
+      ],
+      location: {
+        district: "Kreuzberg",
+        addressLineOne: "Melechstr. 11",
+        addressLineTwo: "10961 Berlin",
+      },
+    },
+    values: {
+      eyebrow: "Why Kru Tiger?",
+      titlePrimary: "More than training.",
+      titleAccent: "A culture.",
+      introduction:
+        "Learn authentic Muay Thai in an open and respectful environment. Whether you are a beginner or a fighter, you will find a team that supports your path.",
+      items: [
+        {
+          title: "Authentic",
+          description: "Traditional Muay Thai in the Thai lineage.",
+        },
+        {
+          title: "For every level",
+          description:
+            "From first session to competition—we coach you individually.",
+        },
+        {
+          title: "Community",
+          description: "Respect, discipline, and solidarity as a team.",
+        },
+        {
+          title: "Experienced coaches",
+          description: "Learn from experienced Kru and fighters.",
+        },
+      ],
+    },
+  },
+  aboutPage: {
+    hero: {
+      eyebrow: "The story of KRUTIGER",
+      titlePrimary: "Real Muay Thai.",
+      titleSecondary: "Real roots.",
+      introduction:
+        "Kru Tiger stands for traditional Muay Thai, shaped by years of experience in Thailand and now passed on in Berlin.",
+      imageAlt:
+        "Kru Tiger sits with championship belts and medals in a Muay Thai ring in Thailand.",
+    },
+    storyHeading: "The story of Kru Tiger",
+    chapters: [
+      {
+        number: "01",
+        title: "Kru Tiger",
+        description:
+          "For Kru Tiger, Muay Thai is more than a sport. It is a path that has accompanied him since his youth—as a fighter, coach, and Kru.",
+        accent: "Fighter · Coach · Kru",
+        imageAlt:
+          "Historic newspaper clipping showing two Muay Thai fighters in the ring.",
+      },
+      {
+        number: "02",
+        title: "Roots in Thailand",
+        description:
+          "Years in the ring, training in Thailand, and experience from a time when Muay Thai shaped everyday life.",
+        accent: "Thailand · Training · Daily life",
+        imageAlt:
+          "Historic group photograph of a young Muay Thai fighter with his team.",
+      },
+      {
+        number: "03",
+        title: "Experience in the ring",
+        description:
+          "Technique is learned in training. Calm, timing, and an understanding of the fight come through experience.",
+        accent: "Technique · Timing · Calm",
+        imageAlt: "Historic color photograph of a Muay Thai bout in the ring.",
+      },
+      {
+        number: "04",
+        title: "From Thailand to Berlin",
+        description:
+          "What was learned in Thailand’s rings is now passed on in Berlin—technique, discipline, respect, and the culture of Muay Thai.",
+        accent: "In Berlin today",
+        imageAlt:
+          "Thai newspaper profile featuring a portrait of a Muay Thai fighter.",
+        secondaryImageAlt:
+          "Historic group photograph of Kru Tiger with fighters and companions after a bout.",
+      },
+    ],
+    philosophy: {
+      number: "05",
+      title: "Our philosophy",
+      values: [
+        {
+          title: "Technique",
+          description: "Clean foundations before unnecessary complexity.",
+        },
+        {
+          title: "Discipline",
+          description: "Consistency and full attention in training.",
+        },
+        {
+          title: "Respect",
+          description:
+            "Mutual respect for coaches, training partners, and the tradition.",
+        },
+        {
+          title: "Community",
+          description: "Improving together, regardless of experience level.",
+        },
+      ],
     },
   },
   integrations: {

@@ -10,7 +10,13 @@ import {
   type MouseEvent,
 } from "react";
 
-import { Button, ButtonLink, Container, VisuallyHidden } from "@/components/ui";
+import {
+  Button,
+  ButtonLink,
+  Container,
+  Logo,
+  VisuallyHidden,
+} from "@/components/ui";
 import { locales, type Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries/types";
 import { getLocalizedPath, replacePathLocale } from "@/i18n/routing";
@@ -23,7 +29,6 @@ import {
   secondaryNavigationRoutes,
   type RouteId,
 } from "@/lib/routes";
-import { siteConfig } from "@/lib/site";
 
 type HeaderLabels = Dictionary["shell"]["header"];
 type LocaleLabels = Dictionary["locale"];
@@ -292,11 +297,10 @@ export function SiteHeader({
         <div className="flex h-20 items-center justify-between gap-6">
           <Link
             aria-label={headerLabels.homeLinkLabel}
-            className="shrink-0 rounded-control font-thai text-3xl leading-none font-extrabold text-brand"
+            className="shrink-0 rounded-control"
             href={homeHref}
-            lang="th"
           >
-            {siteConfig.thaiName}
+            <Logo decorative display="header" preload />
           </Link>
 
           <nav

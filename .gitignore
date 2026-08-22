@@ -1,0 +1,69 @@
+# Dependencies and package-manager state
+/node_modules/
+/.pnp/
+.pnp.*
+/.yarn/*
+!/.yarn/patches
+!/.yarn/plugins
+!/.yarn/releases
+!/.yarn/sdks
+!/.yarn/versions
+/.pnpm-store/
+
+# Tests and reports
+/coverage/
+/.nyc_output/
+/.vitest/
+
+# Framework and build output
+/.next/
+/out/
+/build/
+/dist/
+
+# Tool caches
+/.cache/
+/.turbo/
+.eslintcache
+*.tsbuildinfo
+next-env.d.ts
+
+# Editor and local workspace files
+/.idea/
+/.vscode/
+*.swp
+*.swo
+*~
+
+# Operating-system files
+.DS_Store
+Thumbs.db
+
+# Debug logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Environment files and local secrets
+.env*
+!.env.example
+*.key
+*.p12
+*.pem
+*.pfx
+
+# Hosting-provider output
+/.vercel/
+/.netlify/
+
+# Temporary working files
+/temp/
+/tmp/
+*.tmp
+
+
+# AI tools
+AGENTS.md
+CLAUDE.md

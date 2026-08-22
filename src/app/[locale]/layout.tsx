@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 
 import { SiteShell } from "@/components/layout/site-shell";
@@ -13,6 +13,13 @@ type LocaleLayoutProps = Readonly<{
   children: ReactNode;
   params: Promise<{ locale: string }>;
 }>;
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  colorScheme: "dark",
+  themeColor: "#080808",
+};
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));

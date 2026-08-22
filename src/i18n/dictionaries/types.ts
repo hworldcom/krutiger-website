@@ -14,6 +14,92 @@ type StateCopy = Readonly<{
   description: string;
 }>;
 
+type AboutChapterCopy = Readonly<{
+  number: string;
+  title: string;
+  description: string;
+  accent: string;
+  imageAlt: string;
+  secondaryImageAlt?: string;
+}>;
+
+type AboutValueCopy = Readonly<{
+  title: string;
+  description: string;
+}>;
+
+type HomeFeatureCopy = Readonly<{
+  title: string;
+  description: string;
+}>;
+
+type HomeClassCopy = Readonly<{
+  time: string;
+  title: string;
+  details: string;
+}>;
+
+export type HomePageCopy = Readonly<{
+  hero: Readonly<{
+    eyebrow: string;
+    titleLines: readonly [string, string, string];
+    introduction: string;
+    imageAlt: string;
+    trialAction: string;
+    scheduleAction: string;
+  }>;
+  schedule: Readonly<{
+    title: string;
+    action: string;
+    placeholderNotice: string;
+    classes: readonly [HomeClassCopy, HomeClassCopy, HomeClassCopy];
+    location: Readonly<{
+      district: string;
+      addressLineOne: string;
+      addressLineTwo: string;
+    }>;
+  }>;
+  values: Readonly<{
+    eyebrow: string;
+    titlePrimary: string;
+    titleAccent: string;
+    introduction: string;
+    items: readonly [
+      HomeFeatureCopy,
+      HomeFeatureCopy,
+      HomeFeatureCopy,
+      HomeFeatureCopy,
+    ];
+  }>;
+}>;
+
+export type AboutPageCopy = Readonly<{
+  hero: Readonly<{
+    eyebrow: string;
+    titlePrimary: string;
+    titleSecondary: string;
+    introduction: string;
+    imageAlt: string;
+  }>;
+  storyHeading: string;
+  chapters: readonly [
+    AboutChapterCopy,
+    AboutChapterCopy,
+    AboutChapterCopy,
+    AboutChapterCopy,
+  ];
+  philosophy: Readonly<{
+    number: string;
+    title: string;
+    values: readonly [
+      AboutValueCopy,
+      AboutValueCopy,
+      AboutValueCopy,
+      AboutValueCopy,
+    ];
+  }>;
+}>;
+
 export type Dictionary = Readonly<{
   metadata: Readonly<{
     title: string;
@@ -57,6 +143,8 @@ export type Dictionary = Readonly<{
     }>;
   }>;
   routes: Readonly<Record<RouteId, PageCopy>>;
+  homePage: HomePageCopy;
+  aboutPage: AboutPageCopy;
   integrations: Readonly<
     Record<
       IntegrationArea,

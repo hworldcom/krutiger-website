@@ -81,7 +81,7 @@ const de = {
         "Hier werden die geprüften Mitgliedschaften, Pässe und Konditionen klar vergleichbar dargestellt.",
     },
     coaches: {
-      navigationLabel: "Trainer",
+      navigationLabel: "Team",
       eyebrow: "Trainerteam",
       title: "Lerne die Menschen hinter dem Training kennen",
       description:
@@ -90,9 +90,9 @@ const de = {
     about: {
       navigationLabel: "Über uns",
       eyebrow: "Über KRUTIGER",
-      title: "Thailändische Erfahrung, Berliner Gemeinschaft",
+      title: "Echtes Muay Thai. Echte Wurzeln.",
       description:
-        "Hier erzählen wir die Geschichte, Haltung und Trainingsphilosophie von KRUTIGER Muay Thai Berlin.",
+        "Kru Tiger steht für traditionelles Muay Thai, geprägt durch jahrelange Erfahrung in Thailand und heute weitergegeben in Berlin.",
     },
     faq: {
       navigationLabel: "FAQ",
@@ -128,6 +128,146 @@ const de = {
       title: "Datenschutzerklärung",
       description:
         "Diese Seite ist für die aktuelle, rechtlich geprüfte Datenschutzerklärung vorgesehen. Der endgültige Text folgt vor der Veröffentlichung.",
+    },
+  },
+  homePage: {
+    hero: {
+      eyebrow: "Traditionelles Muay Thai · Berlin",
+      titleLines: ["Authentisches", "Muay Thai", "in Berlin"],
+      introduction:
+        "Echtes Muay Thai in einer offenen und respektvollen Atmosphäre. Disziplin, Respekt und Zusammenhalt – Werte, die wir im Training und darüber hinaus leben.",
+      imageAlt:
+        "Kru Tiger steht mit erhobenem Daumen in einem Muay-Thai-Gym in Thailand.",
+      trialAction: "Probetraining anfragen",
+      scheduleAction: "Kursplan ansehen",
+    },
+    schedule: {
+      title: "Heute bei Kru Tiger",
+      action: "Kursplan ansehen",
+      placeholderNotice:
+        "Vorschau mit Beispieldaten: Kurszeiten und Adresse werden nach der bsport-Anbindung geprüft und aktualisiert.",
+      classes: [
+        {
+          time: "17:00",
+          title: "Anfänger",
+          details: "60 Min · Alle Levels",
+        },
+        {
+          time: "18:30",
+          title: "Muay Thai All Levels",
+          details: "90 Min · Alle Levels",
+        },
+        {
+          time: "20:00",
+          title: "Sparring",
+          details: "90 Min · Fortgeschrittene",
+        },
+      ],
+      location: {
+        district: "Kreuzberg",
+        addressLineOne: "Melechstr. 11",
+        addressLineTwo: "10961 Berlin",
+      },
+    },
+    values: {
+      eyebrow: "Warum Kru Tiger?",
+      titlePrimary: "Mehr als nur Training.",
+      titleAccent: "Eine Kultur.",
+      introduction:
+        "Bei uns lernst du authentisches Muay Thai in einer offenen und respektvollen Atmosphäre. Ob Anfänger oder Profi – hier findest du ein Team, das dich begleitet.",
+      items: [
+        {
+          title: "Authentisch",
+          description: "Traditionelles Muay Thai nach thailändischer Linie.",
+        },
+        {
+          title: "Für alle Levels",
+          description:
+            "Vom Anfänger bis zum Wettkämpfer – wir fördern dich individuell.",
+        },
+        {
+          title: "Community",
+          description: "Respekt, Disziplin und Zusammenhalt im Team.",
+        },
+        {
+          title: "Erfahrene Trainer",
+          description: "Lerne von erfahrenen Kru und Kämpfern.",
+        },
+      ],
+    },
+  },
+  aboutPage: {
+    hero: {
+      eyebrow: "Die Geschichte von KRUTIGER",
+      titlePrimary: "Echtes Muay Thai.",
+      titleSecondary: "Echte Wurzeln.",
+      introduction:
+        "Kru Tiger steht für traditionelles Muay Thai, geprägt durch jahrelange Erfahrung in Thailand und heute weitergegeben in Berlin.",
+      imageAlt:
+        "Kru Tiger sitzt mit Meisterschaftsgürteln und Medaillen in einem Muay-Thai-Ring in Thailand.",
+    },
+    storyHeading: "Die Geschichte von Kru Tiger",
+    chapters: [
+      {
+        number: "01",
+        title: "Kru Tiger",
+        description:
+          "Muay Thai ist für Kru Tiger nicht einfach ein Sport. Es ist ein Weg, der ihn seit seiner Jugend begleitet – als Kämpfer, Trainer und Kru.",
+        accent: "Kämpfer · Trainer · Kru",
+        imageAlt:
+          "Historischer Zeitungsausschnitt mit zwei Muay-Thai-Kämpfern im Ring.",
+      },
+      {
+        number: "02",
+        title: "Wurzeln in Thailand",
+        description:
+          "Jahre im Ring, Training in Thailand und Erfahrung aus einer Zeit, in der Muay Thai den Alltag bestimmte.",
+        accent: "Thailand · Training · Alltag",
+        imageAlt:
+          "Historisches Gruppenfoto eines jungen Muay-Thai-Kämpfers mit seinem Team.",
+      },
+      {
+        number: "03",
+        title: "Erfahrung im Ring",
+        description:
+          "Technik lernt man im Training. Ruhe, Timing und Kampfverständnis entstehen durch Erfahrung.",
+        accent: "Technik · Timing · Ruhe",
+        imageAlt: "Historische Farbfotografie eines Muay-Thai-Kampfes im Ring.",
+      },
+      {
+        number: "04",
+        title: "Von Thailand nach Berlin",
+        description:
+          "Was im Ring in Thailand gelernt wurde, wird heute in Berlin weitergegeben – Technik, Disziplin, Respekt und die Kultur des Muay Thai.",
+        accent: "Heute in Berlin",
+        imageAlt:
+          "Thailändischer Zeitungsbericht mit dem Porträt eines Muay-Thai-Kämpfers.",
+        secondaryImageAlt:
+          "Historisches Gruppenfoto von Kru Tiger mit Kämpfern und Begleitern nach einem Wettkampf.",
+      },
+    ],
+    philosophy: {
+      number: "05",
+      title: "Unsere Philosophie",
+      values: [
+        {
+          title: "Technik",
+          description: "Saubere Grundlagen vor unnötiger Komplexität.",
+        },
+        {
+          title: "Disziplin",
+          description: "Konstanz und Aufmerksamkeit im Training.",
+        },
+        {
+          title: "Respekt",
+          description:
+            "Gegenseitiger Respekt – gegenüber Trainern, Trainingspartnern und der Tradition.",
+        },
+        {
+          title: "Gemeinschaft",
+          description: "Gemeinsam besser werden, unabhängig vom Level.",
+        },
+      ],
     },
   },
   integrations: {
