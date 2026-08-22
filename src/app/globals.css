@@ -33,17 +33,56 @@ body {
 }
 
 .about-paper-row {
-  background-color: #c8b38f;
+  position: relative;
+  isolation: isolate;
+  background-color: #c1aa80;
   background-image:
-    radial-gradient(circle at 18% 30%, rgb(255 244 213 / 0.2), transparent 24%),
-    radial-gradient(circle at 82% 70%, rgb(75 53 31 / 0.08), transparent 30%),
+    radial-gradient(ellipse at 8% 24%, rgb(84 57 29 / 0.26), transparent 22%),
+    radial-gradient(ellipse at 88% 74%, rgb(72 47 24 / 0.21), transparent 28%),
+    radial-gradient(
+      circle at 42% 12%,
+      rgb(255 240 197 / 0.24),
+      transparent 20%
+    ),
+    radial-gradient(
+      circle at 64% 86%,
+      rgb(255 233 183 / 0.16),
+      transparent 24%
+    ),
+    linear-gradient(
+      102deg,
+      rgb(255 241 204 / 0.13),
+      transparent 34%,
+      rgb(72 48 25 / 0.09) 72%,
+      transparent
+    ),
     repeating-linear-gradient(
-      0deg,
-      rgb(75 53 31 / 0.025) 0,
-      rgb(75 53 31 / 0.025) 1px,
+      2deg,
+      rgb(70 47 25 / 0.035) 0,
+      rgb(70 47 25 / 0.035) 1px,
       transparent 1px,
-      transparent 4px
+      transparent 5px
     );
+  background-blend-mode:
+    multiply, multiply, screen, screen, soft-light, multiply;
+  box-shadow: inset 0 0 7rem rgb(67 43 21 / 0.21);
+}
+
+.about-paper-row::before {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='.5'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+  content: "";
+  mix-blend-mode: multiply;
+  opacity: 0.2;
+  pointer-events: none;
+}
+
+.about-paper-row > * {
+  position: relative;
+  z-index: 1;
 }
 
 .about-chapter-media {

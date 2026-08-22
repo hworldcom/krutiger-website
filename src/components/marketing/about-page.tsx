@@ -175,12 +175,8 @@ export function AboutPage({ content }: AboutPageProps) {
                 <div className="grid w-full pl-6 lg:grid-cols-[24rem_minmax(0,1fr)] lg:pl-10">
                   <article
                     aria-labelledby={headingId}
-                    className={`relative z-10 flex flex-col justify-center border-l px-8 py-10 lg:px-10 lg:py-12 ${isPaper ? "border-[#705c3f]/60" : "border-brand/50"}`}
+                    className="relative z-10 flex flex-col justify-center px-8 py-10 lg:px-10 lg:py-12"
                   >
-                    <span
-                      aria-hidden="true"
-                      className="absolute top-12 -left-[0.4375rem] size-3 rounded-pill bg-brand lg:top-1/2 lg:-translate-y-1/2"
-                    />
                     <p
                       className={`font-display text-4xl leading-none font-extrabold ${isPaper ? "text-[#a93600]" : "text-brand"}`}
                     >
@@ -205,7 +201,7 @@ export function AboutPage({ content }: AboutPageProps) {
                   </article>
 
                   <figure
-                    className={`about-chapter-media relative min-h-72 overflow-hidden lg:-ml-14 lg:min-h-[22rem] ${isPaper ? "bg-[#c8b38f]" : "bg-canvas"}`}
+                    className={`about-chapter-media relative min-h-72 overflow-hidden lg:-ml-14 lg:min-h-[22rem] ${isPaper ? "bg-[#c1aa80]" : "bg-canvas"}`}
                   >
                     {secondaryMedia ? (
                       <div className="absolute inset-0 grid grid-cols-[44%_56%]">
