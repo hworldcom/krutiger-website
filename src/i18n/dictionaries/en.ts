@@ -108,6 +108,12 @@ const en = {
       description:
         "Verified contact options, the gym address, and directions will be provided here.",
     },
+    memberArea: {
+      navigationLabel: "Member area",
+      eyebrow: "For members",
+      title: "Your member area",
+      description: "Sign in through bsport to open your personal member area.",
+    },
     giftCards: {
       navigationLabel: "Gift cards",
       eyebrow: "Gift cards",
@@ -280,6 +286,16 @@ const en = {
         "The live schedule could not be loaded right now. Please try again later.",
       stagingNotice:
         "Test integration: this schedule is currently loaded from the bsport staging environment.",
+    },
+    memberArea: {
+      heading: "Sign in with bsport",
+      description:
+        "Your sign-in and personal membership account are provided securely by bsport.",
+      loading: "The member sign-in is loading…",
+      error:
+        "The member sign-in could not be loaded right now. Please try again later.",
+      stagingNotice:
+        "Test integration: this sign-in is currently loaded from the bsport staging environment.",
     },
     pricing: {
       heading: "Verified prices and purchase links coming later",

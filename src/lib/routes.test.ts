@@ -32,6 +32,7 @@ describe("site route configuration", () => {
       "/about",
       "/faq",
       "/contact",
+      "/member-area",
       "/gift-cards",
       "/impressum",
       "/datenschutz",
@@ -50,6 +51,7 @@ describe("site route configuration", () => {
     expect(secondaryNavigationRoutes.map((route) => route.id)).toEqual([
       "faq",
       "contact",
+      "memberArea",
       "giftCards",
     ]);
     expect(legalNavigationRoutes.map((route) => route.id)).toEqual([
@@ -69,6 +71,7 @@ describe("site route configuration", () => {
   it("marks only operational pages with future integration boundaries", () => {
     expect(getRouteById("schedule").integration).toBe("schedule");
     expect(getRouteById("prices").integration).toBe("pricing");
+    expect(getRouteById("memberArea").integration).toBe("memberArea");
     expect(getRouteById("giftCards").integration).toBe("giftCards");
     expect(getRouteById("training").integration).toBeUndefined();
   });

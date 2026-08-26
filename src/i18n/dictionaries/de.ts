@@ -108,6 +108,13 @@ const de = {
       description:
         "Hier werden geprüfte Kontaktmöglichkeiten, Adresse und Hinweise zur Anfahrt bereitgestellt.",
     },
+    memberArea: {
+      navigationLabel: "Mitgliederbereich",
+      eyebrow: "Für Mitglieder",
+      title: "Dein Mitgliederbereich",
+      description:
+        "Melde dich über bsport an, um deinen persönlichen Mitgliederbereich zu öffnen.",
+    },
     giftCards: {
       navigationLabel: "Gutscheine",
       eyebrow: "Gutscheine",
@@ -280,6 +287,16 @@ const de = {
         "Der Live-Kursplan konnte gerade nicht geladen werden. Bitte versuche es später erneut.",
       stagingNotice:
         "Testintegration: Dieser Kursplan wird derzeit aus der bsport-Staging-Umgebung geladen.",
+    },
+    memberArea: {
+      heading: "Bei bsport anmelden",
+      description:
+        "Die Anmeldung und dein persönliches Mitgliedskonto werden sicher von bsport bereitgestellt.",
+      loading: "Die Mitgliederanmeldung wird geladen …",
+      error:
+        "Die Mitgliederanmeldung konnte gerade nicht geladen werden. Bitte versuche es später erneut.",
+      stagingNotice:
+        "Testintegration: Diese Anmeldung wird derzeit aus der bsport-Staging-Umgebung geladen.",
     },
     pricing: {
       heading: "Geprüfte Preise und Buchungslinks folgen",

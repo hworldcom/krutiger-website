@@ -19,6 +19,13 @@ type IntegrationCopy = Readonly<{
   description: string;
 }>;
 
+type WidgetIntegrationCopy = IntegrationCopy &
+  Readonly<{
+    loading: string;
+    error: string;
+    stagingNotice: string;
+  }>;
+
 type AboutChapterCopy = Readonly<{
   number: string;
   title: string;
@@ -152,12 +159,8 @@ export type Dictionary = Readonly<{
   aboutPage: AboutPageCopy;
   integrations: Readonly<
     Record<IntegrationArea, IntegrationCopy> & {
-      schedule: IntegrationCopy &
-        Readonly<{
-          loading: string;
-          error: string;
-          stagingNotice: string;
-        }>;
+      schedule: WidgetIntegrationCopy;
+      memberArea: WidgetIntegrationCopy;
     }
   >;
   notFound: StateCopy &

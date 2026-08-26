@@ -1,9 +1,11 @@
 import { describe, expect, it } from "vitest";
 
 import {
+  bsportMemberAreaElementId,
   bsportScheduleElementId,
   bsportWidgetScriptUrl,
   createBsportCalendarConfig,
+  createBsportLoginConfig,
   resolveBsportCompanyId,
 } from "./widget";
 
@@ -21,6 +23,23 @@ describe("bsport widget configuration", () => {
       showFab: false,
       fullScreenPopup: false,
       config: { calendar: {} },
+    });
+  });
+
+  it("uses the supplied member login configuration", () => {
+    expect(createBsportLoginConfig(bsportMemberAreaElementId)).toEqual({
+      parentElement: "bsport-widget-235346",
+      companyId: 14416,
+      franchiseId: null,
+      dialogMode: 1,
+      widgetType: "loginButton",
+      showFab: false,
+      fullScreenPopup: false,
+      config: {
+        loginButton: {
+          openMemberProfile: true,
+        },
+      },
     });
   });
 

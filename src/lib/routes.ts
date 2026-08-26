@@ -7,6 +7,7 @@ export const routeIds = [
   "about",
   "faq",
   "contact",
+  "memberArea",
   "giftCards",
   "imprint",
   "privacy",
@@ -14,7 +15,8 @@ export const routeIds = [
 
 export type RouteId = (typeof routeIds)[number];
 export type NavigationGroup = "primary" | "secondary" | "legal";
-export type IntegrationArea = "schedule" | "pricing" | "giftCards";
+export type IntegrationArea =
+  "schedule" | "pricing" | "memberArea" | "giftCards";
 
 export type SiteRoute = Readonly<{
   id: RouteId;
@@ -74,6 +76,13 @@ export const siteRoutes = [
     path: "/contact",
     navigation: "secondary",
     showInFooter: true,
+  },
+  {
+    id: "memberArea",
+    path: "/member-area",
+    navigation: "secondary",
+    showInFooter: true,
+    integration: "memberArea",
   },
   {
     id: "giftCards",

@@ -5,23 +5,25 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 import type { Dictionary } from "@/i18n/dictionaries/types";
 import {
-  bsportScheduleElementId,
+  bsportMemberAreaElementId,
   bsportWidgetScriptUrl,
-  createBsportCalendarConfig,
+  createBsportLoginConfig,
 } from "@/lib/bsport/widget";
 
-type BsportScheduleWidgetProps = Readonly<{
-  copy: Dictionary["integrations"]["schedule"];
+type BsportMemberLoginWidgetProps = Readonly<{
+  copy: Dictionary["integrations"]["memberArea"];
 }>;
 
 type WidgetStatus = "loading" | "mounted" | "error";
 
-export function BsportScheduleWidget({ copy }: BsportScheduleWidgetProps) {
+export function BsportMemberLoginWidget({
+  copy,
+}: BsportMemberLoginWidgetProps) {
   const hasMounted = useRef(false);
   const [status, setStatus] = useState<WidgetStatus>("loading");
 
   useEffect(() => {
-    const mountElement = document.getElementById(bsportScheduleElementId);
+    const mountElement = document.getElementById(bsportMemberAreaElementId);
 
     if (!mountElement) {
       return;
@@ -60,7 +62,7 @@ export function BsportScheduleWidget({ copy }: BsportScheduleWidgetProps) {
 
     try {
       window.BsportWidget.mount(
-        createBsportCalendarConfig(bsportScheduleElementId),
+        createBsportLoginConfig(bsportMemberAreaElementId),
       );
       hasMounted.current = true;
     } catch {
@@ -70,16 +72,16 @@ export function BsportScheduleWidget({ copy }: BsportScheduleWidgetProps) {
 
   return (
     <section
-      aria-labelledby="schedule-integration-heading"
+      aria-labelledby="member-area-integration-heading"
       className="mt-12"
-      data-integration-boundary="schedule"
+      data-integration-boundary="memberArea"
       data-widget-environment="staging"
     >
       <div className="max-w-copy">
         <div className="h-1 w-12 bg-brand" aria-hidden="true" />
         <h2
           className="mt-6 font-display text-3xl font-bold uppercase sm:text-4xl"
-          id="schedule-integration-heading"
+          id="member-area-integration-heading"
         >
           {copy.heading}
         </h2>
@@ -91,19 +93,19 @@ export function BsportScheduleWidget({ copy }: BsportScheduleWidgetProps) {
 
       <div
         aria-busy={status === "loading"}
-        className="mt-8 min-h-[40rem] overflow-hidden rounded-control bg-white text-black"
+        className="mt-8 min-h-40 rounded-control border border-line bg-panel p-6 sm:p-8"
       >
         {status === "loading" ? (
-          <p className="p-6 text-base" role="status">
+          <p className="text-base text-copy-muted" role="status">
             {copy.loading}
           </p>
         ) : null}
         {status === "error" ? (
-          <p className="p-6 text-base" role="alert">
+          <p className="text-base text-signal" role="alert">
             {copy.error}
           </p>
         ) : null}
-        <div className="min-h-[40rem] w-full" id={bsportScheduleElementId} />
+        <div className="min-h-12 w-full" id={bsportMemberAreaElementId} />
       </div>
 
       <Script

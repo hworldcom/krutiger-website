@@ -44,6 +44,7 @@ const routes = [
   "/about",
   "/faq",
   "/contact",
+  "/member-area",
   "/gift-cards",
   "/impressum",
   "/datenschutz",

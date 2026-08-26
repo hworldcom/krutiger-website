@@ -122,7 +122,9 @@ for (const file of renderedHtmlFiles) {
 
   if (
     sources.includes("https://cdn.staging.bsport.io/scripts/widget.js") &&
-    !relative(serverAppDirectory, file).includes("schedule")
+    !["schedule", "member-area"].some((route) =>
+      relative(serverAppDirectory, file).includes(route),
+    )
   ) {
     misplacedBsportScriptFiles.push(file);
   }
@@ -137,7 +139,7 @@ if (unexpectedExternalScriptFiles.length > 0) {
 
 if (misplacedBsportScriptFiles.length > 0) {
   fail(
-    "The approved bsport widget script is loaded outside a schedule route.",
+    "The approved bsport widget script is loaded outside an approved bsport route.",
     misplacedBsportScriptFiles,
   );
 }

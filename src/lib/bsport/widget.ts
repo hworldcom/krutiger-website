@@ -3,6 +3,7 @@ const defaultCompanyId = 14416;
 export const bsportWidgetScriptUrl =
   "https://cdn.staging.bsport.io/scripts/widget.js";
 export const bsportScheduleElementId = "bsport-widget-163824";
+export const bsportMemberAreaElementId = "bsport-widget-235346";
 
 export function resolveBsportCompanyId(configuredId?: string) {
   const candidate = configuredId?.trim();
@@ -40,3 +41,24 @@ export function createBsportCalendarConfig(parentElement: string) {
     },
   } as const;
 }
+
+export function createBsportLoginConfig(parentElement: string) {
+  return {
+    parentElement,
+    companyId: bsportCompanyId,
+    franchiseId: null,
+    dialogMode: 1,
+    widgetType: "loginButton",
+    showFab: false,
+    fullScreenPopup: false,
+    config: {
+      loginButton: {
+        openMemberProfile: true,
+      },
+    },
+  } as const;
+}
+
+export type BsportWidgetConfig =
+  | ReturnType<typeof createBsportCalendarConfig>
+  | ReturnType<typeof createBsportLoginConfig>;

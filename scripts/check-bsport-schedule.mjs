@@ -39,19 +39,46 @@ try {
     {
       locale: "de",
       browserLocale: "de-DE",
+      elementId: "bsport-widget-163824",
+      route: "schedule",
       screenshot: "bsport-schedule-de.jpg",
+      widgetName: "calendar",
       viewport: { width: 1440, height: 1000 },
     },
     {
       locale: "en",
       browserLocale: "en-GB",
+      elementId: "bsport-widget-163824",
+      route: "schedule",
       screenshot: "bsport-schedule-en.jpg",
+      widgetName: "calendar",
       viewport: { width: 1440, height: 1000 },
     },
     {
       locale: "de",
       browserLocale: "de-DE",
+      elementId: "bsport-widget-163824",
+      route: "schedule",
       screenshot: "bsport-schedule-mobile.jpg",
+      widgetName: "calendar",
+      viewport: { width: 390, height: 844 },
+    },
+    {
+      locale: "de",
+      browserLocale: "de-DE",
+      elementId: "bsport-widget-235346",
+      route: "member-area",
+      screenshot: "bsport-member-area-de.jpg",
+      widgetName: "member login",
+      viewport: { width: 1440, height: 1000 },
+    },
+    {
+      locale: "en",
+      browserLocale: "en-GB",
+      elementId: "bsport-widget-235346",
+      route: "member-area",
+      screenshot: "bsport-member-area-mobile.jpg",
+      widgetName: "member login",
       viewport: { width: 390, height: 844 },
     },
   ];
@@ -81,43 +108,44 @@ try {
     await page.waitForTimeout(500);
     assert(
       (await page.locator(`script[src="${scriptUrl}"]`).count()) === 0,
-      "The bsport script loaded before a schedule route was opened.",
+      `The bsport script loaded before the ${check.route} route was opened.`,
     );
 
-    await page.goto(new URL(`/${check.locale}/schedule`, baseUrl).href, {
+    await page.goto(new URL(`/${check.locale}/${check.route}`, baseUrl).href, {
       waitUntil: "domcontentloaded",
     });
-    await page.locator("#bsport-widget-163824").scrollIntoViewIfNeeded();
+    await page.locator(`#${check.elementId}`).scrollIntoViewIfNeeded();
     await page.waitForFunction(
-      () =>
-        document.querySelector("#bsport-widget-163824")?.childElementCount > 0,
-      undefined,
+      (elementId) => document.getElementById(elementId)?.childElementCount > 0,
+      check.elementId,
       { timeout: 30_000 },
     );
     await page.waitForTimeout(8_000);
 
-    const result = await page.evaluate(() => ({
-      hasApi: typeof window.BsportWidget?.mount === "function",
-      mountedChildren:
-        document.querySelector("#bsport-widget-163824")?.childElementCount ?? 0,
-      hasError: Boolean(document.querySelector('[role="alert"]')),
-      textLength:
-        document.querySelector("#bsport-widget-163824")?.textContent?.trim()
-          .length ?? 0,
-    }));
+    const result = await page.evaluate(
+      (elementId) => ({
+        hasApi: typeof window.BsportWidget?.mount === "function",
+        mountedChildren:
+          document.getElementById(elementId)?.childElementCount ?? 0,
+        hasError: Boolean(document.querySelector('[role="alert"]')),
+        textLength:
+          document.getElementById(elementId)?.textContent?.trim().length ?? 0,
+      }),
+      check.elementId,
+    );
 
     assert(
       result.hasApi,
-      `The bsport API was not available on /${check.locale}/schedule.`,
+      `The bsport API was not available on /${check.locale}/${check.route}.`,
     );
     assert(
       result.mountedChildren > 0,
-      `The bsport calendar did not mount on /${check.locale}/schedule.`,
+      `The bsport ${check.widgetName} did not mount on /${check.locale}/${check.route}.`,
     );
     assert(!result.hasError, `The localized widget fallback reports an error.`);
     assert(
       result.textLength > 0,
-      `The bsport calendar mounted on /${check.locale}/schedule but did not finish rendering content.`,
+      `The bsport ${check.widgetName} mounted on /${check.locale}/${check.route} but did not finish rendering content.`,
     );
 
     const overflow = await page.evaluate(
@@ -127,7 +155,7 @@ try {
     );
     assert(
       overflow <= 1,
-      `The bsport calendar causes ${overflow}px of horizontal page overflow at ${check.viewport.width}px.`,
+      `The bsport ${check.widgetName} causes ${overflow}px of horizontal page overflow at ${check.viewport.width}px.`,
     );
 
     await page.evaluate(() => window.scrollTo(0, 0));
@@ -151,5 +179,5 @@ try {
 }
 
 console.log(
-  `bsport staging calendar mounted in German and English routes. Screenshots: ${screenshotDirectory}`,
+  `bsport staging calendar and member login mounted in localized routes. Screenshots: ${screenshotDirectory}`,
 );

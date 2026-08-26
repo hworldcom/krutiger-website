@@ -25,6 +25,7 @@ import {
   isNavigationPathActive,
 } from "@/lib/header-navigation";
 import {
+  getRouteById,
   primaryNavigationRoutes,
   secondaryNavigationRoutes,
   type RouteId,
@@ -227,6 +228,10 @@ export function SiteHeader({
   const previousOverflowRef = useRef("");
   const homeHref = getLocalizedPath(locale);
   const trialClassHref = getHeaderCtaHref(locale);
+  const memberAreaHref = getLocalizedPath(
+    locale,
+    getRouteById("memberArea").path,
+  );
 
   function restorePageScroll() {
     document.documentElement.style.overflow = previousOverflowRef.current;
@@ -335,6 +340,13 @@ export function SiteHeader({
               locale={locale}
               pathname={pathname}
             />
+            <ButtonLink
+              href={memberAreaHref}
+              size="compact"
+              variant="secondary"
+            >
+              {routeLabels.memberArea}
+            </ButtonLink>
             <ButtonLink href={trialClassHref} size="compact">
               {headerLabels.trialClassAction}
             </ButtonLink>

@@ -1,8 +1,8 @@
 # Foundation quality gates
 
 M1-07 adds repeatable checks around the bilingual application foundation. It
-does not add final SEO copy, analytics, or Sanity. The later bsport schedule
-integration extends these safeguards with an exact script allowlist.
+does not add final SEO copy, analytics, or Sanity. The later bsport widget
+integrations extend these safeguards with an exact script allowlist.
 
 ## Required checks
 
@@ -20,7 +20,7 @@ npm run build
 generated client assets for configured private Sanity and bsport values,
 rejects known integration or analytics runtime sources, and rejects external
 script tags in prerendered HTML except for the explicitly approved bsport
-schedule widget.
+schedule and member-area widgets.
 
 ## Browser quality check
 
@@ -84,7 +84,7 @@ metadata, so it must be correct at build time.
   canonical, language alternates, Open Graph values, and Twitter card values.
 - Confirm no browser network request loads Sanity, an unapproved bsport script,
   an Instagram embed, analytics, or an unrelated third-party script. The
-  approved bsport widget must load only on schedule routes.
+  approved bsport widget must load only on schedule and member-area routes.
 - Confirm decorative icons remain hidden from assistive technology and content
   photography still has meaningful localized alternative text.
 - Recheck that `.env*`, credentials, local build output, and editor files are
@@ -94,15 +94,15 @@ metadata, so it must be correct at build time.
 
 Verified on 26 August 2026:
 
-- `lint`, `typecheck`, 52 unit/component checks, and the production build pass;
+- `lint`, `typecheck`, 59 unit/component checks, and the production build pass;
 - the automated shell scan reports no critical or serious axe violations;
 - the browser matrix passes across all five viewport categories and both
   locales without horizontal overflow;
-- all 22 localized MVP route variants expose unique rendered titles and the
+- all 24 localized MVP route variants expose unique rendered titles and the
   expected canonical and language-alternate links;
 - keyboard skip-link and mobile-dialog behavior pass in Chrome;
 - reduced-motion and the 200% reflow equivalent pass; and
-- 16 generated client assets and 26 prerendered HTML files pass the production
+- 18 generated client assets and 28 prerendered HTML files pass the production
   output safety scan.
 
 ## Known limitations and ownership
@@ -120,7 +120,7 @@ Verified on 26 August 2026:
   it is intentionally separate from the default production build.
 - Address, contact details, opening hours, and schedule cards are visibly marked
   development data. Content ownership must verify them before launch.
-- The schedule currently uses the supplied bsport staging widget. The bsport
+- The schedule and member area currently use the supplied bsport staging widgets. The bsport
   integration owner must approve the production CDN, verify live content and
   locale behavior, review the widget's internal analytics and privacy
   implications, and repeat accessibility QA before launch. First-party
