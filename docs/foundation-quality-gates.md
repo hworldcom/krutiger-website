@@ -1,7 +1,8 @@
 # Foundation quality gates
 
 M1-07 adds repeatable checks around the bilingual application foundation. It
-does not add final SEO copy, analytics, Sanity, or bsport.
+does not add final SEO copy, analytics, or Sanity. The later bsport schedule
+integration extends these safeguards with an exact script allowlist.
 
 ## Required checks
 
@@ -18,7 +19,8 @@ npm run build
 `npm run build` also runs `verify:production`. That follow-up check scans the
 generated client assets for configured private Sanity and bsport values,
 rejects known integration or analytics runtime sources, and rejects external
-script tags in prerendered HTML.
+script tags in prerendered HTML except for the explicitly approved bsport
+schedule widget.
 
 ## Browser quality check
 
@@ -80,8 +82,9 @@ metadata, so it must be correct at build time.
 - Confirm reduced-motion mode removes smooth scrolling and shortens motion.
 - Inspect German and English page source for the expected title, description,
   canonical, language alternates, Open Graph values, and Twitter card values.
-- Confirm no browser network request loads a Sanity, bsport, Instagram embed,
-  analytics, or unrelated third-party script.
+- Confirm no browser network request loads Sanity, an unapproved bsport script,
+  an Instagram embed, analytics, or an unrelated third-party script. The
+  approved bsport widget must load only on schedule routes.
 - Confirm decorative icons remain hidden from assistive technology and content
   photography still has meaningful localized alternative text.
 - Recheck that `.env*`, credentials, local build output, and editor files are
@@ -117,6 +120,8 @@ Verified on 26 August 2026:
   it is intentionally separate from the default production build.
 - Address, contact details, opening hours, and schedule cards are visibly marked
   development data. Content ownership must verify them before launch.
-- Sanity, bsport, Instagram embeds, and analytics remain intentionally absent.
-  Their later milestone owners must extend the safety and accessibility checks
-  when those integrations are introduced.
+- The schedule currently uses the supplied bsport staging widget. The bsport
+  integration owner must approve the production CDN, verify live content and
+  locale behavior, review the widget's internal analytics and privacy
+  implications, and repeat accessibility QA before launch. First-party
+  analytics, Sanity, and Instagram embeds remain absent.

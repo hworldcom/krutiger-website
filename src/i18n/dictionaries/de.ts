@@ -71,7 +71,7 @@ const de = {
       eyebrow: "Kursplan",
       title: "Plane dein nächstes Training",
       description:
-        "Der aktuelle Kursplan und die Buchungsmöglichkeiten werden später direkt über bsport eingebunden.",
+        "Sieh dir den aktuellen Kursplan an und starte deine Buchung direkt über bsport.",
     },
     prices: {
       navigationLabel: "Preise",
@@ -145,7 +145,7 @@ const de = {
       title: "Heute bei Kru Tiger",
       action: "Kursplan ansehen",
       placeholderNotice:
-        "Vorschau mit Beispieldaten: Kurszeiten und Adresse werden nach der bsport-Anbindung geprüft und aktualisiert.",
+        "Vorschau mit Beispieldaten. Live-Zeiten und Verfügbarkeiten findest du im Kursplan.",
       classes: [
         {
           time: "17:00",
@@ -272,9 +272,14 @@ const de = {
   },
   integrations: {
     schedule: {
-      heading: "Live-Kursplan folgt",
+      heading: "Live-Kursplan",
       description:
-        "Der bsport-Kursplan wird hier eingebunden, sobald der Zugang verfügbar ist. Derzeit werden keine Kurszeiten oder freien Plätze angezeigt.",
+        "Kurse, Zeiten und verfügbare Plätze werden direkt aus bsport geladen. Buchungen werden im bsport-System fortgesetzt.",
+      loading: "Der Live-Kursplan wird geladen …",
+      error:
+        "Der Live-Kursplan konnte gerade nicht geladen werden. Bitte versuche es später erneut.",
+      stagingNotice:
+        "Testintegration: Dieser Kursplan wird derzeit aus der bsport-Staging-Umgebung geladen.",
     },
     pricing: {
       heading: "Geprüfte Preise und Buchungslinks folgen",

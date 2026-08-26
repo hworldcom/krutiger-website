@@ -104,15 +104,41 @@ try {
   // A valid Next.js build may not emit prerendered HTML for every route.
 }
 
-const externalScriptMatches = await findText(
-  renderedHtmlFiles,
-  /<script\b[^>]*\bsrc=["']https?:\/\//i,
-);
+const allowedExternalScripts = new Set([
+  "https://cdn.staging.bsport.io/scripts/widget.js",
+]);
+const unexpectedExternalScriptFiles = [];
+const misplacedBsportScriptFiles = [];
 
-if (externalScriptMatches.length > 0) {
+for (const file of renderedHtmlFiles) {
+  const content = await readFile(file, "utf8");
+  const sources = [
+    ...content.matchAll(/<script\b[^>]*\bsrc=["'](https?:\/\/[^"']+)["']/gi),
+  ].map((match) => match[1]);
+
+  if (sources.some((source) => !allowedExternalScripts.has(source))) {
+    unexpectedExternalScriptFiles.push(file);
+  }
+
+  if (
+    sources.includes("https://cdn.staging.bsport.io/scripts/widget.js") &&
+    !relative(serverAppDirectory, file).includes("schedule")
+  ) {
+    misplacedBsportScriptFiles.push(file);
+  }
+}
+
+if (unexpectedExternalScriptFiles.length > 0) {
   fail(
-    "An external script is loaded by prerendered application HTML.",
-    externalScriptMatches,
+    "An unapproved external script is loaded by prerendered application HTML.",
+    unexpectedExternalScriptFiles,
+  );
+}
+
+if (misplacedBsportScriptFiles.length > 0) {
+  fail(
+    "The approved bsport widget script is loaded outside a schedule route.",
+    misplacedBsportScriptFiles,
   );
 }
 

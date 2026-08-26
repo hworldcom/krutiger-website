@@ -71,7 +71,7 @@ const en = {
       eyebrow: "Schedule",
       title: "Plan your next training session",
       description:
-        "The current schedule and booking options will later be embedded directly from bsport.",
+        "View the current schedule and start your booking directly through bsport.",
     },
     prices: {
       navigationLabel: "Prices",
@@ -145,7 +145,7 @@ const en = {
       title: "Today at Kru Tiger",
       action: "View schedule",
       placeholderNotice:
-        "Preview with sample data: class times and the address will be verified and updated after the bsport connection.",
+        "Preview with sample data. Open the schedule for live times and availability.",
       classes: [
         {
           time: "17:00",
@@ -272,9 +272,14 @@ const en = {
   },
   integrations: {
     schedule: {
-      heading: "Live schedule coming later",
+      heading: "Live schedule",
       description:
-        "The bsport schedule will be embedded here once access is available. No class times or availability are currently displayed.",
+        "Classes, times, and available places are loaded directly from bsport. Booking continues in the bsport system.",
+      loading: "The live schedule is loading…",
+      error:
+        "The live schedule could not be loaded right now. Please try again later.",
+      stagingNotice:
+        "Test integration: this schedule is currently loaded from the bsport staging environment.",
     },
     pricing: {
       heading: "Verified prices and purchase links coming later",

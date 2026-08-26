@@ -14,6 +14,11 @@ type StateCopy = Readonly<{
   description: string;
 }>;
 
+type IntegrationCopy = Readonly<{
+  heading: string;
+  description: string;
+}>;
+
 type AboutChapterCopy = Readonly<{
   number: string;
   title: string;
@@ -146,13 +151,14 @@ export type Dictionary = Readonly<{
   homePage: HomePageCopy;
   aboutPage: AboutPageCopy;
   integrations: Readonly<
-    Record<
-      IntegrationArea,
-      Readonly<{
-        heading: string;
-        description: string;
-      }>
-    >
+    Record<IntegrationArea, IntegrationCopy> & {
+      schedule: IntegrationCopy &
+        Readonly<{
+          loading: string;
+          error: string;
+          stagingNotice: string;
+        }>;
+    }
   >;
   notFound: StateCopy &
     Readonly<{

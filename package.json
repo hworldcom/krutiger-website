@@ -12,6 +12,7 @@
     "start": "next start",
     "lint": "eslint .",
     "qa:browser": "node scripts/run-browser-quality-checks.mjs",
+    "qa:bsport": "node scripts/check-bsport-schedule.mjs",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",

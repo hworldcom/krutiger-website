@@ -61,10 +61,11 @@ function localizedUrl(locale, route = "/") {
 }
 
 async function openPage(page, url) {
-  const response = await page.goto(url, { waitUntil: "networkidle" });
+  const response = await page.goto(url, { waitUntil: "domcontentloaded" });
 
   assert(response?.ok(), `${url} returned HTTP ${response?.status() ?? "?"}.`);
   await page.evaluate(() => document.fonts.ready);
+  await page.waitForTimeout(100);
 }
 
 async function checkNoHorizontalOverflow(page, label) {
