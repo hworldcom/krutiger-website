@@ -528,6 +528,8 @@ This makes it easier to:
 Expected variables may include:
 
 ```env
+NEXT_PUBLIC_SITE_URL=
+
 NEXT_PUBLIC_SANITY_PROJECT_ID=
 NEXT_PUBLIC_SANITY_DATASET=
 SANITY_API_READ_TOKEN=
@@ -895,3 +897,7 @@ npm run build
 ```
 
 Use `npm run format` to apply the repository's formatting rules.
+
+With the development server running, `npm run qa:browser` performs the
+responsive, localized-metadata, keyboard, reduced-motion, and zoom-reflow
+checks described in [the foundation quality gates](./docs/foundation-quality-gates.md).
