@@ -161,6 +161,7 @@ export type Dictionary = Readonly<{
     Record<IntegrationArea, IntegrationCopy> & {
       schedule: WidgetIntegrationCopy;
       memberArea: WidgetIntegrationCopy;
+      pricing: WidgetIntegrationCopy;
     }
   >;
   notFound: StateCopy &

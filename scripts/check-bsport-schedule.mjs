@@ -81,6 +81,24 @@ try {
       widgetName: "member login",
       viewport: { width: 390, height: 844 },
     },
+    {
+      locale: "de",
+      browserLocale: "de-DE",
+      elementId: "bsport-widget-107643",
+      route: "prices",
+      screenshot: "bsport-pricing-de.jpg",
+      widgetName: "pricing passes",
+      viewport: { width: 1440, height: 1000 },
+    },
+    {
+      locale: "en",
+      browserLocale: "en-GB",
+      elementId: "bsport-widget-107643",
+      route: "prices",
+      screenshot: "bsport-pricing-mobile.jpg",
+      widgetName: "pricing passes",
+      viewport: { width: 390, height: 844 },
+    },
   ];
 
   for (const check of checks) {
@@ -179,5 +197,5 @@ try {
 }
 
 console.log(
-  `bsport staging calendar and member login mounted in localized routes. Screenshots: ${screenshotDirectory}`,
+  `bsport staging calendar, member login, and pricing passes mounted in localized routes. Screenshots: ${screenshotDirectory}`,
 );

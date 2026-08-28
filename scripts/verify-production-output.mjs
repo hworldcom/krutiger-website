@@ -122,7 +122,7 @@ for (const file of renderedHtmlFiles) {
 
   if (
     sources.includes("https://cdn.staging.bsport.io/scripts/widget.js") &&
-    !["schedule", "member-area"].some((route) =>
+    !["schedule", "member-area", "prices"].some((route) =>
       relative(serverAppDirectory, file).includes(route),
     )
   ) {

@@ -299,9 +299,14 @@ const de = {
         "Testintegration: Diese Anmeldung wird derzeit aus der bsport-Staging-Umgebung geladen.",
     },
     pricing: {
-      heading: "Geprüfte Preise und Buchungslinks folgen",
+      heading: "Mitgliedschaften und Trainingspässe",
       description:
-        "Preise werden erst nach Bestätigung veröffentlicht. Käufe und Mitgliedschaften werden später sicher an bsport übergeben.",
+        "Aktuelle Mitgliedschaften und Trainingspässe werden direkt aus bsport geladen. Der Kauf wird sicher im bsport-System fortgesetzt.",
+      loading: "Die aktuellen Preise werden geladen …",
+      error:
+        "Die Preise konnten gerade nicht geladen werden. Bitte versuche es später erneut.",
+      stagingNotice:
+        "Testintegration: Diese Preise und Kaufoptionen werden derzeit aus der bsport-Staging-Umgebung geladen.",
     },
     giftCards: {
       heading: "Gutscheinverkauf folgt",

@@ -1,0 +1,160 @@
+/* KRUTIGER calendar filter overrides.
+ * Paste into Settings > Widgets > CSS > Filter list.
+ * bsport appends !important automatically, so do not add it here.
+ */
+
+.bs-marketplace-filters__list {
+  gap: 8px;
+  justify-content: flex-start;
+  padding: 12px 16px;
+  overflow-x: auto;
+  color: #fafafa;
+  background-color: #080808;
+  border-bottom: 1px solid #4a433d;
+  scrollbar-width: none;
+}
+
+.bs-calendar-search__container,
+.bs-marketplace-filter {
+  min-height: 44px;
+  color: #fafafa;
+  background-color: #151515;
+  border: 1px solid #4a433d;
+  border-radius: 4px;
+  transition:
+    color 150ms ease,
+    background-color 150ms ease,
+    border-color 150ms ease;
+}
+
+.bs-calendar-search__container:focus-within,
+.bs-marketplace-filter:hover,
+.bs-marketplace-filter:focus-visible,
+.bs-marketplace-filter--open {
+  color: #fafafa;
+  background-color: #202020;
+  border-color: #f96900;
+  box-shadow: 0 0 0 1px #f96900;
+}
+
+.bs-calendar-search__input {
+  color: #fafafa;
+  background-color: transparent;
+}
+
+.bs-calendar-search__input::placeholder {
+  color: #c7c1ba;
+  opacity: 1;
+}
+
+.bs-calendar-search__input__icon,
+.bs-calendar-search__input__icon svg {
+  color: #f96900;
+}
+
+.bs-marketplace-filter__placeholder,
+.bs-marketplace-filter__placeholder--open,
+.bs-marketplace-filter__right,
+.bs-marketplace-filter__right__placeholder-icon,
+.bs-marketplace-filter__right__placeholder-icon--open {
+  color: #fafafa;
+}
+
+.bs-marketplace-filter__right__placeholder-icon,
+.bs-marketplace-filter__right__placeholder-icon--open {
+  width: 20px;
+  height: 20px;
+}
+
+.bs-marketplace-filter__menu {
+  margin-top: 6px;
+  color: #fafafa;
+  background-color: #151515;
+  border: 1px solid #4a433d;
+  border-radius: 4px;
+  box-shadow: 0 16px 40px rgb(0 0 0 / 45%);
+}
+
+.bs-marketplace-filter__menu__list {
+  color: #fafafa;
+  background-color: #151515;
+}
+
+.bs-marketplace-filter__menu__list__item,
+.bs-marketplace-filter__menu__list__item-group,
+.bs-marketplace-filter__menu__list__sub-item {
+  color: #fafafa;
+}
+
+.bs-marketplace-filter__menu__list__item__checkbox {
+  color: #fafafa;
+}
+
+.bs-marketplace-filter__menu__list__item__checkbox.Mui-checked {
+  color: #f96900;
+}
+
+.bs-marketplace-filter__menu__list__item__checkbox:focus-visible {
+  outline: 2px solid #f96900;
+  outline-offset: 2px;
+}
+
+.bs-marketplace-filter__menu__list__item:hover,
+.bs-marketplace-filter__menu__list__item:focus-visible,
+.bs-marketplace-filter__menu__list__item-group:hover,
+.bs-marketplace-filter__menu__list__item-group:focus-visible,
+.bs-marketplace-filter__menu__list__sub-item:hover,
+.bs-marketplace-filter__menu__list__sub-item:focus-visible {
+  color: #fafafa;
+  background-color: #202020;
+}
+
+.bs-marketplace-filter__menu__buttons {
+  gap: 8px;
+  padding: 12px;
+  border-top: 1px solid #4a433d;
+}
+
+.bs-marketplace-filter__menu__buttons__select {
+  min-height: 40px;
+  color: #fafafa;
+  background-color: #202020;
+  border: 1px solid #4a433d;
+  border-radius: 4px;
+}
+
+.bs-marketplace-filter__menu__buttons__select--text {
+  color: #fafafa;
+  font-weight: 700;
+}
+
+.bs-marketplace-filter__menu__buttons__confirm {
+  min-height: 40px;
+  color: #080808;
+  background-color: #f96900;
+  border-radius: 4px;
+}
+
+.bs-marketplace-filter__menu__buttons__confirm--text {
+  color: #080808;
+  font-weight: 700;
+}
+
+@media (max-width: 500px) {
+  .bs-marketplace-filters__list {
+    gap: 8px;
+    justify-content: flex-start;
+    padding: 10px 8px;
+    flex-wrap: nowrap;
+  }
+
+  .bs-calendar-search__container,
+  .bs-marketplace-filter {
+    min-height: 42px;
+    flex: 0 0 auto;
+  }
+}
+
+.bs-marketplace-filters__list::-webkit-scrollbar {
+  display: none;
+}

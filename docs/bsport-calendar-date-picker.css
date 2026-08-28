@@ -1,0 +1,296 @@
+/* KRUTIGER calendar date-picker overrides.
+ * Paste into Settings > Widgets > CSS > Date picker.
+ * bsport appends !important automatically, so do not add it here.
+ */
+
+.bs-setup-variable {
+  overflow: visible;
+}
+
+.bs-marketplace-date-picker {
+  min-height: 44px;
+  padding: 4px 8px;
+  gap: 6px;
+  color: #fafafa;
+  background-color: #151515;
+  border: 1px solid #4a433d;
+  border-radius: 4px;
+}
+
+.bs-marketplace-date-picker__input__button__container {
+  border-bottom: 1px solid #4a433d;
+}
+
+.bs-marketplace-date-picker__input__button {
+  padding-right: 10px;
+  color: #fafafa;
+  font-family: Roboto, Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.bs-marketplace-date-picker:hover,
+.bs-marketplace-date-picker:focus-within,
+.bs-marketplace-date-picker--open {
+  color: #fafafa;
+  background-color: #202020;
+  border-color: #f96900;
+  box-shadow: 0 0 0 1px #f96900;
+}
+
+.bs-marketplace-date-picker:active::before {
+  background-color: #f96900;
+}
+
+.bs-marketplace-date-picker__placeholder {
+  padding: 6px 4px;
+  color: #fafafa;
+  font-family: Roboto, Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.bs-marketplace-date-picker__placeholder:hover,
+.bs-marketplace-date-picker__placeholder--open {
+  color: #fafafa;
+}
+
+.bs-marketplace-date-picker__menu__header__buttons__left,
+.bs-marketplace-date-picker__menu__header__buttons__right,
+.bs-marketplace-date-picker__right-button,
+.bs-marketplace-date-picker__left-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  color: #fafafa;
+  background-color: transparent;
+  border: none;
+  border-radius: 4px;
+}
+
+.bs-marketplace-date-picker__menu__header__buttons__left,
+.bs-marketplace-date-picker__menu__header__buttons__right {
+  color: #fafafa;
+}
+
+.bs-marketplace-date-picker__left-button {
+  margin-left: 0;
+}
+
+.bs-marketplace-date-picker__right-button {
+  margin-right: 0;
+}
+
+.bs-marketplace-date-picker__menu__calendar__day::before,
+.bs-marketplace-date-picker__menu__header__buttons__left::before,
+.bs-marketplace-date-picker__menu__header__buttons__right::before,
+.bs-marketplace-date-picker__placeholder::before,
+.bs-marketplace-date-picker__right-button::before,
+.bs-marketplace-date-picker__left-button::before {
+  background-color: transparent;
+  border-radius: 4px;
+}
+
+.bs-marketplace-date-picker__menu__header__buttons__left:active::before,
+.bs-marketplace-date-picker__menu__header__buttons__right:active::before,
+.bs-marketplace-date-picker__right-button:active::before,
+.bs-marketplace-date-picker__left-button:active::before {
+  background-color: #f96900;
+}
+
+.bs-marketplace-date-picker--open .bs-marketplace-date-picker__left-button,
+.bs-marketplace-date-picker--open .bs-marketplace-date-picker__right-button,
+.bs-marketplace-date-picker__left-button:hover,
+.bs-marketplace-date-picker__right-button:hover,
+.bs-marketplace-date-picker__right-button--open,
+.bs-marketplace-date-picker__left-button--open {
+  color: #f96900;
+  background-color: #202020;
+}
+
+.bs-marketplace-date-picker__menu__header__buttons__left:hover,
+.bs-marketplace-date-picker__menu__header__buttons__right:hover {
+  color: #f96900;
+  background-color: #202020;
+}
+
+.bs-marketplace-date-picker__menu__header__buttons__left:focus-visible,
+.bs-marketplace-date-picker__menu__header__buttons__right:focus-visible,
+.bs-marketplace-date-picker__right-button:focus-visible,
+.bs-marketplace-date-picker__left-button:focus-visible {
+  outline: 2px solid #f96900;
+  outline-offset: 2px;
+}
+
+.bs-marketplace-date-picker__menu {
+  width: 420px;
+  max-width: calc(100vw - 32px);
+  margin-top: 8px;
+  padding: 16px;
+  color: #fafafa;
+  background-color: #151515;
+  border: 1px solid #4a433d;
+  border-radius: 4px;
+  box-shadow: 0 16px 40px rgb(0 0 0 / 45%);
+}
+
+.bs-marketplace-date-picker__menu__header {
+  padding: 0 0 12px;
+  border-bottom: 1px solid #4a433d;
+}
+
+.bs-marketplace-date-picker__menu__header__date {
+  color: #fafafa;
+  font-family: Roboto, Arial, Helvetica, sans-serif;
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+
+.bs-marketplace-date-picker__menu__header__buttons {
+  gap: 8px;
+}
+
+.bs-marketplace-date-picker__menu__calendar {
+  margin-top: 12px;
+  row-gap: 4px;
+  column-gap: 4px;
+}
+
+.bs-marketplace-date-picker__menu__calendar__day__container {
+  min-height: 40px;
+  color: #fafafa;
+  font-family: Roboto, Arial, Helvetica, sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.bs-marketplace-date-picker__menu__calendar__day {
+  width: 40px;
+  height: 40px;
+  color: #fafafa;
+  background-color: transparent;
+  border-radius: 4px;
+  font-family: Roboto, Arial, Helvetica, sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.bs-marketplace-date-picker__menu__calendar__day--header {
+  width: 40px;
+  height: 32px;
+  color: #c7c1ba;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.bs-marketplace-date-picker__menu__calendar__day--header::before {
+  display: none;
+}
+
+.bs-marketplace-date-picker__menu__calendar__day:active::before {
+  background-color: #f96900;
+  opacity: 0.18;
+}
+
+.bs-marketplace-date-picker__menu__calendar__day--today {
+  color: #f96900;
+  border: 1px solid #f96900;
+}
+
+.bs-marketplace-date-picker__menu__calendar__day__number {
+  width: 40px;
+  height: 40px;
+  border-radius: 4px;
+}
+
+.bs-marketplace-date-picker__menu__calendar__day__number:hover {
+  background-color: #202020;
+}
+
+.bs-marketplace-date-picker__menu__calendar__day--selected {
+  color: #080808;
+  background-color: #f96900;
+  border-color: #f96900;
+}
+
+.bs-marketplace-date-picker__menu__calendar__day--disabled {
+  color: #6b625b;
+  background-color: transparent;
+}
+
+.bs-marketplace-date-picker__menu__calendar__day--disabled:hover::before,
+.bs-marketplace-date-picker__menu__calendar__day--disabled:active::before {
+  background-color: transparent;
+}
+
+.bs-marketplace-date-picker__menu__calendar__day--disabled-past {
+  color: #6b625b;
+  background-color: transparent;
+  opacity: 0.45;
+}
+
+.bs-marketplace-date-picker__menu__calendar__day--disabled-past:hover,
+.bs-marketplace-date-picker__menu__calendar__day--disabled-past:hover::before {
+  color: #6b625b;
+  background-color: transparent;
+}
+
+.bs-marketplace-date-picker__menu__calendar__day__dots {
+  color: #f96900;
+}
+
+.bs-marketplace-date-picker__menu__calendar__day:hover {
+  color: #fafafa;
+  background-color: #202020;
+}
+
+.bs-marketplace-date-picker__menu__calendar__day--header:hover {
+  color: #c7c1ba;
+  background-color: transparent;
+}
+
+.bs-marketplace-date-picker__menu__calendar__day--disabled:hover {
+  color: #6b625b;
+  background-color: transparent;
+}
+
+.bs-marketplace-date-picker__menu__calendar__day--selected:hover {
+  color: #080808;
+  background-color: #ff7f24;
+}
+
+.bs-marketplace-date-picker__menu__calendar__day:focus-visible {
+  outline: 2px solid #f96900;
+  outline-offset: 2px;
+}
+
+@media (max-width: 570px) {
+  .bs-marketplace-date-picker__menu {
+    width: calc(100vw - 32px);
+    padding: 12px;
+  }
+
+  .bs-marketplace-date-picker__menu__calendar {
+    row-gap: 2px;
+    column-gap: 2px;
+  }
+
+  .bs-marketplace-date-picker__menu__calendar__day__container {
+    min-height: 34px;
+  }
+
+  .bs-marketplace-date-picker__menu__calendar__day,
+  .bs-marketplace-date-picker__menu__calendar__day__number {
+    width: 34px;
+    height: 34px;
+  }
+
+  .bs-marketplace-date-picker__menu__calendar__day--header {
+    width: 34px;
+    height: 28px;
+  }
+}

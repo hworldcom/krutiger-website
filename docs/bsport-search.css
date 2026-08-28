@@ -1,0 +1,152 @@
+/* KRUTIGER generic bsport search overrides.
+ * Paste into Settings > Widgets > CSS > Search.
+ * bsport appends !important automatically, so do not add it here.
+ */
+
+.bs-search__input:focus {
+  outline: none;
+}
+
+.bs-search__input__icon:focus-visible {
+  outline: 2px solid #f96900;
+  outline-offset: 2px;
+}
+
+.bs-search__input__icon:hover,
+.bs-search__input__icon:focus,
+.bs-search__results__container__list:focus {
+  color: #f96900;
+  background-color: #202020;
+}
+
+.bs-search__input__icon {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  margin: 0;
+  color: #f96900;
+  background-color: transparent;
+  border: none;
+  border-radius: 4px;
+}
+
+.bs-search__container {
+  width: fit-content;
+  min-width: 400px;
+  color: #fafafa;
+  background-color: #151515;
+  border: 1px solid #4a433d;
+  border-radius: 4px;
+  transition:
+    background-color 150ms ease,
+    border-color 150ms ease;
+}
+
+.bs-search__container:focus-within {
+  background-color: #202020;
+  border-color: #f96900;
+  box-shadow: 0 0 0 1px #f96900;
+}
+
+.bs-search__input__container {
+  min-height: 44px;
+  padding: 0 12px;
+}
+
+.bs-search__input {
+  height: 44px;
+  padding: 0 10px;
+  color: #fafafa;
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
+  font-family: Roboto, Arial, Helvetica, sans-serif;
+  font-size: 16px;
+}
+
+.bs-search__input::placeholder {
+  color: #c7c1ba;
+  opacity: 1;
+}
+
+.bs-search__results__container {
+  top: 52px;
+  min-height: 64px;
+  max-height: min(420px, 60vh);
+  padding: 8px;
+  color: #fafafa;
+  background-color: #151515;
+  border: 1px solid #4a433d;
+  border-radius: 4px;
+  box-shadow: 0 16px 40px rgb(0 0 0 / 45%);
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.bs-search__results__container__list {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+  min-width: 0;
+  padding: 4px;
+  color: #fafafa;
+  background-color: #151515;
+}
+
+.bs-search__results__container__list * {
+  color: #fafafa;
+  line-height: 1.5;
+}
+
+.bs-search__results__container__list > * {
+  width: 100%;
+  min-width: 0;
+  min-height: 52px;
+  padding: 12px;
+  overflow-wrap: anywhere;
+  white-space: normal;
+  background-color: #202020;
+  border: 1px solid #4a433d;
+  border-radius: 4px;
+}
+
+.bs-search__results__container__list > *:hover,
+.bs-search__results__container__list > *:focus-within {
+  background-color: #292929;
+  border-color: #f96900;
+}
+
+.bs-search__results__container__list__placeholder__container {
+  min-height: 64px;
+  padding: 16px;
+  color: #c7c1ba;
+  background-color: transparent;
+  border: none;
+}
+
+.bs-search__results__container__list__placeholder {
+  margin: 0;
+  color: #c7c1ba;
+  font-family: Roboto, Arial, Helvetica, sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+@container (width < 750px) {
+  .bs-search__container {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .bs-search__results__container {
+    max-height: min(360px, 55vh);
+    padding: 6px;
+  }
+
+  .bs-search__results__container__list > * {
+    min-height: 48px;
+    padding: 10px;
+  }
+}

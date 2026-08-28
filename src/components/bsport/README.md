@@ -1,3 +1,5 @@
 # bsport components
 
-This boundary is reserved for bsport-specific UI wrappers. No booking, membership, payment, or widget behavior is implemented in Milestone 1.
+This boundary contains route-scoped wrappers for the bsport calendar, member
+login, and pricing-pass widgets. bsport remains responsible for live schedule,
+authentication, product, and purchase behavior.

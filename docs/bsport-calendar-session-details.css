@@ -1,0 +1,346 @@
+/* KRUTIGER calendar session-card overrides.
+ * Paste into Settings > Widgets > CSS > Session details.
+ * bsport appends !important automatically, so do not add it here.
+ */
+
+.bs-offer-list-item {
+  min-height: 104px;
+  gap: 8px;
+  color: #fafafa;
+  background-color: #151515;
+  border: 1px solid #4a433d;
+  border-bottom: none;
+  font-family: Roboto, Arial, Helvetica, sans-serif;
+  transition:
+    background-color 150ms ease,
+    border-color 150ms ease;
+}
+
+.bs-offer-list-item--first {
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}
+
+.bs-offer-list-item--last {
+  border-bottom: 1px solid #4a433d;
+  border-bottom-right-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+
+.bs-offer-list-item--isNotWorkshop:enabled:hover,
+.bs-offer-list-item--isWorkShop-with-hidden-button:hover {
+  background-color: #202020;
+  border-color: #f96900;
+  filter: none;
+}
+
+.bs-offer-list-item:focus-visible {
+  outline: 2px solid #f96900;
+  outline-offset: -2px;
+}
+
+.bs-offer-list-item--disabled {
+  color: #c7c1ba;
+  background-color: #121212;
+  cursor: default;
+  opacity: 1;
+}
+
+.bs-offer-list-item--disabled.bs-offer-list-item--ongoing {
+  background-color: #151515;
+  opacity: 1;
+}
+
+.bs-offer-list-item--disabled .bs-offer-list-item__content__offer__left__title,
+.bs-offer-list-item--disabled .bs-offer-list-item__button__title {
+  color: #c7c1ba;
+}
+
+.bs-offer-list-item--isWorkshop {
+  padding: 0;
+}
+
+.bs-offer-list-item__content {
+  width: 100%;
+  min-width: 0;
+  min-height: 104px;
+  margin: 0;
+  padding: 16px;
+  gap: 12px;
+}
+
+.bs-offer-list-item__content__offer {
+  min-width: 0;
+  gap: 16px;
+}
+
+.bs-offer-list-item__content__offer__left {
+  min-width: 0;
+  gap: 4px;
+  color: #fafafa;
+}
+
+.bs-offer-list-item__content__offer__left__time,
+.bs-offer-list-item__content__offer__left__time--without-date,
+.bs-offer-list-item__content__offer__left__time--time-highlighted,
+.bs-offer-list-item__content__time__offer-hours,
+.bs-offer-list-item__content__time__offer-hours__date,
+.bs-offer-list-item__content__time__offer-hours__start-time,
+.bs-offer-list-item__content__time__offer-hours__time-separator,
+.bs-offer-list-item__content__time__offer-hours__end-time-duration {
+  color: #f96900;
+  font-family: Roboto, Arial, Helvetica, sans-serif;
+  font-weight: 700;
+}
+
+.bs-offer-list-item__content__offer__left__time {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.bs-offer-list-item__content__time__offer-hours {
+  gap: 4px;
+}
+
+.bs-offer-list-item__content__offer__left__time--without-date {
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.bs-offer-list-item__content__offer__left__time--time-highlighted {
+  font-size: 1.125rem;
+  line-height: 1.5;
+}
+
+.bs-offer-list-item__content__offer__left__time--coach-highlighted {
+  color: #c7c1ba;
+}
+
+.bs-offer-list-item__content__offer__left__title,
+.bs-offer-list-item__button__title {
+  color: #fafafa;
+  font-family: Roboto, Arial, Helvetica, sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.bs-offer-list-item__button__title {
+  padding: 0;
+  background-color: transparent;
+  border: none;
+}
+
+.bs-offer-list-item__button__title:disabled {
+  color: #c7c1ba;
+  background-color: transparent;
+}
+
+.bs-offer-list-item__content__offer__left__title--time-highlighted,
+.bs-offer-list-item__content__offer__left__title--coach-highlighted {
+  color: #fafafa;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.bs-offer-list-item__content__offer__left__establishment {
+  gap: 6px;
+}
+
+.bs-offer-list-item__content__offer__left__establishment__name,
+.bs-offer-list-item__content__offer__left__coach,
+.bs-offer-list-item__content__offer__left__bottom__names {
+  color: #c7c1ba;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.bs-offer-list-item__content__offer__left__establishment__name {
+  overflow-wrap: anywhere;
+}
+
+.bs-offer-list-item__content__offer__left__establishment__name--coach-highlighted {
+  min-width: 0;
+  white-space: normal;
+}
+
+.bs-offer-list-item__content__offer__left__coach {
+  min-height: 24px;
+  gap: 6px;
+}
+
+.bs-offer-list-item__content__offer__left__coaches__row {
+  gap: 6px;
+}
+
+.bs-offer-list-item__content__offer__left__coaches__number {
+  min-height: 24px;
+  margin-left: 0;
+  gap: 4px;
+  color: #fafafa;
+}
+
+.bs-offer-list-item__content__offer__left__coach--coach-highlighted {
+  color: #fafafa;
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.bs-offer-list-item__content__offer__left__bottom__icons {
+  gap: 6px;
+}
+
+.bs-offer-list-item__content__offer__left__icon,
+.bs-establishment-title__icon {
+  width: 20px;
+  height: 20px;
+  color: #f96900;
+}
+
+.bs-offer-list-item__content__offer__left__bottom__icons__avatar,
+div.bs-offer-list-item__content__offer__left__bottom__icons__avatar,
+.bs-card-offer__content__coach__avatar {
+  width: 24px;
+  height: 24px;
+}
+
+.bs-offer-list-item__content__offer__left__bottom__names__establishment {
+  letter-spacing: 0.04em;
+  text-transform: none;
+}
+
+.bs-offer-list-item__content__offer__right {
+  min-width: 9rem;
+  gap: 12px;
+}
+
+.bs-offer-list-item__content__offer__right__top,
+.bs-offer-list-item__content__offer__right__top__left {
+  gap: 8px;
+  color: #c7c1ba;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.bs-offer-list-item__content__offer__right__top__group,
+.bs-offer-list-item__content__offer__right__top__gender,
+.bs-offer-list-item__content__offer__right__top__gender__sex {
+  gap: 4px;
+}
+
+.bs-offer-list-item__content__offer__right__top__group__icon,
+.bs-offer-list-item__content__offer__right__top__gender__icon,
+.bs-offer-list-item___content__offer__right__top__icon {
+  color: #c7c1ba;
+}
+
+.bs-offer-list-item__content__offer__right__top__icon--not-disabled:hover {
+  color: #f96900;
+}
+
+.bs-offer-list-item__content__offer__right__top__icon--disabled {
+  color: #6b625b;
+}
+
+.bs-offer-list-item__content__offer__left__extra {
+  gap: 8px;
+  color: #c7c1ba;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.bs-offer-list-item__content__offer__right__top__level,
+.bs-level {
+  min-height: 28px;
+  padding: 3px 8px;
+  color: #fafafa;
+  background-color: #202020;
+  border: 1px solid #4a433d;
+  border-radius: 999px;
+}
+
+.bs-offer-list-item .bs-level-content {
+  color: #fafafa;
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.bs-offer-list-item .bs-book-button-card__inner,
+.bs-offer-list-item .bs-book-button-card__inner__text,
+.bs-offer-list-item .bs-book-button-card svg {
+  color: #c7c1ba;
+}
+
+.bs-offer-list-item
+  .bs-book-button-card:not(.bs-book-button-card--disabled)
+  .bs-book-button-card__inner {
+  min-height: 40px;
+  padding: 8px 12px;
+  color: #080808;
+  background-color: #f96900;
+  border-radius: 4px;
+}
+
+.bs-offer-list-item
+  .bs-book-button-card:not(.bs-book-button-card--disabled)
+  .bs-book-button-card__inner__text,
+.bs-offer-list-item
+  .bs-book-button-card:not(.bs-book-button-card--disabled)
+  svg {
+  color: #080808;
+}
+
+@media only screen and (max-width: 500px) {
+  .bs-offer-list-item {
+    min-height: 0;
+  }
+
+  .bs-offer-list-item__content {
+    min-height: 0;
+    margin: 0;
+    padding: 12px;
+  }
+
+  .bs-offer-list-item__content__offer {
+    gap: 12px;
+  }
+
+  .bs-offer-list-item__content__offer__right {
+    min-width: 0;
+    padding-top: 10px;
+    border-top: 1px solid #4a433d;
+  }
+
+  .bs-offer-list-item__content__offer__right__top__left {
+    gap: 6px;
+  }
+
+  .bs-offer-list-item__content__offer__left__establishment__name,
+  .bs-offer-list-item__content__offer__left__coach,
+  .bs-offer-list-item__content__offer__left__time,
+  .bs-offer-list-item__content__offer__left__title--time-highlighted {
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+
+  .bs-offer-list-item__content__offer__left__time--time-highlighted,
+  .bs-offer-list-item__content__offer__left__title,
+  .bs-offer-list-item__content__offer__left__coach--coach-highlighted {
+    font-size: 1.125rem;
+    line-height: 1.4;
+  }
+}
+
+.bs-offer-list-item__popover__coach {
+  display: flex;
+  min-width: 140px;
+  padding: 8px;
+  gap: 8px;
+  color: #fafafa;
+  background-color: #151515;
+  border: 1px solid #4a433d;
+  border-radius: 4px;
+}

@@ -5,23 +5,23 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 import type { Dictionary } from "@/i18n/dictionaries/types";
 import {
-  bsportScheduleElementId,
+  bsportPricingElementId,
   bsportWidgetScriptUrl,
-  createBsportCalendarConfig,
+  createBsportPassConfig,
 } from "@/lib/bsport/widget";
 
-type BsportScheduleWidgetProps = Readonly<{
-  copy: Dictionary["integrations"]["schedule"];
+type BsportPricingWidgetProps = Readonly<{
+  copy: Dictionary["integrations"]["pricing"];
 }>;
 
 type WidgetStatus = "loading" | "mounted" | "error";
 
-export function BsportScheduleWidget({ copy }: BsportScheduleWidgetProps) {
+export function BsportPricingWidget({ copy }: BsportPricingWidgetProps) {
   const hasMounted = useRef(false);
   const [status, setStatus] = useState<WidgetStatus>("loading");
 
   useEffect(() => {
-    const mountElement = document.getElementById(bsportScheduleElementId);
+    const mountElement = document.getElementById(bsportPricingElementId);
 
     if (!mountElement) {
       return;
@@ -59,9 +59,7 @@ export function BsportScheduleWidget({ copy }: BsportScheduleWidgetProps) {
     }
 
     try {
-      window.BsportWidget.mount(
-        createBsportCalendarConfig(bsportScheduleElementId),
-      );
+      window.BsportWidget.mount(createBsportPassConfig(bsportPricingElementId));
       hasMounted.current = true;
     } catch {
       setStatus("error");
@@ -70,16 +68,16 @@ export function BsportScheduleWidget({ copy }: BsportScheduleWidgetProps) {
 
   return (
     <section
-      aria-labelledby="schedule-integration-heading"
+      aria-labelledby="pricing-integration-heading"
       className="mt-12"
-      data-integration-boundary="schedule"
+      data-integration-boundary="pricing"
       data-widget-environment="staging"
     >
       <div className="max-w-copy">
         <div className="h-1 w-12 bg-brand" aria-hidden="true" />
         <h2
           className="mt-6 font-display text-3xl font-bold uppercase sm:text-4xl"
-          id="schedule-integration-heading"
+          id="pricing-integration-heading"
         >
           {copy.heading}
         </h2>
@@ -91,7 +89,7 @@ export function BsportScheduleWidget({ copy }: BsportScheduleWidgetProps) {
 
       <div
         aria-busy={status === "loading"}
-        className="mt-8 min-h-[40rem] rounded-control border border-line bg-panel text-copy"
+        className="mt-8 min-h-[32rem] rounded-control border border-line bg-panel text-copy"
       >
         {status === "loading" ? (
           <p className="p-6 text-base text-copy-muted" role="status">
@@ -103,7 +101,7 @@ export function BsportScheduleWidget({ copy }: BsportScheduleWidgetProps) {
             {copy.error}
           </p>
         ) : null}
-        <div className="min-h-[40rem] w-full" id={bsportScheduleElementId} />
+        <div className="min-h-[32rem] w-full" id={bsportPricingElementId} />
       </div>
 
       <Script

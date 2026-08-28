@@ -298,9 +298,14 @@ const en = {
         "Test integration: this sign-in is currently loaded from the bsport staging environment.",
     },
     pricing: {
-      heading: "Verified prices and purchase links coming later",
+      heading: "Memberships and training passes",
       description:
-        "Prices will only be published after confirmation. Purchases and memberships will later hand off securely to bsport.",
+        "Current memberships and training passes are loaded directly from bsport. Purchases continue securely in the bsport system.",
+      loading: "The current prices are loading…",
+      error:
+        "The prices could not be loaded right now. Please try again later.",
+      stagingNotice:
+        "Test integration: these prices and purchase options are currently loaded from the bsport staging environment.",
     },
     giftCards: {
       heading: "Gift-card purchases coming later",

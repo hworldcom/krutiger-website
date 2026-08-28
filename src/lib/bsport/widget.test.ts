@@ -2,10 +2,12 @@ import { describe, expect, it } from "vitest";
 
 import {
   bsportMemberAreaElementId,
+  bsportPricingElementId,
   bsportScheduleElementId,
   bsportWidgetScriptUrl,
   createBsportCalendarConfig,
   createBsportLoginConfig,
+  createBsportPassConfig,
   resolveBsportCompanyId,
 } from "./widget";
 
@@ -38,6 +40,24 @@ describe("bsport widget configuration", () => {
       config: {
         loginButton: {
           openMemberProfile: true,
+        },
+      },
+    });
+  });
+
+  it("uses the supplied pricing pass configuration", () => {
+    expect(createBsportPassConfig(bsportPricingElementId)).toEqual({
+      parentElement: "bsport-widget-107643",
+      companyId: 14416,
+      franchiseId: null,
+      dialogMode: 1,
+      widgetType: "pass",
+      showFab: false,
+      fullScreenPopup: false,
+      config: {
+        pass: {
+          paymentPackCategories: [],
+          privatePassCategories: [],
         },
       },
     });

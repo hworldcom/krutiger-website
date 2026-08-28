@@ -24,6 +24,23 @@ when a visitor opens a schedule route. A localized loading state is displayed
 until mount is requested, and a localized error message is displayed if the
 script fails to load or mount.
 
+The paste-ready KRUTIGER overrides are maintained in:
+
+- `docs/bsport-calendar-header.css` for the calendar header; and
+- `docs/bsport-calendar-filters.css` for search, filter controls, and filter
+  menus; and
+- `docs/bsport-calendar-date-picker.css` for the date-range control and calendar
+  popup; and
+- `docs/bsport-search.css` for bsport's generic search component. The calendar's
+  own `bs-calendar-search` control is covered by the filter stylesheet; and
+- `docs/bsport-calendar-session-details.css` for session cards, metadata, level
+  badges, and booking states; and
+- `docs/bsport-activity-details.css` for the activity information dialog,
+  including its image header, description, map, coach, and footer controls.
+
+They intentionally change only presentation; bsport remains responsible for
+the calendar grid and responsive behavior.
+
 With the local app running, verify the staging integration in Chrome with:
 
 ```bash
@@ -59,8 +76,9 @@ on both localized schedule routes, and saves screenshots under
 - A German browser locale renders the widget in German, and an English browser
   locale renders it in English. Switching only the website route does not
   provide a documented way to force the widget language.
-- The supplied staging company currently has no sessions visible for the tested
-  week of 24–30 August 2026.
+- During activity-dialog QA, the week of 24–30 August 2026 exposed both past
+  and bookable sessions. This is staging data and can change independently of
+  the website.
 - The staging bundle emits two internal Mixpanel configuration errors even
   though the calendar continues to work. It also attempts translation requests
   containing an `undefined` base path before falling back to bundled language

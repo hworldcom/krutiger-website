@@ -4,6 +4,7 @@ export const bsportWidgetScriptUrl =
   "https://cdn.staging.bsport.io/scripts/widget.js";
 export const bsportScheduleElementId = "bsport-widget-163824";
 export const bsportMemberAreaElementId = "bsport-widget-235346";
+export const bsportPricingElementId = "bsport-widget-107643";
 
 export function resolveBsportCompanyId(configuredId?: string) {
   const candidate = configuredId?.trim();
@@ -59,6 +60,25 @@ export function createBsportLoginConfig(parentElement: string) {
   } as const;
 }
 
+export function createBsportPassConfig(parentElement: string) {
+  return {
+    parentElement,
+    companyId: bsportCompanyId,
+    franchiseId: null,
+    dialogMode: 1,
+    widgetType: "pass",
+    showFab: false,
+    fullScreenPopup: false,
+    config: {
+      pass: {
+        paymentPackCategories: [],
+        privatePassCategories: [],
+      },
+    },
+  } as const;
+}
+
 export type BsportWidgetConfig =
   | ReturnType<typeof createBsportCalendarConfig>
-  | ReturnType<typeof createBsportLoginConfig>;
+  | ReturnType<typeof createBsportLoginConfig>
+  | ReturnType<typeof createBsportPassConfig>;

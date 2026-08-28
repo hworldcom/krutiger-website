@@ -1,0 +1,171 @@
+/* KRUTIGER calendar header overrides.
+ * Paste into Settings > Widgets > CSS > Calendar header.
+ * bsport appends !important automatically, so do not add it here.
+ */
+
+.bs-week-card,
+.bs-week-list {
+  margin-top: 16px;
+  column-gap: 8px;
+  row-gap: 8px;
+  color: #fafafa;
+  background-color: #080808;
+}
+
+.bs-week__header__date--is-abled {
+  min-height: 64px;
+  padding: 6px 2px;
+  color: #fafafa;
+  border-radius: 4px;
+  transition:
+    color 150ms ease,
+    background-color 150ms ease;
+}
+
+.bs-week__header__date--is-abled:hover,
+.bs-week__header__date--is-abled:focus-visible {
+  background-color: #202020;
+}
+
+.bs-week__header__date--is-disabled {
+  min-height: 64px;
+  padding: 6px 2px;
+  color: #6b625b;
+  opacity: 0.55;
+}
+
+.bs-week__header__date__weekDay {
+  color: #c7c1ba;
+  font-family: Roboto, Arial, Helvetica, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.bs-week__header__date__weekDay--is-today {
+  color: #f96900;
+}
+
+.bs-week__header__date__monthDay {
+  width: 42px;
+  height: 42px;
+  color: #fafafa;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  font-family: Roboto, Arial, Helvetica, sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.bs-week__header__date__dots {
+  gap: 3px;
+  color: #f96900;
+}
+
+.bs-week__header__date__monthDay--is-selected {
+  color: #080808;
+  background-color: #f96900;
+  border-color: #f96900;
+  border-radius: 4px;
+}
+
+.bs-week__header__date__monthDay--is-today {
+  width: 42px;
+  height: 42px;
+  color: #f96900;
+  border: 1px solid #f96900;
+  border-radius: 4px;
+}
+
+.bs-week__header__date__monthDay--is-selected.bs-week__header__date__monthDay--is-today {
+  color: #080808;
+  background-color: #f96900;
+}
+
+.bs-week__listMode__content {
+  gap: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #4a433d;
+}
+
+.bs-week__listMode__content__day {
+  gap: 8px;
+}
+
+.bs-week__listMode__content__day__date {
+  color: #fafafa;
+  font-family: Roboto, Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.bs-week__cardMode__period {
+  height: 44px;
+}
+
+.bs-week__cardMode__period__button {
+  margin-left: 0;
+  padding: 8px 14px;
+  color: #c7c1ba;
+  background-color: #151515;
+  border: 1px solid #4a433d;
+  border-radius: 999px;
+  font-weight: 700;
+}
+
+.bs-week__cardMode__dayPart {
+  color: #f96900;
+  font-family: Roboto, Arial, Helvetica, sans-serif;
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.bs-week__listMode__content__day__offers {
+  border-radius: 4px;
+}
+
+.bs-week__search__noResult {
+  color: #c7c1ba;
+  font-family: Roboto, Arial, Helvetica, sans-serif;
+  font-weight: 500;
+}
+
+@media (max-width: 570px), (max-device-width: 570px) {
+  .bs-week {
+    margin-top: 0;
+  }
+
+  .bs-week__listMode__content {
+    gap: 16px;
+  }
+
+  .bs-week__listMode__content__day__date {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 500px) {
+  .bs-week__header__date--is-abled,
+  .bs-week__header__date--is-disabled {
+    min-height: 52px;
+    padding-inline: 0;
+  }
+
+  .bs-week__header__date__monthDay,
+  .bs-week__header__date__monthDay--is-today {
+    width: 32px;
+    height: 32px;
+    font-size: 0.875rem;
+  }
+
+  .bs-week__header__date__weekDay {
+    font-size: 0.625rem;
+    letter-spacing: 0.04em;
+  }
+}
