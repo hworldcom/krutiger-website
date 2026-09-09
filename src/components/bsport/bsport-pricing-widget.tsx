@@ -6,8 +6,9 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import type { Dictionary } from "@/i18n/dictionaries/types";
 import {
   bsportPricingElementId,
-  bsportWidgetScriptUrl,
-  createBsportPassConfig,
+  bsportPricingWidgetScriptUrl,
+  createBsportSubscriptionConfig,
+  prepareBsportWidgetEnvironment,
 } from "@/lib/bsport/widget";
 
 type BsportPricingWidgetProps = Readonly<{
@@ -54,12 +55,18 @@ export function BsportPricingWidget({ copy }: BsportPricingWidgetProps) {
   }, []);
 
   const mountWidget = useCallback(() => {
-    if (hasMounted.current || !window.BsportWidget) {
+    if (
+      hasMounted.current ||
+      !window.BsportWidget ||
+      !prepareBsportWidgetEnvironment(bsportPricingWidgetScriptUrl)
+    ) {
       return;
     }
 
     try {
-      window.BsportWidget.mount(createBsportPassConfig(bsportPricingElementId));
+      window.BsportWidget.mount(
+        createBsportSubscriptionConfig(bsportPricingElementId),
+      );
       hasMounted.current = true;
     } catch {
       setStatus("error");
@@ -71,7 +78,7 @@ export function BsportPricingWidget({ copy }: BsportPricingWidgetProps) {
       aria-labelledby="pricing-integration-heading"
       className="mt-12"
       data-integration-boundary="pricing"
-      data-widget-environment="staging"
+      data-widget-environment="production"
     >
       <div className="max-w-copy">
         <div className="h-1 w-12 bg-brand" aria-hidden="true" />
@@ -82,9 +89,6 @@ export function BsportPricingWidget({ copy }: BsportPricingWidgetProps) {
           {copy.heading}
         </h2>
         <p className="mt-4 leading-7 text-copy-muted">{copy.description}</p>
-        <p className="mt-5 border-l-2 border-signal pl-4 text-sm leading-6 text-signal">
-          {copy.stagingNotice}
-        </p>
       </div>
 
       <div
@@ -105,10 +109,10 @@ export function BsportPricingWidget({ copy }: BsportPricingWidgetProps) {
       </div>
 
       <Script
-        id="bsport-widget-cdn"
+        id="bsport-pricing-widget-cdn"
         onError={() => setStatus("error")}
         onReady={mountWidget}
-        src={bsportWidgetScriptUrl}
+        src={bsportPricingWidgetScriptUrl}
         strategy="afterInteractive"
       />
     </section>

@@ -8,6 +8,7 @@ import {
   bsportMemberAreaElementId,
   bsportWidgetScriptUrl,
   createBsportLoginConfig,
+  prepareBsportWidgetEnvironment,
 } from "@/lib/bsport/widget";
 
 type BsportMemberLoginWidgetProps = Readonly<{
@@ -56,7 +57,11 @@ export function BsportMemberLoginWidget({
   }, []);
 
   const mountWidget = useCallback(() => {
-    if (hasMounted.current || !window.BsportWidget) {
+    if (
+      hasMounted.current ||
+      !window.BsportWidget ||
+      !prepareBsportWidgetEnvironment(bsportWidgetScriptUrl)
+    ) {
       return;
     }
 

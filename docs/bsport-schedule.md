@@ -4,25 +4,33 @@ The German and English schedule routes load the calendar widget supplied by
 bsport. The integration is deliberately isolated from the global shell and all
 other routes.
 
-## Current staging configuration
+## Current production configuration
 
-- Script: `https://cdn.staging.bsport.io/scripts/widget.js`
-- Company ID: `14416`
+- Script: `https://cdn.bsport.io/scripts/widget.js`
+- Company ID: `6720`
 - Widget type: `calendar`
-- Parent element: `bsport-widget-163824`
-- Dialog mode: enabled
+- Parent element: `bsport-widget-368485`
+- Dialog mode: `3`
+- Calendar variant: `activityName`
 - Floating action button: disabled
 - Full-screen popup: disabled
 
 The company ID is public widget configuration, not an API secret. It can be
-overridden at build time with `NEXT_PUBLIC_BSPORT_COMPANY_ID`. The private
-`BSPORT_API_KEY` must never be imported by a Client Component or exposed with a
-`NEXT_PUBLIC_` prefix.
+overridden at build time with `NEXT_PUBLIC_BSPORT_CALENDAR_COMPANY_ID`. The
+private `BSPORT_API_KEY` must never be imported by a Client Component or exposed
+with a `NEXT_PUBLIC_` prefix.
 
-The external script is loaded with Next.js `afterInteractive` behavior only
+The production script is loaded with Next.js `afterInteractive` behavior only
 when a visitor opens a schedule route. A localized loading state is displayed
 until mount is requested, and a localized error message is displayed if the
-script fails to load or mount.
+script fails to load or mount. The pricing widget also uses production, while
+member login remains on staging until its production widget is supplied.
+
+Because bsport exposes a single global `window.BsportWidget`, crossing between
+the production calendar and a staging widget triggers one clean document reload.
+This prevents one environment's runtime from sending another environment's
+company ID to the wrong API. Navigation between widgets in the same environment
+remains client-side.
 
 The paste-ready KRUTIGER overrides are maintained in:
 
@@ -41,7 +49,7 @@ The paste-ready KRUTIGER overrides are maintained in:
 They intentionally change only presentation; bsport remains responsible for
 the calendar grid and responsive behavior.
 
-With the local app running, verify the staging integration in Chrome with:
+With the local app running, verify the bsport integrations in Chrome with:
 
 ```bash
 npm run qa:bsport
@@ -51,17 +59,14 @@ This confirms that the script is absent from the home page, mounts the calendar
 on both localized schedule routes, and saves screenshots under
 `.next/quality-screenshots/`.
 
-## Before production
+## Before launch
 
-- Obtain the production widget script URL and confirm the production company
-  ID with bsport.
-- Replace the staging script constant and remove the visible staging notice.
-- Update the production-output script allowlist to the exact production URL.
 - Verify that the live schedule, availability, login, and booking destinations
   belong to the correct company.
+- Transfer and verify the KRUTIGER custom CSS in the production bsport account.
 - Confirm how the widget selects German and English; the supplied configuration
-  does not include a locale option. Staging QA shows that it currently follows
-  the browser locale rather than the site route by itself.
+  does not include a locale option. QA shows that it currently follows the
+  browser locale rather than the site route by itself.
 - Test mobile, tablet, desktop, keyboard, 200% zoom, and screen-reader behavior
   inside the third-party widget.
 - Review cookies, storage, network destinations, and privacy disclosure before
@@ -69,18 +74,12 @@ on both localized schedule routes, and saves screenshots under
 - Confirm whether bsport provides a supported unmount or teardown API for
   client-side route transitions.
 
-## Staging observations
+## Integration observations
 
 - The calendar renders at desktop and 390 px mobile widths without horizontal
   page overflow.
 - A German browser locale renders the widget in German, and an English browser
   locale renders it in English. Switching only the website route does not
   provide a documented way to force the widget language.
-- During activity-dialog QA, the week of 24–30 August 2026 exposed both past
-  and bookable sessions. This is staging data and can change independently of
-  the website.
-- The staging bundle emits two internal Mixpanel configuration errors even
-  though the calendar continues to work. It also attempts translation requests
-  containing an `undefined` base path before falling back to bundled language
-  data. Ask bsport whether the production widget/configuration resolves these
-  issues before launch.
+- Earlier QA against the staging company exposed both past and bookable
+  sessions. Product availability can change independently of the website.

@@ -285,8 +285,6 @@ const de = {
       loading: "Der Live-Kursplan wird geladen …",
       error:
         "Der Live-Kursplan konnte gerade nicht geladen werden. Bitte versuche es später erneut.",
-      stagingNotice:
-        "Testintegration: Dieser Kursplan wird derzeit aus der bsport-Staging-Umgebung geladen.",
     },
     memberArea: {
       heading: "Bei bsport anmelden",
@@ -305,8 +303,6 @@ const de = {
       loading: "Die aktuellen Preise werden geladen …",
       error:
         "Die Preise konnten gerade nicht geladen werden. Bitte versuche es später erneut.",
-      stagingNotice:
-        "Testintegration: Diese Preise und Kaufoptionen werden derzeit aus der bsport-Staging-Umgebung geladen.",
     },
     giftCards: {
       heading: "Gutscheinverkauf folgt",

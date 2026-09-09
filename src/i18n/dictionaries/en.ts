@@ -284,8 +284,6 @@ const en = {
       loading: "The live schedule is loading…",
       error:
         "The live schedule could not be loaded right now. Please try again later.",
-      stagingNotice:
-        "Test integration: this schedule is currently loaded from the bsport staging environment.",
     },
     memberArea: {
       heading: "Sign in with bsport",
@@ -304,8 +302,6 @@ const en = {
       loading: "The current prices are loading…",
       error:
         "The prices could not be loaded right now. Please try again later.",
-      stagingNotice:
-        "Test integration: these prices and purchase options are currently loaded from the bsport staging environment.",
     },
     giftCards: {
       heading: "Gift-card purchases coming later",

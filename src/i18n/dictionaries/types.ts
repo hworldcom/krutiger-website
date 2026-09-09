@@ -23,6 +23,10 @@ type WidgetIntegrationCopy = IntegrationCopy &
   Readonly<{
     loading: string;
     error: string;
+  }>;
+
+type StagingWidgetIntegrationCopy = WidgetIntegrationCopy &
+  Readonly<{
     stagingNotice: string;
   }>;
 
@@ -160,7 +164,7 @@ export type Dictionary = Readonly<{
   integrations: Readonly<
     Record<IntegrationArea, IntegrationCopy> & {
       schedule: WidgetIntegrationCopy;
-      memberArea: WidgetIntegrationCopy;
+      memberArea: StagingWidgetIntegrationCopy;
       pricing: WidgetIntegrationCopy;
     }
   >;

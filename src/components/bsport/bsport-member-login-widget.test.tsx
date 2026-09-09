@@ -37,6 +37,7 @@ beforeEach(() => {
 
 afterEach(() => {
   cleanup();
+  delete window.__krutigerBsportWidgetScriptUrl;
   delete window.BsportWidget;
 });
 
@@ -63,6 +64,7 @@ describe("BsportMemberLoginWidget", () => {
     expect(mount).toHaveBeenCalledWith(
       createBsportLoginConfig(bsportMemberAreaElementId),
     );
+    expect(window.__krutigerBsportWidgetScriptUrl).toBe(bsportWidgetScriptUrl);
     await waitFor(() => expect(screen.queryByRole("status")).toBeNull());
     expect(
       document

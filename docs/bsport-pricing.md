@@ -1,28 +1,25 @@
 # bsport pricing integration
 
-The German and English pricing routes load the pass widget supplied by bsport.
-The widget is isolated from the global shell and other routes.
+The German and English pricing routes load the subscription widget supplied by
+bsport. The widget is isolated from the global shell and other routes.
 
-## Current staging configuration
+## Current production configuration
 
-- Script: `https://cdn.staging.bsport.io/scripts/widget.js`
-- Company ID: `14416`
-- Widget type: `pass`
-- Parent element: `bsport-widget-107643`
-- Payment-pack category filter: none
-- Private-pass category filter: none
-- Dialog mode: enabled
+- Script: `https://cdn.bsport.io/scripts/widget.js`
+- Company ID: `6720`
+- Widget type: `subscription`
+- Parent element: `bsport-widget-361765`
+- Dialog mode: `3`
 - Floating action button: disabled
 - Full-screen popup: disabled
 
-The empty category arrays come directly from the supplied widget and allow
-bsport to return all eligible payment packs and private passes for the staging
-company. Product names, prices, conditions, availability, and purchases remain
-owned by bsport rather than duplicated in website content.
+The empty subscription configuration comes directly from the supplied widget.
+Product names, prices, conditions, availability, and purchases remain owned by
+bsport rather than duplicated in website content. The public company ID can be
+overridden at build time with `NEXT_PUBLIC_BSPORT_PRICING_COMPANY_ID`.
 
 The external script loads only when a visitor opens a pricing route. The page
-provides localized loading and failure states and visibly identifies the
-integration as staging.
+provides localized loading and failure states.
 
 With the local app running, verify all bsport integrations in Chrome with:
 
@@ -30,12 +27,9 @@ With the local app running, verify all bsport integrations in Chrome with:
 npm run qa:bsport
 ```
 
-## Before production
+## Before launch
 
-- Obtain the production widget script URL and confirm the production company
-  ID with bsport.
-- Confirm the memberships and passes that should be publicly purchasable.
-- Decide whether category filters should replace the empty arrays.
+- Confirm the subscriptions that should be publicly purchasable.
 - Verify taxes, prices, renewal terms, cancellation terms, and purchase flows.
 - Confirm how the widget selects German and English.
 - Review cookies, storage, network destinations, and privacy disclosure.

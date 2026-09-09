@@ -5,9 +5,10 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 import type { Dictionary } from "@/i18n/dictionaries/types";
 import {
+  bsportCalendarWidgetScriptUrl,
   bsportScheduleElementId,
-  bsportWidgetScriptUrl,
   createBsportCalendarConfig,
+  prepareBsportWidgetEnvironment,
 } from "@/lib/bsport/widget";
 
 type BsportScheduleWidgetProps = Readonly<{
@@ -54,7 +55,11 @@ export function BsportScheduleWidget({ copy }: BsportScheduleWidgetProps) {
   }, []);
 
   const mountWidget = useCallback(() => {
-    if (hasMounted.current || !window.BsportWidget) {
+    if (
+      hasMounted.current ||
+      !window.BsportWidget ||
+      !prepareBsportWidgetEnvironment(bsportCalendarWidgetScriptUrl)
+    ) {
       return;
     }
 
@@ -73,7 +78,7 @@ export function BsportScheduleWidget({ copy }: BsportScheduleWidgetProps) {
       aria-labelledby="schedule-integration-heading"
       className="mt-12"
       data-integration-boundary="schedule"
-      data-widget-environment="staging"
+      data-widget-environment="production"
     >
       <div className="max-w-copy">
         <div className="h-1 w-12 bg-brand" aria-hidden="true" />
@@ -84,9 +89,6 @@ export function BsportScheduleWidget({ copy }: BsportScheduleWidgetProps) {
           {copy.heading}
         </h2>
         <p className="mt-4 leading-7 text-copy-muted">{copy.description}</p>
-        <p className="mt-5 border-l-2 border-signal pl-4 text-sm leading-6 text-signal">
-          {copy.stagingNotice}
-        </p>
       </div>
 
       <div
@@ -107,10 +109,10 @@ export function BsportScheduleWidget({ copy }: BsportScheduleWidgetProps) {
       </div>
 
       <Script
-        id="bsport-widget-cdn"
+        id="bsport-calendar-widget-cdn"
         onError={() => setStatus("error")}
         onReady={mountWidget}
-        src={bsportWidgetScriptUrl}
+        src={bsportCalendarWidgetScriptUrl}
         strategy="afterInteractive"
       />
     </section>

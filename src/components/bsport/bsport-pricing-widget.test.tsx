@@ -6,8 +6,8 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import de from "@/i18n/dictionaries/de";
 import {
   bsportPricingElementId,
-  bsportWidgetScriptUrl,
-  createBsportPassConfig,
+  bsportPricingWidgetScriptUrl,
+  createBsportSubscriptionConfig,
 } from "@/lib/bsport/widget";
 
 import { BsportPricingWidget } from "./bsport-pricing-widget";
@@ -37,13 +37,14 @@ beforeEach(() => {
 
 afterEach(() => {
   cleanup();
+  delete window.__krutigerBsportWidgetScriptUrl;
   delete window.BsportWidget;
 });
 
 describe("BsportPricingWidget", () => {
-  it("loads the route-scoped script and mounts the supplied pass widget once", async () => {
+  it("loads the route-scoped script and mounts the supplied subscription widget once", async () => {
     const mount = vi.fn(() => {
-      document.getElementById(bsportPricingElementId)?.append("Passes");
+      document.getElementById(bsportPricingElementId)?.append("Subscriptions");
     });
     window.BsportWidget = { mount };
 
@@ -53,7 +54,7 @@ describe("BsportPricingWidget", () => {
       de.integrations.pricing.loading,
     );
     expect(screen.getByTestId("bsport-script").getAttribute("data-src")).toBe(
-      bsportWidgetScriptUrl,
+      bsportPricingWidgetScriptUrl,
     );
 
     act(() => scriptHandlers.onReady?.());
@@ -61,14 +62,17 @@ describe("BsportPricingWidget", () => {
 
     expect(mount).toHaveBeenCalledOnce();
     expect(mount).toHaveBeenCalledWith(
-      createBsportPassConfig(bsportPricingElementId),
+      createBsportSubscriptionConfig(bsportPricingElementId),
+    );
+    expect(window.__krutigerBsportWidgetScriptUrl).toBe(
+      bsportPricingWidgetScriptUrl,
     );
     await waitFor(() => expect(screen.queryByRole("status")).toBeNull());
     expect(
       document
         .querySelector('[data-integration-boundary="pricing"]')
         ?.getAttribute("data-widget-environment"),
-    ).toBe("staging");
+    ).toBe("production");
   });
 
   it("shows localized fallback copy when the external script fails", () => {

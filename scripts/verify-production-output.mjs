@@ -105,7 +105,12 @@ try {
 }
 
 const allowedExternalScripts = new Set([
+  "https://cdn.bsport.io/scripts/widget.js",
   "https://cdn.staging.bsport.io/scripts/widget.js",
+]);
+const bsportScriptRoutes = new Map([
+  ["https://cdn.bsport.io/scripts/widget.js", ["schedule", "prices"]],
+  ["https://cdn.staging.bsport.io/scripts/widget.js", ["member-area"]],
 ]);
 const unexpectedExternalScriptFiles = [];
 const misplacedBsportScriptFiles = [];
@@ -120,13 +125,15 @@ for (const file of renderedHtmlFiles) {
     unexpectedExternalScriptFiles.push(file);
   }
 
-  if (
-    sources.includes("https://cdn.staging.bsport.io/scripts/widget.js") &&
-    !["schedule", "member-area", "prices"].some((route) =>
-      relative(serverAppDirectory, file).includes(route),
-    )
-  ) {
-    misplacedBsportScriptFiles.push(file);
+  for (const [source, routes] of bsportScriptRoutes) {
+    if (
+      sources.includes(source) &&
+      !routes.some((route) =>
+        relative(serverAppDirectory, file).includes(route),
+      )
+    ) {
+      misplacedBsportScriptFiles.push(file);
+    }
   }
 }
 

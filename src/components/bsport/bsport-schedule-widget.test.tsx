@@ -5,8 +5,8 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import de from "@/i18n/dictionaries/de";
 import {
+  bsportCalendarWidgetScriptUrl,
   bsportScheduleElementId,
-  bsportWidgetScriptUrl,
   createBsportCalendarConfig,
 } from "@/lib/bsport/widget";
 
@@ -37,6 +37,7 @@ beforeEach(() => {
 
 afterEach(() => {
   cleanup();
+  delete window.__krutigerBsportWidgetScriptUrl;
   delete window.BsportWidget;
 });
 
@@ -53,7 +54,7 @@ describe("BsportScheduleWidget", () => {
       de.integrations.schedule.loading,
     );
     expect(screen.getByTestId("bsport-script").getAttribute("data-src")).toBe(
-      bsportWidgetScriptUrl,
+      bsportCalendarWidgetScriptUrl,
     );
 
     act(() => scriptHandlers.onReady?.());
@@ -63,12 +64,15 @@ describe("BsportScheduleWidget", () => {
     expect(mount).toHaveBeenCalledWith(
       createBsportCalendarConfig(bsportScheduleElementId),
     );
+    expect(window.__krutigerBsportWidgetScriptUrl).toBe(
+      bsportCalendarWidgetScriptUrl,
+    );
     await waitFor(() => expect(screen.queryByRole("status")).toBeNull());
     expect(
       document
         .querySelector('[data-integration-boundary="schedule"]')
         ?.getAttribute("data-widget-environment"),
-    ).toBe("staging");
+    ).toBe("production");
   });
 
   it("shows localized fallback copy when the external script fails", () => {

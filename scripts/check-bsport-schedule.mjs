@@ -5,7 +5,9 @@ import { join } from "node:path";
 import { chromium } from "playwright-core";
 
 const baseUrl = new URL(process.env.QA_BASE_URL || "http://localhost:3000");
-const scriptUrl = "https://cdn.staging.bsport.io/scripts/widget.js";
+const productionScriptUrl = "https://cdn.bsport.io/scripts/widget.js";
+const stagingScriptUrl = "https://cdn.staging.bsport.io/scripts/widget.js";
+const scriptUrls = [productionScriptUrl, stagingScriptUrl];
 const screenshotDirectory = join(process.cwd(), ".next", "quality-screenshots");
 const executablePath = [
   process.env.BROWSER_EXECUTABLE_PATH,
@@ -39,8 +41,9 @@ try {
     {
       locale: "de",
       browserLocale: "de-DE",
-      elementId: "bsport-widget-163824",
+      elementId: "bsport-widget-368485",
       route: "schedule",
+      scriptUrl: productionScriptUrl,
       screenshot: "bsport-schedule-de.jpg",
       widgetName: "calendar",
       viewport: { width: 1440, height: 1000 },
@@ -48,8 +51,9 @@ try {
     {
       locale: "en",
       browserLocale: "en-GB",
-      elementId: "bsport-widget-163824",
+      elementId: "bsport-widget-368485",
       route: "schedule",
+      scriptUrl: productionScriptUrl,
       screenshot: "bsport-schedule-en.jpg",
       widgetName: "calendar",
       viewport: { width: 1440, height: 1000 },
@@ -57,8 +61,9 @@ try {
     {
       locale: "de",
       browserLocale: "de-DE",
-      elementId: "bsport-widget-163824",
+      elementId: "bsport-widget-368485",
       route: "schedule",
+      scriptUrl: productionScriptUrl,
       screenshot: "bsport-schedule-mobile.jpg",
       widgetName: "calendar",
       viewport: { width: 390, height: 844 },
@@ -68,6 +73,7 @@ try {
       browserLocale: "de-DE",
       elementId: "bsport-widget-235346",
       route: "member-area",
+      scriptUrl: stagingScriptUrl,
       screenshot: "bsport-member-area-de.jpg",
       widgetName: "member login",
       viewport: { width: 1440, height: 1000 },
@@ -77,6 +83,7 @@ try {
       browserLocale: "en-GB",
       elementId: "bsport-widget-235346",
       route: "member-area",
+      scriptUrl: stagingScriptUrl,
       screenshot: "bsport-member-area-mobile.jpg",
       widgetName: "member login",
       viewport: { width: 390, height: 844 },
@@ -84,19 +91,21 @@ try {
     {
       locale: "de",
       browserLocale: "de-DE",
-      elementId: "bsport-widget-107643",
+      elementId: "bsport-widget-361765",
       route: "prices",
+      scriptUrl: productionScriptUrl,
       screenshot: "bsport-pricing-de.jpg",
-      widgetName: "pricing passes",
+      widgetName: "pricing subscriptions",
       viewport: { width: 1440, height: 1000 },
     },
     {
       locale: "en",
       browserLocale: "en-GB",
-      elementId: "bsport-widget-107643",
+      elementId: "bsport-widget-361765",
       route: "prices",
+      scriptUrl: productionScriptUrl,
       screenshot: "bsport-pricing-mobile.jpg",
-      widgetName: "pricing passes",
+      widgetName: "pricing subscriptions",
       viewport: { width: 390, height: 844 },
     },
   ];
@@ -124,14 +133,19 @@ try {
       waitUntil: "domcontentloaded",
     });
     await page.waitForTimeout(500);
-    assert(
-      (await page.locator(`script[src="${scriptUrl}"]`).count()) === 0,
-      `The bsport script loaded before the ${check.route} route was opened.`,
-    );
+    for (const scriptUrl of scriptUrls) {
+      assert(
+        (await page.locator(`script[src="${scriptUrl}"]`).count()) === 0,
+        `A bsport script loaded before the ${check.route} route was opened.`,
+      );
+    }
 
     await page.goto(new URL(`/${check.locale}/${check.route}`, baseUrl).href, {
       waitUntil: "domcontentloaded",
     });
+    await page
+      .locator(`script[src="${check.scriptUrl}"]`)
+      .waitFor({ state: "attached", timeout: 30_000 });
     await page.locator(`#${check.elementId}`).scrollIntoViewIfNeeded();
     await page.waitForFunction(
       (elementId) => document.getElementById(elementId)?.childElementCount > 0,
@@ -197,5 +211,5 @@ try {
 }
 
 console.log(
-  `bsport staging calendar, member login, and pricing passes mounted in localized routes. Screenshots: ${screenshotDirectory}`,
+  `bsport production calendar/pricing and staging member login widgets mounted in localized routes. Screenshots: ${screenshotDirectory}`,
 );
