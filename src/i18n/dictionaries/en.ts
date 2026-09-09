@@ -80,6 +80,13 @@ const en = {
       description:
         "Verified memberships, passes, and conditions will be presented here for clear comparison.",
     },
+    shop: {
+      navigationLabel: "Shop",
+      eyebrow: "KRUTIGER Shop",
+      title: "Training gear and KRUTIGER products",
+      description:
+        "Discover the products currently available and order them directly through bsport.",
+    },
     coaches: {
       navigationLabel: "Team",
       eyebrow: "Coaching team",
@@ -292,8 +299,6 @@ const en = {
       loading: "The member sign-in is loading…",
       error:
         "The member sign-in could not be loaded right now. Please try again later.",
-      stagingNotice:
-        "Test integration: this sign-in is currently loaded from the bsport staging environment.",
     },
     pricing: {
       heading: "Memberships and training passes",
@@ -302,6 +307,13 @@ const en = {
       loading: "The current prices are loading…",
       error:
         "The prices could not be loaded right now. Please try again later.",
+    },
+    shop: {
+      heading: "Shop with bsport",
+      description:
+        "Available products are loaded directly from bsport. Your order continues securely in the bsport system.",
+      loading: "The shop is loading…",
+      error: "The shop could not be loaded right now. Please try again later.",
     },
     giftCards: {
       heading: "Gift-card purchases coming later",

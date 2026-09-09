@@ -106,11 +106,12 @@ try {
 
 const allowedExternalScripts = new Set([
   "https://cdn.bsport.io/scripts/widget.js",
-  "https://cdn.staging.bsport.io/scripts/widget.js",
 ]);
 const bsportScriptRoutes = new Map([
-  ["https://cdn.bsport.io/scripts/widget.js", ["schedule", "prices"]],
-  ["https://cdn.staging.bsport.io/scripts/widget.js", ["member-area"]],
+  [
+    "https://cdn.bsport.io/scripts/widget.js",
+    ["schedule", "prices", "member-area", "shop"],
+  ],
 ]);
 const unexpectedExternalScriptFiles = [];
 const misplacedBsportScriptFiles = [];

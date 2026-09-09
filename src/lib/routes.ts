@@ -3,6 +3,7 @@ export const routeIds = [
   "training",
   "schedule",
   "prices",
+  "shop",
   "coaches",
   "about",
   "faq",
@@ -16,7 +17,7 @@ export const routeIds = [
 export type RouteId = (typeof routeIds)[number];
 export type NavigationGroup = "primary" | "secondary" | "legal";
 export type IntegrationArea =
-  "schedule" | "pricing" | "memberArea" | "giftCards";
+  "schedule" | "pricing" | "shop" | "memberArea" | "giftCards";
 
 export type SiteRoute = Readonly<{
   id: RouteId;
@@ -52,6 +53,13 @@ export const siteRoutes = [
     navigation: "primary",
     showInFooter: true,
     integration: "pricing",
+  },
+  {
+    id: "shop",
+    path: "/shop",
+    navigation: "primary",
+    showInFooter: true,
+    integration: "shop",
   },
   {
     id: "coaches",

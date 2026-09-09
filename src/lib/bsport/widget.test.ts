@@ -6,8 +6,11 @@ import {
   bsportPricingElementId,
   bsportPricingWidgetScriptUrl,
   bsportScheduleElementId,
+  bsportShopElementId,
+  bsportShopWidgetScriptUrl,
   createBsportCalendarConfig,
   createBsportLoginConfig,
+  createBsportShopConfig,
   createBsportSubscriptionConfig,
   resolveBsportCompanyId,
 } from "./widget";
@@ -29,12 +32,12 @@ describe("bsport widget configuration", () => {
     });
   });
 
-  it("uses the supplied member login configuration", () => {
+  it("uses the supplied production member login configuration", () => {
     expect(createBsportLoginConfig(bsportMemberAreaElementId)).toEqual({
-      parentElement: "bsport-widget-235346",
-      companyId: 14416,
+      parentElement: "bsport-widget-832086",
+      companyId: 6720,
       franchiseId: null,
-      dialogMode: 1,
+      dialogMode: 3,
       widgetType: "loginButton",
       showFab: false,
       fullScreenPopup: false,
@@ -64,8 +67,26 @@ describe("bsport widget configuration", () => {
     });
   });
 
+  it("uses the supplied production shop configuration", () => {
+    expect(bsportShopWidgetScriptUrl).toBe(
+      "https://cdn.bsport.io/scripts/widget.js",
+    );
+    expect(createBsportShopConfig(bsportShopElementId)).toEqual({
+      parentElement: "bsport-widget-140155",
+      companyId: 6720,
+      franchiseId: null,
+      dialogMode: 1,
+      widgetType: "shop",
+      showFab: false,
+      fullScreenPopup: false,
+      config: {
+        shop: {},
+      },
+    });
+  });
+
   it("accepts only positive integer company IDs", () => {
-    expect(resolveBsportCompanyId()).toBe(14416);
+    expect(resolveBsportCompanyId()).toBe(6720);
     expect(
       resolveBsportCompanyId(
         "",
@@ -74,11 +95,10 @@ describe("bsport widget configuration", () => {
       ),
     ).toBe(6720);
     expect(
-      resolveBsportCompanyId(
-        "",
-        "NEXT_PUBLIC_BSPORT_PRICING_COMPANY_ID",
-        6720,
-      ),
+      resolveBsportCompanyId("", "NEXT_PUBLIC_BSPORT_SHOP_COMPANY_ID", 6720),
+    ).toBe(6720);
+    expect(
+      resolveBsportCompanyId("", "NEXT_PUBLIC_BSPORT_PRICING_COMPANY_ID", 6720),
     ).toBe(6720);
     expect(resolveBsportCompanyId(" 42 ")).toBe(42);
     expect(() => resolveBsportCompanyId("0")).toThrow(/positive integer/);

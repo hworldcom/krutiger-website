@@ -3,7 +3,6 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 import {
-  bsportCalendarWidgetScriptUrl,
   bsportWidgetScriptUrl,
   prepareBsportWidgetEnvironment,
 } from "./widget";
@@ -28,7 +27,10 @@ describe("bsport widget script environments", () => {
     const reload = vi.fn();
 
     expect(
-      prepareBsportWidgetEnvironment(bsportCalendarWidgetScriptUrl, reload),
+      prepareBsportWidgetEnvironment(
+        "https://cdn.staging.bsport.io/scripts/widget.js",
+        reload,
+      ),
     ).toBe(false);
     expect(reload).toHaveBeenCalledOnce();
     expect(window.__krutigerBsportWidgetScriptUrl).toBe(bsportWidgetScriptUrl);

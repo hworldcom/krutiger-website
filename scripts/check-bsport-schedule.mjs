@@ -6,8 +6,7 @@ import { chromium } from "playwright-core";
 
 const baseUrl = new URL(process.env.QA_BASE_URL || "http://localhost:3000");
 const productionScriptUrl = "https://cdn.bsport.io/scripts/widget.js";
-const stagingScriptUrl = "https://cdn.staging.bsport.io/scripts/widget.js";
-const scriptUrls = [productionScriptUrl, stagingScriptUrl];
+const scriptUrls = [productionScriptUrl];
 const screenshotDirectory = join(process.cwd(), ".next", "quality-screenshots");
 const executablePath = [
   process.env.BROWSER_EXECUTABLE_PATH,
@@ -71,9 +70,9 @@ try {
     {
       locale: "de",
       browserLocale: "de-DE",
-      elementId: "bsport-widget-235346",
+      elementId: "bsport-widget-832086",
       route: "member-area",
-      scriptUrl: stagingScriptUrl,
+      scriptUrl: productionScriptUrl,
       screenshot: "bsport-member-area-de.jpg",
       widgetName: "member login",
       viewport: { width: 1440, height: 1000 },
@@ -81,9 +80,9 @@ try {
     {
       locale: "en",
       browserLocale: "en-GB",
-      elementId: "bsport-widget-235346",
+      elementId: "bsport-widget-832086",
       route: "member-area",
-      scriptUrl: stagingScriptUrl,
+      scriptUrl: productionScriptUrl,
       screenshot: "bsport-member-area-mobile.jpg",
       widgetName: "member login",
       viewport: { width: 390, height: 844 },
@@ -106,6 +105,26 @@ try {
       scriptUrl: productionScriptUrl,
       screenshot: "bsport-pricing-mobile.jpg",
       widgetName: "pricing subscriptions",
+      viewport: { width: 390, height: 844 },
+    },
+    {
+      locale: "de",
+      browserLocale: "de-DE",
+      elementId: "bsport-widget-140155",
+      route: "shop",
+      scriptUrl: productionScriptUrl,
+      screenshot: "bsport-shop-de.jpg",
+      widgetName: "shop",
+      viewport: { width: 1440, height: 1000 },
+    },
+    {
+      locale: "en",
+      browserLocale: "en-GB",
+      elementId: "bsport-widget-140155",
+      route: "shop",
+      scriptUrl: productionScriptUrl,
+      screenshot: "bsport-shop-mobile.jpg",
+      widgetName: "shop",
       viewport: { width: 390, height: 844 },
     },
   ];
@@ -211,5 +230,5 @@ try {
 }
 
 console.log(
-  `bsport production calendar/pricing and staging member login widgets mounted in localized routes. Screenshots: ${screenshotDirectory}`,
+  `bsport production calendar, pricing, member login, and shop widgets mounted in localized routes. Screenshots: ${screenshotDirectory}`,
 );

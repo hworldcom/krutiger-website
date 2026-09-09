@@ -80,6 +80,13 @@ const de = {
       description:
         "Hier werden die geprüften Mitgliedschaften, Pässe und Konditionen klar vergleichbar dargestellt.",
     },
+    shop: {
+      navigationLabel: "Shop",
+      eyebrow: "KRUTIGER Shop",
+      title: "Ausrüstung und KRUTIGER Artikel",
+      description:
+        "Entdecke die aktuell verfügbaren Produkte und bestelle sie direkt über bsport.",
+    },
     coaches: {
       navigationLabel: "Team",
       eyebrow: "Trainerteam",
@@ -293,8 +300,6 @@ const de = {
       loading: "Die Mitgliederanmeldung wird geladen …",
       error:
         "Die Mitgliederanmeldung konnte gerade nicht geladen werden. Bitte versuche es später erneut.",
-      stagingNotice:
-        "Testintegration: Diese Anmeldung wird derzeit aus der bsport-Staging-Umgebung geladen.",
     },
     pricing: {
       heading: "Mitgliedschaften und Trainingspässe",
@@ -303,6 +308,14 @@ const de = {
       loading: "Die aktuellen Preise werden geladen …",
       error:
         "Die Preise konnten gerade nicht geladen werden. Bitte versuche es später erneut.",
+    },
+    shop: {
+      heading: "Shop bei bsport",
+      description:
+        "Die verfügbaren Artikel werden direkt aus bsport geladen. Deine Bestellung wird sicher im bsport-System fortgesetzt.",
+      loading: "Der Shop wird geladen …",
+      error:
+        "Der Shop konnte gerade nicht geladen werden. Bitte versuche es später erneut.",
     },
     giftCards: {
       heading: "Gutscheinverkauf folgt",

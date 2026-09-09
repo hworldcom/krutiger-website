@@ -5,26 +5,24 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 import type { Dictionary } from "@/i18n/dictionaries/types";
 import {
-  bsportMemberAreaElementId,
-  bsportWidgetScriptUrl,
-  createBsportLoginConfig,
+  bsportShopElementId,
+  bsportShopWidgetScriptUrl,
+  createBsportShopConfig,
   prepareBsportWidgetEnvironment,
 } from "@/lib/bsport/widget";
 
-type BsportMemberLoginWidgetProps = Readonly<{
-  copy: Dictionary["integrations"]["memberArea"];
+type BsportShopWidgetProps = Readonly<{
+  copy: Dictionary["integrations"]["shop"];
 }>;
 
 type WidgetStatus = "loading" | "mounted" | "error";
 
-export function BsportMemberLoginWidget({
-  copy,
-}: BsportMemberLoginWidgetProps) {
+export function BsportShopWidget({ copy }: BsportShopWidgetProps) {
   const hasMounted = useRef(false);
   const [status, setStatus] = useState<WidgetStatus>("loading");
 
   useEffect(() => {
-    const mountElement = document.getElementById(bsportMemberAreaElementId);
+    const mountElement = document.getElementById(bsportShopElementId);
 
     if (!mountElement) {
       return;
@@ -60,15 +58,13 @@ export function BsportMemberLoginWidget({
     if (
       hasMounted.current ||
       !window.BsportWidget ||
-      !prepareBsportWidgetEnvironment(bsportWidgetScriptUrl)
+      !prepareBsportWidgetEnvironment(bsportShopWidgetScriptUrl)
     ) {
       return;
     }
 
     try {
-      window.BsportWidget.mount(
-        createBsportLoginConfig(bsportMemberAreaElementId),
-      );
+      window.BsportWidget.mount(createBsportShopConfig(bsportShopElementId));
       hasMounted.current = true;
     } catch {
       setStatus("error");
@@ -77,16 +73,16 @@ export function BsportMemberLoginWidget({
 
   return (
     <section
-      aria-labelledby="member-area-integration-heading"
+      aria-labelledby="shop-integration-heading"
       className="mt-12"
-      data-integration-boundary="memberArea"
+      data-integration-boundary="shop"
       data-widget-environment="production"
     >
       <div className="max-w-copy">
         <div className="h-1 w-12 bg-brand" aria-hidden="true" />
         <h2
           className="mt-6 font-display text-3xl font-bold uppercase sm:text-4xl"
-          id="member-area-integration-heading"
+          id="shop-integration-heading"
         >
           {copy.heading}
         </h2>
@@ -95,26 +91,26 @@ export function BsportMemberLoginWidget({
 
       <div
         aria-busy={status === "loading"}
-        className="mt-8 min-h-40 rounded-control border border-line bg-panel p-6 sm:p-8"
+        className="mt-8 min-h-[32rem] rounded-control border border-line bg-panel text-copy"
       >
         {status === "loading" ? (
-          <p className="text-base text-copy-muted" role="status">
+          <p className="p-6 text-base text-copy-muted" role="status">
             {copy.loading}
           </p>
         ) : null}
         {status === "error" ? (
-          <p className="text-base text-signal" role="alert">
+          <p className="p-6 text-base text-signal" role="alert">
             {copy.error}
           </p>
         ) : null}
-        <div className="min-h-12 w-full" id={bsportMemberAreaElementId} />
+        <div className="min-h-[32rem] w-full" id={bsportShopElementId} />
       </div>
 
       <Script
-        id="bsport-widget-cdn"
+        id="bsport-shop-widget-cdn"
         onError={() => setStatus("error")}
         onReady={mountWidget}
-        src={bsportWidgetScriptUrl}
+        src={bsportShopWidgetScriptUrl}
         strategy="afterInteractive"
       />
     </section>

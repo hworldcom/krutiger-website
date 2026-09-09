@@ -148,7 +148,7 @@ body {
   opacity: 1;
 }
 
-#bsport-widget-235346 #bsport-widget-authentication__login_button {
+#bsport-widget-832086 #bsport-widget-authentication__login_button {
   min-height: 3rem !important;
   padding: 0.75rem 1.5rem !important;
   color: var(--krutiger-brand-ink) !important;
@@ -167,19 +167,19 @@ body {
     background-color var(--duration-fast) var(--ease-brand) !important;
 }
 
-#bsport-widget-235346 #bsport-widget-authentication__login_button:hover,
-#bsport-widget-235346 #bsport-widget-authentication__login_button:active {
+#bsport-widget-832086 #bsport-widget-authentication__login_button:hover,
+#bsport-widget-832086 #bsport-widget-authentication__login_button:active {
   color: var(--krutiger-brand-ink) !important;
   background-color: var(--krutiger-brand-hover) !important;
 }
 
-#bsport-widget-235346
+#bsport-widget-832086
   #bsport-widget-authentication__login_button:focus-visible {
   outline: 3px solid var(--krutiger-focus) !important;
   outline-offset: 3px !important;
 }
 
-#bsport-widget-235346 #bsport-widget-authentication__login_button svg {
+#bsport-widget-832086 #bsport-widget-authentication__login_button svg {
   width: 1.25rem !important;
   height: 1.25rem !important;
   color: currentColor !important;

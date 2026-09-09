@@ -23,14 +23,8 @@ with a `NEXT_PUBLIC_` prefix.
 The production script is loaded with Next.js `afterInteractive` behavior only
 when a visitor opens a schedule route. A localized loading state is displayed
 until mount is requested, and a localized error message is displayed if the
-script fails to load or mount. The pricing widget also uses production, while
-member login remains on staging until its production widget is supplied.
-
-Because bsport exposes a single global `window.BsportWidget`, crossing between
-the production calendar and a staging widget triggers one clean document reload.
-This prevents one environment's runtime from sending another environment's
-company ID to the wrong API. Navigation between widgets in the same environment
-remains client-side.
+script fails to load or mount. The calendar, pricing, and member-login widgets
+all use the same production script and company.
 
 The paste-ready KRUTIGER overrides are maintained in:
 

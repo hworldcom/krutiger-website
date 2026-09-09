@@ -40,6 +40,7 @@ const routes = [
   "/training",
   "/schedule",
   "/prices",
+  "/shop",
   "/coaches",
   "/about",
   "/faq",

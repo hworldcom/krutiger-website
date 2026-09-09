@@ -5,12 +5,12 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import de from "@/i18n/dictionaries/de";
 import {
-  bsportMemberAreaElementId,
-  bsportWidgetScriptUrl,
-  createBsportLoginConfig,
+  bsportShopElementId,
+  bsportShopWidgetScriptUrl,
+  createBsportShopConfig,
 } from "@/lib/bsport/widget";
 
-import { BsportMemberLoginWidget } from "./bsport-member-login-widget";
+import { BsportShopWidget } from "./bsport-shop-widget";
 
 type ScriptHandlers = {
   onError?: () => void;
@@ -41,20 +41,20 @@ afterEach(() => {
   delete window.BsportWidget;
 });
 
-describe("BsportMemberLoginWidget", () => {
-  it("loads the route-scoped script and mounts the supplied login once", async () => {
+describe("BsportShopWidget", () => {
+  it("loads the route-scoped script and mounts the supplied shop once", async () => {
     const mount = vi.fn(() => {
-      document.getElementById(bsportMemberAreaElementId)?.append("Sign in");
+      document.getElementById(bsportShopElementId)?.append("Products");
     });
     window.BsportWidget = { mount };
 
-    render(<BsportMemberLoginWidget copy={de.integrations.memberArea} />);
+    render(<BsportShopWidget copy={de.integrations.shop} />);
 
     expect(screen.getByRole("status").textContent).toBe(
-      de.integrations.memberArea.loading,
+      de.integrations.shop.loading,
     );
     expect(screen.getByTestId("bsport-script").getAttribute("data-src")).toBe(
-      bsportWidgetScriptUrl,
+      bsportShopWidgetScriptUrl,
     );
 
     act(() => scriptHandlers.onReady?.());
@@ -62,24 +62,26 @@ describe("BsportMemberLoginWidget", () => {
 
     expect(mount).toHaveBeenCalledOnce();
     expect(mount).toHaveBeenCalledWith(
-      createBsportLoginConfig(bsportMemberAreaElementId),
+      createBsportShopConfig(bsportShopElementId),
     );
-    expect(window.__krutigerBsportWidgetScriptUrl).toBe(bsportWidgetScriptUrl);
+    expect(window.__krutigerBsportWidgetScriptUrl).toBe(
+      bsportShopWidgetScriptUrl,
+    );
     await waitFor(() => expect(screen.queryByRole("status")).toBeNull());
     expect(
       document
-        .querySelector('[data-integration-boundary="memberArea"]')
+        .querySelector('[data-integration-boundary="shop"]')
         ?.getAttribute("data-widget-environment"),
     ).toBe("production");
   });
 
   it("shows localized fallback copy when the external script fails", () => {
-    render(<BsportMemberLoginWidget copy={de.integrations.memberArea} />);
+    render(<BsportShopWidget copy={de.integrations.shop} />);
 
     act(() => scriptHandlers.onError?.());
 
     expect(screen.getByRole("alert").textContent).toBe(
-      de.integrations.memberArea.error,
+      de.integrations.shop.error,
     );
   });
 });

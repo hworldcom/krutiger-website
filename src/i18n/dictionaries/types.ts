@@ -25,11 +25,6 @@ type WidgetIntegrationCopy = IntegrationCopy &
     error: string;
   }>;
 
-type StagingWidgetIntegrationCopy = WidgetIntegrationCopy &
-  Readonly<{
-    stagingNotice: string;
-  }>;
-
 type AboutChapterCopy = Readonly<{
   number: string;
   title: string;
@@ -164,8 +159,9 @@ export type Dictionary = Readonly<{
   integrations: Readonly<
     Record<IntegrationArea, IntegrationCopy> & {
       schedule: WidgetIntegrationCopy;
-      memberArea: StagingWidgetIntegrationCopy;
+      memberArea: WidgetIntegrationCopy;
       pricing: WidgetIntegrationCopy;
+      shop: WidgetIntegrationCopy;
     }
   >;
   notFound: StateCopy &
