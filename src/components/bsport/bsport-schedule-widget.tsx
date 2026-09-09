@@ -8,7 +8,7 @@ import {
   bsportCalendarWidgetScriptUrl,
   bsportScheduleElementId,
   createBsportCalendarConfig,
-  prepareBsportWidgetEnvironment,
+  prepareBsportWidgetMount,
 } from "@/lib/bsport/widget";
 
 type BsportScheduleWidgetProps = Readonly<{
@@ -55,10 +55,12 @@ export function BsportScheduleWidget({ copy }: BsportScheduleWidgetProps) {
   }, []);
 
   const mountWidget = useCallback(() => {
+    const mountElement = document.getElementById(bsportScheduleElementId);
+
     if (
       hasMounted.current ||
       !window.BsportWidget ||
-      !prepareBsportWidgetEnvironment(bsportCalendarWidgetScriptUrl)
+      !prepareBsportWidgetMount(bsportCalendarWidgetScriptUrl, mountElement)
     ) {
       return;
     }
@@ -72,6 +74,12 @@ export function BsportScheduleWidget({ copy }: BsportScheduleWidgetProps) {
       setStatus("error");
     }
   }, []);
+
+  useEffect(() => {
+    const mountAttemptId = window.setTimeout(mountWidget, 0);
+
+    return () => window.clearTimeout(mountAttemptId);
+  }, [mountWidget]);
 
   return (
     <section
@@ -101,7 +109,11 @@ export function BsportScheduleWidget({ copy }: BsportScheduleWidgetProps) {
           </p>
         ) : null}
         {status === "error" ? (
-          <p className="p-6 text-base text-signal" role="alert">
+          <p
+            className="p-6 text-base text-signal"
+            data-widget-fallback="error"
+            role="alert"
+          >
             {copy.error}
           </p>
         ) : null}

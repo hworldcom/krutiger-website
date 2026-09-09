@@ -26,6 +26,11 @@ until mount is requested, and a localized error message is displayed if the
 script fails to load or mount. The calendar, pricing, and member-login widgets
 all use the same production script and company.
 
+The shared bsport runtime is not reusable after React removes a mounted parent
+element. Client-side navigation into another bsport widget or language variant
+therefore triggers one clean document reload before mounting. This behavior is
+covered by the bsport browser journey check.
+
 The paste-ready KRUTIGER overrides are maintained in:
 
 - `docs/bsport-calendar-header.css` for the calendar header; and
@@ -65,8 +70,8 @@ on both localized schedule routes, and saves screenshots under
   inside the third-party widget.
 - Review cookies, storage, network destinations, and privacy disclosure before
   enabling the widget on the public site.
-- Confirm whether bsport provides a supported unmount or teardown API for
-  client-side route transitions.
+- Revisit the clean-reload fallback if bsport provides a supported unmount or
+  teardown API for client-side route transitions.
 
 ## Integration observations
 

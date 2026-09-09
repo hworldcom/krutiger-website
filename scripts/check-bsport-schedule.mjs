@@ -178,7 +178,9 @@ try {
         hasApi: typeof window.BsportWidget?.mount === "function",
         mountedChildren:
           document.getElementById(elementId)?.childElementCount ?? 0,
-        hasError: Boolean(document.querySelector('[role="alert"]')),
+        hasError: Boolean(
+          document.querySelector('[data-widget-fallback="error"]'),
+        ),
         textLength:
           document.getElementById(elementId)?.textContent?.trim().length ?? 0,
       }),
@@ -225,10 +227,59 @@ try {
 
     await context.close();
   }
+
+  const journeyContext = await browser.newContext({
+    locale: "de-DE",
+    viewport: { width: 1440, height: 1000 },
+  });
+  const journeyPage = await journeyContext.newPage();
+
+  await journeyPage.goto(new URL("/de/schedule", baseUrl).href, {
+    waitUntil: "domcontentloaded",
+  });
+  await journeyPage.waitForFunction(
+    () =>
+      (document.getElementById("bsport-widget-368485")?.textContent?.trim()
+        .length ?? 0) > 0,
+    undefined,
+    { timeout: 30_000 },
+  );
+
+  await journeyPage.locator('a[href="/de/shop"]:visible').first().click();
+  await journeyPage.waitForURL("**/de/shop");
+  await journeyPage.waitForFunction(
+    () =>
+      (document.getElementById("bsport-widget-140155")?.textContent?.trim()
+        .length ?? 0) > 0,
+    undefined,
+    { timeout: 30_000 },
+  );
+  await journeyPage.waitForTimeout(5_000);
+  assert(
+    (await journeyPage.locator('[data-widget-fallback="error"]').count()) === 0,
+    "The shop failed after client-side navigation from the calendar.",
+  );
+
+  await journeyPage.locator('a[href="/en/shop"]:visible').first().click();
+  await journeyPage.waitForURL("**/en/shop");
+  await journeyPage.waitForFunction(
+    () =>
+      (document.getElementById("bsport-widget-140155")?.textContent?.trim()
+        .length ?? 0) > 0,
+    undefined,
+    { timeout: 30_000 },
+  );
+  await journeyPage.waitForTimeout(5_000);
+  assert(
+    (await journeyPage.locator('[data-widget-fallback="error"]').count()) === 0,
+    "The shop failed after switching from German to English.",
+  );
+
+  await journeyContext.close();
 } finally {
   await browser.close();
 }
 
 console.log(
-  `bsport production calendar, pricing, member login, and shop widgets mounted in localized routes. Screenshots: ${screenshotDirectory}`,
+  `bsport production widgets mounted directly and after route/language navigation. Screenshots: ${screenshotDirectory}`,
 );

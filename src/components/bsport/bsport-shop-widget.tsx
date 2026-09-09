@@ -8,7 +8,7 @@ import {
   bsportShopElementId,
   bsportShopWidgetScriptUrl,
   createBsportShopConfig,
-  prepareBsportWidgetEnvironment,
+  prepareBsportWidgetMount,
 } from "@/lib/bsport/widget";
 
 type BsportShopWidgetProps = Readonly<{
@@ -55,10 +55,12 @@ export function BsportShopWidget({ copy }: BsportShopWidgetProps) {
   }, []);
 
   const mountWidget = useCallback(() => {
+    const mountElement = document.getElementById(bsportShopElementId);
+
     if (
       hasMounted.current ||
       !window.BsportWidget ||
-      !prepareBsportWidgetEnvironment(bsportShopWidgetScriptUrl)
+      !prepareBsportWidgetMount(bsportShopWidgetScriptUrl, mountElement)
     ) {
       return;
     }
@@ -70,6 +72,12 @@ export function BsportShopWidget({ copy }: BsportShopWidgetProps) {
       setStatus("error");
     }
   }, []);
+
+  useEffect(() => {
+    const mountAttemptId = window.setTimeout(mountWidget, 0);
+
+    return () => window.clearTimeout(mountAttemptId);
+  }, [mountWidget]);
 
   return (
     <section
@@ -99,7 +107,11 @@ export function BsportShopWidget({ copy }: BsportShopWidgetProps) {
           </p>
         ) : null}
         {status === "error" ? (
-          <p className="p-6 text-base text-signal" role="alert">
+          <p
+            className="p-6 text-base text-signal"
+            data-widget-fallback="error"
+            role="alert"
+          >
             {copy.error}
           </p>
         ) : null}

@@ -54,18 +54,32 @@ export const bsportShopCompanyId = resolveBsportCompanyId(
   defaultShopCompanyId,
 );
 
-export function prepareBsportWidgetEnvironment(
+export function prepareBsportWidgetMount(
   scriptUrl: string,
+  mountElement: HTMLElement | null,
   reload = () => window.location.reload(),
 ) {
-  const activeScriptUrl = window.__krutigerBsportWidgetScriptUrl;
+  if (!mountElement) {
+    return false;
+  }
 
-  if (activeScriptUrl && activeScriptUrl !== scriptUrl) {
-    reload();
+  const activeScriptUrl = window.__krutigerBsportWidgetScriptUrl;
+  const activeMountElement = window.__krutigerBsportWidgetMountElement;
+  const runtimeMustReload =
+    (activeScriptUrl && activeScriptUrl !== scriptUrl) ||
+    (activeMountElement && activeMountElement !== mountElement);
+
+  if (runtimeMustReload) {
+    if (!window.__krutigerBsportWidgetReloadPending) {
+      window.__krutigerBsportWidgetReloadPending = true;
+      reload();
+    }
+
     return false;
   }
 
   window.__krutigerBsportWidgetScriptUrl = scriptUrl;
+  window.__krutigerBsportWidgetMountElement = mountElement;
   return true;
 }
 

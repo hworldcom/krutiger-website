@@ -37,6 +37,8 @@ beforeEach(() => {
 
 afterEach(() => {
   cleanup();
+  delete window.__krutigerBsportWidgetMountElement;
+  delete window.__krutigerBsportWidgetReloadPending;
   delete window.__krutigerBsportWidgetScriptUrl;
   delete window.BsportWidget;
 });

@@ -8,7 +8,7 @@ import {
   bsportMemberAreaElementId,
   bsportWidgetScriptUrl,
   createBsportLoginConfig,
-  prepareBsportWidgetEnvironment,
+  prepareBsportWidgetMount,
 } from "@/lib/bsport/widget";
 
 type BsportMemberLoginWidgetProps = Readonly<{
@@ -57,10 +57,12 @@ export function BsportMemberLoginWidget({
   }, []);
 
   const mountWidget = useCallback(() => {
+    const mountElement = document.getElementById(bsportMemberAreaElementId);
+
     if (
       hasMounted.current ||
       !window.BsportWidget ||
-      !prepareBsportWidgetEnvironment(bsportWidgetScriptUrl)
+      !prepareBsportWidgetMount(bsportWidgetScriptUrl, mountElement)
     ) {
       return;
     }
@@ -74,6 +76,12 @@ export function BsportMemberLoginWidget({
       setStatus("error");
     }
   }, []);
+
+  useEffect(() => {
+    const mountAttemptId = window.setTimeout(mountWidget, 0);
+
+    return () => window.clearTimeout(mountAttemptId);
+  }, [mountWidget]);
 
   return (
     <section
@@ -103,7 +111,11 @@ export function BsportMemberLoginWidget({
           </p>
         ) : null}
         {status === "error" ? (
-          <p className="text-base text-signal" role="alert">
+          <p
+            className="text-base text-signal"
+            data-widget-fallback="error"
+            role="alert"
+          >
             {copy.error}
           </p>
         ) : null}
