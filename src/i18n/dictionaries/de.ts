@@ -158,25 +158,14 @@ const de = {
     schedule: {
       title: "Heute bei Kru Tiger",
       action: "Kursplan ansehen",
-      placeholderNotice:
-        "Vorschau mit Beispieldaten. Live-Zeiten und Verfügbarkeiten findest du im Kursplan.",
-      classes: [
-        {
-          time: "17:00",
-          title: "Anfänger",
-          details: "60 Min · Alle Levels",
-        },
-        {
-          time: "18:30",
-          title: "Muay Thai All Levels",
-          details: "90 Min · Alle Levels",
-        },
-        {
-          time: "20:00",
-          title: "Sparring",
-          details: "90 Min · Fortgeschrittene",
-        },
-      ],
+      loading: "Die heutigen Kurse werden geladen …",
+      error:
+        "Die heutigen Kurse konnten gerade nicht geladen werden. Öffne den Kursplan für alle aktuellen Zeiten.",
+      empty: "Heute finden keine Kurse statt. Nächste verfügbare Kurse:",
+      nextLoading: "Die nächsten Kurse werden geladen …",
+      nextUnavailable:
+        "Aktuell konnten keine weiteren Kurse gefunden werden. Öffne den Kursplan für alle Termine.",
+      allLevels: "Alle Levels",
       location: {
         district: "Kreuzberg",
         addressLineOne: "Melechstr. 11",
@@ -302,12 +291,50 @@ const de = {
         "Die Mitgliederanmeldung konnte gerade nicht geladen werden. Bitte versuche es später erneut.",
     },
     pricing: {
-      heading: "Mitgliedschaften und Trainingspässe",
+      heading: "Mitgliedschaften",
       description:
-        "Aktuelle Mitgliedschaften und Trainingspässe werden direkt aus bsport geladen. Der Kauf wird sicher im bsport-System fortgesetzt.",
+        "Wähle die Laufzeit und Mitgliedschaft, die zu deinem Training passt.",
+      secureCheckoutNotice:
+        "Zahlung und Abschluss aller Mitgliedschaften und Pässe werden sicher über bSport abgewickelt.",
+      termsLabel: "Gilt für alle Mitgliedschaften",
       loading: "Die aktuellen Preise werden geladen …",
       error:
         "Die Preise konnten gerade nicht geladen werden. Bitte versuche es später erneut.",
+      durationSelectorLabel: "Mitgliedschaftslaufzeit wählen",
+      durationLabels: {
+        12: "12 Monate",
+        6: "6 Monate",
+        3: "3 Monate",
+      },
+      membershipLabel: "Mitgliedschaft",
+      perMonth: "/ Monat",
+      billingDay: "Zahlung jeweils am {day}. des Monats",
+      joiningFee: "Aufnahmegebühr",
+      autoRenewal:
+        "Deine Mitgliedschaft verlängert sich nach Ablauf der gewählten Vertragslaufzeit automatisch, sofern sie nicht fristgerecht gekündigt wird.",
+      monthlyAccess: "{count} Teilnahmen im Monat an:",
+      unlimitedAccess: "Unbegrenzter Zugang zu:",
+      benefits: {
+        muayThai: "Allen Muay-Thai-Kursen",
+        openGym: "Open Gym",
+        yoga: "Yoga-Kursen",
+        strengthConditioning: "Strength and Conditioning",
+        mobility: "Mobility-Kursen",
+      },
+      bookAction: "Jetzt buchen",
+      unavailableHeading: "Tarife folgen",
+      unavailableDescription:
+        "Die Mitgliedschaften für diese Laufzeit werden ergänzt, sobald die bestätigten Konditionen und Buchungslinks vorliegen.",
+      monthlyPasses: {
+        heading: "Monatspässe",
+        description: "Wähle den Pass, der zu deinem Trainingsrhythmus passt.",
+        validityLabel: "Gültigkeit",
+        validity: "Gültig für {count} Monat ab dem Abrechnungsdatum.",
+        passLabel: "Monatspass",
+        sessions: "{count} Teilnahmen",
+        unlimitedSessions: "Unbegrenzte Teilnahmen",
+        buyAction: "Pass kaufen",
+      },
     },
     shop: {
       heading: "Shop bei bsport",

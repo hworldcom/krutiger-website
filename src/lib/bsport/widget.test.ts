@@ -6,12 +6,14 @@ import {
   bsportPricingElementId,
   bsportPricingWidgetScriptUrl,
   bsportScheduleElementId,
+  bsportTodayElementId,
   bsportShopElementId,
   bsportShopWidgetScriptUrl,
   createBsportCalendarConfig,
   createBsportLoginConfig,
   createBsportShopConfig,
   createBsportSubscriptionConfig,
+  createBsportTodayConfig,
   resolveBsportCompanyId,
 } from "./widget";
 
@@ -29,6 +31,19 @@ describe("bsport widget configuration", () => {
       showFab: false,
       fullScreenPopup: false,
       config: { calendar: { variant: "activityName" } },
+    });
+  });
+
+  it("uses the supplied production today-only calendar configuration", () => {
+    expect(createBsportTodayConfig(bsportTodayElementId)).toEqual({
+      parentElement: "bsport-widget-679237",
+      companyId: 6720,
+      franchiseId: null,
+      dialogMode: 1,
+      widgetType: "calendar",
+      showFab: false,
+      fullScreenPopup: false,
+      config: { calendar: { todayOnly: true, cardMode: false } },
     });
   });
 

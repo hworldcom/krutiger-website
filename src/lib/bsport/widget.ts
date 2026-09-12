@@ -11,6 +11,7 @@ export const bsportPricingWidgetScriptUrl =
 export const bsportShopWidgetScriptUrl =
   "https://cdn.bsport.io/scripts/widget.js";
 export const bsportScheduleElementId = "bsport-widget-368485";
+export const bsportTodayElementId = "bsport-widget-679237";
 export const bsportMemberAreaElementId = "bsport-widget-832086";
 export const bsportPricingElementId = "bsport-widget-361765";
 export const bsportShopElementId = "bsport-widget-140155";
@@ -100,6 +101,24 @@ export function createBsportCalendarConfig(parentElement: string) {
   } as const;
 }
 
+export function createBsportTodayConfig(parentElement: string) {
+  return {
+    parentElement,
+    companyId: bsportCalendarCompanyId,
+    franchiseId: null,
+    dialogMode: 1,
+    widgetType: "calendar",
+    showFab: false,
+    fullScreenPopup: false,
+    config: {
+      calendar: {
+        todayOnly: true,
+        cardMode: false,
+      },
+    },
+  } as const;
+}
+
 export function createBsportLoginConfig(parentElement: string) {
   return {
     parentElement,
@@ -149,6 +168,7 @@ export function createBsportShopConfig(parentElement: string) {
 
 export type BsportWidgetConfig =
   | ReturnType<typeof createBsportCalendarConfig>
+  | ReturnType<typeof createBsportTodayConfig>
   | ReturnType<typeof createBsportLoginConfig>
   | ReturnType<typeof createBsportSubscriptionConfig>
   | ReturnType<typeof createBsportShopConfig>;

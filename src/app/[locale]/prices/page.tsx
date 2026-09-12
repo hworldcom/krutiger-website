@@ -25,6 +25,7 @@ export default async function PricingRoute({ params }: PricingRouteProps) {
     <PricingPage
       content={dictionary.routes.prices}
       integration={dictionary.integrations.pricing}
+      locale={locale}
     />
   );
 }

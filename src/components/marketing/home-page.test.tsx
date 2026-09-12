@@ -7,7 +7,7 @@ import en from "../../i18n/dictionaries/en";
 import { HomePage } from "./home-page";
 
 describe("HomePage", () => {
-  it("renders the German hero, preview schedule, values, and localized actions", () => {
+  it("renders the German hero, live schedule boundary, values, and localized actions", () => {
     const markup = renderToStaticMarkup(
       <HomePage content={de.homePage} locale="de" />,
     );
@@ -16,7 +16,9 @@ describe("HomePage", () => {
     expect(markup).toContain("images%2Fhome%2Fmain.png");
     expect(markup).toContain('href="/de/contact"');
     expect(markup).toContain('href="/de/schedule"');
-    expect(markup).toContain('data-placeholder-data="true"');
+    expect(markup).toContain('data-integration-boundary="home-schedule"');
+    expect(markup).toContain('id="bsport-widget-679237"');
+    expect(markup).not.toContain('data-placeholder-data="true"');
 
     for (const item of de.homePage.values.items) {
       expect(markup).toContain(item.title);

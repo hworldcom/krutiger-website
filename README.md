@@ -767,6 +767,9 @@ The first release does not need:
 
 ### Milestone 2 — Sanity
 
+Detailed implementation tickets are maintained in
+[`planning/milestone-2`](./planning/milestone-2/README.md).
+
 - create Sanity project
 - configure schemas
 - connect Next.js to Sanity

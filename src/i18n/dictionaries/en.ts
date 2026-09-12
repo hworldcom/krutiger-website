@@ -157,25 +157,14 @@ const en = {
     schedule: {
       title: "Today at Kru Tiger",
       action: "View schedule",
-      placeholderNotice:
-        "Preview with sample data. Open the schedule for live times and availability.",
-      classes: [
-        {
-          time: "17:00",
-          title: "Beginners",
-          details: "60 min · All levels",
-        },
-        {
-          time: "18:30",
-          title: "Muay Thai All Levels",
-          details: "90 min · All levels",
-        },
-        {
-          time: "20:00",
-          title: "Sparring",
-          details: "90 min · Advanced",
-        },
-      ],
+      loading: "Today's classes are loading…",
+      error:
+        "Today's classes could not be loaded right now. Open the schedule for all current times.",
+      empty: "There are no classes today. Next available classes:",
+      nextLoading: "The next classes are loading…",
+      nextUnavailable:
+        "No upcoming classes could be found right now. Open the schedule for all sessions.",
+      allLevels: "All levels",
       location: {
         district: "Kreuzberg",
         addressLineOne: "Melechstr. 11",
@@ -301,12 +290,50 @@ const en = {
         "The member sign-in could not be loaded right now. Please try again later.",
     },
     pricing: {
-      heading: "Memberships and training passes",
+      heading: "Memberships",
       description:
-        "Current memberships and training passes are loaded directly from bsport. Purchases continue securely in the bsport system.",
+        "Choose the contract length and membership that suit your training.",
+      secureCheckoutNotice:
+        "Payment and checkout for all memberships and passes are handled securely through bSport.",
+      termsLabel: "Applies to all memberships",
       loading: "The current prices are loading…",
       error:
         "The prices could not be loaded right now. Please try again later.",
+      durationSelectorLabel: "Choose a membership duration",
+      durationLabels: {
+        12: "12 months",
+        6: "6 months",
+        3: "3 months",
+      },
+      membershipLabel: "Membership",
+      perMonth: "/ month",
+      billingDay: "Billed on the {day}st of each month",
+      joiningFee: "Joining fee",
+      autoRenewal:
+        "Your membership renews automatically after the selected contract term unless cancelled in time.",
+      monthlyAccess: "{count} sessions per month for:",
+      unlimitedAccess: "Unlimited access to:",
+      benefits: {
+        muayThai: "All Muay Thai classes",
+        openGym: "Open Gym",
+        yoga: "Yoga classes",
+        strengthConditioning: "Strength and Conditioning",
+        mobility: "Mobility classes",
+      },
+      bookAction: "Book now",
+      unavailableHeading: "Plans coming soon",
+      unavailableDescription:
+        "Memberships for this duration will be added as soon as the confirmed terms and checkout links are available.",
+      monthlyPasses: {
+        heading: "Monthly passes",
+        description: "Choose the pass that matches your training rhythm.",
+        validityLabel: "Validity",
+        validity: "Valid for {count} month from the billing date.",
+        passLabel: "Monthly pass",
+        sessions: "{count} sessions",
+        unlimitedSessions: "Unlimited sessions",
+        buyAction: "Buy pass",
+      },
     },
     shop: {
       heading: "Shop with bsport",

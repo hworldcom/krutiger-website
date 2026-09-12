@@ -25,6 +25,41 @@ type WidgetIntegrationCopy = IntegrationCopy &
     error: string;
   }>;
 
+type PricingIntegrationCopy = WidgetIntegrationCopy &
+  Readonly<{
+    secureCheckoutNotice: string;
+    termsLabel: string;
+    durationSelectorLabel: string;
+    durationLabels: Readonly<Record<12 | 6 | 3, string>>;
+    membershipLabel: string;
+    perMonth: string;
+    billingDay: string;
+    joiningFee: string;
+    autoRenewal: string;
+    monthlyAccess: string;
+    unlimitedAccess: string;
+    benefits: Readonly<{
+      muayThai: string;
+      openGym: string;
+      yoga: string;
+      strengthConditioning: string;
+      mobility: string;
+    }>;
+    bookAction: string;
+    unavailableHeading: string;
+    unavailableDescription: string;
+    monthlyPasses: Readonly<{
+      heading: string;
+      description: string;
+      validityLabel: string;
+      validity: string;
+      passLabel: string;
+      sessions: string;
+      unlimitedSessions: string;
+      buyAction: string;
+    }>;
+  }>;
+
 type AboutChapterCopy = Readonly<{
   number: string;
   title: string;
@@ -44,12 +79,6 @@ type HomeFeatureCopy = Readonly<{
   description: string;
 }>;
 
-type HomeClassCopy = Readonly<{
-  time: string;
-  title: string;
-  details: string;
-}>;
-
 export type HomePageCopy = Readonly<{
   hero: Readonly<{
     eyebrow: string;
@@ -62,8 +91,12 @@ export type HomePageCopy = Readonly<{
   schedule: Readonly<{
     title: string;
     action: string;
-    placeholderNotice: string;
-    classes: readonly [HomeClassCopy, HomeClassCopy, HomeClassCopy];
+    loading: string;
+    error: string;
+    empty: string;
+    nextLoading: string;
+    nextUnavailable: string;
+    allLevels: string;
     location: Readonly<{
       district: string;
       addressLineOne: string;
@@ -160,7 +193,7 @@ export type Dictionary = Readonly<{
     Record<IntegrationArea, IntegrationCopy> & {
       schedule: WidgetIntegrationCopy;
       memberArea: WidgetIntegrationCopy;
-      pricing: WidgetIntegrationCopy;
+      pricing: PricingIntegrationCopy;
       shop: WidgetIntegrationCopy;
     }
   >;

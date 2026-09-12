@@ -1,5 +1,6 @@
 import Image from "next/image";
 
+import { BsportTodayWidget } from "@/components/bsport/bsport-today-widget";
 import type { Locale } from "@/i18n/config";
 import type { HomePageCopy } from "@/i18n/dictionaries/types";
 
@@ -194,11 +195,10 @@ export function HomePage({ content, locale }: HomePageProps) {
       <section
         aria-labelledby="home-schedule-title"
         className="relative z-10 -mt-12"
-        data-placeholder-data="true"
       >
         <Container>
           <div className="border border-line bg-canvas/95 shadow-card backdrop-blur-sm">
-            <div className="grid lg:grid-cols-2 xl:grid-cols-[17rem_repeat(3,minmax(0,1fr))_17rem]">
+            <div className="grid lg:grid-cols-[17rem_minmax(0,1fr)] xl:grid-cols-[17rem_minmax(0,1fr)_17rem]">
               <header className="p-6">
                 <p
                   className="font-display text-3xl leading-none font-extrabold uppercase"
@@ -212,24 +212,9 @@ export function HomePage({ content, locale }: HomePageProps) {
                 </ButtonLink>
               </header>
 
-              {content.schedule.classes.map((classItem) => (
-                <article
-                  className="border-t border-line p-6 lg:border-l lg:first-of-type:border-t-0 xl:border-t-0"
-                  key={`${classItem.time}-${classItem.title}`}
-                >
-                  <p className="font-display text-2xl leading-none font-extrabold text-brand">
-                    {classItem.time}
-                  </p>
-                  <h3 className="mt-1 font-display text-xl leading-tight font-bold tracking-wide uppercase">
-                    {classItem.title}
-                  </h3>
-                  <p className="mt-1 text-xs tracking-[0.08em] text-copy-muted uppercase">
-                    {classItem.details}
-                  </p>
-                </article>
-              ))}
+              <BsportTodayWidget copy={content.schedule} locale={locale} />
 
-              <div className="flex items-start gap-3 border-t border-line p-6 text-brand lg:border-l xl:border-t-0">
+              <div className="flex items-start gap-3 border-t border-line p-6 text-brand lg:col-start-2 lg:border-l xl:col-start-auto xl:border-t-0">
                 <LocationIcon />
                 <div className="text-copy">
                   <p className="font-display text-lg font-bold tracking-wide uppercase">
@@ -243,9 +228,6 @@ export function HomePage({ content, locale }: HomePageProps) {
                 </div>
               </div>
             </div>
-            <p className="border-t border-line px-6 py-3 text-xs leading-5 text-copy-muted">
-              {content.schedule.placeholderNotice}
-            </p>
           </div>
         </Container>
       </section>
