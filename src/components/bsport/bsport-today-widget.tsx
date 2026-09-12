@@ -116,6 +116,12 @@ export function BsportTodayWidget({ copy, locale }: BsportTodayWidgetProps) {
     }
   }, []);
 
+  useEffect(() => {
+    const mountAttemptId = window.setTimeout(mountWidget, 0);
+
+    return () => window.clearTimeout(mountAttemptId);
+  }, [mountWidget]);
+
   return (
     <div
       aria-busy={status === "loading"}

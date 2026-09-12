@@ -72,6 +72,23 @@ describe("BsportTodayWidget", () => {
     await waitFor(() => expect(screen.queryByRole("status")).toBeNull());
   });
 
+  it("mounts after navigation when the cached script does not call onReady again", async () => {
+    const mount = vi.fn(() => {
+      const widgetContent = document.createElement("div");
+      widgetContent.textContent = "Today";
+      document.getElementById(bsportTodayElementId)?.append(widgetContent);
+    });
+    window.BsportWidget = { mount };
+
+    render(<BsportTodayWidget copy={de.homePage.schedule} locale="de" />);
+
+    await waitFor(() => expect(mount).toHaveBeenCalledOnce());
+    expect(mount).toHaveBeenCalledWith(
+      createBsportTodayConfig(bsportTodayElementId),
+    );
+    expect(screen.queryByRole("status")).toBeNull();
+  });
+
   it("shows localized fallback copy when the script fails", () => {
     render(<BsportTodayWidget copy={de.homePage.schedule} locale="de" />);
 
