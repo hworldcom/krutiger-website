@@ -1,7 +1,11 @@
 import type { DocumentActionsResolver } from "sanity";
 import type { StructureResolver } from "sanity/structure";
 
-export const singletonTypes = new Set(["siteSettings"]);
+export const singletonTypes = new Set([
+  "siteSettings",
+  "homepage",
+  "aboutPage",
+]);
 
 const singletonActions = new Set(["publish", "discardChanges", "restore"]);
 
@@ -28,7 +32,26 @@ export const structure: StructureResolver = (S) =>
             .documentId("siteSettings")
             .title("Site settings"),
         ),
-      ...S.documentTypeListItems().filter(
-        (listItem) => !singletonTypes.has(listItem.getId() ?? ""),
-      ),
+      S.listItem()
+        .id("homepage")
+        .title("Homepage")
+        .child(
+          S.document()
+            .schemaType("homepage")
+            .documentId("homepage")
+            .title("Homepage"),
+        ),
+      S.listItem()
+        .id("aboutPage")
+        .title("About page")
+        .child(
+          S.document()
+            .schemaType("aboutPage")
+            .documentId("aboutPage")
+            .title("About page"),
+        ),
+      S.divider(),
+      S.documentTypeListItem("classType").title("Training classes"),
+      S.documentTypeListItem("coach").title("Team"),
+      S.documentTypeListItem("faq").title("FAQ"),
     ]);

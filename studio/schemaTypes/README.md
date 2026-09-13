@@ -34,6 +34,40 @@ incomplete work as a draft, but publishing remains unavailable until validation
 passes. In particular, `contactStatus` must be changed from `placeholder` to
 `verified` only after KRUTIGER has checked every contact value.
 
+## Fixed pages
+
+`homepage` and `aboutPage` use the fixed document IDs `homepage` and
+`aboutPage`. Editors can update copy, calls-to-action labels, SEO metadata, and
+approved images, but cannot choose components or visual styles. The homepage
+does not duplicate schedule or location data: live sessions remain in bsport,
+and global contact details belong to `siteSettings`.
+
+Homepage features, About chapters, and philosophy values are ordered embedded
+objects. Each has a constrained, unique `internalKey` that allows the frontend
+to select its code-owned icon or visual treatment independently of its display
+order.
+
+## Collections
+
+- `classType` describes training formats but never live sessions, capacity, or
+  booking state.
+- `coach` stores team biographies, specialties, approved photos, and an
+  optional social profile.
+- `faq` stores categorized questions and rich-text answers.
+
+Each collection has an explicit integer `order` and an `active` switch. Default
+Studio ordering uses `order` first and a stable title second. Embedded arrays
+name their one permitted object type, so incompatible documents or content
+objects cannot be inserted.
+
+## Publication requirements
+
+Fields with validation errors do not block Sanity from auto-saving a draft, but
+they do block publication. All German and English content, collection ordering,
+stable internal identifiers, and required image approval metadata must be
+complete before publishing. Secondary About imagery and a team member's social
+profile are intentionally optional.
+
 ## Ownership boundaries
 
 Sanity owns editable marketing copy and approved imagery. Next.js owns routes,
