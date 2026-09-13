@@ -122,7 +122,7 @@ try {
     const page = await context.newPage();
 
     for (const locale of locales) {
-      for (const route of ["/", "/about"]) {
+      for (const route of ["/", "/about", "/coaches"]) {
         const url = localizedUrl(locale, route);
         await openPage(page, url);
         await checkNoHorizontalOverflow(
@@ -138,7 +138,8 @@ try {
 
         if (locale === "de") {
           await loadLazyImages(page);
-          const screenshotName = `${viewport.name}-${route === "/" ? "home" : "about"}.jpg`;
+          const routeName = route === "/" ? "home" : route.slice(1);
+          const screenshotName = `${viewport.name}-${routeName}.jpg`;
           await page.screenshot({
             fullPage: true,
             path: join(screenshotDirectory, screenshotName),

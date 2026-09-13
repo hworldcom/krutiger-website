@@ -1,6 +1,6 @@
 # M1-09 — Build the Team page and reusable person cards
 
-**Status:** Planned
+**Status:** Complete
 
 ## Outcome
 

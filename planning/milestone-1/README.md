@@ -38,7 +38,7 @@ Deliver a working, branded, responsive, bilingual Next.js application shell for 
 | M1-05 | [Build the global footer](./M1-05-global-footer.md)                                       | Complete | M1-03, M1-06, M1-08        |
 | M1-06 | [Create the core UI primitives](./M1-06-core-ui-primitives.md)                            | Complete | M1-01, M1-02               |
 | M1-07 | [Establish foundation quality gates](./M1-07-foundation-quality-gates.md)                 | Complete | M1-03–M1-06, M1-08         |
-| M1-09 | [Build the Team page and reusable person cards](./M1-09-team-page-and-cards.md)           | Planned  | M1-02, M1-03, M1-06, M1-08 |
+| M1-09 | [Build the Team page and reusable person cards](./M1-09-team-page-and-cards.md)           | Complete | M1-02, M1-03, M1-06, M1-08 |
 
 M1-01 and M1-02 can proceed in parallel. M1-08 establishes the locale contract before M1-03 creates the route shell. M1-06 can proceed alongside that work. M1-04 and M1-05 can then proceed in parallel. M1-09 builds on the completed shell, localization, brand, and UI foundations and can be implemented before its content source changes to Sanity.
 

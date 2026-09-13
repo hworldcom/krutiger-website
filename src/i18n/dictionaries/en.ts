@@ -92,7 +92,7 @@ const en = {
       eyebrow: "Coaching team",
       title: "Meet the people behind the training",
       description:
-        "This page will introduce Kru Tiger and the coaching team through their experience, focus, and personal background.",
+        "Meet the people who share traditional Muay Thai at KRUTIGER with experience, clarity, and respect.",
     },
     about: {
       navigationLabel: "About",
@@ -271,6 +271,12 @@ const en = {
         },
       ],
     },
+  },
+  teamPage: {
+    sectionHeading: "The team",
+    specialtiesLabel: "Focus areas",
+    socialLinkAction: "View profile",
+    socialLinkLabel: "Open {name}'s social profile",
   },
   integrations: {
     schedule: {

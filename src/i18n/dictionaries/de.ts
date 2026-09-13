@@ -92,7 +92,7 @@ const de = {
       eyebrow: "Trainerteam",
       title: "Lerne die Menschen hinter dem Training kennen",
       description:
-        "Diese Seite stellt Kru Tiger und das Trainerteam mit Erfahrung, Schwerpunkten und persönlichem Hintergrund vor.",
+        "Lerne die Menschen kennen, die bei KRUTIGER traditionelles Muay Thai mit Erfahrung, Klarheit und Respekt weitergeben.",
     },
     about: {
       navigationLabel: "Über uns",
@@ -272,6 +272,12 @@ const de = {
         },
       ],
     },
+  },
+  teamPage: {
+    sectionHeading: "Das Team",
+    specialtiesLabel: "Schwerpunkte",
+    socialLinkAction: "Profil ansehen",
+    socialLinkLabel: "Social-Media-Profil von {name} öffnen",
   },
   integrations: {
     schedule: {

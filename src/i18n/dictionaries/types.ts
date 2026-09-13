@@ -144,6 +144,13 @@ export type AboutPageCopy = Readonly<{
   }>;
 }>;
 
+export type TeamPageCopy = Readonly<{
+  sectionHeading: string;
+  specialtiesLabel: string;
+  socialLinkAction: string;
+  socialLinkLabel: string;
+}>;
+
 export type Dictionary = Readonly<{
   metadata: Readonly<{
     title: string;
@@ -189,6 +196,7 @@ export type Dictionary = Readonly<{
   routes: Readonly<Record<RouteId, PageCopy>>;
   homePage: HomePageCopy;
   aboutPage: AboutPageCopy;
+  teamPage: TeamPageCopy;
   integrations: Readonly<
     Record<IntegrationArea, IntegrationCopy> & {
       schedule: WidgetIntegrationCopy;
