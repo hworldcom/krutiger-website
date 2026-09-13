@@ -7,6 +7,14 @@ export const singletonTypes = new Set([
   "aboutPage",
 ]);
 
+export const studioDeskSectionIds = [
+  "siteSettings",
+  "corePages",
+  "training",
+  "team",
+  "faq",
+] as const;
+
 const singletonActions = new Set(["publish", "discardChanges", "restore"]);
 
 export const resolveDocumentActions: DocumentActionsResolver = (
@@ -33,25 +41,65 @@ export const structure: StructureResolver = (S) =>
             .title("Site settings"),
         ),
       S.listItem()
-        .id("homepage")
-        .title("Homepage")
+        .id("corePages")
+        .title("Core pages")
         .child(
-          S.document()
-            .schemaType("homepage")
-            .documentId("homepage")
-            .title("Homepage"),
-        ),
-      S.listItem()
-        .id("aboutPage")
-        .title("About page")
-        .child(
-          S.document()
-            .schemaType("aboutPage")
-            .documentId("aboutPage")
-            .title("About page"),
+          S.list()
+            .id("corePages")
+            .title("Core pages")
+            .items([
+              S.listItem()
+                .id("homepage")
+                .title("Homepage")
+                .child(
+                  S.document()
+                    .schemaType("homepage")
+                    .documentId("homepage")
+                    .title("Homepage"),
+                ),
+              S.listItem()
+                .id("aboutPage")
+                .title("About page")
+                .child(
+                  S.document()
+                    .schemaType("aboutPage")
+                    .documentId("aboutPage")
+                    .title("About page"),
+                ),
+            ]),
         ),
       S.divider(),
-      S.documentTypeListItem("classType").title("Training classes"),
-      S.documentTypeListItem("coach").title("Team"),
-      S.documentTypeListItem("faq").title("FAQ"),
+      S.listItem()
+        .id("training")
+        .title("Training")
+        .child(
+          S.documentTypeList("classType")
+            .title("Training classes")
+            .defaultOrdering([
+              { field: "order", direction: "asc" },
+              { field: "name.de", direction: "asc" },
+            ]),
+        ),
+      S.listItem()
+        .id("team")
+        .title("Team")
+        .child(
+          S.documentTypeList("coach")
+            .title("Team")
+            .defaultOrdering([
+              { field: "order", direction: "asc" },
+              { field: "name", direction: "asc" },
+            ]),
+        ),
+      S.listItem()
+        .id("faq")
+        .title("FAQ")
+        .child(
+          S.documentTypeList("faq")
+            .title("FAQ")
+            .defaultOrdering([
+              { field: "order", direction: "asc" },
+              { field: "question.de", direction: "asc" },
+            ]),
+        ),
     ]);

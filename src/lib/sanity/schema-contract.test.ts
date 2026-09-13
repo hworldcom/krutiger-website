@@ -1,10 +1,18 @@
 import { describe, expect, it } from "vitest";
 
 import { schemaTypes } from "../../../studio/schemaTypes";
-import { validateUniqueInternalKeys } from "../../../studio/schemaTypes/validation";
-import { singletonTypes } from "../../../studio/structure";
+import {
+  validateLocalizedMaximumLength,
+  validateOptionalLocalizedPair,
+  validateUniqueInternalKeys,
+} from "../../../studio/schemaTypes/validation";
+import {
+  singletonTypes,
+  studioDeskSectionIds,
+} from "../../../studio/structure";
 
 type FieldDefinition = {
+  group?: string;
   name: string;
   of?: { type: string }[];
   type: string;
@@ -13,6 +21,7 @@ type FieldDefinition = {
 
 type SchemaDefinition = {
   fields?: FieldDefinition[];
+  groups?: { default?: boolean; name: string }[];
   name: string;
   orderings?: unknown[];
   type: string;
@@ -89,6 +98,7 @@ describe("Sanity schema contract", () => {
       "instagramUrl",
       "instagramHandle",
       "defaultSeo",
+      "editorialState",
     ]);
     expect(
       settings.fields?.every((field) => typeof field.validation === "function"),
@@ -116,6 +126,32 @@ describe("Sanity schema contract", () => {
       "homepage",
       "aboutPage",
     ]);
+  });
+
+  it("organizes the Studio desk into editor-facing content areas", () => {
+    expect([...studioDeskSectionIds]).toEqual([
+      "siteSettings",
+      "corePages",
+      "training",
+      "team",
+      "faq",
+    ]);
+  });
+
+  it.each([
+    "siteSettings",
+    "homepage",
+    "aboutPage",
+    "classType",
+    "coach",
+    "faq",
+  ])("groups every %s field and provides an editorial workflow", (typeName) => {
+    const definition = getType(typeName);
+
+    expect(definition.groups?.filter((group) => group.default)).toHaveLength(1);
+    expect(definition.groups?.map((group) => group.name)).toContain("workflow");
+    expect(fieldNames(typeName)).toContain("editorialState");
+    expect(definition.fields?.every((field) => field.group)).toBe(true);
   });
 
   it("constrains ordered page sections to compatible object types", () => {
@@ -152,5 +188,32 @@ describe("Sanity schema contract", () => {
         { internalKey: "technique" },
       ]),
     ).toBe(true);
+  });
+
+  it("requires optional localized captions to be complete in both languages", () => {
+    expect(validateOptionalLocalizedPair(undefined)).toBe(true);
+    expect(validateOptionalLocalizedPair({ de: "Bild", en: "Image" })).toBe(
+      true,
+    );
+    expect(validateOptionalLocalizedPair({ de: "Bild", en: "" })).toBe(
+      "Complete both German and English values, or leave both empty.",
+    );
+  });
+
+  it("reports overlong localized SEO values by language", () => {
+    expect(
+      validateLocalizedMaximumLength(
+        { de: "Kurz", en: "Short" },
+        10,
+        "SEO title",
+      ),
+    ).toBe(true);
+    expect(
+      validateLocalizedMaximumLength(
+        { de: "Dieser Titel ist zu lang", en: "This title is also too long" },
+        10,
+        "SEO title",
+      ),
+    ).toBe("SEO title: keep German and English at or below 10 characters.");
   });
 });

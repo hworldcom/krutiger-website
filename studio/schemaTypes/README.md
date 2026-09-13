@@ -7,6 +7,10 @@ one object with explicit `de` and `en` fields. German is the editorial source,
 but both languages are required before publication; there is no implicit German
 fallback on English pages.
 
+The Studio presents the German source and English translation together wherever
+localized content is edited. Document previews call out when their representative
+English value is missing.
+
 Reusable types:
 
 - `localizedString` for short plain text
@@ -67,6 +71,20 @@ they do block publication. All German and English content, collection ordering,
 stable internal identifiers, and required image approval metadata must be
 complete before publishing. Secondary About imagery and a team member's social
 profile are intentionally optional.
+
+Every document also has an editorial-state control under **Workflow**:
+
+- **In progress** for incomplete draft content;
+- **Ready for review** when an editor requests content-owner review; and
+- **Publication-ready** after content and approvals have been checked.
+
+This state is shown as a document badge and in list previews. It communicates
+workflow but never bypasses schema validation or publishes a document.
+Collection previews also show public visibility, ordering, and whether
+representative English content has been entered.
+
+Detailed editing and review instructions are in
+[`docs/sanity-editor-guide.md`](../../docs/sanity-editor-guide.md).
 
 ## Ownership boundaries
 

@@ -9,6 +9,8 @@ export const localizedString = defineType({
   name: "localizedString",
   title: "Localized short text",
   type: "object",
+  description:
+    "Enter the German source text and its explicit English translation.",
   options: { columns: 2 },
   fields: [
     defineField({
@@ -32,6 +34,9 @@ export const localizedText = defineType({
   name: "localizedText",
   title: "Localized text",
   type: "object",
+  description:
+    "Enter the German source text and its explicit English translation.",
+  options: { columns: 2 },
   fields: [
     defineField({
       name: "de",
@@ -56,6 +61,9 @@ export const localizedRichText = defineType({
   name: "localizedRichText",
   title: "Localized rich text",
   type: "object",
+  description:
+    "Enter the German source content and its explicit English translation.",
+  options: { columns: 2 },
   fields: [
     defineField({
       name: "de",
@@ -82,6 +90,8 @@ export const localizedAlternativeText = defineType({
   name: "localizedAlternativeText",
   title: "Localized alternative text",
   type: "object",
+  description: "Describe the same image independently in German and English.",
+  options: { columns: 2 },
   fields: [
     defineField({
       name: "de",

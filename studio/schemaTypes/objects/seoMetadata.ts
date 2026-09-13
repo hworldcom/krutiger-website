@@ -1,5 +1,7 @@
 import { defineField, defineType } from "sanity";
 
+import { validateLocalizedMaximumLength } from "../validation";
+
 export const seoMetadata = defineType({
   name: "seoMetadata",
   title: "Search and social sharing",
@@ -11,7 +13,12 @@ export const seoMetadata = defineType({
       type: "localizedString",
       description:
         "Title shown by search engines and social platforms. Aim for approximately 50–60 characters.",
-      validation: (Rule) => Rule.required(),
+      validation: (Rule) => [
+        Rule.required(),
+        Rule.custom((value) =>
+          validateLocalizedMaximumLength(value, 65, "SEO title"),
+        ).warning(),
+      ],
     }),
     defineField({
       name: "description",
@@ -19,7 +26,12 @@ export const seoMetadata = defineType({
       type: "localizedText",
       description:
         "Summary shown by search engines and social platforms. Aim for approximately 140–160 characters.",
-      validation: (Rule) => Rule.required(),
+      validation: (Rule) => [
+        Rule.required(),
+        Rule.custom((value) =>
+          validateLocalizedMaximumLength(value, 170, "SEO description"),
+        ).warning(),
+      ],
     }),
     defineField({
       name: "shareImage",

@@ -1,5 +1,10 @@
 import { defineArrayMember, defineField, defineType } from "sanity";
 
+import {
+  createEditorialPreviewSubtitle,
+  defineEditorialStateField,
+} from "../editorialWorkflow";
+
 export const siteSettings = defineType({
   name: "siteSettings",
   title: "Site settings",
@@ -11,6 +16,7 @@ export const siteSettings = defineType({
     { name: "contact", title: "Contact" },
     { name: "social", title: "Social media" },
     { name: "seo", title: "SEO" },
+    { name: "workflow", title: "Workflow" },
   ],
   fields: [
     defineField({
@@ -116,12 +122,27 @@ export const siteSettings = defineType({
       group: "seo",
       validation: (Rule) => Rule.required(),
     }),
+    defineEditorialStateField(),
   ],
   preview: {
-    prepare() {
+    select: {
+      contactStatus: "contactStatus",
+      editorialState: "editorialState",
+      englishName: "gymName.en",
+      media: "defaultSeo.shareImage",
+    },
+    prepare({ contactStatus, editorialState, englishName, media }) {
       return {
         title: "Site settings",
-        subtitle: "Global KRUTIGER content",
+        subtitle: createEditorialPreviewSubtitle({
+          detail:
+            contactStatus === "verified"
+              ? "Contact verified"
+              : "Contact placeholder",
+          editorialState,
+          englishValue: englishName,
+        }),
+        media,
       };
     },
   },

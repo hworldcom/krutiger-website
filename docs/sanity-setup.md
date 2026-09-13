@@ -82,7 +82,9 @@ npm run dev
 npm run studio:dev
 ```
 
-The initial Studio deliberately has no document types. M2-02 adds the bilingual schemas.
+The Studio contains the bilingual schemas and editor workflow documented in
+[`sanity-editor-guide.md`](./sanity-editor-guide.md). Use the `development`
+dataset for local editorial work.
 
 ## CORS
 

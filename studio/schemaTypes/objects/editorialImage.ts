@@ -1,5 +1,7 @@
 import { defineField, defineType } from "sanity";
 
+import { validateOptionalLocalizedPair } from "../validation";
+
 type LocalizedAlternativeTextValue = {
   de?: unknown;
   en?: unknown;
@@ -63,13 +65,14 @@ export const editorialImage = defineType({
       title: "Caption",
       type: "localizedString",
       description: "Optional visible caption. Complete both languages if used.",
+      validation: (Rule) => Rule.custom(validateOptionalLocalizedPair),
     }),
     defineField({
       name: "source",
       title: "Source",
       type: "string",
       description:
-        "Where the image came from, for example the photographer, archive, or Instagram post URL.",
+        "Required provenance record: photographer, archive reference, supplied asset, or source URL.",
       validation: (Rule) => Rule.required().max(300),
     }),
     defineField({
@@ -83,6 +86,8 @@ export const editorialImage = defineType({
       name: "rightsStatus",
       title: "Usage rights",
       type: "string",
+      description:
+        "Uploading an image does not grant usage rights. Select Approved only after the source and permission have been checked.",
       options: {
         layout: "radio",
         list: [

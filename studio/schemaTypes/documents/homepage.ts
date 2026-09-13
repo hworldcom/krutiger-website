@@ -1,5 +1,9 @@
 import { defineArrayMember, defineField, defineType } from "sanity";
 
+import {
+  createEditorialPreviewSubtitle,
+  defineEditorialStateField,
+} from "../editorialWorkflow";
 import { validateUniqueInternalKeys } from "../validation";
 
 export const homepage = defineType({
@@ -12,6 +16,7 @@ export const homepage = defineType({
     { name: "hero", title: "Hero", default: true },
     { name: "values", title: "Why KRUTIGER" },
     { name: "seo", title: "SEO" },
+    { name: "workflow", title: "Workflow" },
   ],
   fields: [
     defineField({
@@ -108,12 +113,22 @@ export const homepage = defineType({
       group: "seo",
       validation: (Rule) => Rule.required(),
     }),
+    defineEditorialStateField(),
   ],
   preview: {
-    prepare() {
+    select: {
+      editorialState: "editorialState",
+      englishTitle: "heroTitlePrimary.en",
+      media: "heroImage",
+    },
+    prepare({ editorialState, englishTitle, media }) {
       return {
         title: "Homepage",
-        subtitle: "German and English marketing content",
+        subtitle: createEditorialPreviewSubtitle({
+          editorialState,
+          englishValue: englishTitle,
+        }),
+        media,
       };
     },
   },

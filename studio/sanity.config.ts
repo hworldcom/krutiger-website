@@ -3,6 +3,10 @@ import { defineConfig } from "sanity";
 import { structureTool } from "sanity/structure";
 
 import { studioEnvironment } from "./environment";
+import {
+  contactStatusBadge,
+  editorialStateBadge,
+} from "./schemaTypes/editorialWorkflow";
 import { schemaTypes } from "./schemaTypes";
 import { resolveDocumentActions, singletonTypes, structure } from "./structure";
 
@@ -19,6 +23,11 @@ export default defineConfig({
     types: schemaTypes,
   },
   document: {
+    badges: (previousBadges) => [
+      ...previousBadges,
+      editorialStateBadge,
+      contactStatusBadge,
+    ],
     actions: resolveDocumentActions,
     newDocumentOptions: (previousOptions, { creationContext }) =>
       creationContext.type === "global"

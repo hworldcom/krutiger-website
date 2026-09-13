@@ -1,5 +1,9 @@
 import { defineArrayMember, defineField, defineType } from "sanity";
 
+import {
+  createEditorialPreviewSubtitle,
+  defineEditorialStateField,
+} from "../editorialWorkflow";
 import { validateUniqueInternalKeys } from "../validation";
 
 export const aboutPage = defineType({
@@ -13,6 +17,7 @@ export const aboutPage = defineType({
     { name: "story", title: "Story" },
     { name: "philosophy", title: "Philosophy" },
     { name: "seo", title: "SEO" },
+    { name: "workflow", title: "Workflow" },
   ],
   fields: [
     defineField({
@@ -95,12 +100,22 @@ export const aboutPage = defineType({
       group: "seo",
       validation: (Rule) => Rule.required(),
     }),
+    defineEditorialStateField(),
   ],
   preview: {
-    prepare() {
+    select: {
+      editorialState: "editorialState",
+      englishTitle: "heroTitlePrimary.en",
+      media: "heroImage",
+    },
+    prepare({ editorialState, englishTitle, media }) {
       return {
         title: "About page",
-        subtitle: "German and English story content",
+        subtitle: createEditorialPreviewSubtitle({
+          editorialState,
+          englishValue: englishTitle,
+        }),
+        media,
       };
     },
   },

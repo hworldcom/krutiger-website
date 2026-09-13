@@ -1,6 +1,6 @@
 # M2-03 — Build the editor experience and validation
 
-**Status:** Planned
+**Status:** Complete
 
 ## Outcome
 
@@ -34,6 +34,27 @@ layout.
 - Do not silently publish one language while presenting the document as fully
   translated.
 - Do not expose layout, arbitrary styling, scripts, or raw HTML fields.
+
+## Implementation notes
+
+- Organized the Studio desk into Site settings, Core pages, Training, Team, and
+  FAQ, while preserving direct singleton editing for the fixed documents.
+- Grouped document fields by editorial task and placed German source and English
+  translation values together through the shared localized field types.
+- Added explicit In progress, Ready for review, and Publication-ready states,
+  with Studio badges and list-preview status.
+- Expanded document previews with representative English-completion state,
+  website visibility, display order, supporting detail, and imagery where the
+  schema provides it.
+- Kept ordered collections on deterministic order-first lists and documented
+  how editors should use order values and visibility controls.
+- Added paired-language validation for optional image captions and advisory SEO
+  length validation alongside the existing translation, URL, image-rights,
+  consent, and contact-verification rules.
+- Documented editing, translation, image, contact, review, and publishing
+  responsibilities in `docs/sanity-editor-guide.md`.
+- Confirmed that the current schema does not contain document-reference fields;
+  reference integrity must be added if a later schema introduces them.
 
 ## Acceptance criteria
 
