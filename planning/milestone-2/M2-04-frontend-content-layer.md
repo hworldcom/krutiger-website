@@ -13,7 +13,8 @@ server-side adapter without coupling visual components directly to GROQ results.
 - Keep token-bearing clients server-only and use the image CDN without exposing
   credentials.
 - Define colocated, composable queries for site settings, homepage, About,
-  classes, coaches, FAQs, and SEO data.
+  classes, coaches, FAQs, bSport-linked pricing presentation cards, and SEO
+  data.
 - Generate or derive TypeScript types from the schemas and queries so schema
   drift becomes visible during development.
 - Add a locale projection layer that accepts `de` or `en` and returns explicit
@@ -34,7 +35,9 @@ server-side adapter without coupling visual components directly to GROQ results.
   Sanity clients or private tokens.
 - Route and navigation definitions remain in application code.
 - Application-interface dictionaries remain separate from editorial content.
-- bsport content must not pass through the Sanity adapter.
+- Live or transactional bSport content must not pass through the Sanity
+  adapter. Pricing presentation records from M2-07 remain clearly identified as
+  reviewed display mirrors and only expose verified checkout destinations.
 
 ## Acceptance criteria
 
@@ -46,6 +49,8 @@ server-side adapter without coupling visual components directly to GROQ results.
 - No private Sanity value appears in client assets or rendered HTML.
 - Public pages do not load the Studio runtime or unnecessary Sanity JavaScript.
 - Image requests are dimensioned and crop consistently at supported viewports.
+- Membership and pass documents project into the existing pricing-card models
+  without gaining any payment or checkout-construction behavior.
 - The website retains a controlled failure state when Sanity is unavailable.
 
 ## Out of scope

@@ -15,6 +15,8 @@ integration is ready for Milestone 3 page work.
 - Migrate approved homepage and About-page editorial content without changing
   their established visual composition.
 - Seed the available class, coach, and FAQ records needed to begin Milestone 3.
+- Seed the currently verified membership and monthly-pass presentation cards
+  with their exact bSport checkout destinations and verification timestamps.
 - Seed verified site settings only after the client approves them.
 - Keep current dummy address, email, telephone, and opening hours explicitly
   marked as placeholders; never migrate them as verified production data.
@@ -36,8 +38,9 @@ integration is ready for Milestone 3 page work.
 - German and English values are seeded independently and validated.
 - Unapproved images and unresolved rights records remain unavailable for
   production rendering.
-- Schedules, prices, subscriptions, login data, and shop inventory remain in
-  bsport and are not seeded into Sanity.
+- Schedules, authoritative product configuration, checkout behavior, login
+  data, and shop inventory remain in bSport. Only the reviewed pricing-card
+  presentation mirrors defined by M2-07 are seeded into Sanity.
 
 ## Acceptance criteria
 
@@ -49,6 +52,8 @@ integration is ready for Milestone 3 page work.
 - Missing documents, missing translations, and Sanity request failures produce
   intentional states and do not silently mix languages.
 - Contact placeholders cannot appear as verified information.
+- Seeded pricing cards match their reviewed bSport products and continue to use
+  bSport for every transaction.
 - Published pages expose correct canonical URLs and reciprocal language
   alternates using Sanity-owned page SEO fields where configured.
 - Sanity secrets remain absent from browser assets and generated HTML.

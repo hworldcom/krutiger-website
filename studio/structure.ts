@@ -11,6 +11,7 @@ export const studioDeskSectionIds = [
   "siteSettings",
   "corePages",
   "training",
+  "pricing",
   "team",
   "faq",
 ] as const;
@@ -78,6 +79,39 @@ export const structure: StructureResolver = (S) =>
             .defaultOrdering([
               { field: "order", direction: "asc" },
               { field: "name.de", direction: "asc" },
+            ]),
+        ),
+      S.listItem()
+        .id("pricing")
+        .title("Pricing cards")
+        .child(
+          S.list()
+            .id("pricing")
+            .title("Pricing cards")
+            .items([
+              S.listItem()
+                .id("membershipCards")
+                .title("Memberships")
+                .child(
+                  S.documentTypeList("membershipCard")
+                    .title("Membership cards")
+                    .defaultOrdering([
+                      { field: "durationMonths", direction: "desc" },
+                      { field: "order", direction: "asc" },
+                      { field: "name.de", direction: "asc" },
+                    ]),
+                ),
+              S.listItem()
+                .id("monthlyPassCards")
+                .title("Monthly passes")
+                .child(
+                  S.documentTypeList("monthlyPassCard")
+                    .title("Monthly-pass cards")
+                    .defaultOrdering([
+                      { field: "order", direction: "asc" },
+                      { field: "name.de", direction: "asc" },
+                    ]),
+                ),
             ]),
         ),
       S.listItem()

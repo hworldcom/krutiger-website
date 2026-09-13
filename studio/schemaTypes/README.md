@@ -58,11 +58,21 @@ order.
 - `coach` stores team biographies, specialties, approved photos, and an
   optional social profile.
 - `faq` stores categorized questions and rich-text answers.
+- `membershipCard` stores a reviewed presentation mirror of an existing bSport
+  membership and its exact checkout destination.
+- `monthlyPassCard` stores the equivalent reviewed presentation for a bSport
+  monthly pass.
 
 Each collection has an explicit integer `order` and an `active` switch. Default
 Studio ordering uses `order` first and a stable title second. Embedded arrays
 name their one permitted object type, so incompatible documents or content
 objects cannot be inserted.
+
+Pricing cards store Euro display prices as integer cents and require a bSport
+verification timestamp. Their checkout validation accepts only the approved
+KRUTIGER company paths on `backoffice.bsport.io`. These records render website
+cards only: they never calculate charges, create purchases, or change products
+in bSport.
 
 ## Publication requirements
 

@@ -117,6 +117,8 @@ describe("Sanity schema contract", () => {
       "classType",
       "coach",
       "faq",
+      "membershipCard",
+      "monthlyPassCard",
     ]);
   });
 
@@ -133,6 +135,7 @@ describe("Sanity schema contract", () => {
       "siteSettings",
       "corePages",
       "training",
+      "pricing",
       "team",
       "faq",
     ]);
@@ -145,6 +148,8 @@ describe("Sanity schema contract", () => {
     "classType",
     "coach",
     "faq",
+    "membershipCard",
+    "monthlyPassCard",
   ])("groups every %s field and provides an editorial workflow", (typeName) => {
     const definition = getType(typeName);
 
@@ -166,7 +171,7 @@ describe("Sanity schema contract", () => {
     ]);
   });
 
-  it.each(["classType", "coach", "faq"])(
+  it.each(["classType", "coach", "faq", "membershipCard", "monthlyPassCard"])(
     "provides deterministic ordering and visibility for %s",
     (typeName) => {
       expect(fieldNames(typeName)).toContain("order");
@@ -174,6 +179,42 @@ describe("Sanity schema contract", () => {
       expect(getType(typeName).orderings).toHaveLength(1);
     },
   );
+
+  it("defines pricing-card fields that project into the existing website models", () => {
+    expect(fieldNames("membershipCard")).toEqual([
+      "internalKey",
+      "name",
+      "monthlyPriceCents",
+      "durationMonths",
+      "accessType",
+      "monthlySessions",
+      "benefits",
+      "checkoutUrl",
+      "verifiedAt",
+      "order",
+      "active",
+      "editorialState",
+    ]);
+    expect(fieldNames("monthlyPassCard")).toEqual([
+      "internalKey",
+      "name",
+      "priceCents",
+      "validityMonths",
+      "accessType",
+      "sessions",
+      "checkoutUrl",
+      "verifiedAt",
+      "order",
+      "active",
+      "editorialState",
+    ]);
+    expect(typeof getField("membershipCard", "checkoutUrl").validation).toBe(
+      "function",
+    );
+    expect(typeof getField("monthlyPassCard", "checkoutUrl").validation).toBe(
+      "function",
+    );
+  });
 
   it("rejects repeated stable keys in fixed page sections", () => {
     expect(

@@ -17,8 +17,12 @@ Milestone 3.
   page-specific SEO fields.
 - The Next.js application owns route paths, page composition, design tokens,
   components, locale detection, and interface labels.
-- bsport owns schedules, bookings, memberships, member authentication, shop
-  products, prices, availability, and transactional flows.
+- bSport owns the authoritative schedules, bookings, membership and pass
+  products, prices, member authentication, shop inventory, availability, and
+  transactional flows.
+- Sanity may store reviewed membership and pass presentation cards that mirror
+  selected public bSport values and link to bSport checkout. Those values never
+  perform or control the transaction.
 - German is the editorial source language. English must be explicit; the public
   site must never silently substitute German for missing English content.
 
@@ -39,12 +43,14 @@ if the language or editorial requirements materially expand.
 | M2-01 | [Bootstrap Sanity and the Studio](./M2-01-sanity-project-and-studio.md)                 | In progress | Milestone 1            |
 | M2-02 | [Define the bilingual content schemas](./M2-02-bilingual-content-schemas.md)            | Complete    | M2-01                  |
 | M2-03 | [Build the editor experience and validation](./M2-03-editor-experience.md)              | Complete    | M2-02                  |
-| M2-04 | [Build the typed frontend content layer](./M2-04-frontend-content-layer.md)             | Planned     | M2-01, M2-02           |
+| M2-07 | [Model bSport-linked pricing cards in Sanity](./M2-07-bsport-linked-pricing-cards.md)   | Complete    | M2-02, M2-03           |
+| M2-04 | [Build the typed frontend content layer](./M2-04-frontend-content-layer.md)             | Planned     | M2-01, M2-02, M2-07    |
 | M2-05 | [Implement secure draft preview](./M2-05-draft-preview.md)                              | Planned     | M2-03, M2-04           |
 | M2-06 | [Seed content and validate the integration](./M2-06-seed-content-and-integration-qa.md) | Planned     | M2-02, M2-03, M2-04–05 |
 
-M2-03 and M2-04 can proceed in parallel after the schemas are stable. Initial
-content preparation for M2-06 can also begin while the frontend adapter and
+M2-07 records the pricing-card scope added after the initial schemas were
+completed and should be implemented before M2-04 finalizes its projections.
+Initial content preparation for M2-06 can begin while the frontend adapter and
 preview workflow are being built.
 
 ## Required external inputs
@@ -53,6 +59,7 @@ preview workflow are being built.
   KRUTIGER project
 - The approved dataset strategy and editor list
 - Approved German source content and English translations
+- Verified public membership and pass values with their bSport checkout links
 - Publication rights and alternative text for CMS-managed images
 - The deployment origins that need Sanity CORS and preview access
 
@@ -66,6 +73,9 @@ preview workflow are being built.
 - Draft content is visible only through an authenticated preview workflow.
 - The existing homepage and About page can consume seeded CMS content without
   losing their approved layouts or responsive behavior.
+- Editors can maintain membership and pass presentation cards that link to
+  verified bSport checkout destinations without moving transaction logic into
+  Sanity.
 - Contact placeholders are not accidentally published as verified information.
 - No bsport operational or transactional data is duplicated into Sanity.
 - Sanity credentials do not appear in browser bundles or generated HTML.

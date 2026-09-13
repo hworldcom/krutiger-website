@@ -75,6 +75,11 @@ fallback.
 
 ## Content boundaries
 
+The initial boundary below was implemented as written. The later decision to
+support editor-managed website cards that deep-link to existing bSport products
+is tracked separately in M2-07; bSport remains the commercial and transactional
+source of truth.
+
 - Do not model schedules, availability, booking state, subscription prices,
   member accounts, or shop inventory in Sanity; these remain in bsport.
 - Do not expose arbitrary CSS, spacing, grid, font, or component-selection

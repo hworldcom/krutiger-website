@@ -11,15 +11,17 @@ changing the website layout or code.
 
 ## Finding content
 
-The Studio desk is organized into five destinations:
+The Studio desk is organized into six destinations:
 
 1. **Site settings** — gym identity, footer, contact information, social profile,
    and default SEO.
 2. **Core pages** — Homepage and About page.
 3. **Training** — reusable descriptions of training formats. Live sessions and
    bookings remain in bsport.
-4. **Team** — team-member profiles, photos, biographies, and specialties.
-5. **FAQ** — categorized visitor questions and answers.
+4. **Pricing cards** — reviewed website cards for existing bSport memberships
+   and monthly passes.
+5. **Team** — team-member profiles, photos, biographies, and specialties.
+6. **FAQ** — categorized visitor questions and answers.
 
 Site settings, Homepage, and About page are fixed documents. Open them directly
 from the desk; do not create copies. Training classes, team members, and FAQs
@@ -44,7 +46,8 @@ the editorial-state field.
 
 ## Ordering and visibility
 
-Training, Team, and FAQ documents contain two controls under **Workflow**:
+Training, Pricing cards, Team, and FAQ documents contain two controls under
+**Workflow**:
 
 - **Display order:** lower numbers appear first. Use increments of 10 so a new
   item can be inserted later without renumbering everything.
@@ -96,6 +99,29 @@ The current schemas do not use document references, so editors cannot create a
 dangling reference between these content types. This must be revisited if a
 future schema introduces references.
 
+## Membership and pass cards
+
+Pricing cards describe existing bSport products; they do not create or modify
+those products. Before publishing a card:
+
+1. Open the corresponding product in bSport.
+2. Check the name, displayed price, duration or validity, session allowance,
+   benefits, and checkout destination.
+3. Copy the complete checkout URL into Sanity. Only the approved KRUTIGER bSport
+   membership and pass URL formats are accepted.
+4. Record the current date and time under **Verified against bSport at**.
+5. Complete both display-name languages, resolve validation, and follow the
+   normal review workflow.
+
+Prices are entered as integer euro cents to avoid decimal rounding: enter
+`6900` for €69.00 and `10000` for €100.00. Shared membership terms such as the
+billing day, joining fee, and automatic renewal remain application-owned and
+must not be repeated in every card.
+
+If commercial terms change, update bSport first and then update and re-verify
+the Sanity card. Hiding or deleting the Sanity presentation does not cancel the
+bSport product.
+
 ## Responsibilities
 
 | Role                   | Responsibility                                                                                                                       |
@@ -109,6 +135,8 @@ their invitation remains part of the M2-01 external setup.
 
 ## Content that does not belong in Sanity
 
-Do not copy live schedules, capacity, bookings, memberships, prices, payments,
-member accounts, or shop inventory into Sanity. Those remain owned by bsport.
-Do not paste scripts, raw HTML, CSS, or tracking code into content fields.
+Do not copy live schedules, capacity, bookings, payment state, member accounts,
+or shop inventory into Sanity. Those remain owned by bSport. Membership and
+pass values belong only in the constrained Pricing-card documents as reviewed
+display mirrors; bSport remains authoritative. Do not paste scripts, raw HTML,
+CSS, or tracking code into content fields.
