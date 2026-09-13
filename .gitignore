@@ -20,6 +20,8 @@
 /out/
 /build/
 /dist/
+/studio/dist/
+/studio/.sanity/
 
 # Tool caches
 /.cache/

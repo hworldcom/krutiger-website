@@ -2,10 +2,13 @@
   "name": "krutiger-website",
   "version": "0.1.0",
   "private": true,
+  "workspaces": [
+    "studio"
+  ],
   "engines": {
-    "node": ">=20.9.0"
+    "node": ">=22.12.0"
   },
-  "packageManager": "npm@10.8.2",
+  "packageManager": "npm@11.19.0",
   "scripts": {
     "dev": "next dev",
     "build": "next build && npm run verify:production",
@@ -13,6 +16,15 @@
     "lint": "eslint .",
     "qa:browser": "node scripts/run-browser-quality-checks.mjs",
     "qa:bsport": "node scripts/check-bsport-schedule.mjs",
+    "sanity:login": "sanity login",
+    "sanity:datasets": "cd studio && sanity dataset list",
+    "sanity:dataset:create": "cd studio && sanity dataset create",
+    "sanity:cors:list": "cd studio && sanity cors list",
+    "sanity:cors:add": "cd studio && sanity cors add",
+    "studio:dev": "cd studio && sanity dev",
+    "studio:build": "cd studio && sanity build",
+    "studio:preview": "cd studio && sanity preview",
+    "studio:deploy": "cd studio && sanity deploy",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
@@ -21,25 +33,32 @@
     "format:check": "prettier --check ."
   },
   "dependencies": {
-    "next": "16.3.1",
+    "@sanity/image-url": "^2.1.1",
+    "next": "16.3.5",
+    "next-sanity": "^13.3.4",
     "react": "19.2.8",
-    "react-dom": "19.2.8"
+    "react-dom": "19.2.8",
+    "server-only": "^0.0.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.3.3",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/react": "^16.3.2",
-    "@types/node": "^20",
+    "@types/node": "^24.13.4",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "axe-core": "^4.13.0",
     "eslint": "^9",
-    "eslint-config-next": "16.3.1",
+    "eslint-config-next": "16.3.5",
     "jsdom": "^26.1.0",
     "playwright-core": "^1.62.1",
     "prettier": "^3.9.6",
     "tailwindcss": "^4.3.3",
     "typescript": "^5",
     "vitest": "^4.1.11"
+  },
+  "allowScripts": {
+    "esbuild@0.28.2": true,
+    "unrs-resolver@1.12.2": true
   }
 }

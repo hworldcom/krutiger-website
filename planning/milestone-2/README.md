@@ -34,14 +34,14 @@ if the language or editorial requirements materially expand.
 
 ## Tickets
 
-| ID    | Ticket                                                                                  | Status  | Depends on             |
-| ----- | --------------------------------------------------------------------------------------- | ------- | ---------------------- |
-| M2-01 | [Bootstrap Sanity and the Studio](./M2-01-sanity-project-and-studio.md)                 | Ready   | Milestone 1            |
-| M2-02 | [Define the bilingual content schemas](./M2-02-bilingual-content-schemas.md)            | Planned | M2-01                  |
-| M2-03 | [Build the editor experience and validation](./M2-03-editor-experience.md)              | Planned | M2-02                  |
-| M2-04 | [Build the typed frontend content layer](./M2-04-frontend-content-layer.md)             | Planned | M2-01, M2-02           |
-| M2-05 | [Implement secure draft preview](./M2-05-draft-preview.md)                              | Planned | M2-03, M2-04           |
-| M2-06 | [Seed content and validate the integration](./M2-06-seed-content-and-integration-qa.md) | Planned | M2-02, M2-03, M2-04–05 |
+| ID    | Ticket                                                                                  | Status      | Depends on             |
+| ----- | --------------------------------------------------------------------------------------- | ----------- | ---------------------- |
+| M2-01 | [Bootstrap Sanity and the Studio](./M2-01-sanity-project-and-studio.md)                 | In progress | Milestone 1            |
+| M2-02 | [Define the bilingual content schemas](./M2-02-bilingual-content-schemas.md)            | In progress | M2-01                  |
+| M2-03 | [Build the editor experience and validation](./M2-03-editor-experience.md)              | Planned     | M2-02                  |
+| M2-04 | [Build the typed frontend content layer](./M2-04-frontend-content-layer.md)             | Planned     | M2-01, M2-02           |
+| M2-05 | [Implement secure draft preview](./M2-05-draft-preview.md)                              | Planned     | M2-03, M2-04           |
+| M2-06 | [Seed content and validate the integration](./M2-06-seed-content-and-integration-qa.md) | Planned     | M2-02, M2-03, M2-04–05 |
 
 M2-03 and M2-04 can proceed in parallel after the schemas are stable. Initial
 content preparation for M2-06 can also begin while the frontend adapter and

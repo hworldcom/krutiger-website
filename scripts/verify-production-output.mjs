@@ -55,7 +55,12 @@ try {
   );
 }
 
-for (const variableName of ["SANITY_API_READ_TOKEN", "BSPORT_API_KEY"]) {
+for (const variableName of [
+  "SANITY_API_READ_TOKEN",
+  "SANITY_PREVIEW_SECRET",
+  "SANITY_REVALIDATE_SECRET",
+  "BSPORT_API_KEY",
+]) {
   const value = process.env[variableName];
 
   if (!value) {

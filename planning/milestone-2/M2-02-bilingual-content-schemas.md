@@ -1,6 +1,6 @@
 # M2-02 — Define the bilingual content schemas
 
-**Status:** Planned
+**Status:** In progress
 
 ## Outcome
 
@@ -61,6 +61,15 @@ fallback.
   CTA label, and order
 - Coach name, photo, biography, specialties, social link, and order
 - FAQ question, answer, category, and order
+
+## Implementation progress
+
+- Added reusable localized short text, multiline text, rich text, and image alternative text types.
+- Added shared editorial image metadata with hotspot/crop, rights, approval, consent, caption, and bilingual accessibility fields.
+- Added reusable SEO/social metadata, postal address, and opening-hours objects.
+- Added the fixed `siteSettings` document with contact verification safeguards.
+- Added singleton navigation and action restrictions for `siteSettings` so it cannot be duplicated or deleted accidentally.
+- Remaining: `homepage`, `aboutPage`, `classType`, `coach`, and `faq` schemas.
 
 ## Content boundaries
 

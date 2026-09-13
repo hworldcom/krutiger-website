@@ -10,6 +10,8 @@ const eslintConfig = defineConfig([
     "build/**",
     "coverage/**",
     "out/**",
+    "studio/.sanity/**",
+    "studio/dist/**",
     "next-env.d.ts",
   ]),
 ]);
