@@ -61,6 +61,7 @@ export const classType = defineType({
       options: {
         list: [
           { title: "Beginners", value: "beginners" },
+          { title: "Intermediate", value: "intermediate" },
           { title: "All levels", value: "allLevels" },
           { title: "Advanced", value: "advanced" },
           { title: "Fighters", value: "fighters" },

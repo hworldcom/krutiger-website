@@ -64,7 +64,7 @@ const en = {
       eyebrow: "Training options",
       title: "Find the right Muay Thai training",
       description:
-        "This page will introduce training formats for beginners, advanced students, children, and private sessions.",
+        "From clean foundations to demanding technical work, choose the training that matches your experience and progress step by step.",
     },
     schedule: {
       navigationLabel: "Schedule",
@@ -277,6 +277,23 @@ const en = {
     specialtiesLabel: "Focus areas",
     socialLinkAction: "View profile",
     socialLinkLabel: "Open {name}'s social profile",
+  },
+  trainingPage: {
+    sectionHeading: "Our classes",
+    sectionIntroduction:
+      "Four formats provide a clear starting point and room to progress. If you are unsure which level fits, speak with our coaching team before training.",
+    levelLabels: {
+      beginners: "Basic",
+      intermediate: "Intermediate",
+      advanced: "Advanced",
+      allLevels: "All levels",
+    },
+    duration: "Typically {minutes} min",
+    audienceLabel: "Who is it for?",
+    equipmentLabel: "Recommended equipment",
+    scheduleActionLabel: "Open the schedule for {name}",
+    scheduleNotice:
+      "These cards describe our training formats. Current dates, coaches, and available places are always shown in the live schedule.",
   },
   integrations: {
     schedule: {

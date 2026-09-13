@@ -8,8 +8,8 @@ their existing systems.
 
 At the end of this milestone, published German and English content can be read
 from Sanity by the Next.js application, drafts can be previewed securely, and
-the project is ready for the final Training, Team, FAQ, and Contact page work in
-Milestone 3.
+the project is ready for CMS-backed Training, Team, FAQ, and Contact content work
+in later milestones.
 
 ## Content ownership
 

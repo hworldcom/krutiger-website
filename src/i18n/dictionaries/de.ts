@@ -64,7 +64,7 @@ const de = {
       eyebrow: "Trainingsangebote",
       title: "Finde das passende Muay-Thai-Training",
       description:
-        "Hier stellen wir die Trainingsformate für Anfänger, Fortgeschrittene, Kinder und individuelle Einheiten vor.",
+        "Von sauberen Grundlagen bis zu anspruchsvoller Technik: Wähle das Training, das zu deiner Erfahrung passt, und entwickle dich Schritt für Schritt weiter.",
     },
     schedule: {
       navigationLabel: "Kursplan",
@@ -278,6 +278,23 @@ const de = {
     specialtiesLabel: "Schwerpunkte",
     socialLinkAction: "Profil ansehen",
     socialLinkLabel: "Social-Media-Profil von {name} öffnen",
+  },
+  trainingPage: {
+    sectionHeading: "Unsere Kurse",
+    sectionIntroduction:
+      "Vier Formate schaffen einen klaren Einstieg und Raum für Entwicklung. Wenn du dein Level nicht sicher einschätzen kannst, sprich vor dem Training mit unserem Trainerteam.",
+    levelLabels: {
+      beginners: "Basic",
+      intermediate: "Intermediate",
+      advanced: "Advanced",
+      allLevels: "Alle Levels",
+    },
+    duration: "Typisch {minutes} Min.",
+    audienceLabel: "Für wen?",
+    equipmentLabel: "Empfohlene Ausrüstung",
+    scheduleActionLabel: "Kursplan für {name} öffnen",
+    scheduleNotice:
+      "Die Karten beschreiben unsere Trainingsformate. Aktuelle Termine, Trainer und verfügbare Plätze findest du immer im Live-Kursplan.",
   },
   integrations: {
     schedule: {

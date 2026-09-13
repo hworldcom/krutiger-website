@@ -15,6 +15,9 @@ type FieldDefinition = {
   group?: string;
   name: string;
   of?: { type: string }[];
+  options?: {
+    list?: readonly { value: string }[];
+  };
   type: string;
   validation?: unknown;
 };
@@ -179,6 +182,19 @@ describe("Sanity schema contract", () => {
       expect(getType(typeName).orderings).toHaveLength(1);
     },
   );
+
+  it("supports the four public Training page levels", () => {
+    const levelOptions = getField("classType", "level").options;
+
+    expect(levelOptions?.list?.map(({ value }) => value)).toEqual(
+      expect.arrayContaining([
+        "beginners",
+        "intermediate",
+        "advanced",
+        "allLevels",
+      ]),
+    );
+  });
 
   it("defines pricing-card fields that project into the existing website models", () => {
     expect(fieldNames("membershipCard")).toEqual([

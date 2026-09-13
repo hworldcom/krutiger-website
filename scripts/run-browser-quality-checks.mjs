@@ -122,7 +122,7 @@ try {
     const page = await context.newPage();
 
     for (const locale of locales) {
-      for (const route of ["/", "/about", "/coaches"]) {
+      for (const route of ["/", "/training", "/about", "/coaches"]) {
         const url = localizedUrl(locale, route);
         await openPage(page, url);
         await checkNoHorizontalOverflow(

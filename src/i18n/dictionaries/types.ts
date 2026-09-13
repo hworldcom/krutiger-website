@@ -1,5 +1,6 @@
 import type { Locale } from "../config";
 import type { IntegrationArea, RouteId } from "../../lib/routes";
+import type { TrainingLevel } from "../../content/training";
 
 type PageCopy = Readonly<{
   navigationLabel: string;
@@ -151,6 +152,17 @@ export type TeamPageCopy = Readonly<{
   socialLinkLabel: string;
 }>;
 
+export type TrainingPageCopy = Readonly<{
+  sectionHeading: string;
+  sectionIntroduction: string;
+  levelLabels: Readonly<Record<TrainingLevel, string>>;
+  duration: string;
+  audienceLabel: string;
+  equipmentLabel: string;
+  scheduleActionLabel: string;
+  scheduleNotice: string;
+}>;
+
 export type Dictionary = Readonly<{
   metadata: Readonly<{
     title: string;
@@ -197,6 +209,7 @@ export type Dictionary = Readonly<{
   homePage: HomePageCopy;
   aboutPage: AboutPageCopy;
   teamPage: TeamPageCopy;
+  trainingPage: TrainingPageCopy;
   integrations: Readonly<
     Record<IntegrationArea, IntegrationCopy> & {
       schedule: WidgetIntegrationCopy;
