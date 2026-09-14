@@ -11,4 +11,10 @@ export default defineCliConfig({
     autoUpdates: true,
     ...(studioEnvironment.appId ? { appId: studioEnvironment.appId } : {}),
   },
+  typegen: {
+    generates: "../src/lib/sanity/sanity.types.ts",
+    overloadClientMethods: true,
+    path: "../src/lib/sanity/queries.ts",
+    schema: "../sanity.schema.json",
+  },
 });

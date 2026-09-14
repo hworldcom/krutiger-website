@@ -387,6 +387,14 @@ const de = {
       "Die Seite konnte gerade nicht geladen werden. Bitte versuche es noch einmal.",
     retryAction: "Erneut versuchen",
   },
+  draftMode: {
+    landmarkLabel: "Entwurfsvorschau",
+    status:
+      "Entwurfsvorschau ist aktiv. Du siehst unveröffentlichte Sanity-Inhalte.",
+    exitAction: "Vorschau beenden",
+    incompleteContent:
+      "Dieser Entwurf ist für die gewählte Sprache noch unvollständig oder ungültig. Bis die markierten Felder korrigiert sind, zeigt die Seite ihre lokale Ersatzfassung.",
+  },
   preview: {
     eyebrow: "Markengrundlage · Meilenstein 1",
     heading: "Authentisches Muay Thai in Berlin",

@@ -45,12 +45,17 @@ browser.
 - Require Node.js 22.12 or newer and recommend Node.js 24 LTS for the current Sanity toolchain.
 - Keep both `development` and `production` public; both datasets were confirmed on the connected project.
 - Host the production Studio at `https://krutiger-studio.sanity.studio` with Sanity application ID `ubywro7on9gltov2bpy3eqml`.
+- Allow credentialed preview access only from `http://localhost:3000` and
+  `https://krutiger-website.vercel.app`; retain `http://localhost:3333` for the
+  local Studio. Add a future canonical production origin only after it is
+  approved.
 
 ## Remaining external setup
 
 - Confirm that project `nsznfiun` belongs to the gym-controlled Sanity organization.
 - Invite the initial administrators and editors.
-- Approve and configure the exact preview and production CORS origins.
+- Approve and configure the future canonical production origin if it differs
+  from the current Vercel preview deployment.
 
 ## Security rules
 

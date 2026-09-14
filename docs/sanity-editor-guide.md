@@ -44,6 +44,24 @@ Sanity saves incomplete work as a draft, but validation errors prevent it from
 being treated as ready for publication. Publishing is separate from changing
 the editorial-state field.
 
+## Previewing drafts
+
+Use **Preview** to inspect unpublished content in the real KRUTIGER website
+layout:
+
+1. Save the document as a draft.
+2. Open **Preview** in the Studio.
+3. Choose the German or English location for that document.
+4. Confirm that the orange draft-preview banner is visible on the website.
+5. Refresh the preview after further edits when necessary.
+6. Select **Exit preview** before checking the ordinary published page.
+
+The two language locations are separate by design. Missing English fields stay
+visible as an incomplete-draft warning and are never filled with German text.
+Preview access does not publish the document. Do not share the temporary enable
+URL from the browser address bar; use Sanity's controlled preview access if
+preview sharing is enabled in the future.
+
 ## Ordering and visibility
 
 Training, Pricing cards, Team, and FAQ documents contain two controls under

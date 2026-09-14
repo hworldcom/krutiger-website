@@ -384,6 +384,14 @@ const en = {
     description: "The page could not be loaded right now. Please try again.",
     retryAction: "Try again",
   },
+  draftMode: {
+    landmarkLabel: "Draft preview",
+    status:
+      "Draft preview is active. You are viewing unpublished Sanity content.",
+    exitAction: "Exit preview",
+    incompleteContent:
+      "This draft is incomplete or invalid for the selected language. The page is showing its local fallback until the marked fields are corrected.",
+  },
   preview: {
     eyebrow: "Brand foundation · Milestone 1",
     heading: "Authentic Muay Thai in Berlin",

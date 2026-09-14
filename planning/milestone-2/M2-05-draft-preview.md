@@ -1,6 +1,6 @@
 # M2-05 — Implement secure draft preview
 
-**Status:** Planned
+**Status:** In progress
 
 ## Outcome
 
@@ -53,3 +53,24 @@ drafts or credentials publicly.
 - A bespoke editorial approval system
 - Previewing bsport-managed operational content
 - Production deployment of the public website
+
+## Implementation notes
+
+- The Studio uses Sanity's Presentation Tool and its generated preview URL
+  credential rather than a static application preview secret.
+- The website wraps the supported `next-sanity` enable handler with a shared
+  German/English route allowlist and uses a same-origin POST to exit.
+- Draft-aware queries use a token-bearing server-only client and bypass the CDN
+  and published cache. Ordinary requests retain the published perspective and
+  five-minute tagged cache.
+- The Sanity visual-editing bridge is rendered only in Draft Mode so the
+  Presentation iframe can connect without changing ordinary published-page
+  behavior.
+- Document locations are configured for Site settings, Homepage, About,
+  Training, Team, FAQ, memberships, and monthly passes.
+- The local Viewer token was detected and authenticated draft reads were
+  verified against the development dataset on 2026-09-14. Live acceptance
+  testing remains open until the Studio handshake is exercised and M2-06
+  provides a draft whose published and unpublished values differ. The Viewer
+  token must also be installed separately in the intended hosted preview
+  runtime.

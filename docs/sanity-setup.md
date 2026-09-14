@@ -68,7 +68,34 @@ Only the following values are public:
 - `NEXT_PUBLIC_SANITY_STUDIO_URL`
 - variables beginning with `SANITY_STUDIO_`, because the Studio is a browser application
 
-Never put a read token, preview secret, revalidation secret, or deploy token in a `NEXT_PUBLIC_` or `SANITY_STUDIO_` variable.
+Never put a read token, revalidation secret, or deploy token in a
+`NEXT_PUBLIC_` or `SANITY_STUDIO_` variable.
+
+Draft preview requires a Sanity API token with the **Viewer** role. Create it in
+Sanity Manage, store it only in the website runtime environment, and do not put
+it in the Studio environment:
+
+```dotenv
+SANITY_API_READ_TOKEN=<viewer token>
+```
+
+The Presentation Tool creates and validates its own short-lived preview secret.
+There is deliberately no static `SANITY_PREVIEW_SECRET` environment variable.
+The hosted website must receive the Viewer token separately from the hosted
+Studio.
+
+Set the exact website origin loaded inside the Studio preview:
+
+```dotenv
+# studio/.env.local
+SANITY_STUDIO_PREVIEW_URL=http://localhost:3000
+
+# studio/.env.production.local or the Studio build environment
+SANITY_STUDIO_PREVIEW_URL=https://krutiger-website.vercel.app
+```
+
+This variable is public and must be an origin only: no locale path, query, hash,
+credentials, or wildcard hostname.
 
 ## Run the website and Studio
 
@@ -99,6 +126,52 @@ npm run sanity:cors:add -- http://localhost:3000
 
 The CLI asks whether credentials should be allowed. Enable credentials only for trusted Studio or preview origins that need authenticated browser requests. Ordinary server-side published-content requests do not require browser CORS access.
 
+For the Presentation workflow, approve the exact local and deployed website
+origins with credentials rather than approving a wildcard:
+
+```bash
+npm run sanity:cors:add -- http://localhost:3000 --credentials
+npm run sanity:cors:add -- https://krutiger-website.vercel.app --credentials
+```
+
+## Draft preview
+
+Run the website and Studio together, save a draft, then open **Preview** in the
+Studio. Each supported document offers German and English website locations.
+Selecting one opens the corresponding route and performs an authenticated
+handshake with `/api/draft-mode/enable`.
+
+The website accepts only the routes registered in `src/lib/routes.ts`. A valid
+Sanity preview credential cannot be used to redirect to an external or unknown
+destination. In Draft Mode, Sanity queries use the server-only Viewer token,
+the `drafts` perspective, and no published cache. Normal visitors continue to
+use anonymous published reads through the CDN.
+
+An orange banner identifies draft content on every route. **Exit preview** sends
+a same-origin POST to `/api/draft-mode/disable`, clears Draft Mode, and returns
+to the same localized route. The enable URL is only a short-lived handshake;
+its credential parameters are removed by the immediate redirect and must never
+be copied into navigation links or logs.
+
+Current troubleshooting:
+
+- **503 Draft preview is not configured:** `SANITY_API_READ_TOKEN` is missing
+  from the website runtime or the server was not restarted after adding it.
+- **401 Invalid preview credentials/secret:** open Preview from the Studio
+  again; the generated credential is missing, invalid, or expired.
+- **400 Invalid preview destination:** the requested URL is not a known German
+  or English route. Add real application routes to the shared route registry,
+  not directly to the endpoint allowlist.
+- **The iframe cannot connect:** confirm the website is running, the Studio's
+  `SANITY_STUDIO_PREVIEW_URL` is exact, and the same origin is allowed in Sanity
+  CORS with credentials.
+- **The banner appears but content is unchanged:** confirm the document is
+  saved as a draft, refresh the preview, and confirm that the route has been
+  connected to the typed Sanity content layer. Initial content is populated in
+  M2-06; an empty dataset intentionally uses the website's local fallback.
+- **An incomplete-language warning appears:** complete the marked fields for
+  the selected language. Preview never substitutes German for missing English.
+
 ## Build and deploy the Studio
 
 Build locally using production-mode Studio variables:
@@ -108,7 +181,10 @@ npm run studio:build
 npm run studio:preview
 ```
 
-Before a hosted deployment, set `SANITY_STUDIO_DATASET=production` in an uncommitted `studio/.env.production.local`, review the project and dataset printed by the configuration, and then run:
+Before a hosted deployment, set `SANITY_STUDIO_DATASET=production` and the exact
+`SANITY_STUDIO_PREVIEW_URL` in an uncommitted
+`studio/.env.production.local`, review the project, dataset, and preview origin,
+and then run:
 
 ```bash
 npm run studio:deploy

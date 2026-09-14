@@ -1,6 +1,6 @@
 # M2-04 — Build the typed frontend content layer
 
-**Status:** Planned
+**Status:** Complete
 
 ## Outcome
 
@@ -21,6 +21,12 @@ server-side adapter without coupling visual components directly to GROQ results.
   missing-translation results rather than cross-language fallback.
 - Map Sanity query results into application-owned content models before they
   reach visual components.
+- Project published `classType` documents into the existing `TrainingClass`
+  model and render them through the completed bilingual Training page and
+  reusable course-card component.
+- Preserve the Training page's application-owned layout, level labels, route
+  destinations, and bSport boundary; Sanity supplies editorial card content
+  and approved images only.
 - Add a shared image URL helper with explicit dimensions, crop behavior, and
   high-resolution limits appropriate to each component.
 - Define and document published-content caching and revalidation behavior.
@@ -43,6 +49,12 @@ server-side adapter without coupling visual components directly to GROQ results.
 
 - A server-rendered test route or existing page can read published content from
   the configured dataset.
+- `/de/training` and `/en/training` can render published Sanity `classType`
+  documents through the existing Training page without duplicating its card
+  markup or changing its visual component contract.
+- Training-class ordering and `active` visibility follow Sanity values, while
+  missing translations and unavailable content produce an explicit controlled
+  state rather than falling back to another locale.
 - Query and schema type mismatches fail during development or CI.
 - German and English projections return only their requested language.
 - Missing translations result in an explicit typed state.
@@ -56,6 +68,7 @@ server-side adapter without coupling visual components directly to GROQ results.
 ## Out of scope
 
 - Final Milestone 3 page compositions
+- Redesigning the completed Training page or its reusable course cards
 - Draft preview UI
 - Webhooks or cache invalidation beyond the documented baseline
 - Mutating Sanity content from the public website

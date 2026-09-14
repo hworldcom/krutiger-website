@@ -226,6 +226,12 @@ export type Dictionary = Readonly<{
     Readonly<{
       retryAction: string;
     }>;
+  draftMode: Readonly<{
+    landmarkLabel: string;
+    status: string;
+    exitAction: string;
+    incompleteContent: string;
+  }>;
   preview: Readonly<{
     eyebrow: string;
     heading: string;

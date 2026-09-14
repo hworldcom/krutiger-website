@@ -47,6 +47,22 @@ describe("TrainingPage", () => {
     expect(markup).not.toContain(germanClasses[0].description);
     expect(markup).toContain('href="/en/schedule"');
   });
+
+  it("makes incomplete draft content visible to the editor", () => {
+    const markup = renderToStaticMarkup(
+      <TrainingPage
+        content={en.routes.training}
+        draftContentIssue={en.draftMode.incompleteContent}
+        labels={en.trainingPage}
+        locale="en"
+        trainingClasses={getTrainingClasses("en")}
+      />,
+    );
+
+    expect(markup).toContain("data-draft-content-issue");
+    expect(markup).toContain(en.draftMode.incompleteContent);
+    expect(markup).toContain('role="alert"');
+  });
 });
 
 describe("TrainingClassCard", () => {

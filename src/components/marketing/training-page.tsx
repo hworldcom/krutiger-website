@@ -14,6 +14,7 @@ type TrainingPageProps = Readonly<{
   labels: TrainingPageCopy;
   locale: Locale;
   trainingClasses: readonly TrainingClass[];
+  draftContentIssue?: string;
 }>;
 
 export function TrainingPage({
@@ -21,6 +22,7 @@ export function TrainingPage({
   labels,
   locale,
   trainingClasses,
+  draftContentIssue,
 }: TrainingPageProps) {
   return (
     <div className="overflow-hidden bg-canvas text-copy">
@@ -62,6 +64,15 @@ export function TrainingPage({
         className="bg-panel/30 py-16 sm:py-24"
       >
         <Container>
+          {draftContentIssue ? (
+            <p
+              className="mb-8 border border-brand bg-brand/10 px-5 py-4 text-sm leading-6 text-copy sm:text-base"
+              data-draft-content-issue
+              role="alert"
+            >
+              {draftContentIssue}
+            </p>
+          ) : null}
           <header className="max-w-2xl">
             <h2
               className="font-display text-4xl leading-none font-extrabold tracking-tight uppercase sm:text-5xl"
