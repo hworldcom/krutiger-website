@@ -20,7 +20,7 @@ type AccessParent = Readonly<{
 
 export const monthlyPassCard = defineType({
   name: "monthlyPassCard",
-  title: "Monthly-pass card",
+  title: "Training-pass card",
   type: "document",
   description:
     "Website presentation for an existing bSport pass. bSport remains the product, price, and checkout source of truth.",
@@ -128,7 +128,7 @@ export const monthlyPassCard = defineType({
       type: "number",
       group: "workflow",
       description:
-        "Lower numbers appear first in the monthly-pass section. Use increments of 10.",
+        "Lower numbers appear first in the pass section. Use increments of 10.",
       initialValue: 0,
       validation: (Rule) => Rule.required().integer().min(0),
     }),
@@ -178,14 +178,14 @@ export const monthlyPassCard = defineType({
           ? `${validityMonths} month validity`
           : "Validity missing";
       const detail = [
-        "Monthly pass",
+        "Training pass",
         validity,
         formatEuroCents(priceCents),
         formatVerificationDate(verifiedAt),
       ].join(" · ");
 
       return {
-        title: name || englishName || "Untitled monthly-pass card",
+        title: name || englishName || "Untitled training-pass card",
         subtitle: createEditorialPreviewSubtitle({
           active,
           detail,

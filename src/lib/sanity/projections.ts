@@ -780,14 +780,11 @@ export function projectMonthlyPassCards(
         "Unsupported access type.",
       );
     }
-    if (document.validityMonths !== 1) {
-      addIssue(
-        issues,
-        "invalid",
-        `${path}.validityMonths`,
-        "The current website supports one-month passes only.",
-      );
-    }
+    const validityMonths = requiredPositiveInteger(
+      document.validityMonths,
+      `${path}.validityMonths`,
+      issues,
+    );
 
     passes.push({
       id: requiredString(document.internalKey, `${path}.internalKey`, issues),
@@ -799,6 +796,7 @@ export function projectMonthlyPassCards(
           issues,
         ) / 100,
       sessions,
+      validityMonths,
       checkoutUrl: validateMembershipCheckout(
         document.checkoutUrl,
         "pass",

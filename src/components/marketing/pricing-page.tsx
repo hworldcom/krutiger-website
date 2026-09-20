@@ -4,8 +4,7 @@ import type { Dictionary } from "@/i18n/dictionaries/types";
 import type { MembershipPlan } from "@/lib/bsport/memberships";
 import type { MonthlyPass } from "@/lib/bsport/passes";
 
-import { MembershipPricing } from "./membership-pricing";
-import { MonthlyPassPricing } from "./monthly-pass-pricing";
+import { PricingOfferTabs } from "./pricing-offer-tabs";
 
 type PricingPageProps = Readonly<{
   content: Dictionary["routes"]["prices"];
@@ -48,15 +47,11 @@ export function PricingPage({
             {draftContentIssue}
           </p>
         ) : null}
-        <MembershipPricing
+        <PricingOfferTabs
           copy={integration}
           locale={locale}
-          memberships={memberships}
-        />
-        <MonthlyPassPricing
-          copy={integration.monthlyPasses}
-          locale={locale}
           passes={monthlyPasses}
+          memberships={memberships}
         />
         <p
           className="mt-10 border-t border-line pt-5 text-sm leading-6 text-copy-muted"

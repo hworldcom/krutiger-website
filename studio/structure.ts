@@ -103,10 +103,10 @@ export const structure: StructureResolver = (S) =>
                 ),
               S.listItem()
                 .id("monthlyPassCards")
-                .title("Monthly passes")
+                .title("Passes")
                 .child(
                   S.documentTypeList("monthlyPassCard")
-                    .title("Monthly-pass cards")
+                    .title("Pass cards")
                     .defaultOrdering([
                       { field: "order", direction: "asc" },
                       { field: "name.de", direction: "asc" },

@@ -8,7 +8,7 @@ import { monthlyPasses } from "@/lib/bsport/passes";
 import { MonthlyPassPricing } from "./monthly-pass-pricing";
 
 describe("MonthlyPassPricing", () => {
-  it("renders the four monthly passes and their bsport purchase links", () => {
+  it("renders the five training passes and their bsport purchase links", () => {
     const markup = renderToStaticMarkup(
       <MonthlyPassPricing
         copy={de.integrations.pricing.monthlyPasses}
@@ -17,21 +17,23 @@ describe("MonthlyPassPricing", () => {
       />,
     );
 
-    expect(markup.match(/<article/g)).toHaveLength(4);
-    expect(markup).toContain("4 Teilnahmen");
-    expect(markup).toContain("Unbegrenzte Teilnahmen");
+    expect(markup.match(/<article/g)).toHaveLength(5);
+    expect(markup).toContain("Single Drop In");
+    expect(markup).toContain("1 Teilnahme");
+    expect(markup).toContain("50 x Pass");
+    expect(markup).toContain("50 Teilnahmen");
     expect(markup).toContain(
-      "https://backoffice.bsport.io/customer/payment/pass/792602/?membership=6720&amp;force=true",
+      "https://backoffice.bsport.io/customer/payment/pass/795480/?membership=6720&amp;force=true",
     );
     expect(markup).toContain(
-      "https://backoffice.bsport.io/customer/payment/pass/792762/?membership=6720&amp;force=true",
+      "https://backoffice.bsport.io/customer/payment/pass/795529/?membership=6720&amp;force=true",
     );
-    expect(
-      markup.match(/Gültig für 1 Monat ab dem Abrechnungsdatum\./g),
-    ).toHaveLength(1);
+    expect(markup).toContain("Gültig für 1 Monat");
+    expect(markup).toContain("Gültig für 3 Monate");
+    expect(markup).toContain("Gültig für 6 Monate");
   });
 
-  it("renders the monthly-pass terms in English", () => {
+  it("renders the pass terms in English", () => {
     const markup = renderToStaticMarkup(
       <MonthlyPassPricing
         copy={en.integrations.pricing.monthlyPasses}
@@ -40,8 +42,9 @@ describe("MonthlyPassPricing", () => {
       />,
     );
 
-    expect(markup).toContain("Monthly passes");
-    expect(markup).toContain("Valid for 1 month from the billing date.");
-    expect(markup).toContain("Unlimited sessions");
+    expect(markup).toContain("Training passes");
+    expect(markup).toContain("Valid for 1 month");
+    expect(markup).toContain("Valid for 6 months");
+    expect(markup).toContain("50 sessions");
   });
 });

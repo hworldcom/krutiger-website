@@ -210,6 +210,7 @@ describe("Sanity content projections", () => {
           id: "unlimited-monthly-pass",
           price: 250,
           sessions: "unlimited",
+          validityMonths: 1,
         },
       ],
     });

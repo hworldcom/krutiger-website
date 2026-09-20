@@ -25,6 +25,8 @@
     "sanity:typegen": "npm run sanity:schema:extract && cd studio && sanity typegen generate",
     "sanity:seed:development": "cd studio && sanity exec scripts/seed-development.ts --with-user-token",
     "sanity:seed:development:apply": "cd studio && sanity exec scripts/seed-development.ts --with-user-token -- --apply",
+    "sanity:sync:training-passes": "cd studio && sanity exec scripts/sync-training-passes.ts --with-user-token",
+    "sanity:sync:training-passes:apply": "cd studio && sanity exec scripts/sync-training-passes.ts --with-user-token -- --apply",
     "studio:dev": "cd studio && sanity dev",
     "studio:build": "cd studio && sanity build",
     "studio:preview": "cd studio && sanity preview",

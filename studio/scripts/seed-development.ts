@@ -12,10 +12,7 @@ import {
   membershipDurations,
   membershipsByDuration,
 } from "../../src/lib/bsport/memberships";
-import {
-  monthlyPasses,
-  monthlyPassValidityMonths,
-} from "../../src/lib/bsport/passes";
+import { monthlyPasses } from "../../src/lib/bsport/passes";
 import { siteSettings } from "../../src/lib/site-settings";
 import { studioEnvironment } from "../environment";
 
@@ -33,6 +30,7 @@ type SeedDefinition = Readonly<{
 }>;
 
 const baselineVerifiedAt = "2026-09-14T00:00:00.000Z";
+const trainingPassVerifiedAt = "2026-09-21T00:00:00.000Z";
 const repositoryRoot = join(
   dirname(fileURLToPath(import.meta.url)),
   "..",
@@ -501,11 +499,11 @@ function buildMonthlyPassCards(): SeedDocument[] {
     internalKey: { _type: "slug", current: pass.id },
     name: localizedString(pass.name, pass.name),
     priceCents: Math.round(pass.price * 100),
-    validityMonths: monthlyPassValidityMonths,
+    validityMonths: pass.validityMonths,
     accessType: pass.sessions === "unlimited" ? "unlimited" : "limited",
     ...(pass.sessions === "unlimited" ? {} : { sessions: pass.sessions }),
     checkoutUrl: pass.checkoutUrl,
-    verifiedAt: baselineVerifiedAt,
+    verifiedAt: trainingPassVerifiedAt,
     order: (index + 1) * 10,
     active: true,
     editorialState: "ready",

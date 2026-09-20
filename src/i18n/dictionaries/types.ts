@@ -29,6 +29,9 @@ type WidgetIntegrationCopy = IntegrationCopy &
 type PricingIntegrationCopy = WidgetIntegrationCopy &
   Readonly<{
     secureCheckoutNotice: string;
+    offerSelectorLabel: string;
+    membershipTab: string;
+    passesTab: string;
     termsLabel: string;
     durationSelectorLabel: string;
     durationLabels: Readonly<Record<12 | 6 | 3, string>>;
@@ -53,8 +56,10 @@ type PricingIntegrationCopy = WidgetIntegrationCopy &
       heading: string;
       description: string;
       validityLabel: string;
-      validity: string;
+      validityOne: string;
+      validityMany: string;
       passLabel: string;
+      singleSession: string;
       sessions: string;
       unlimitedSessions: string;
       buyAction: string;

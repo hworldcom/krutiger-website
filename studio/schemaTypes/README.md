@@ -61,7 +61,8 @@ order.
 - `membershipCard` stores a reviewed presentation mirror of an existing bSport
   membership and its exact checkout destination.
 - `monthlyPassCard` stores the equivalent reviewed presentation for a bSport
-  monthly pass.
+  training pass. The internal schema name is retained for compatibility with
+  existing content.
 
 Each collection has an explicit integer `order` and an `active` switch. Default
 Studio ordering uses `order` first and a stable title second. Embedded arrays

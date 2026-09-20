@@ -136,6 +136,30 @@ async function checkNoClippedPricingText(page, label) {
   );
 }
 
+async function checkPricingOfferTabs(page, label) {
+  const membershipTab = page.locator("#pricing-offer-tab-memberships");
+  const passesTab = page.locator("#pricing-offer-tab-passes");
+
+  assert(
+    (await membershipTab.getAttribute("aria-selected")) === "true",
+    `${label} does not select memberships by default.`,
+  );
+
+  await passesTab.click();
+
+  assert(
+    (await passesTab.getAttribute("aria-selected")) === "true",
+    `${label} did not select the passes tab.`,
+  );
+  assert(
+    (await page.locator("#pricing-offer-panel-passes article").count()) === 5,
+    `${label} does not show the five training passes.`,
+  );
+
+  await checkNoHorizontalOverflow(page, `${label} passes tab`);
+  await membershipTab.click();
+}
+
 async function loadLazyImages(page) {
   await page.evaluate(async () => {
     const step = Math.max(window.innerHeight * 0.75, 320);
@@ -171,6 +195,12 @@ try {
           page,
           `${locale}${route} at ${viewport.name}`,
         );
+        if (route === "/prices") {
+          await checkPricingOfferTabs(
+            page,
+            `${locale}${route} at ${viewport.name}`,
+          );
+        }
 
         const language = await page.locator("html").getAttribute("lang");
         assert(
@@ -207,7 +237,12 @@ try {
   });
   await checkNoClippedPricingText(
     enlargedTextPage,
-    "de/prices at 320px with 150% text scaling",
+    "de/prices memberships at 320px with 150% text scaling",
+  );
+  await enlargedTextPage.locator("#pricing-offer-tab-passes").click();
+  await checkNoClippedPricingText(
+    enlargedTextPage,
+    "de/prices passes at 320px with 150% text scaling",
   );
   await enlargedTextContext.close();
 

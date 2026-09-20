@@ -318,6 +318,9 @@ const en = {
         "Choose the contract length and membership that suit your training.",
       secureCheckoutNotice:
         "Payment and checkout for all memberships and passes are handled securely through bSport.",
+      offerSelectorLabel: "Choose a pricing option",
+      membershipTab: "Memberships",
+      passesTab: "Passes",
       termsLabel: "Applies to all memberships",
       loading: "The current prices are loading…",
       error:
@@ -348,11 +351,14 @@ const en = {
       unavailableDescription:
         "Memberships for this duration will be added as soon as the confirmed terms and checkout links are available.",
       monthlyPasses: {
-        heading: "Monthly passes",
-        description: "Choose the pass that matches your training rhythm.",
+        heading: "Training passes",
+        description:
+          "Train flexibly without a recurring membership. Choose the number of sessions that matches your training rhythm.",
         validityLabel: "Validity",
-        validity: "Valid for {count} month from the billing date.",
-        passLabel: "Monthly pass",
+        validityOne: "Valid for {count} month",
+        validityMany: "Valid for {count} months",
+        passLabel: "Training pass",
+        singleSession: "1 session",
         sessions: "{count} sessions",
         unlimitedSessions: "Unlimited sessions",
         buyAction: "Buy pass",
