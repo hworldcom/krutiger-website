@@ -231,6 +231,8 @@ export type Dictionary = Readonly<{
     status: string;
     exitAction: string;
     incompleteContent: string;
+    missingContent: string;
+    unavailableContent: string;
   }>;
   preview: Readonly<{
     eyebrow: string;

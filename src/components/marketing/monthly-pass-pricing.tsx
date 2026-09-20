@@ -1,14 +1,22 @@
 import { getButtonClassName } from "@/components/ui";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries/types";
-import { monthlyPasses, monthlyPassValidityMonths } from "@/lib/bsport/passes";
+import {
+  monthlyPassValidityMonths,
+  type MonthlyPass,
+} from "@/lib/bsport/passes";
 
 type MonthlyPassPricingProps = Readonly<{
   copy: Dictionary["integrations"]["pricing"]["monthlyPasses"];
   locale: Locale;
+  passes: readonly MonthlyPass[];
 }>;
 
-export function MonthlyPassPricing({ copy, locale }: MonthlyPassPricingProps) {
+export function MonthlyPassPricing({
+  copy,
+  locale,
+  passes,
+}: MonthlyPassPricingProps) {
   const currencyFormatter = new Intl.NumberFormat(locale, {
     currency: "EUR",
     maximumFractionDigits: 2,
@@ -43,7 +51,7 @@ export function MonthlyPassPricing({ copy, locale }: MonthlyPassPricingProps) {
       </div>
 
       <div className="mt-8 grid gap-5 md:grid-cols-2">
-        {monthlyPasses.map((pass) => {
+        {passes.map((pass) => {
           const sessions =
             pass.sessions === "unlimited"
               ? copy.unlimitedSessions

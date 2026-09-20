@@ -391,6 +391,10 @@ const en = {
     exitAction: "Exit preview",
     incompleteContent:
       "This draft is incomplete or invalid for the selected language. The page is showing its local fallback until the marked fields are corrected.",
+    missingContent:
+      "No Sanity content exists for this preview yet. The local baseline is being shown.",
+    unavailableContent:
+      "Sanity could not be loaded for this preview. The local baseline is being shown.",
   },
   preview: {
     eyebrow: "Brand foundation · Milestone 1",

@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 
 import de from "@/i18n/dictionaries/de";
 import en from "@/i18n/dictionaries/en";
+import { monthlyPasses } from "@/lib/bsport/passes";
 
 import { MonthlyPassPricing } from "./monthly-pass-pricing";
 
@@ -12,6 +13,7 @@ describe("MonthlyPassPricing", () => {
       <MonthlyPassPricing
         copy={de.integrations.pricing.monthlyPasses}
         locale="de"
+        passes={monthlyPasses}
       />,
     );
 
@@ -34,6 +36,7 @@ describe("MonthlyPassPricing", () => {
       <MonthlyPassPricing
         copy={en.integrations.pricing.monthlyPasses}
         locale="en"
+        passes={monthlyPasses}
       />,
     );
 

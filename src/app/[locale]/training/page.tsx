@@ -9,6 +9,10 @@ import { getDictionary } from "@/i18n/dictionaries";
 import { createLocalizedPageMetadata } from "@/i18n/metadata";
 import { getRouteById } from "@/lib/routes";
 import { getTrainingClassContent } from "@/lib/sanity/content";
+import {
+  getDraftContentFallbackMessage,
+  resolveContent,
+} from "@/lib/sanity/resolve-content";
 
 type TrainingRouteProps = Readonly<{
   params: Promise<{
@@ -48,24 +52,26 @@ export default async function TrainingRoute({ params }: TrainingRouteProps) {
   const dictionary = await getDictionary(locale);
   const classContent = await getTrainingClassContent(locale);
   const { isEnabled: isDraftPreview } = await draftMode();
-  const trainingClasses =
-    classContent.status === "ready"
-      ? classContent.value
-      : getTrainingClasses(locale);
+  const trainingClasses = resolveContent(
+    classContent,
+    getTrainingClasses(locale),
+  );
 
   return (
     <TrainingPage
       content={dictionary.routes.training}
+      contentSource={trainingClasses.source}
       draftContentIssue={
-        isDraftPreview &&
-        (classContent.status === "missingTranslation" ||
-          classContent.status === "invalid")
-          ? dictionary.draftMode.incompleteContent
+        isDraftPreview
+          ? getDraftContentFallbackMessage(
+              trainingClasses.fallbackReason,
+              dictionary.draftMode,
+            )
           : undefined
       }
       labels={dictionary.trainingPage}
       locale={locale}
-      trainingClasses={trainingClasses}
+      trainingClasses={trainingClasses.value}
     />
   );
 }

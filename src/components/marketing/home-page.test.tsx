@@ -1,6 +1,7 @@
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
 
+import { createHomepageFallback } from "@/content/page-fallbacks";
 import de from "../../i18n/dictionaries/de";
 import en from "../../i18n/dictionaries/en";
 
@@ -9,7 +10,12 @@ import { HomePage } from "./home-page";
 describe("HomePage", () => {
   it("renders the German hero, live schedule boundary, values, and localized actions", () => {
     const markup = renderToStaticMarkup(
-      <HomePage content={de.homePage} locale="de" />,
+      <HomePage
+        content={createHomepageFallback(de)}
+        contentSource="fallback"
+        locale="de"
+        schedule={de.homePage.schedule}
+      />,
     );
 
     expect(markup).toContain("<h1");
@@ -27,7 +33,12 @@ describe("HomePage", () => {
 
   it("renders English copy and paths without leaking the German headline", () => {
     const markup = renderToStaticMarkup(
-      <HomePage content={en.homePage} locale="en" />,
+      <HomePage
+        content={createHomepageFallback(en)}
+        contentSource="fallback"
+        locale="en"
+        schedule={en.homePage.schedule}
+      />,
     );
 
     expect(markup).toContain(en.homePage.hero.titleLines[0]);

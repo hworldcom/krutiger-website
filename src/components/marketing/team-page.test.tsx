@@ -14,6 +14,7 @@ describe("TeamPage", () => {
     const markup = renderToStaticMarkup(
       <TeamPage
         content={de.routes.coaches}
+        contentSource="fallback"
         labels={de.teamPage}
         members={members}
       />,
@@ -33,6 +34,7 @@ describe("TeamPage", () => {
     const markup = renderToStaticMarkup(
       <TeamPage
         content={en.routes.coaches}
+        contentSource="fallback"
         labels={en.teamPage}
         members={[englishMember]}
       />,

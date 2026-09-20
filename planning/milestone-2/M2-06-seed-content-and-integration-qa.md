@@ -1,6 +1,6 @@
 # M2-06 — Seed content and validate the integration
 
-**Status:** Planned
+**Status:** In progress
 
 ## Outcome
 
@@ -72,3 +72,31 @@ and the complete integration is ready for Milestone 3 page work.
 - Analytics and consent management
 - Production domain and deployment
 - Copying bsport operational data into Sanity
+
+## Implementation notes
+
+- `npm run sanity:seed:development` performs a read-only audit and
+  `npm run sanity:seed:development:apply` creates only missing baseline
+  documents in the `development` dataset. The script refuses every other
+  dataset and checks both the published and draft IDs before writing.
+- Stable published IDs contain no dots so they remain readable by anonymous
+  website queries in a public Sanity dataset. Draft IDs use only Sanity's
+  reserved `drafts.` prefix.
+- The seed currently contains 27 documents: 11 editorial drafts and 16
+  published pricing mirrors. A second dry run reports zero missing documents.
+- Homepage, About, Training, and Team render the seeded German and English
+  drafts in Preview Mode. Public local requests retain the same-language local
+  baseline until those documents are approved and published. Pricing renders
+  its 12 memberships and four monthly passes from published Sanity documents.
+- Page content resolution records whether Sanity or the local baseline was
+  used. Preview Mode distinguishes missing, invalid or untranslated, and
+  unavailable content without falling back across languages.
+- Homepage and About metadata use their Sanity SEO title, description, and
+  share image in Preview Mode while route-owned canonical and reciprocal
+  language-alternate URLs remain intact.
+- The responsive/accessibility browser matrix, unit tests, lint, TypeScript,
+  Sanity TypeGen, production build, and generated-output credential checks pass
+  locally.
+- Publication remains intentionally blocked for eight image/contact documents.
+  The outstanding content-owner decisions are recorded in
+  [`docs/m2-content-review.md`](../../docs/m2-content-review.md).

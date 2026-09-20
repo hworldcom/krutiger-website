@@ -172,6 +172,38 @@ Current troubleshooting:
 - **An incomplete-language warning appears:** complete the marked fields for
   the selected language. Preview never substitutes German for missing English.
 
+## Seed the development baseline
+
+The M2-06 seed imports the current German and English website baseline into the
+`development` dataset. Start with the read-only audit:
+
+```bash
+npm run sanity:seed:development
+```
+
+Review the exact missing IDs, then create only those documents:
+
+```bash
+npm run sanity:seed:development:apply
+```
+
+Run the audit again; a fully seeded dataset reports zero missing documents. The
+process is intentionally conservative:
+
+- it refuses to run against any dataset except `development`;
+- it checks both the published ID and its `drafts.` counterpart;
+- it uses root-safe stable IDs and `createIfNotExists` mutations;
+- it never patches, replaces, publishes, or deletes editor-owned content;
+- repeated image uploads resolve to Sanity's content-addressed asset IDs;
+- image-backed content remains drafted with pending rights and consent;
+- placeholder contact data remains a draft with `contactStatus` set to
+  `placeholder`;
+- only the previously reviewed bSport pricing mirrors are initially published.
+
+The seed is a starting snapshot, not a synchronization job. Once an editor
+changes a seeded document, that document belongs to the editor and later seed
+runs leave it untouched.
+
 ## Build and deploy the Studio
 
 Build locally using production-mode Studio variables:
@@ -194,7 +226,25 @@ The Studio is registered as application `ubywro7on9gltov2bpy3eqml` and deployed 
 
 ## Dataset promotion
 
-Schemas are deployed from version control. Content promotion is handled by an explicit export/import or migration process added in M2-06; production content must not be overwritten by copying the complete development dataset after editors begin working.
+Schemas are deployed from version control. Content is promoted only after the
+content owner has approved both languages, factual claims, checkout links, SEO,
+and every image's rights and consent record.
+
+Do not import the complete development dataset over production and do not use a
+replace mutation for an existing production document. For each release:
+
+1. Record the exact approved root document IDs and referenced asset IDs in a
+   versioned migration manifest.
+2. Query production for both the root ID and its draft counterpart.
+3. Create only IDs that do not already exist. Stop and review any collision
+   with the content owner rather than overwriting it.
+4. Validate the selected documents against the deployed schema, preview both
+   languages, and publish them through the Studio workflow.
+5. Record the migration date and any deliberately deferred documents.
+
+The development seed script is deliberately unable to target production. A
+production promotion must be a separately reviewed, versioned migration so
+existing editor changes remain authoritative.
 
 Before any operation that targets remote content, verify both values:
 

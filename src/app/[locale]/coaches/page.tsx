@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { draftMode } from "next/headers";
 import { notFound } from "next/navigation";
 
 import { TeamPage } from "@/components/marketing";
@@ -7,6 +8,11 @@ import { isLocale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 import { createLocalizedPageMetadata } from "@/i18n/metadata";
 import { getRouteById } from "@/lib/routes";
+import { getCoachContent } from "@/lib/sanity/content";
+import {
+  getDraftContentFallbackMessage,
+  resolveContent,
+} from "@/lib/sanity/resolve-content";
 
 type TeamRouteProps = Readonly<{
   params: Promise<{
@@ -44,12 +50,24 @@ export default async function TeamRoute({ params }: TeamRouteProps) {
   }
 
   const dictionary = await getDictionary(locale);
+  const sanityContent = await getCoachContent(locale);
+  const members = resolveContent(sanityContent, getTeamMembers(locale));
+  const { isEnabled: isDraftPreview } = await draftMode();
 
   return (
     <TeamPage
       content={dictionary.routes.coaches}
+      contentSource={members.source}
+      draftContentIssue={
+        isDraftPreview
+          ? getDraftContentFallbackMessage(
+              members.fallbackReason,
+              dictionary.draftMode,
+            )
+          : undefined
+      }
       labels={dictionary.teamPage}
-      members={getTeamMembers(locale)}
+      members={members.value}
     />
   );
 }

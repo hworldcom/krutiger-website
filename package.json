@@ -23,6 +23,8 @@
     "sanity:cors:add": "cd studio && sanity cors add",
     "sanity:schema:extract": "cd studio && sanity schema extract --path ../sanity.schema.json --force",
     "sanity:typegen": "npm run sanity:schema:extract && cd studio && sanity typegen generate",
+    "sanity:seed:development": "cd studio && sanity exec scripts/seed-development.ts --with-user-token",
+    "sanity:seed:development:apply": "cd studio && sanity exec scripts/seed-development.ts --with-user-token -- --apply",
     "studio:dev": "cd studio && sanity dev",
     "studio:build": "cd studio && sanity build",
     "studio:preview": "cd studio && sanity preview",

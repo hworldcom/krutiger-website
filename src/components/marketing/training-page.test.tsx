@@ -14,6 +14,7 @@ describe("TrainingPage", () => {
     const markup = renderToStaticMarkup(
       <TrainingPage
         content={de.routes.training}
+        contentSource="fallback"
         labels={de.trainingPage}
         locale="de"
         trainingClasses={trainingClasses}
@@ -36,6 +37,7 @@ describe("TrainingPage", () => {
     const markup = renderToStaticMarkup(
       <TrainingPage
         content={en.routes.training}
+        contentSource="fallback"
         labels={en.trainingPage}
         locale="en"
         trainingClasses={englishClasses}
@@ -52,6 +54,7 @@ describe("TrainingPage", () => {
     const markup = renderToStaticMarkup(
       <TrainingPage
         content={en.routes.training}
+        contentSource="fallback"
         draftContentIssue={en.draftMode.incompleteContent}
         labels={en.trainingPage}
         locale="en"

@@ -11,6 +11,7 @@ type TrainingPageProps = Readonly<{
     title: string;
     description: string;
   }>;
+  contentSource: "sanity" | "fallback";
   labels: TrainingPageCopy;
   locale: Locale;
   trainingClasses: readonly TrainingClass[];
@@ -19,13 +20,17 @@ type TrainingPageProps = Readonly<{
 
 export function TrainingPage({
   content,
+  contentSource,
   labels,
   locale,
   trainingClasses,
   draftContentIssue,
 }: TrainingPageProps) {
   return (
-    <div className="overflow-hidden bg-canvas text-copy">
+    <div
+      className="overflow-hidden bg-canvas text-copy"
+      data-content-source={contentSource}
+    >
       <section
         aria-labelledby="training-page-title"
         className="relative isolate overflow-hidden border-b border-brand/30 pb-20 pt-36 sm:pb-24 sm:pt-44"

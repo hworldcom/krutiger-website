@@ -10,13 +10,24 @@ type TeamPageProps = Readonly<{
     title: string;
     description: string;
   }>;
+  contentSource: "sanity" | "fallback";
+  draftContentIssue?: string;
   labels: TeamPageCopy;
   members: readonly TeamMember[];
 }>;
 
-export function TeamPage({ content, labels, members }: TeamPageProps) {
+export function TeamPage({
+  content,
+  contentSource,
+  draftContentIssue,
+  labels,
+  members,
+}: TeamPageProps) {
   return (
-    <div className="overflow-hidden bg-canvas text-copy">
+    <div
+      className="overflow-hidden bg-canvas text-copy"
+      data-content-source={contentSource}
+    >
       <section
         aria-labelledby="team-page-title"
         className="relative isolate overflow-hidden border-b border-brand/30 pb-20 pt-36 sm:pb-24 sm:pt-44"
@@ -55,6 +66,15 @@ export function TeamPage({ content, labels, members }: TeamPageProps) {
         className="bg-panel/30 py-16 sm:py-24"
       >
         <Container>
+          {draftContentIssue ? (
+            <p
+              className="mb-8 border border-brand bg-brand/10 px-5 py-4 text-sm leading-6 text-copy sm:text-base"
+              data-draft-content-issue
+              role="alert"
+            >
+              {draftContentIssue}
+            </p>
+          ) : null}
           <h2
             className="font-display text-4xl leading-none font-extrabold tracking-tight uppercase sm:text-5xl"
             id="team-members-title"

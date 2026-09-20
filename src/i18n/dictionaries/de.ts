@@ -394,6 +394,10 @@ const de = {
     exitAction: "Vorschau beenden",
     incompleteContent:
       "Dieser Entwurf ist für die gewählte Sprache noch unvollständig oder ungültig. Bis die markierten Felder korrigiert sind, zeigt die Seite ihre lokale Ersatzfassung.",
+    missingContent:
+      "Für diese Vorschau ist noch kein Sanity-Inhalt vorhanden. Die lokale Ausgangsversion wird angezeigt.",
+    unavailableContent:
+      "Sanity konnte für diese Vorschau nicht geladen werden. Die lokale Ausgangsversion wird angezeigt.",
   },
   preview: {
     eyebrow: "Markengrundlage · Meilenstein 1",

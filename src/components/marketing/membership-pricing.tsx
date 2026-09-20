@@ -8,19 +8,26 @@ import type { Dictionary } from "@/i18n/dictionaries/types";
 import {
   membershipDurations,
   membershipTerms,
-  membershipsByDuration,
   type MembershipDuration,
+  type MembershipPlan,
 } from "@/lib/bsport/memberships";
 
 type MembershipPricingProps = Readonly<{
   copy: Dictionary["integrations"]["pricing"];
   locale: Locale;
+  memberships: readonly MembershipPlan[];
 }>;
 
-export function MembershipPricing({ copy, locale }: MembershipPricingProps) {
+export function MembershipPricing({
+  copy,
+  locale,
+  memberships: allMemberships,
+}: MembershipPricingProps) {
   const [selectedDuration, setSelectedDuration] =
     useState<MembershipDuration>(12);
-  const memberships = membershipsByDuration[selectedDuration];
+  const memberships = allMemberships.filter(
+    ({ durationMonths }) => durationMonths === selectedDuration,
+  );
   const currencyFormatter = new Intl.NumberFormat(locale, {
     style: "currency",
     currency: "EUR",

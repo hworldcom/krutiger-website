@@ -1,6 +1,6 @@
 # M2-05 — Implement secure draft preview
 
-**Status:** In progress
+**Status:** Complete
 
 ## Outcome
 
@@ -69,8 +69,17 @@ drafts or credentials publicly.
 - Document locations are configured for Site settings, Homepage, About,
   Training, Team, FAQ, memberships, and monthly passes.
 - The local Viewer token was detected and authenticated draft reads were
-  verified against the development dataset on 2026-09-14. Live acceptance
-  testing remains open until the Studio handshake is exercised and M2-06
-  provides a draft whose published and unpublished values differ. The Viewer
-  token must also be installed separately in the intended hosted preview
-  runtime.
+  verified against the development dataset on 2026-09-14.
+- The Studio Presentation connection was exercised successfully after adding
+  the Draft Mode-only visual-editing bridge.
+- Local end-to-end acceptance uses the real bilingual Homepage, About,
+  Training, and Team drafts seeded by M2-06. Ordinary German and English
+  requests omit them, Draft Mode renders the matching localized values, and
+  the exit action expires every preview cookie while preserving the localized
+  destination. The temporary M2-05-only Training document was removed after
+  the baseline drafts replaced it.
+- The content owner chose to leave the current Vercel deployment untouched
+  while website and bSport testing continue. Installing
+  `SANITY_API_READ_TOKEN` and repeating the check against the hosted preview
+  origin are recorded as deployment verification, which is outside this
+  ticket's implementation scope.

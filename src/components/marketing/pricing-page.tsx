@@ -1,23 +1,36 @@
 import { Container, SectionHeader } from "@/components/ui";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries/types";
+import type { MembershipPlan } from "@/lib/bsport/memberships";
+import type { MonthlyPass } from "@/lib/bsport/passes";
 
 import { MembershipPricing } from "./membership-pricing";
 import { MonthlyPassPricing } from "./monthly-pass-pricing";
 
 type PricingPageProps = Readonly<{
   content: Dictionary["routes"]["prices"];
+  contentSource: "sanity" | "fallback";
+  draftContentIssue?: string;
   integration: Dictionary["integrations"]["pricing"];
   locale: Locale;
+  memberships: readonly MembershipPlan[];
+  monthlyPasses: readonly MonthlyPass[];
 }>;
 
 export function PricingPage({
   content,
+  contentSource,
+  draftContentIssue,
   integration,
   locale,
+  memberships,
+  monthlyPasses,
 }: PricingPageProps) {
   return (
-    <section className="min-h-screen py-section">
+    <section
+      className="min-h-screen py-section"
+      data-content-source={contentSource}
+    >
       <Container>
         <SectionHeader
           description={content.description}
@@ -26,8 +39,25 @@ export function PricingPage({
           size="page"
           title={content.title}
         />
-        <MembershipPricing copy={integration} locale={locale} />
-        <MonthlyPassPricing copy={integration.monthlyPasses} locale={locale} />
+        {draftContentIssue ? (
+          <p
+            className="mt-8 border border-brand bg-brand/10 px-5 py-4 text-sm leading-6 text-copy sm:text-base"
+            data-draft-content-issue
+            role="alert"
+          >
+            {draftContentIssue}
+          </p>
+        ) : null}
+        <MembershipPricing
+          copy={integration}
+          locale={locale}
+          memberships={memberships}
+        />
+        <MonthlyPassPricing
+          copy={integration.monthlyPasses}
+          locale={locale}
+          passes={monthlyPasses}
+        />
         <p
           className="mt-10 border-t border-line pt-5 text-sm leading-6 text-copy-muted"
           id="pricing-secure-checkout-note"

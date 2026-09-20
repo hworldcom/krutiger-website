@@ -13,7 +13,10 @@ type PreviewBannerProps = Readonly<{
   }>;
 }>;
 
-export function PreviewBanner({ fallbackDestination, labels }: PreviewBannerProps) {
+export function PreviewBanner({
+  fallbackDestination,
+  labels,
+}: PreviewBannerProps) {
   const pathname = usePathname();
   const validatedDestination = validatePreviewDestination(pathname);
   const destination = validatedDestination.ok

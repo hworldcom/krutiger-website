@@ -48,6 +48,20 @@ to an allowlisted localized route. The `VisualEditing` bridge is mounted only
 while Draft Mode is active so the Studio Presentation iframe can connect; it is
 absent from ordinary published-page rendering.
 
+## Baseline and fallback behavior
+
+M2-06 seeds the current bilingual baseline through the guarded development-only
+script in `studio/scripts/seed-development.ts`. Public document IDs must not
+contain dots; Sanity treats dotted IDs as private subpaths even when the dataset
+is public. Only the reserved `drafts.` prefix is used for draft documents.
+
+Page routes resolve validated Sanity content first and otherwise render their
+same-language local baseline. This keeps missing or unavailable CMS data
+deterministic without mixing German and English. Preview Mode additionally
+shows whether the fallback was caused by missing, incomplete/invalid, or
+unavailable Sanity content. The `data-content-source` marker is available for
+integration and release checks; it is not an editorial control.
+
 ## Rules
 
 - Public project, dataset, API-version, and Studio URL values use the documented `NEXT_PUBLIC_SANITY_*` variables.

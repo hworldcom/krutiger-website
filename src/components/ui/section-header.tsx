@@ -19,7 +19,7 @@ const headingTags = {
 } as const;
 
 const headingClasses: Record<HeaderSize, string> = {
-  page: "text-6xl leading-[0.9] sm:text-7xl lg:text-8xl",
+  page: "text-[2.5rem] leading-[0.92] xs:text-5xl sm:text-7xl lg:text-8xl",
   section: "text-5xl leading-none sm:text-7xl",
 };
 
