@@ -38,6 +38,7 @@ beforeEach(() => {
 afterEach(() => {
   cleanup();
   delete window.__krutigerBsportWidgetMountElement;
+  delete window.__krutigerBsportWidgetLanguage;
   delete window.__krutigerBsportWidgetReloadPending;
   delete window.__krutigerBsportWidgetScriptUrl;
   delete window.BsportWidget;
@@ -50,7 +51,9 @@ describe("BsportMemberLoginWidget", () => {
     });
     window.BsportWidget = { mount };
 
-    render(<BsportMemberLoginWidget copy={de.integrations.memberArea} />);
+    render(
+      <BsportMemberLoginWidget copy={de.integrations.memberArea} locale="de" />,
+    );
 
     expect(screen.getByRole("status").textContent).toBe(
       de.integrations.memberArea.loading,
@@ -64,7 +67,7 @@ describe("BsportMemberLoginWidget", () => {
 
     expect(mount).toHaveBeenCalledOnce();
     expect(mount).toHaveBeenCalledWith(
-      createBsportLoginConfig(bsportMemberAreaElementId),
+      createBsportLoginConfig(bsportMemberAreaElementId, "de"),
     );
     expect(window.__krutigerBsportWidgetScriptUrl).toBe(bsportWidgetScriptUrl);
     await waitFor(() => expect(screen.queryByRole("status")).toBeNull());
@@ -76,7 +79,9 @@ describe("BsportMemberLoginWidget", () => {
   });
 
   it("shows localized fallback copy when the external script fails", () => {
-    render(<BsportMemberLoginWidget copy={de.integrations.memberArea} />);
+    render(
+      <BsportMemberLoginWidget copy={de.integrations.memberArea} locale="de" />,
+    );
 
     act(() => scriptHandlers.onError?.());
 

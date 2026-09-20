@@ -24,6 +24,7 @@ import {
   getHeaderCtaHref,
   isNavigationPathActive,
 } from "@/lib/header-navigation";
+import { setBsportWidgetLanguage } from "@/lib/bsport/widget";
 import {
   getRouteById,
   primaryNavigationRoutes,
@@ -170,13 +171,14 @@ function LanguageSwitcher({
       <ul className="flex items-center gap-1">
         {locales.map((targetLocale) => {
           const isCurrent = targetLocale === locale;
+          const href = replacePathLocale(pathname, targetLocale);
           const accessibleLabel = isCurrent
             ? `${labels.currentLanguageLabel}: ${labels.currentLanguage}`
             : labels.switchTo[targetLocale];
 
           return (
             <li key={targetLocale}>
-              <Link
+              <a
                 aria-current={isCurrent ? "page" : undefined}
                 aria-label={accessibleLabel}
                 className={`group inline-flex min-h-10 min-w-[4.5rem] items-center justify-center gap-2 rounded-control px-2 font-display transition-colors ${
@@ -184,10 +186,32 @@ function LanguageSwitcher({
                     ? "border-2 border-copy bg-copy font-extrabold text-canvas underline decoration-2 underline-offset-4"
                     : "border border-line font-bold text-copy-muted hover:border-copy hover:text-copy"
                 }`}
-                href={replacePathLocale(pathname, targetLocale)}
+                data-bsport-language-switch="true"
+                href={href}
                 hrefLang={targetLocale}
                 lang={targetLocale}
-                onClick={onNavigate}
+                onClick={(event) => {
+                  onNavigate?.();
+
+                  if (isCurrent) {
+                    return;
+                  }
+
+                  setBsportWidgetLanguage(targetLocale);
+
+                  if (
+                    event.button === 0 &&
+                    !event.altKey &&
+                    !event.ctrlKey &&
+                    !event.metaKey &&
+                    !event.shiftKey
+                  ) {
+                    event.preventDefault();
+                    // Give bsport's locale detector one task to observe the cookie
+                    // before its current widget runtime is torn down.
+                    window.setTimeout(() => window.location.assign(href), 100);
+                  }
+                }}
               >
                 <span
                   className={`transition-opacity duration-150 motion-reduce:transition-none ${
@@ -200,7 +224,7 @@ function LanguageSwitcher({
                   <LanguageFlag locale={targetLocale} />
                 </span>
                 {targetLocale.toUpperCase()}
-              </Link>
+              </a>
             </li>
           );
         })}

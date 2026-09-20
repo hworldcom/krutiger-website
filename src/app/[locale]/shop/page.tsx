@@ -27,6 +27,7 @@ export default async function ShopRoute({ params }: ShopRouteProps) {
       content={dictionary.routes.shop}
       giftCards={dictionary.integrations.giftCards}
       integration={dictionary.integrations.shop}
+      locale={locale}
     />
   );
 }

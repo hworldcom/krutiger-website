@@ -41,6 +41,7 @@ beforeEach(() => {
 afterEach(() => {
   cleanup();
   delete window.__krutigerBsportWidgetMountElement;
+  delete window.__krutigerBsportWidgetLanguage;
   delete window.__krutigerBsportWidgetReloadPending;
   delete window.__krutigerBsportWidgetScriptUrl;
   delete window.BsportWidget;
@@ -57,6 +58,7 @@ describe("BsportShopWidget", () => {
       <BsportShopWidget
         copy={de.integrations.shop}
         giftCardCopy={de.integrations.giftCards}
+        locale="de"
       />,
     );
 
@@ -72,11 +74,11 @@ describe("BsportShopWidget", () => {
     expect(mount).toHaveBeenCalledTimes(2);
     expect(mount).toHaveBeenNthCalledWith(
       1,
-      createBsportShopConfig(bsportShopElementId),
+      createBsportShopConfig(bsportShopElementId, "de"),
     );
     expect(mount).toHaveBeenNthCalledWith(
       2,
-      createBsportGiftCardConfig(bsportGiftCardElementId),
+      createBsportGiftCardConfig(bsportGiftCardElementId, "de"),
     );
     expect(window.__krutigerBsportWidgetScriptUrl).toBe(
       bsportShopWidgetScriptUrl,
@@ -101,6 +103,7 @@ describe("BsportShopWidget", () => {
       <BsportShopWidget
         copy={de.integrations.shop}
         giftCardCopy={de.integrations.giftCards}
+        locale="de"
       />,
     );
 

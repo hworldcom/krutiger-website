@@ -38,6 +38,7 @@ beforeEach(() => {
 afterEach(() => {
   cleanup();
   delete window.__krutigerBsportWidgetMountElement;
+  delete window.__krutigerBsportWidgetLanguage;
   delete window.__krutigerBsportWidgetReloadPending;
   delete window.__krutigerBsportWidgetScriptUrl;
   delete window.BsportWidget;
@@ -50,7 +51,9 @@ describe("BsportScheduleWidget", () => {
     });
     window.BsportWidget = { mount };
 
-    render(<BsportScheduleWidget copy={de.integrations.schedule} />);
+    render(
+      <BsportScheduleWidget copy={de.integrations.schedule} locale="de" />,
+    );
 
     expect(screen.getByRole("status").textContent).toBe(
       de.integrations.schedule.loading,
@@ -64,7 +67,7 @@ describe("BsportScheduleWidget", () => {
 
     expect(mount).toHaveBeenCalledOnce();
     expect(mount).toHaveBeenCalledWith(
-      createBsportCalendarConfig(bsportScheduleElementId),
+      createBsportCalendarConfig(bsportScheduleElementId, "de"),
     );
     expect(window.__krutigerBsportWidgetScriptUrl).toBe(
       bsportCalendarWidgetScriptUrl,
@@ -78,7 +81,9 @@ describe("BsportScheduleWidget", () => {
   });
 
   it("shows localized fallback copy when the external script fails", () => {
-    render(<BsportScheduleWidget copy={de.integrations.schedule} />);
+    render(
+      <BsportScheduleWidget copy={de.integrations.schedule} locale="de" />,
+    );
 
     act(() => scriptHandlers.onError?.());
 

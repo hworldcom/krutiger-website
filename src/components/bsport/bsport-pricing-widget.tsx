@@ -4,6 +4,7 @@ import Script from "next/script";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import type { Dictionary } from "@/i18n/dictionaries/types";
+import type { Locale } from "@/i18n/config";
 import {
   bsportPricingElementId,
   bsportPricingWidgetScriptUrl,
@@ -13,11 +14,15 @@ import {
 
 type BsportPricingWidgetProps = Readonly<{
   copy: Dictionary["integrations"]["pricing"];
+  locale: Locale;
 }>;
 
 type WidgetStatus = "loading" | "mounted" | "error";
 
-export function BsportPricingWidget({ copy }: BsportPricingWidgetProps) {
+export function BsportPricingWidget({
+  copy,
+  locale,
+}: BsportPricingWidgetProps) {
   const hasMounted = useRef(false);
   const [status, setStatus] = useState<WidgetStatus>("loading");
 
@@ -58,22 +63,26 @@ export function BsportPricingWidget({ copy }: BsportPricingWidgetProps) {
     const mountElement = document.getElementById(bsportPricingElementId);
 
     if (
-      hasMounted.current ||
       !window.BsportWidget ||
-      !prepareBsportWidgetMount(bsportPricingWidgetScriptUrl, mountElement)
+      !prepareBsportWidgetMount(
+        bsportPricingWidgetScriptUrl,
+        mountElement,
+        locale,
+      ) ||
+      hasMounted.current
     ) {
       return;
     }
 
     try {
       window.BsportWidget.mount(
-        createBsportSubscriptionConfig(bsportPricingElementId),
+        createBsportSubscriptionConfig(bsportPricingElementId, locale),
       );
       hasMounted.current = true;
     } catch {
       setStatus("error");
     }
-  }, []);
+  }, [locale]);
 
   useEffect(() => {
     const mountAttemptId = window.setTimeout(mountWidget, 0);

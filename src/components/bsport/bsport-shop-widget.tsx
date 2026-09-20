@@ -4,6 +4,7 @@ import Script from "next/script";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import type { Dictionary } from "@/i18n/dictionaries/types";
+import type { Locale } from "@/i18n/config";
 import {
   bsportGiftCardElementId,
   bsportShopElementId,
@@ -16,6 +17,7 @@ import {
 type BsportShopWidgetProps = Readonly<{
   copy: Dictionary["integrations"]["shop"];
   giftCardCopy: Dictionary["integrations"]["giftCards"];
+  locale: Locale;
 }>;
 
 type WidgetStatus = "loading" | "mounted" | "error";
@@ -126,6 +128,7 @@ function WidgetSection({
 export function BsportShopWidget({
   copy,
   giftCardCopy,
+  locale,
 }: BsportShopWidgetProps) {
   const hasMounted = useRef({ giftCards: false, shop: false });
   const [shopStatus, setShopStatus] = useWidgetStatus(bsportShopElementId);
@@ -143,14 +146,20 @@ export function BsportShopWidget({
       !shopMountElement ||
       !giftCardMountElement ||
       !window.BsportWidget ||
-      !prepareBsportWidgetMount(bsportShopWidgetScriptUrl, shopMountElement)
+      !prepareBsportWidgetMount(
+        bsportShopWidgetScriptUrl,
+        shopMountElement,
+        locale,
+      )
     ) {
       return;
     }
 
     if (!hasMounted.current.shop) {
       try {
-        window.BsportWidget.mount(createBsportShopConfig(bsportShopElementId));
+        window.BsportWidget.mount(
+          createBsportShopConfig(bsportShopElementId, locale),
+        );
         hasMounted.current.shop = true;
       } catch {
         setShopStatus("error");
@@ -160,14 +169,14 @@ export function BsportShopWidget({
     if (!hasMounted.current.giftCards) {
       try {
         window.BsportWidget.mount(
-          createBsportGiftCardConfig(bsportGiftCardElementId),
+          createBsportGiftCardConfig(bsportGiftCardElementId, locale),
         );
         hasMounted.current.giftCards = true;
       } catch {
         setGiftCardStatus("error");
       }
     }
-  }, [setGiftCardStatus, setShopStatus]);
+  }, [locale, setGiftCardStatus, setShopStatus]);
 
   useEffect(() => {
     const mountAttemptId = window.setTimeout(mountWidgets, 0);

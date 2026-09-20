@@ -58,6 +58,14 @@ export default async function LocaleLayout({
       lang={activeLocale}
       className={`${bodyFont.variable} ${headingFont.variable} ${thaiFont.variable}`}
     >
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `document.cookie = "i18next=${activeLocale}; path=/; SameSite=Lax";`,
+          }}
+          id={`bsport-language-${activeLocale}`}
+        />
+      </head>
       <body>
         <SiteShell dictionary={dictionary} locale={activeLocale}>
           {children}

@@ -1,3 +1,5 @@
+import type { Locale } from "@/i18n/config";
+
 const defaultCompanyId = 6720;
 const defaultCalendarCompanyId = 6720;
 const defaultPricingCompanyId = 6720;
@@ -19,6 +21,15 @@ export const bsportMemberAreaElementId = "bsport-widget-832086";
 export const bsportPricingElementId = "bsport-widget-361765";
 export const bsportShopElementId = "bsport-widget-140155";
 export const bsportGiftCardElementId = "bsport-widget-29534";
+const bsportLanguageCookieKey = "i18next";
+
+export function setBsportWidgetLanguage(language: Locale) {
+  try {
+    document.cookie = `${bsportLanguageCookieKey}=${language}; path=/; SameSite=Lax`;
+  } catch {
+    // The explicit mount option still controls the widget when cookies are blocked.
+  }
+}
 
 export function resolveBsportCompanyId(
   configuredId?: string,
@@ -67,6 +78,7 @@ export const bsportGiftCardCompanyId = resolveBsportCompanyId(
 export function prepareBsportWidgetMount(
   scriptUrl: string,
   mountElement: HTMLElement | null,
+  language: Locale,
   reload = () => window.location.reload(),
 ) {
   if (!mountElement) {
@@ -75,11 +87,15 @@ export function prepareBsportWidgetMount(
 
   const activeScriptUrl = window.__krutigerBsportWidgetScriptUrl;
   const activeMountElement = window.__krutigerBsportWidgetMountElement;
+  const activeLanguage = window.__krutigerBsportWidgetLanguage;
   const runtimeMustReload =
     (activeScriptUrl && activeScriptUrl !== scriptUrl) ||
-    (activeMountElement && activeMountElement !== mountElement);
+    (activeMountElement && activeMountElement !== mountElement) ||
+    (activeLanguage && activeLanguage !== language);
 
   if (runtimeMustReload) {
+    setBsportWidgetLanguage(language);
+
     if (!window.__krutigerBsportWidgetReloadPending) {
       window.__krutigerBsportWidgetReloadPending = true;
       reload();
@@ -90,14 +106,20 @@ export function prepareBsportWidgetMount(
 
   window.__krutigerBsportWidgetScriptUrl = scriptUrl;
   window.__krutigerBsportWidgetMountElement = mountElement;
+  window.__krutigerBsportWidgetLanguage = language;
+  setBsportWidgetLanguage(language);
   return true;
 }
 
-export function createBsportCalendarConfig(parentElement: string) {
+export function createBsportCalendarConfig(
+  parentElement: string,
+  language: Locale,
+) {
   return {
     parentElement,
     companyId: bsportCalendarCompanyId,
     franchiseId: null,
+    language,
     dialogMode: 3,
     widgetType: "calendar",
     showFab: false,
@@ -110,11 +132,15 @@ export function createBsportCalendarConfig(parentElement: string) {
   } as const;
 }
 
-export function createBsportTodayConfig(parentElement: string) {
+export function createBsportTodayConfig(
+  parentElement: string,
+  language: Locale,
+) {
   return {
     parentElement,
     companyId: bsportCalendarCompanyId,
     franchiseId: null,
+    language,
     dialogMode: 1,
     widgetType: "calendar",
     showFab: false,
@@ -128,11 +154,15 @@ export function createBsportTodayConfig(parentElement: string) {
   } as const;
 }
 
-export function createBsportLoginConfig(parentElement: string) {
+export function createBsportLoginConfig(
+  parentElement: string,
+  language: Locale,
+) {
   return {
     parentElement,
     companyId: bsportCompanyId,
     franchiseId: null,
+    language,
     dialogMode: 3,
     widgetType: "loginButton",
     showFab: false,
@@ -145,11 +175,15 @@ export function createBsportLoginConfig(parentElement: string) {
   } as const;
 }
 
-export function createBsportSubscriptionConfig(parentElement: string) {
+export function createBsportSubscriptionConfig(
+  parentElement: string,
+  language: Locale,
+) {
   return {
     parentElement,
     companyId: bsportPricingCompanyId,
     franchiseId: null,
+    language,
     dialogMode: 3,
     widgetType: "subscription",
     showFab: false,
@@ -160,11 +194,15 @@ export function createBsportSubscriptionConfig(parentElement: string) {
   } as const;
 }
 
-export function createBsportShopConfig(parentElement: string) {
+export function createBsportShopConfig(
+  parentElement: string,
+  language: Locale,
+) {
   return {
     parentElement,
     companyId: bsportShopCompanyId,
     franchiseId: null,
+    language,
     dialogMode: 1,
     widgetType: "shop",
     showFab: false,
@@ -175,11 +213,15 @@ export function createBsportShopConfig(parentElement: string) {
   } as const;
 }
 
-export function createBsportGiftCardConfig(parentElement: string) {
+export function createBsportGiftCardConfig(
+  parentElement: string,
+  language: Locale,
+) {
   return {
     parentElement,
     companyId: bsportGiftCardCompanyId,
     franchiseId: null,
+    language,
     dialogMode: 1,
     widgetType: "giftcard",
     showFab: false,

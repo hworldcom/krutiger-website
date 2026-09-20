@@ -143,6 +143,19 @@ try {
     });
     const page = await context.newPage();
     const bsportRequestFailures = [];
+    const mountedWidgetConfigs = [];
+
+    page.on("request", (request) => {
+      if (!request.url().includes("/widget_config/log/")) {
+        return;
+      }
+
+      const body = request.postDataJSON();
+
+      if (body && typeof body === "object") {
+        mountedWidgetConfigs.push(body);
+      }
+    });
 
     page.on("requestfailed", (request) => {
       const errorText = request.failure()?.errorText ?? "unknown error";
@@ -211,6 +224,14 @@ try {
     assert(
       result.textLength > 0,
       `The bsport ${check.widgetName} mounted on /${check.locale}/${check.route} but did not finish rendering content.`,
+    );
+    assert(
+      mountedWidgetConfigs.some(
+        (config) =>
+          config.widgetId === check.elementId &&
+          config.language === check.locale,
+      ),
+      `The bsport ${check.widgetName} did not receive the ${check.locale} route language.`,
     );
     if (check.expectBrandingHidden) {
       assert(
@@ -308,6 +329,50 @@ try {
   );
 
   await journeyContext.close();
+
+  const languageBrowser = await chromium.launch({
+    executablePath,
+    headless: true,
+  });
+
+  try {
+    const languageContext = await languageBrowser.newContext({
+      locale: "de-DE",
+      viewport: { width: 1440, height: 1000 },
+    });
+    const languagePage = await languageContext.newPage();
+
+    await languagePage.goto(new URL("/de/schedule", baseUrl).href, {
+      waitUntil: "domcontentloaded",
+    });
+    await languagePage
+      .locator("#bsport-widget-368485")
+      .getByText("Aktivität", { exact: true })
+      .waitFor({ timeout: 30_000 });
+    await languagePage
+      .locator('a[href="/en/schedule"]:visible')
+      .first()
+      .click();
+    await languagePage.waitForURL("**/en/schedule");
+    await languagePage
+      .locator("#bsport-widget-368485")
+      .getByText("Activity", { exact: true })
+      .waitFor({ timeout: 30_000 });
+    await languagePage.waitForTimeout(1_000);
+
+    const englishCalendarText = await languagePage
+      .locator("#bsport-widget-368485")
+      .innerText();
+    assert(
+      englishCalendarText.includes("Monday") &&
+        !englishCalendarText.includes("Montag"),
+      "The calendar kept German weekday names after switching to English.",
+    );
+
+    await languageContext.close();
+  } finally {
+    await languageBrowser.close();
+  }
 } finally {
   await browser.close();
 }
