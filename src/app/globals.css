@@ -315,7 +315,15 @@ body {
 
 #bsport-widget-679237 a[href*="utm_content=bsport_logo"],
 #bsport-widget-140155 a[href*="utm_content=bsport_logo"],
-#bsport-widget-29534 a[href*="utm_content=bsport_logo"] {
+#bsport-widget-29534 a[href*="utm_content=bsport_logo"],
+#bsport-widget-856944 a[href*="utm_content=bsport_logo"] {
+  display: none !important;
+}
+
+/* The direct private-service widget still renders its service summary on
+   narrow screens. Our localized introduction above the widget replaces it. */
+#bsport-widget-856944
+  [class*="MuiCard-root"]:has(> [class*="MuiCardMedia-root"]) {
   display: none !important;
 }
 

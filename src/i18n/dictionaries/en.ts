@@ -66,6 +66,13 @@ const en = {
       description:
         "From clean foundations to demanding technical work, choose the training that matches your experience and progress step by step.",
     },
+    privateTraining: {
+      navigationLabel: "Private Classes",
+      eyebrow: "One-to-one training",
+      title: "Private Classes",
+      description:
+        "One-to-one coaching focused on your goals. Choose your service and book an available appointment directly through bSport.",
+    },
     schedule: {
       navigationLabel: "Schedule",
       eyebrow: "Schedule",
@@ -353,6 +360,29 @@ const en = {
       scheduleAction: "Open the schedule",
     },
   },
+  privateTrainingPage: {
+    eyebrow: "Book directly",
+    title: "How to book a private class",
+    description:
+      "Available appointments are loaded live from bSport. Reserve your individual training in three steps.",
+    steps: [
+      {
+        title: "Choose session and coach",
+        description:
+          "Choose the 60-minute session and, if you wish, a specific coach. Leave All teachers selected to see the widest availability.",
+      },
+      {
+        title: "Choose an appointment",
+        description:
+          "Change the week if needed and select an available appointment in the calendar.",
+      },
+      {
+        title: "Confirm your booking",
+        description:
+          "Sign in to bSport or create an account, then complete your booking.",
+      },
+    ],
+  },
   integrations: {
     schedule: {
       heading: "Live schedule",
@@ -361,6 +391,14 @@ const en = {
       loading: "The live schedule is loading…",
       error:
         "The live schedule could not be loaded right now. Please try again later.",
+    },
+    privateTraining: {
+      heading: "Private Classes",
+      description:
+        "One-to-one coaching focused on your goals. Choose your service and book an available appointment directly through bSport.",
+      loading: "Available appointments are loading…",
+      error:
+        "Private-training appointments could not be loaded right now. Please try again later.",
     },
     memberArea: {
       heading: "Sign in with bsport",

@@ -5,6 +5,8 @@ const defaultCalendarCompanyId = 6720;
 const defaultPricingCompanyId = 6720;
 const defaultShopCompanyId = 6720;
 const defaultGiftCardCompanyId = 6720;
+const defaultPrivateTrainingCompanyId = 6720;
+const defaultPrivateTrainingServiceId = 30595;
 
 export const bsportWidgetScriptUrl = "https://cdn.bsport.io/scripts/widget.js";
 export const bsportCalendarWidgetScriptUrl =
@@ -15,12 +17,15 @@ export const bsportShopWidgetScriptUrl =
   "https://cdn.bsport.io/scripts/widget.js";
 export const bsportGiftCardWidgetScriptUrl =
   "https://cdn.bsport.io/scripts/widget.js";
+export const bsportPrivateTrainingWidgetScriptUrl =
+  "https://cdn.bsport.io/scripts/widget.js";
 export const bsportScheduleElementId = "bsport-widget-368485";
 export const bsportTodayElementId = "bsport-widget-679237";
 export const bsportMemberAreaElementId = "bsport-widget-832086";
 export const bsportPricingElementId = "bsport-widget-361765";
 export const bsportShopElementId = "bsport-widget-140155";
 export const bsportGiftCardElementId = "bsport-widget-29534";
+export const bsportPrivateTrainingElementId = "bsport-widget-856944";
 const bsportLanguageCookieKey = "i18next";
 
 export function setBsportWidgetLanguage(language: Locale) {
@@ -73,6 +78,16 @@ export const bsportGiftCardCompanyId = resolveBsportCompanyId(
   process.env.NEXT_PUBLIC_BSPORT_GIFT_CARD_COMPANY_ID,
   "NEXT_PUBLIC_BSPORT_GIFT_CARD_COMPANY_ID",
   defaultGiftCardCompanyId,
+);
+export const bsportPrivateTrainingCompanyId = resolveBsportCompanyId(
+  process.env.NEXT_PUBLIC_BSPORT_PRIVATE_TRAINING_COMPANY_ID,
+  "NEXT_PUBLIC_BSPORT_PRIVATE_TRAINING_COMPANY_ID",
+  defaultPrivateTrainingCompanyId,
+);
+export const bsportPrivateTrainingServiceId = resolveBsportCompanyId(
+  process.env.NEXT_PUBLIC_BSPORT_PRIVATE_TRAINING_SERVICE_ID,
+  "NEXT_PUBLIC_BSPORT_PRIVATE_TRAINING_SERVICE_ID",
+  defaultPrivateTrainingServiceId,
 );
 
 export function prepareBsportWidgetMount(
@@ -234,10 +249,33 @@ export function createBsportGiftCardConfig(
   } as const;
 }
 
+export function createBsportPrivateTrainingConfig(
+  parentElement: string,
+  language: Locale,
+) {
+  return {
+    parentElement,
+    companyId: bsportPrivateTrainingCompanyId,
+    franchiseId: null,
+    language,
+    dialogMode: 1,
+    widgetType: "privateService",
+    showFab: false,
+    fullScreenPopup: false,
+    config: {
+      privateService: {
+        type: "detail",
+        serviceId: bsportPrivateTrainingServiceId,
+      },
+    },
+  } as const;
+}
+
 export type BsportWidgetConfig =
   | ReturnType<typeof createBsportCalendarConfig>
   | ReturnType<typeof createBsportTodayConfig>
   | ReturnType<typeof createBsportLoginConfig>
   | ReturnType<typeof createBsportSubscriptionConfig>
   | ReturnType<typeof createBsportShopConfig>
-  | ReturnType<typeof createBsportGiftCardConfig>;
+  | ReturnType<typeof createBsportGiftCardConfig>
+  | ReturnType<typeof createBsportPrivateTrainingConfig>;

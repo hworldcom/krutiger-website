@@ -204,6 +204,22 @@ export type MemberAreaPageCopy = Readonly<{
   }>;
 }>;
 
+type PrivateTrainingStepCopy = Readonly<{
+  title: string;
+  description: string;
+}>;
+
+export type PrivateTrainingPageCopy = Readonly<{
+  eyebrow: string;
+  title: string;
+  description: string;
+  steps: readonly [
+    PrivateTrainingStepCopy,
+    PrivateTrainingStepCopy,
+    PrivateTrainingStepCopy,
+  ];
+}>;
+
 export type Dictionary = Readonly<{
   metadata: Readonly<{
     title: string;
@@ -252,9 +268,11 @@ export type Dictionary = Readonly<{
   teamPage: TeamPageCopy;
   trainingPage: TrainingPageCopy;
   memberAreaPage: MemberAreaPageCopy;
+  privateTrainingPage: PrivateTrainingPageCopy;
   integrations: Readonly<
     Record<IntegrationArea, IntegrationCopy> & {
       schedule: WidgetIntegrationCopy;
+      privateTraining: WidgetIntegrationCopy;
       memberArea: WidgetIntegrationCopy;
       pricing: PricingIntegrationCopy;
       shop: WidgetIntegrationCopy;

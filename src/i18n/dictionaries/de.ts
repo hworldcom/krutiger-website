@@ -66,6 +66,13 @@ const de = {
       description:
         "Von sauberen Grundlagen bis zu anspruchsvoller Technik: Wähle das Training, das zu deiner Erfahrung passt, und entwickle dich Schritt für Schritt weiter.",
     },
+    privateTraining: {
+      navigationLabel: "Private Classes",
+      eyebrow: "Individuelles Training",
+      title: "Private Classes",
+      description:
+        "Individuelles Training mit voller Aufmerksamkeit. Wähle dein Angebot und buche einen verfügbaren Termin direkt über bSport.",
+    },
     schedule: {
       navigationLabel: "Kursplan",
       eyebrow: "Kursplan",
@@ -353,6 +360,29 @@ const de = {
       scheduleAction: "Kursplan öffnen",
     },
   },
+  privateTrainingPage: {
+    eyebrow: "Direkt buchen",
+    title: "So buchst du deine Private Class",
+    description:
+      "Die verfügbaren Termine werden live aus bSport geladen. In drei Schritten reservierst du dein individuelles Training.",
+    steps: [
+      {
+        title: "Einheit und Trainer wählen",
+        description:
+          "Wähle die 60-minütige Einheit und auf Wunsch einen bestimmten Trainer. Mit „Alle Lehrkräfte“ siehst du die größte Auswahl.",
+      },
+      {
+        title: "Termin auswählen",
+        description:
+          "Wechsle bei Bedarf die Woche und wähle einen verfügbaren Termin im Kalender.",
+      },
+      {
+        title: "Buchung bestätigen",
+        description:
+          "Melde dich bei bSport an oder erstelle ein Konto und schließe deine Buchung ab.",
+      },
+    ],
+  },
   integrations: {
     schedule: {
       heading: "Live-Kursplan",
@@ -361,6 +391,14 @@ const de = {
       loading: "Der Live-Kursplan wird geladen …",
       error:
         "Der Live-Kursplan konnte gerade nicht geladen werden. Bitte versuche es später erneut.",
+    },
+    privateTraining: {
+      heading: "Private Classes",
+      description:
+        "Individuelles Training mit voller Aufmerksamkeit. Wähle dein Angebot und buche einen verfügbaren Termin direkt über bSport.",
+      loading: "Verfügbare Termine werden geladen …",
+      error:
+        "Die Termine für Privattraining konnten gerade nicht geladen werden. Bitte versuche es später erneut.",
     },
     memberArea: {
       heading: "Bei bsport anmelden",

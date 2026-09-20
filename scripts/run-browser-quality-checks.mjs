@@ -39,6 +39,7 @@ const viewports = [
 const routes = [
   "/",
   "/training",
+  "/private",
   "/schedule",
   "/prices",
   "/shop",
@@ -191,6 +192,7 @@ try {
       for (const route of [
         "/",
         "/training",
+        "/private",
         "/prices",
         "/about",
         "/coaches",
