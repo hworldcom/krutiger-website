@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries/types";
@@ -29,6 +29,21 @@ export function PricingOfferTabs({
 }: PricingOfferTabsProps) {
   const [selectedOffer, setSelectedOffer] =
     useState<PricingOffer>("memberships");
+
+  useEffect(() => {
+    const selectOfferFromHash = () => {
+      if (window.location.hash === "#pricing-offer-tab-passes") {
+        setSelectedOffer("passes");
+      } else if (window.location.hash === "#pricing-offer-tab-memberships") {
+        setSelectedOffer("memberships");
+      }
+    };
+
+    selectOfferFromHash();
+    window.addEventListener("hashchange", selectOfferFromHash);
+
+    return () => window.removeEventListener("hashchange", selectOfferFromHash);
+  }, []);
 
   const selectOffer = (offer: PricingOffer) => {
     setSelectedOffer(offer);

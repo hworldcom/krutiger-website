@@ -116,11 +116,11 @@ const de = {
         "Hier werden geprüfte Kontaktmöglichkeiten, Adresse und Hinweise zur Anfahrt bereitgestellt.",
     },
     memberArea: {
-      navigationLabel: "Mitgliederbereich",
-      eyebrow: "Für Mitglieder",
-      title: "Dein Mitgliederbereich",
+      navigationLabel: "Mitglied werden",
+      eyebrow: "Dein Start bei KRUTIGER",
+      title: "Mitglied werden",
       description:
-        "Melde dich über bsport an, um deinen persönlichen Mitgliederbereich zu öffnen.",
+        "Wähle das passende Angebot, richte dein bSport-Konto beim Kauf ein und buche anschließend dein erstes Training.",
     },
     giftCards: {
       navigationLabel: "Gutscheine",
@@ -295,6 +295,63 @@ const de = {
     scheduleActionLabel: "Kursplan für {name} öffnen",
     scheduleNotice:
       "Die Karten beschreiben unsere Trainingsformate. Aktuelle Termine, Trainer und verfügbare Plätze findest du immer im Live-Kursplan.",
+  },
+  memberAreaPage: {
+    pricingAction: "Angebote vergleichen",
+    existingMemberAction: "Zum Mitglieder-Login",
+    choices: {
+      eyebrow: "Dein Angebot",
+      title: "Was passt zu deinem Training?",
+      description:
+        "Regelmäßig trainieren, flexibel bleiben oder erst einmal ausprobieren: Wähle den Einstieg, der zu dir passt.",
+      membership: {
+        title: "Mitgliedschaft",
+        description:
+          "Für regelmäßiges Training mit 3, 6 oder 12 Monaten Laufzeit und bis zu unbegrenzten Teilnahmen.",
+        action: "Mitgliedschaften ansehen",
+      },
+      passes: {
+        title: "Trainingspass",
+        description:
+          "Für flexible Besuche ohne Mitgliedschaft – vom einzelnen Drop-in bis zum 50er-Pass.",
+        action: "Trainingspässe ansehen",
+      },
+      trial: {
+        title: "Probetraining",
+        description:
+          "Du bist neu bei KRUTIGER? Buche zuerst dein Probetraining und lerne uns im Training kennen.",
+        action: "Probetraining buchen",
+      },
+    },
+    steps: {
+      eyebrow: "So funktioniert es",
+      title: "In vier Schritten ins Training",
+      description:
+        "Die Auswahl, Zahlung und Buchung laufen über bSport. Dein Konto verbindet alle Schritte an einem Ort.",
+      items: [
+        {
+          title: "Passendes Angebot wählen",
+          description:
+            "Wähle eine Mitgliedschaft für regelmäßiges Training, einen flexiblen Trainingspass oder den Probetrainingspass für deinen Einstieg.",
+        },
+        {
+          title: "bSport-Konto erstellen oder anmelden",
+          description:
+            "Beim Kauf wirst du zu bSport weitergeleitet. Dort erstellst du dein Konto oder meldest dich mit einem bestehenden Konto an.",
+        },
+        {
+          title: "Buchung sicher abschließen",
+          description:
+            "Prüfe Laufzeit, Gültigkeit und Preis und schließe die Zahlung sicher über bSport ab.",
+        },
+        {
+          title: "Erstes Training buchen",
+          description:
+            "Öffne anschließend den Kursplan, wähle einen passenden Kurs und reserviere deinen Platz.",
+        },
+      ],
+      scheduleAction: "Kursplan öffnen",
+    },
   },
   integrations: {
     schedule: {

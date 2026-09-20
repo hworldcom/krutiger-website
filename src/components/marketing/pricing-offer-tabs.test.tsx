@@ -69,4 +69,23 @@ describe("PricingOfferTabs", () => {
       screen.getByRole("tab", { name: "Pässe" }).getAttribute("aria-selected"),
     ).toBe("true");
   });
+
+  it("opens the passes tab from its direct-link hash", () => {
+    window.history.replaceState({}, "", "/de/prices#pricing-offer-tab-passes");
+
+    render(
+      <PricingOfferTabs
+        copy={de.integrations.pricing}
+        locale="de"
+        memberships={memberships}
+        passes={monthlyPasses}
+      />,
+    );
+
+    expect(
+      screen.getByRole("tab", { name: "Pässe" }).getAttribute("aria-selected"),
+    ).toBe("true");
+
+    window.history.replaceState({}, "", "/");
+  });
 });

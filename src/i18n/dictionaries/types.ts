@@ -168,6 +168,42 @@ export type TrainingPageCopy = Readonly<{
   scheduleNotice: string;
 }>;
 
+type MemberAreaChoiceCopy = Readonly<{
+  title: string;
+  description: string;
+  action: string;
+}>;
+
+type MemberAreaStepCopy = Readonly<{
+  title: string;
+  description: string;
+}>;
+
+export type MemberAreaPageCopy = Readonly<{
+  pricingAction: string;
+  existingMemberAction: string;
+  choices: Readonly<{
+    eyebrow: string;
+    title: string;
+    description: string;
+    membership: MemberAreaChoiceCopy;
+    passes: MemberAreaChoiceCopy;
+    trial: MemberAreaChoiceCopy;
+  }>;
+  steps: Readonly<{
+    eyebrow: string;
+    title: string;
+    description: string;
+    items: readonly [
+      MemberAreaStepCopy,
+      MemberAreaStepCopy,
+      MemberAreaStepCopy,
+      MemberAreaStepCopy,
+    ];
+    scheduleAction: string;
+  }>;
+}>;
+
 export type Dictionary = Readonly<{
   metadata: Readonly<{
     title: string;
@@ -215,6 +251,7 @@ export type Dictionary = Readonly<{
   aboutPage: AboutPageCopy;
   teamPage: TeamPageCopy;
   trainingPage: TrainingPageCopy;
+  memberAreaPage: MemberAreaPageCopy;
   integrations: Readonly<
     Record<IntegrationArea, IntegrationCopy> & {
       schedule: WidgetIntegrationCopy;

@@ -116,10 +116,11 @@ const en = {
         "Verified contact options, the gym address, and directions will be provided here.",
     },
     memberArea: {
-      navigationLabel: "Member area",
-      eyebrow: "For members",
-      title: "Your member area",
-      description: "Sign in through bsport to open your personal member area.",
+      navigationLabel: "Become a member",
+      eyebrow: "Start at KRUTIGER",
+      title: "Become a member",
+      description:
+        "Choose the right option, set up your bSport account during checkout, and then book your first training session.",
     },
     giftCards: {
       navigationLabel: "Gift cards",
@@ -294,6 +295,63 @@ const en = {
     scheduleActionLabel: "Open the schedule for {name}",
     scheduleNotice:
       "These cards describe our training formats. Current dates, coaches, and available places are always shown in the live schedule.",
+  },
+  memberAreaPage: {
+    pricingAction: "Compare options",
+    existingMemberAction: "Go to member login",
+    choices: {
+      eyebrow: "Your training option",
+      title: "What suits your training?",
+      description:
+        "Train regularly, stay flexible, or try us first: choose the way into KRUTIGER that works for you.",
+      membership: {
+        title: "Membership",
+        description:
+          "For regular training with a 3, 6, or 12-month term and up to unlimited sessions.",
+        action: "View memberships",
+      },
+      passes: {
+        title: "Training pass",
+        description:
+          "For flexible visits without a membership, from a single drop-in to a 50-session pass.",
+        action: "View training passes",
+      },
+      trial: {
+        title: "Trial session",
+        description:
+          "New to KRUTIGER? Book a trial session first and get to know us in training.",
+        action: "Book a trial session",
+      },
+    },
+    steps: {
+      eyebrow: "How it works",
+      title: "Start training in four steps",
+      description:
+        "Selection, payment, and booking are handled through bSport. Your account keeps every step in one place.",
+      items: [
+        {
+          title: "Choose the right option",
+          description:
+            "Choose a membership for regular training, a flexible training pass, or the trial-session pass for your first visit.",
+        },
+        {
+          title: "Create or sign in to your bSport account",
+          description:
+            "Checkout takes you to bSport, where you can create an account or sign in to an existing one.",
+        },
+        {
+          title: "Complete checkout securely",
+          description:
+            "Review the term, validity, and price, then complete your payment securely through bSport.",
+        },
+        {
+          title: "Book your first class",
+          description:
+            "Open the schedule, choose a suitable class, and reserve your place.",
+        },
+      ],
+      scheduleAction: "Open the schedule",
+    },
   },
   integrations: {
     schedule: {
