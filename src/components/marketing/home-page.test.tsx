@@ -2,6 +2,7 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
 
 import { createHomepageFallback } from "@/content/page-fallbacks";
+import { trialSessionPassCheckoutUrl } from "@/lib/bsport/passes";
 import de from "../../i18n/dictionaries/de";
 import en from "../../i18n/dictionaries/en";
 
@@ -20,7 +21,9 @@ describe("HomePage", () => {
 
     expect(markup).toContain("<h1");
     expect(markup).toContain("images%2Fhome%2Fmain.png");
-    expect(markup).toContain('href="/de/contact"');
+    expect(markup).toContain(
+      `href="${trialSessionPassCheckoutUrl.replaceAll("&", "&amp;")}"`,
+    );
     expect(markup).toContain('href="/de/schedule"');
     expect(markup).toContain('data-integration-boundary="home-schedule"');
     expect(markup).toContain('id="bsport-widget-679237"');
@@ -42,7 +45,9 @@ describe("HomePage", () => {
     );
 
     expect(markup).toContain(en.homePage.hero.titleLines[0]);
-    expect(markup).toContain('href="/en/contact"');
+    expect(markup).toContain(
+      `href="${trialSessionPassCheckoutUrl.replaceAll("&", "&amp;")}"`,
+    );
     expect(markup).toContain('href="/en/schedule"');
     expect(markup).not.toContain(de.homePage.hero.titleLines[0]);
   });

@@ -6,6 +6,9 @@ export type MonthlyPass = Readonly<{
   sessions: number | "unlimited";
 }>;
 
+export const trialSessionPassCheckoutUrl =
+  "https://backoffice.bsport.io/customer/payment/pass/795677/?membership=6720&force=true";
+
 export const monthlyPassValidityMonths = 1;
 
 export const monthlyPasses: readonly MonthlyPass[] = [

@@ -4,6 +4,7 @@ import { BsportTodayWidget } from "@/components/bsport/bsport-today-widget";
 import type { HomepageEditorialContent } from "@/content/editorial";
 import type { Locale } from "@/i18n/config";
 import type { HomePageCopy } from "@/i18n/dictionaries/types";
+import { getHeaderCtaHref } from "@/lib/header-navigation";
 
 import { getLocalizedPath } from "../../i18n/routing";
 import { ButtonLink, Container } from "../ui";
@@ -138,7 +139,7 @@ export function HomePage({
   locale,
   schedule,
 }: HomePageProps) {
-  const contactHref = getLocalizedPath(locale, "/contact");
+  const trialClassHref = getHeaderCtaHref(locale);
   const scheduleHref = getLocalizedPath(locale, "/schedule");
 
   return (
@@ -191,7 +192,7 @@ export function HomePage({
               </p>
 
               <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-                <ButtonLink href={contactHref}>
+                <ButtonLink href={trialClassHref}>
                   {content.hero.trialActionLabel}
                   <ArrowIcon />
                 </ButtonLink>
