@@ -5,24 +5,36 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 import type { Dictionary } from "@/i18n/dictionaries/types";
 import {
+  bsportGiftCardElementId,
   bsportShopElementId,
   bsportShopWidgetScriptUrl,
+  createBsportGiftCardConfig,
   createBsportShopConfig,
   prepareBsportWidgetMount,
 } from "@/lib/bsport/widget";
 
 type BsportShopWidgetProps = Readonly<{
   copy: Dictionary["integrations"]["shop"];
+  giftCardCopy: Dictionary["integrations"]["giftCards"];
 }>;
 
 type WidgetStatus = "loading" | "mounted" | "error";
 
-export function BsportShopWidget({ copy }: BsportShopWidgetProps) {
-  const hasMounted = useRef(false);
+type WidgetSectionProps = Readonly<{
+  boundary: "giftCards" | "shop";
+  compact?: boolean;
+  copy: Dictionary["integrations"]["shop"];
+  elementId: string;
+  headingId: string;
+  sectionId?: string;
+  status: WidgetStatus;
+}>;
+
+function useWidgetStatus(elementId: string) {
   const [status, setStatus] = useState<WidgetStatus>("loading");
 
   useEffect(() => {
-    const mountElement = document.getElementById(bsportShopElementId);
+    const mountElement = document.getElementById(elementId);
 
     if (!mountElement) {
       return;
@@ -52,45 +64,35 @@ export function BsportShopWidget({ copy }: BsportShopWidgetProps) {
       observer.disconnect();
       window.clearTimeout(timeoutId);
     };
-  }, []);
+  }, [elementId]);
 
-  const mountWidget = useCallback(() => {
-    const mountElement = document.getElementById(bsportShopElementId);
+  return [status, setStatus] as const;
+}
 
-    if (
-      hasMounted.current ||
-      !window.BsportWidget ||
-      !prepareBsportWidgetMount(bsportShopWidgetScriptUrl, mountElement)
-    ) {
-      return;
-    }
-
-    try {
-      window.BsportWidget.mount(createBsportShopConfig(bsportShopElementId));
-      hasMounted.current = true;
-    } catch {
-      setStatus("error");
-    }
-  }, []);
-
-  useEffect(() => {
-    const mountAttemptId = window.setTimeout(mountWidget, 0);
-
-    return () => window.clearTimeout(mountAttemptId);
-  }, [mountWidget]);
+function WidgetSection({
+  boundary,
+  compact = false,
+  copy,
+  elementId,
+  headingId,
+  sectionId,
+  status,
+}: WidgetSectionProps) {
+  const minimumHeight = compact ? "min-h-[24rem]" : "min-h-[32rem]";
 
   return (
     <section
-      aria-labelledby="shop-integration-heading"
-      className="mt-12"
-      data-integration-boundary="shop"
+      aria-labelledby={headingId}
+      className={compact ? "mt-16 border-t border-line pt-16" : "mt-12"}
+      data-integration-boundary={boundary}
       data-widget-environment="production"
+      id={sectionId}
     >
       <div className="max-w-copy">
         <div className="h-1 w-12 bg-brand" aria-hidden="true" />
         <h2
           className="mt-6 font-display text-3xl font-bold uppercase sm:text-4xl"
-          id="shop-integration-heading"
+          id={headingId}
         >
           {copy.heading}
         </h2>
@@ -99,7 +101,7 @@ export function BsportShopWidget({ copy }: BsportShopWidgetProps) {
 
       <div
         aria-busy={status === "loading"}
-        className="mt-8 min-h-[32rem] rounded-control border border-line bg-panel text-copy"
+        className={`mt-8 ${minimumHeight} rounded-control border border-line bg-panel text-copy`}
       >
         {status === "loading" ? (
           <p className="p-6 text-base text-copy-muted" role="status">
@@ -115,16 +117,93 @@ export function BsportShopWidget({ copy }: BsportShopWidgetProps) {
             {copy.error}
           </p>
         ) : null}
-        <div className="min-h-[32rem] w-full" id={bsportShopElementId} />
+        <div className={`${minimumHeight} w-full`} id={elementId} />
       </div>
+    </section>
+  );
+}
+
+export function BsportShopWidget({
+  copy,
+  giftCardCopy,
+}: BsportShopWidgetProps) {
+  const hasMounted = useRef({ giftCards: false, shop: false });
+  const [shopStatus, setShopStatus] = useWidgetStatus(bsportShopElementId);
+  const [giftCardStatus, setGiftCardStatus] = useWidgetStatus(
+    bsportGiftCardElementId,
+  );
+
+  const mountWidgets = useCallback(() => {
+    const shopMountElement = document.getElementById(bsportShopElementId);
+    const giftCardMountElement = document.getElementById(
+      bsportGiftCardElementId,
+    );
+
+    if (
+      !shopMountElement ||
+      !giftCardMountElement ||
+      !window.BsportWidget ||
+      !prepareBsportWidgetMount(bsportShopWidgetScriptUrl, shopMountElement)
+    ) {
+      return;
+    }
+
+    if (!hasMounted.current.shop) {
+      try {
+        window.BsportWidget.mount(createBsportShopConfig(bsportShopElementId));
+        hasMounted.current.shop = true;
+      } catch {
+        setShopStatus("error");
+      }
+    }
+
+    if (!hasMounted.current.giftCards) {
+      try {
+        window.BsportWidget.mount(
+          createBsportGiftCardConfig(bsportGiftCardElementId),
+        );
+        hasMounted.current.giftCards = true;
+      } catch {
+        setGiftCardStatus("error");
+      }
+    }
+  }, [setGiftCardStatus, setShopStatus]);
+
+  useEffect(() => {
+    const mountAttemptId = window.setTimeout(mountWidgets, 0);
+
+    return () => window.clearTimeout(mountAttemptId);
+  }, [mountWidgets]);
+
+  return (
+    <>
+      <WidgetSection
+        boundary="shop"
+        copy={copy}
+        elementId={bsportShopElementId}
+        headingId="shop-integration-heading"
+        status={shopStatus}
+      />
+      <WidgetSection
+        boundary="giftCards"
+        compact
+        copy={giftCardCopy}
+        elementId={bsportGiftCardElementId}
+        headingId="gift-card-integration-heading"
+        sectionId="gift-cards"
+        status={giftCardStatus}
+      />
 
       <Script
         id="bsport-shop-widget-cdn"
-        onError={() => setStatus("error")}
-        onReady={mountWidget}
+        onError={() => {
+          setShopStatus("error");
+          setGiftCardStatus("error");
+        }}
+        onReady={mountWidgets}
         src={bsportShopWidgetScriptUrl}
         strategy="afterInteractive"
       />
-    </section>
+    </>
   );
 }

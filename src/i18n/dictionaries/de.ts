@@ -368,9 +368,12 @@ const de = {
         "Der Shop konnte gerade nicht geladen werden. Bitte versuche es später erneut.",
     },
     giftCards: {
-      heading: "Gutscheinverkauf folgt",
+      heading: "Gutscheine",
       description:
-        "Der Kauf von Gutscheinen wird später über bsport angeboten. Diese Vorschau simuliert keinen Kaufvorgang.",
+        "Wähle einen festen Betrag oder erstelle einen Gutschein mit individuellem Wert. Kauf und Zahlung werden sicher über bsport abgewickelt.",
+      loading: "Die Gutscheine werden geladen …",
+      error:
+        "Die Gutscheine konnten gerade nicht geladen werden. Bitte versuche es später erneut.",
     },
   },
   notFound: {

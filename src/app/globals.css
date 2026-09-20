@@ -315,7 +315,8 @@ body {
 }
 
 #bsport-widget-679237 a[href*="utm_content=bsport_logo"],
-#bsport-widget-140155 a[href*="utm_content=bsport_logo"] {
+#bsport-widget-140155 a[href*="utm_content=bsport_logo"],
+#bsport-widget-29534 a[href*="utm_content=bsport_logo"] {
   display: none !important;
 }
 

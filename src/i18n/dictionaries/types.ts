@@ -216,6 +216,7 @@ export type Dictionary = Readonly<{
       memberArea: WidgetIntegrationCopy;
       pricing: PricingIntegrationCopy;
       shop: WidgetIntegrationCopy;
+      giftCards: WidgetIntegrationCopy;
     }
   >;
   notFound: StateCopy &

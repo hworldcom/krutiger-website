@@ -2,6 +2,7 @@ const defaultCompanyId = 6720;
 const defaultCalendarCompanyId = 6720;
 const defaultPricingCompanyId = 6720;
 const defaultShopCompanyId = 6720;
+const defaultGiftCardCompanyId = 6720;
 
 export const bsportWidgetScriptUrl = "https://cdn.bsport.io/scripts/widget.js";
 export const bsportCalendarWidgetScriptUrl =
@@ -10,11 +11,14 @@ export const bsportPricingWidgetScriptUrl =
   "https://cdn.bsport.io/scripts/widget.js";
 export const bsportShopWidgetScriptUrl =
   "https://cdn.bsport.io/scripts/widget.js";
+export const bsportGiftCardWidgetScriptUrl =
+  "https://cdn.bsport.io/scripts/widget.js";
 export const bsportScheduleElementId = "bsport-widget-368485";
 export const bsportTodayElementId = "bsport-widget-679237";
 export const bsportMemberAreaElementId = "bsport-widget-832086";
 export const bsportPricingElementId = "bsport-widget-361765";
 export const bsportShopElementId = "bsport-widget-140155";
+export const bsportGiftCardElementId = "bsport-widget-29534";
 
 export function resolveBsportCompanyId(
   configuredId?: string,
@@ -53,6 +57,11 @@ export const bsportShopCompanyId = resolveBsportCompanyId(
   process.env.NEXT_PUBLIC_BSPORT_SHOP_COMPANY_ID,
   "NEXT_PUBLIC_BSPORT_SHOP_COMPANY_ID",
   defaultShopCompanyId,
+);
+export const bsportGiftCardCompanyId = resolveBsportCompanyId(
+  process.env.NEXT_PUBLIC_BSPORT_GIFT_CARD_COMPANY_ID,
+  "NEXT_PUBLIC_BSPORT_GIFT_CARD_COMPANY_ID",
+  defaultGiftCardCompanyId,
 );
 
 export function prepareBsportWidgetMount(
@@ -166,9 +175,27 @@ export function createBsportShopConfig(parentElement: string) {
   } as const;
 }
 
+export function createBsportGiftCardConfig(parentElement: string) {
+  return {
+    parentElement,
+    companyId: bsportGiftCardCompanyId,
+    franchiseId: null,
+    dialogMode: 1,
+    widgetType: "giftcard",
+    showFab: false,
+    fullScreenPopup: false,
+    config: {
+      giftcard: {
+        giftcards: [],
+      },
+    },
+  } as const;
+}
+
 export type BsportWidgetConfig =
   | ReturnType<typeof createBsportCalendarConfig>
   | ReturnType<typeof createBsportTodayConfig>
   | ReturnType<typeof createBsportLoginConfig>
   | ReturnType<typeof createBsportSubscriptionConfig>
-  | ReturnType<typeof createBsportShopConfig>;
+  | ReturnType<typeof createBsportShopConfig>
+  | ReturnType<typeof createBsportGiftCardConfig>;

@@ -2,6 +2,8 @@ import { describe, expect, it } from "vitest";
 
 import {
   bsportCalendarWidgetScriptUrl,
+  bsportGiftCardElementId,
+  bsportGiftCardWidgetScriptUrl,
   bsportMemberAreaElementId,
   bsportPricingElementId,
   bsportPricingWidgetScriptUrl,
@@ -10,6 +12,7 @@ import {
   bsportShopElementId,
   bsportShopWidgetScriptUrl,
   createBsportCalendarConfig,
+  createBsportGiftCardConfig,
   createBsportLoginConfig,
   createBsportShopConfig,
   createBsportSubscriptionConfig,
@@ -100,6 +103,26 @@ describe("bsport widget configuration", () => {
     });
   });
 
+  it("uses the supplied production gift-card configuration", () => {
+    expect(bsportGiftCardWidgetScriptUrl).toBe(
+      "https://cdn.bsport.io/scripts/widget.js",
+    );
+    expect(createBsportGiftCardConfig(bsportGiftCardElementId)).toEqual({
+      parentElement: "bsport-widget-29534",
+      companyId: 6720,
+      franchiseId: null,
+      dialogMode: 1,
+      widgetType: "giftcard",
+      showFab: false,
+      fullScreenPopup: false,
+      config: {
+        giftcard: {
+          giftcards: [],
+        },
+      },
+    });
+  });
+
   it("accepts only positive integer company IDs", () => {
     expect(resolveBsportCompanyId()).toBe(6720);
     expect(
@@ -111,6 +134,13 @@ describe("bsport widget configuration", () => {
     ).toBe(6720);
     expect(
       resolveBsportCompanyId("", "NEXT_PUBLIC_BSPORT_SHOP_COMPANY_ID", 6720),
+    ).toBe(6720);
+    expect(
+      resolveBsportCompanyId(
+        "",
+        "NEXT_PUBLIC_BSPORT_GIFT_CARD_COMPANY_ID",
+        6720,
+      ),
     ).toBe(6720);
     expect(
       resolveBsportCompanyId("", "NEXT_PUBLIC_BSPORT_PRICING_COMPANY_ID", 6720),

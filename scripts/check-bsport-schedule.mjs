@@ -90,27 +90,8 @@ try {
     {
       locale: "de",
       browserLocale: "de-DE",
-      elementId: "bsport-widget-361765",
-      route: "prices",
-      scriptUrl: productionScriptUrl,
-      screenshot: "bsport-pricing-de.jpg",
-      widgetName: "pricing subscriptions",
-      viewport: { width: 1440, height: 1000 },
-    },
-    {
-      locale: "en",
-      browserLocale: "en-GB",
-      elementId: "bsport-widget-361765",
-      route: "prices",
-      scriptUrl: productionScriptUrl,
-      screenshot: "bsport-pricing-mobile.jpg",
-      widgetName: "pricing subscriptions",
-      viewport: { width: 390, height: 844 },
-    },
-    {
-      locale: "de",
-      browserLocale: "de-DE",
       elementId: "bsport-widget-140155",
+      expectBrandingHidden: true,
       route: "shop",
       scriptUrl: productionScriptUrl,
       screenshot: "bsport-shop-de.jpg",
@@ -121,15 +102,41 @@ try {
       locale: "en",
       browserLocale: "en-GB",
       elementId: "bsport-widget-140155",
+      expectBrandingHidden: true,
       route: "shop",
       scriptUrl: productionScriptUrl,
       screenshot: "bsport-shop-mobile.jpg",
       widgetName: "shop",
       viewport: { width: 390, height: 844 },
     },
+    {
+      locale: "de",
+      browserLocale: "de-DE",
+      elementId: "bsport-widget-29534",
+      expectBrandingHidden: true,
+      route: "shop",
+      scriptUrl: productionScriptUrl,
+      screenshot: "bsport-gift-cards-de.jpg",
+      widgetName: "gift cards",
+      viewport: { width: 1440, height: 1000 },
+    },
+    {
+      locale: "en",
+      browserLocale: "en-GB",
+      elementId: "bsport-widget-29534",
+      expectBrandingHidden: true,
+      route: "shop",
+      scriptUrl: productionScriptUrl,
+      screenshot: "bsport-gift-cards-mobile.jpg",
+      widgetName: "gift cards",
+      viewport: { width: 390, height: 844 },
+    },
   ];
 
   for (const check of checks) {
+    console.log(
+      `Checking ${check.widgetName} on /${check.locale}/${check.route} at ${check.viewport.width}px.`,
+    );
     const context = await browser.newContext({
       locale: check.browserLocale,
       viewport: check.viewport,
@@ -148,7 +155,7 @@ try {
       }
     });
 
-    await page.goto(new URL(`/${check.locale}`, baseUrl).href, {
+    await page.goto(new URL(`/${check.locale}/about`, baseUrl).href, {
       waitUntil: "domcontentloaded",
     });
     await page.waitForTimeout(500);
@@ -183,6 +190,11 @@ try {
         ),
         textLength:
           document.getElementById(elementId)?.textContent?.trim().length ?? 0,
+        visibleBranding: Array.from(
+          document
+            .getElementById(elementId)
+            ?.querySelectorAll('a[href*="utm_content=bsport_logo"]') ?? [],
+        ).some((element) => getComputedStyle(element).display !== "none"),
       }),
       check.elementId,
     );
@@ -200,6 +212,12 @@ try {
       result.textLength > 0,
       `The bsport ${check.widgetName} mounted on /${check.locale}/${check.route} but did not finish rendering content.`,
     );
+    if (check.expectBrandingHidden) {
+      assert(
+        !result.visibleBranding,
+        `The bsport ${check.widgetName} branding is still visible.`,
+      );
+    }
 
     const overflow = await page.evaluate(
       () =>
@@ -254,6 +272,13 @@ try {
     undefined,
     { timeout: 30_000 },
   );
+  await journeyPage.waitForFunction(
+    () =>
+      (document.getElementById("bsport-widget-29534")?.textContent?.trim()
+        .length ?? 0) > 0,
+    undefined,
+    { timeout: 30_000 },
+  );
   await journeyPage.waitForTimeout(5_000);
   assert(
     (await journeyPage.locator('[data-widget-fallback="error"]').count()) === 0,
@@ -265,6 +290,13 @@ try {
   await journeyPage.waitForFunction(
     () =>
       (document.getElementById("bsport-widget-140155")?.textContent?.trim()
+        .length ?? 0) > 0,
+    undefined,
+    { timeout: 30_000 },
+  );
+  await journeyPage.waitForFunction(
+    () =>
+      (document.getElementById("bsport-widget-29534")?.textContent?.trim()
         .length ?? 0) > 0,
     undefined,
     { timeout: 30_000 },

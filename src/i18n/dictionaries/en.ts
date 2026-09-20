@@ -366,9 +366,12 @@ const en = {
       error: "The shop could not be loaded right now. Please try again later.",
     },
     giftCards: {
-      heading: "Gift-card purchases coming later",
+      heading: "Gift cards",
       description:
-        "Gift cards will later be sold through bsport. This preview does not simulate a purchase flow.",
+        "Choose a fixed amount or create a gift card with a custom value. Purchase and payment are handled securely through bsport.",
+      loading: "The gift cards are loading…",
+      error:
+        "The gift cards could not be loaded right now. Please try again later.",
     },
   },
   notFound: {
