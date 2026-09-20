@@ -6,7 +6,6 @@
 }
 
 html {
-  min-width: 320px;
   background: var(--krutiger-canvas);
   color-scheme: dark;
   scroll-behavior: smooth;

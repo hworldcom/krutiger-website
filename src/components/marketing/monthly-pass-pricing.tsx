@@ -41,7 +41,7 @@ export function MonthlyPassPricing({
         <p className="mt-4 leading-7 text-copy-muted">{copy.description}</p>
       </div>
 
-      <div className="mt-6 border-l-2 border-brand bg-panel/70 p-5">
+      <div className="mt-6 border-l-2 border-brand bg-panel/70 p-4 xs:p-5">
         <p className="font-display text-sm font-bold tracking-[0.14em] text-brand uppercase">
           {copy.validityLabel}
         </p>
@@ -59,7 +59,7 @@ export function MonthlyPassPricing({
 
           return (
             <article
-              className="relative flex min-h-80 flex-col overflow-hidden border border-line bg-panel p-6 transition-colors hover:border-brand sm:p-8"
+              className="relative flex min-h-80 flex-col overflow-hidden border border-line bg-panel p-4 transition-colors hover:border-brand xs:p-6 sm:p-8"
               key={pass.id}
             >
               <div
@@ -69,15 +69,15 @@ export function MonthlyPassPricing({
               <p className="font-display text-sm font-bold tracking-[0.2em] text-brand uppercase">
                 {copy.passLabel}
               </p>
-              <h3 className="mt-2 font-display text-4xl font-extrabold uppercase sm:text-5xl">
+              <h3 className="mt-2 break-words font-display text-3xl font-extrabold uppercase xs:text-4xl sm:text-5xl">
                 {pass.name}
               </h3>
 
               <div className="mt-8 border-y border-line py-7">
-                <p className="font-display text-6xl leading-none font-extrabold text-copy">
+                <p className="break-words font-display text-5xl leading-none font-extrabold text-copy xs:text-6xl">
                   {currencyFormatter.format(pass.price)}
                 </p>
-                <p className="mt-5 font-display text-xl font-bold tracking-wide text-copy uppercase">
+                <p className="mt-5 break-words font-display text-xl font-bold tracking-wide text-copy uppercase">
                   {sessions}
                 </p>
               </div>
@@ -88,7 +88,7 @@ export function MonthlyPassPricing({
                 className={`${getButtonClassName({ stretch: true })} mt-auto`}
                 href={pass.checkoutUrl}
               >
-                <span>
+                <span className="min-w-0 break-words">
                   {copy.buyAction}
                   <sup aria-hidden="true">*</sup>
                 </span>

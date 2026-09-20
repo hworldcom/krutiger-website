@@ -55,7 +55,7 @@ export function SectionHeader({
         </p>
       ) : null}
       <Heading
-        className={`mt-5 max-w-4xl font-display font-extrabold tracking-tight uppercase ${headingClasses[size]}`}
+        className={`mt-5 max-w-4xl break-words font-display font-extrabold tracking-tight uppercase ${headingClasses[size]}`}
         id={headingId}
       >
         {title}

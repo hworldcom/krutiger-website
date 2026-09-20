@@ -84,7 +84,7 @@ export function MembershipPricing({
         <p className="mt-4 leading-7 text-copy-muted">{copy.description}</p>
       </div>
 
-      <div className="mt-6 border-l-2 border-brand bg-panel/70 p-5">
+      <div className="mt-6 border-l-2 border-brand bg-panel/70 p-4 xs:p-5">
         <p className="font-display text-sm font-bold tracking-[0.14em] text-brand uppercase">
           {copy.termsLabel}
         </p>
@@ -158,7 +158,7 @@ export function MembershipPricing({
 
               return (
                 <article
-                  className="group relative flex min-h-full flex-col overflow-hidden border border-line bg-panel p-6 transition-colors hover:border-brand sm:p-8"
+                  className="group relative flex min-h-full flex-col overflow-hidden border border-line bg-panel p-4 transition-colors hover:border-brand xs:p-6 sm:p-8"
                   key={membership.id}
                 >
                   <div
@@ -166,25 +166,25 @@ export function MembershipPricing({
                     className="absolute inset-x-0 top-0 h-1 bg-brand"
                   />
                   <div className="flex flex-wrap items-start justify-between gap-4">
-                    <div>
+                    <div className="min-w-0">
                       <p className="font-display text-sm font-bold tracking-[0.2em] text-brand uppercase">
                         {copy.membershipLabel}
                       </p>
-                      <h3 className="mt-2 font-display text-4xl font-extrabold uppercase sm:text-5xl">
+                      <h3 className="mt-2 break-words font-display text-3xl font-extrabold uppercase xs:text-4xl sm:text-5xl">
                         {membership.name}
                       </h3>
                     </div>
-                    <p className="border border-line px-3 py-2 font-display text-sm font-bold tracking-wide text-copy-muted uppercase">
+                    <p className="shrink-0 border border-line px-3 py-2 font-display text-sm font-bold tracking-wide text-copy-muted uppercase">
                       {copy.durationLabels[membership.durationMonths]}
                     </p>
                   </div>
 
                   <div className="mt-8 border-b border-line pb-7">
-                    <p className="flex items-end gap-2">
-                      <span className="font-display text-6xl leading-none font-extrabold text-copy">
+                    <p className="flex min-w-0 flex-col items-start gap-1 xs:flex-row xs:items-end xs:gap-2">
+                      <span className="font-display text-5xl leading-none font-extrabold text-copy xs:text-6xl">
                         {currencyFormatter.format(membership.monthlyPrice)}
                       </span>
-                      <span className="pb-1 text-copy-muted">
+                      <span className="break-words text-copy-muted xs:pb-1">
                         {copy.perMonth}
                       </span>
                     </p>
@@ -203,7 +203,9 @@ export function MembershipPricing({
                           <span aria-hidden="true" className="text-brand">
                             +
                           </span>
-                          <span>{copy.benefits[benefit]}</span>
+                          <span className="min-w-0 break-words">
+                            {copy.benefits[benefit]}
+                          </span>
                         </li>
                       ))}
                     </ul>
@@ -215,7 +217,7 @@ export function MembershipPricing({
                     className={getButtonClassName({ stretch: true })}
                     href={membership.checkoutUrl}
                   >
-                    <span>
+                    <span className="min-w-0 break-words">
                       {copy.bookAction}
                       <sup aria-hidden="true">*</sup>
                     </span>

@@ -29,6 +29,7 @@ if (!executablePath) {
 }
 
 const viewports = [
+  { name: "mobile-280", width: 280, height: 720 },
   { name: "mobile-320", width: 320, height: 800 },
   { name: "iphone", width: 390, height: 844 },
   { name: "android", width: 412, height: 915 },
@@ -94,6 +95,47 @@ async function checkNoHorizontalOverflow(page, label) {
   );
 }
 
+async function checkNoClippedPricingText(page, label) {
+  const clippedText = await page.evaluate(() => {
+    const cards = [
+      ...document.querySelectorAll(
+        "[data-membership-pricing] article, [data-monthly-pass-pricing] article",
+      ),
+    ];
+
+    return cards.flatMap((card) => {
+      const cardRectangle = card.getBoundingClientRect();
+
+      return [...card.querySelectorAll("h3, p, li span, a")]
+        .filter((element) => element.textContent?.trim())
+        .flatMap((element) => {
+          const range = document.createRange();
+          range.selectNodeContents(element);
+          const textRectangle = range.getBoundingClientRect();
+
+          if (
+            textRectangle.left >= cardRectangle.left - 1 &&
+            textRectangle.right <= cardRectangle.right + 1
+          ) {
+            return [];
+          }
+
+          return [
+            {
+              element: element.tagName.toLowerCase(),
+              text: element.textContent?.trim().replace(/\s+/g, " "),
+            },
+          ];
+        });
+    });
+  });
+
+  assert(
+    clippedText.length === 0,
+    `${label} clips pricing text: ${JSON.stringify(clippedText.slice(0, 5))}`,
+  );
+}
+
 async function loadLazyImages(page) {
   await page.evaluate(async () => {
     const step = Math.max(window.innerHeight * 0.75, 320);
@@ -122,7 +164,7 @@ try {
     const page = await context.newPage();
 
     for (const locale of locales) {
-      for (const route of ["/", "/training", "/about", "/coaches"]) {
+      for (const route of ["/", "/training", "/prices", "/about", "/coaches"]) {
         const url = localizedUrl(locale, route);
         await openPage(page, url);
         await checkNoHorizontalOverflow(
@@ -152,6 +194,22 @@ try {
 
     await context.close();
   }
+
+  const enlargedTextContext = await browser.newContext({
+    locale: "de-DE",
+    viewport: { width: 320, height: 800 },
+  });
+  const enlargedTextPage = await enlargedTextContext.newPage();
+
+  await openPage(enlargedTextPage, localizedUrl("de", "/prices"));
+  await enlargedTextPage.addStyleTag({
+    content: "html { font-size: 24px !important; }",
+  });
+  await checkNoClippedPricingText(
+    enlargedTextPage,
+    "de/prices at 320px with 150% text scaling",
+  );
+  await enlargedTextContext.close();
 
   const metadataContext = await browser.newContext({
     viewport: { width: 1440, height: 900 },
