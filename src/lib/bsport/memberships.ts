@@ -1,4 +1,4 @@
-export const membershipDurations = [12, 6, 3] as const;
+export const membershipDurations = [24, 12, 6, 3] as const;
 
 export type MembershipDuration = (typeof membershipDurations)[number];
 
@@ -17,7 +17,7 @@ export type MembershipPlan = Readonly<{
 
 export const membershipTerms = {
   autoRenewal: true,
-  billingDay: 1,
+  billingDay: 3,
   joiningFee: 29,
 } as const;
 
@@ -31,6 +31,54 @@ const sharedClassBenefits = [
 export const membershipsByDuration: Readonly<
   Record<MembershipDuration, readonly MembershipPlan[]>
 > = {
+  24: [
+    {
+      id: "basic-24",
+      name: "Basic",
+      monthlyPrice: 49,
+      durationMonths: 24,
+      monthlySessions: 4,
+      benefits: sharedClassBenefits,
+      checkoutUrl:
+        "https://backoffice.bsport.io/checkout/6720/subscription/55692?force=true",
+    },
+    {
+      id: "flex-24",
+      name: "Flex",
+      monthlyPrice: 69,
+      durationMonths: 24,
+      monthlySessions: 8,
+      benefits: sharedClassBenefits,
+      checkoutUrl:
+        "https://backoffice.bsport.io/checkout/6720/subscription/55693?force=true",
+    },
+    {
+      id: "plus-24",
+      name: "Plus",
+      monthlyPrice: 89,
+      durationMonths: 24,
+      monthlySessions: 12,
+      benefits: sharedClassBenefits,
+      checkoutUrl:
+        "https://backoffice.bsport.io/checkout/6720/subscription/55694?force=true",
+    },
+    {
+      id: "unlimited-24",
+      name: "Unlimited",
+      monthlyPrice: 109,
+      durationMonths: 24,
+      monthlySessions: "unlimited",
+      benefits: [
+        "muayThai",
+        "openGym",
+        "yoga",
+        "strengthConditioning",
+        "mobility",
+      ],
+      checkoutUrl:
+        "https://backoffice.bsport.io/checkout/6720/subscription/55695?force=true",
+    },
+  ],
   12: [
     {
       id: "basic-12",

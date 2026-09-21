@@ -52,7 +52,8 @@ describe("Sanity pricing-card validation", () => {
     expect(validateMembershipDuration(3)).toBe(true);
     expect(validateMembershipDuration(6)).toBe(true);
     expect(validateMembershipDuration(12)).toBe(true);
-    expect(validateMembershipDuration(1)).toMatch(/3, 6, or 12/);
+    expect(validateMembershipDuration(24)).toBe(true);
+    expect(validateMembershipDuration(1)).toMatch(/3, 6, 12, or 24/);
   });
 
   it("requires positive whole-number quantities for limited products", () => {

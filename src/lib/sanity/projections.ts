@@ -68,7 +68,7 @@ const faqCategories = new Set<FaqCategory>([
   "memberships",
   "other",
 ]);
-const membershipDurations = new Set<MembershipDuration>([3, 6, 12]);
+const membershipDurations = new Set<MembershipDuration>([3, 6, 12, 24]);
 const membershipBenefits = new Set<MembershipBenefit>([
   "muayThai",
   "openGym",

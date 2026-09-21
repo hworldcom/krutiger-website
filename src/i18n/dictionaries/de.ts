@@ -314,7 +314,7 @@ const de = {
       membership: {
         title: "Mitgliedschaft",
         description:
-          "Für regelmäßiges Training mit 3, 6 oder 12 Monaten Laufzeit und bis zu unbegrenzten Teilnahmen.",
+          "Für regelmäßiges Training mit 3, 6, 12 oder 24 Monaten Laufzeit und bis zu unbegrenzten Teilnahmen.",
         action: "Mitgliedschaften ansehen",
       },
       passes: {
@@ -423,6 +423,7 @@ const de = {
         "Die Preise konnten gerade nicht geladen werden. Bitte versuche es später erneut.",
       durationSelectorLabel: "Mitgliedschaftslaufzeit wählen",
       durationLabels: {
+        24: "24 Monate",
         12: "12 Monate",
         6: "6 Monate",
         3: "3 Monate",

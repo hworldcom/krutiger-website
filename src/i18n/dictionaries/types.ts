@@ -34,7 +34,7 @@ type PricingIntegrationCopy = WidgetIntegrationCopy &
     passesTab: string;
     termsLabel: string;
     durationSelectorLabel: string;
-    durationLabels: Readonly<Record<12 | 6 | 3, string>>;
+    durationLabels: Readonly<Record<24 | 12 | 6 | 3, string>>;
     membershipLabel: string;
     perMonth: string;
     billingDay: string;

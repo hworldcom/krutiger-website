@@ -24,7 +24,7 @@ export function MembershipPricing({
   memberships: allMemberships,
 }: MembershipPricingProps) {
   const [selectedDuration, setSelectedDuration] =
-    useState<MembershipDuration>(12);
+    useState<MembershipDuration>(24);
   const memberships = allMemberships.filter(
     ({ durationMonths }) => durationMonths === selectedDuration,
   );

@@ -1,4 +1,4 @@
-export const membershipDurations = [3, 6, 12] as const;
+export const membershipDurations = [3, 6, 12, 24] as const;
 
 export const membershipBenefits = [
   { title: "Muay Thai classes", value: "muayThai" },
@@ -87,7 +87,7 @@ export function validateBsportCheckoutUrl(
 export function validateMembershipDuration(value: unknown) {
   return membershipDurations.some((duration) => duration === value)
     ? true
-    : "Choose a supported membership duration: 3, 6, or 12 months.";
+    : "Choose a supported membership duration: 3, 6, 12, or 24 months.";
 }
 
 export function validateAccessType(value: unknown) {

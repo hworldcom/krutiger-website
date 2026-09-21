@@ -18,7 +18,7 @@ describe("MembershipPricing", () => {
     (duration) => membershipsByDuration[duration],
   );
 
-  it("shows the four 12-month memberships and their bsport checkouts", () => {
+  it("shows the four 24-month memberships and their bsport checkouts", () => {
     render(
       <MembershipPricing
         copy={de.integrations.pricing}
@@ -30,21 +30,42 @@ describe("MembershipPricing", () => {
     expect(screen.getAllByRole("article")).toHaveLength(4);
     expect(
       screen
-        .getByRole("link", { name: /Basic, 12 Monate/ })
+        .getByRole("link", { name: /Basic, 24 Monate/ })
         .getAttribute("href"),
     ).toBe(
-      "https://backoffice.bsport.io/checkout/6720/subscription/55347?force=true",
+      "https://backoffice.bsport.io/checkout/6720/subscription/55692?force=true",
     );
     expect(screen.getByText("4 Teilnahmen im Monat an:")).toBeTruthy();
     expect(screen.getByText("Unbegrenzter Zugang zu:")).toBeTruthy();
     expect(
-      screen.getAllByText("Zahlung jeweils am 1. des Monats"),
+      screen.getAllByText("Zahlung jeweils am 3. des Monats"),
     ).toHaveLength(1);
     expect(
       screen.getAllByText(
         "Deine Mitgliedschaft verlängert sich nach Ablauf der gewählten Vertragslaufzeit automatisch, sofern sie nicht fristgerecht gekündigt wird.",
       ),
     ).toHaveLength(1);
+  });
+
+  it("keeps the existing 12-month memberships available", () => {
+    render(
+      <MembershipPricing
+        copy={de.integrations.pricing}
+        locale="de"
+        memberships={memberships}
+      />,
+    );
+
+    fireEvent.click(screen.getByRole("tab", { name: "12 Monate" }));
+
+    expect(screen.getAllByRole("article")).toHaveLength(4);
+    expect(
+      screen
+        .getByRole("link", { name: /Flex, 12 Monate/ })
+        .getAttribute("href"),
+    ).toBe(
+      "https://backoffice.bsport.io/checkout/6720/subscription/55344?force=true",
+    );
   });
 
   it("allows switching between membership durations", () => {

@@ -55,7 +55,7 @@ export type MembershipCard = {
   internalKey?: Slug;
   name?: LocalizedString;
   monthlyPriceCents?: number;
-  durationMonths?: 3 | 6 | 12;
+  durationMonths?: 3 | 6 | 12 | 24;
   accessType?: "limited" | "unlimited";
   monthlySessions?: number;
   benefits?: Array<
@@ -714,7 +714,7 @@ export type MEMBERSHIP_CARDS_QUERY_RESULT = Array<{
   internalKey: string | null;
   name: LocalizedString | null;
   monthlyPriceCents: number | null;
-  durationMonths: 12 | 3 | 6 | null;
+  durationMonths: 12 | 24 | 3 | 6 | null;
   accessType: "limited" | "unlimited" | null;
   monthlySessions: number | null;
   benefits: Array<
