@@ -54,6 +54,7 @@ type NavigationLinkProps = Readonly<{
 type LanguageSwitcherProps = Readonly<{
   locale: Locale;
   labels: LocaleLabels;
+  mobile?: boolean;
   onNavigate?: () => void;
   pathname: string;
 }>;
@@ -98,12 +99,31 @@ function CloseIcon() {
   );
 }
 
+function ChevronIcon() {
+  return (
+    <svg
+      aria-hidden="true"
+      className="size-4 transition-transform group-open:rotate-180"
+      fill="none"
+      viewBox="0 0 24 24"
+    >
+      <path
+        d="m7 9 5 5 5-5"
+        stroke="currentColor"
+        strokeLinecap="square"
+        strokeWidth="2"
+      />
+    </svg>
+  );
+}
+
 function LanguageFlag({ locale }: Readonly<{ locale: Locale }>) {
   if (locale === "de") {
     return (
       <svg
         aria-hidden="true"
         className="h-3 w-[1.125rem] shrink-0 ring-1 ring-current/20"
+        data-language-flag={locale}
         viewBox="0 0 18 12"
       >
         <path d="M0 0h18v4H0z" fill="#000" />
@@ -117,6 +137,7 @@ function LanguageFlag({ locale }: Readonly<{ locale: Locale }>) {
     <svg
       aria-hidden="true"
       className="h-3 w-[1.125rem] shrink-0 ring-1 ring-current/20"
+      data-language-flag={locale}
       viewBox="0 0 18 12"
     >
       <path d="M0 0h18v12H0z" fill="#012169" />
@@ -163,72 +184,91 @@ function NavigationLink({
 function LanguageSwitcher({
   labels,
   locale,
+  mobile = false,
   onNavigate,
   pathname,
 }: LanguageSwitcherProps) {
+  const detailsRef = useRef<HTMLDetailsElement>(null);
+
   return (
-    <nav aria-label={labels.navigationLabel}>
-      <ul className="flex items-center gap-1">
-        {locales.map((targetLocale) => {
-          const isCurrent = targetLocale === locale;
-          const href = replacePathLocale(pathname, targetLocale);
-          const accessibleLabel = isCurrent
-            ? `${labels.currentLanguageLabel}: ${labels.currentLanguage}`
-            : labels.switchTo[targetLocale];
+    <nav aria-label={labels.navigationLabel} data-language-switcher="true">
+      <details className="group relative" ref={detailsRef}>
+        <summary
+          aria-label={`${labels.currentLanguageLabel}: ${labels.currentLanguage}`}
+          className="inline-flex min-h-10 cursor-pointer list-none items-center justify-center gap-2 rounded-control border border-line px-3 font-display font-extrabold text-copy transition-colors hover:border-copy focus-visible:border-copy [&::-webkit-details-marker]:hidden"
+        >
+          <LanguageFlag locale={locale} />
+          <span>{locale.toUpperCase()}</span>
+          <ChevronIcon />
+        </summary>
 
-          return (
-            <li key={targetLocale}>
-              <a
-                aria-current={isCurrent ? "page" : undefined}
-                aria-label={accessibleLabel}
-                className={`group inline-flex min-h-10 min-w-[4.5rem] items-center justify-center gap-2 rounded-control px-2 font-display transition-colors ${
-                  isCurrent
-                    ? "border-2 border-copy bg-copy font-extrabold text-canvas underline decoration-2 underline-offset-4"
-                    : "border border-line font-bold text-copy-muted hover:border-copy hover:text-copy"
-                }`}
-                data-bsport-language-switch="true"
-                href={href}
-                hrefLang={targetLocale}
-                lang={targetLocale}
-                onClick={(event) => {
-                  onNavigate?.();
+        <ul
+          className={`z-50 overflow-hidden rounded-control border border-line bg-panel-raised p-1 shadow-header ${
+            mobile
+              ? "absolute bottom-[calc(100%+0.5rem)] left-0 min-w-44"
+              : "absolute top-[calc(100%+0.5rem)] right-0 min-w-44"
+          }`}
+        >
+          {locales.map((targetLocale) => {
+            const isCurrent = targetLocale === locale;
+            const href = replacePathLocale(pathname, targetLocale);
+            const accessibleLabel = isCurrent
+              ? `${labels.currentLanguageLabel}: ${labels.currentLanguage}`
+              : labels.switchTo[targetLocale];
 
-                  if (isCurrent) {
-                    return;
-                  }
-
-                  setBsportWidgetLanguage(targetLocale);
-
-                  if (
-                    event.button === 0 &&
-                    !event.altKey &&
-                    !event.ctrlKey &&
-                    !event.metaKey &&
-                    !event.shiftKey
-                  ) {
-                    event.preventDefault();
-                    // Give bsport's locale detector one task to observe the cookie
-                    // before its current widget runtime is torn down.
-                    window.setTimeout(() => window.location.assign(href), 100);
-                  }
-                }}
-              >
-                <span
-                  className={`transition-opacity duration-150 motion-reduce:transition-none ${
+            return (
+              <li key={targetLocale}>
+                <a
+                  aria-current={isCurrent ? "page" : undefined}
+                  aria-label={accessibleLabel}
+                  className={`flex min-h-11 items-center gap-3 rounded-control px-3 font-display font-bold transition-colors ${
                     isCurrent
-                      ? "opacity-100"
-                      : "opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100"
+                      ? "bg-copy text-canvas"
+                      : "text-copy-muted hover:bg-panel hover:text-copy focus-visible:bg-panel focus-visible:text-copy"
                   }`}
-                  data-language-flag={targetLocale}
+                  data-bsport-language-switch="true"
+                  href={href}
+                  hrefLang={targetLocale}
+                  lang={targetLocale}
+                  onClick={(event) => {
+                    detailsRef.current?.removeAttribute("open");
+
+                    if (isCurrent) {
+                      event.preventDefault();
+                      return;
+                    }
+
+                    onNavigate?.();
+                    setBsportWidgetLanguage(targetLocale);
+
+                    if (
+                      event.button === 0 &&
+                      !event.altKey &&
+                      !event.ctrlKey &&
+                      !event.metaKey &&
+                      !event.shiftKey
+                    ) {
+                      event.preventDefault();
+                      // Give bsport's locale detector one task to observe the cookie
+                      // before its current widget runtime is torn down.
+                      window.setTimeout(
+                        () => window.location.assign(href),
+                        100,
+                      );
+                    }
+                  }}
                 >
                   <LanguageFlag locale={targetLocale} />
-                </span>
-                {targetLocale.toUpperCase()}
-              </a>
-            </li>
-          );
-        })}
-      </ul>
+                  <span>{targetLocale.toUpperCase()}</span>
+                  <span className="ml-auto text-sm font-normal normal-case">
+                    {labels.languageNames[targetLocale]}
+                  </span>
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      </details>
     </nav>
   );
 }
@@ -476,6 +516,7 @@ export function SiteHeader({
               <LanguageSwitcher
                 labels={localeLabels}
                 locale={locale}
+                mobile
                 onNavigate={closeMenu}
                 pathname={pathname}
               />
