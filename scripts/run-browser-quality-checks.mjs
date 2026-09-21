@@ -196,6 +196,7 @@ try {
         "/prices",
         "/about",
         "/coaches",
+        "/contact",
         "/member-area",
       ]) {
         const url = localizedUrl(locale, route);

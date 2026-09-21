@@ -36,14 +36,14 @@ German and English.
 
 ## Site settings
 
-The seeded address, map URL, email, telephone, and opening hours are explicitly
-dummy values. `contactStatus` remains `placeholder`, and the schema blocks the
-Site settings document from publication. Replace every contact field with
-KRUTIGER-approved information before selecting Verified.
+The seeded address, map URL, and email address are approved public values. The
+telephone and opening hours remain explicitly dummy values. `contactStatus`
+remains `placeholder`, and the schema blocks the Site settings document from
+publication. Replace the remaining contact fields with KRUTIGER-approved
+information before selecting Verified.
 
 The Instagram profile is seeded as
-`@krutiger.muay_thai_in_berlin`; confirm that it remains the desired public
-profile.
+`@krutigermuaythai`, the approved public business profile.
 
 ## Pricing snapshot
 

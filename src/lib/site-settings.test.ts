@@ -4,11 +4,20 @@ import { locales } from "../i18n/config";
 import { siteSettings } from "./site-settings";
 
 describe("site settings", () => {
-  it("keeps development contact values explicitly marked as placeholders", () => {
+  it("keeps unverified contact values explicitly marked as placeholders", () => {
     expect(siteSettings.contact.status).toBe("placeholder");
-    expect(siteSettings.contact.address.lines.length).toBeGreaterThan(0);
+    expect(siteSettings.contact.address.lines).toEqual([
+      "Karl-Marx-Allee 3",
+      "10178 Berlin",
+    ]);
     expect(() => new URL(siteSettings.contact.address.mapUrl)).not.toThrow();
-    expect(siteSettings.contact.email.href).toMatch(/^mailto:/);
+    expect(siteSettings.contact.address.mapUrl).toContain(
+      "Karl-Marx-Allee+3%2C+10178+Berlin",
+    );
+    expect(siteSettings.contact.email).toEqual({
+      displayValue: "info@krutigermuaythai.de",
+      href: "mailto:info@krutigermuaythai.de",
+    });
     expect(siteSettings.contact.phone.href).toMatch(/^tel:/);
   });
 
@@ -22,8 +31,9 @@ describe("site settings", () => {
   });
 
   it("uses the approved KRUTIGER Instagram account", () => {
+    expect(siteSettings.social.instagram.handle).toBe("@krutigermuaythai");
     expect(siteSettings.social.instagram.url).toBe(
-      "https://www.instagram.com/krutiger.muay_thai_in_berlin/",
+      "https://www.instagram.com/krutigermuaythai/",
     );
   });
 });

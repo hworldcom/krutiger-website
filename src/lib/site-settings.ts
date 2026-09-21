@@ -36,13 +36,13 @@ export const siteSettings = {
   contact: {
     status: "placeholder",
     address: {
-      lines: ["Musterstraße 24", "10999 Berlin"],
+      lines: ["Karl-Marx-Allee 3", "10178 Berlin"],
       mapUrl:
-        "https://www.google.com/maps/search/?api=1&query=Musterstra%C3%9Fe+24%2C+10999+Berlin",
+        "https://www.google.com/maps/search/?api=1&query=Karl-Marx-Allee+3%2C+10178+Berlin",
     },
     email: {
-      displayValue: "hello@example.com",
-      href: "mailto:hello@example.com",
+      displayValue: "info@krutigermuaythai.de",
+      href: "mailto:info@krutigermuaythai.de",
     },
     phone: {
       displayValue: "+49 30 00000000",
@@ -83,8 +83,8 @@ export const siteSettings = {
   },
   social: {
     instagram: {
-      handle: "@krutiger.muay_thai_in_berlin",
-      url: "https://www.instagram.com/krutiger.muay_thai_in_berlin/",
+      handle: "@krutigermuaythai",
+      url: "https://www.instagram.com/krutigermuaythai/",
     },
   },
 } as const satisfies SiteSettings;

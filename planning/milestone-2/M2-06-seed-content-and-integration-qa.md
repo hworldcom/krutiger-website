@@ -18,8 +18,9 @@ and the complete integration is ready for Milestone 3 page work.
 - Seed the currently verified membership and monthly-pass presentation cards
   with their exact bSport checkout destinations and verification timestamps.
 - Seed verified site settings only after the client approves them.
-- Keep current dummy address, email, telephone, and opening hours explicitly
-  marked as placeholders; never migrate them as verified production data.
+- Seed the approved address, email, and Instagram profile while keeping the
+  dummy telephone and opening hours explicitly marked as placeholders; never
+  migrate the incomplete contact record as verified production data.
 - Preserve asset provenance, rights, consent, localized alternative text,
   hotspot, and crop metadata during image migration.
 - Connect the existing homepage, About page, Training page, page metadata, and

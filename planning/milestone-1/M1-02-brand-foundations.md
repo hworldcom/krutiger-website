@@ -24,7 +24,7 @@ The Superjack reference demonstrates strong energy and direct calls to action. T
 - Select or propose heading and body typefaces that support German and English characters and meet performance requirements.
 - Define initial spacing, container widths, breakpoints, radii, borders, shadows, and motion preferences.
 - Define rules for photography and Sak Yant-inspired decorative textures.
-- Review the official [KRUTIGER Instagram account](https://www.instagram.com/krutiger.muay_thai_in_berlin/) and shortlist authentic training, coaching, seminar, portrait, and community images for potential website use.
+- Review the official [KRUTIGER Instagram account](https://www.instagram.com/krutigermuaythai/) and shortlist authentic training, coaching, seminar, portrait, and community images for potential website use.
 - Prefer original camera files supplied by the account owner over screenshots or Instagram-compressed downloads.
 - Record the source post, photographer or rights holder, approval status, depicted-person consent, intended placement, orientation, and available resolution for every shortlisted image.
 - Treat photographs containing children or other potentially vulnerable subjects as unavailable until explicit publication consent is confirmed.

@@ -10,7 +10,7 @@ Deliver a working, branded, responsive, bilingual Next.js application shell for 
 - Preserve the circular tiger badge. Do not redraw or simplify it without approval.
 - Use a restrained visual system derived from the existing black, orange, white, and red identity.
 - Sak Yant-inspired artwork may be used as subtle texture, but it must not reduce readability.
-- The official [KRUTIGER Instagram account](https://www.instagram.com/krutiger.muay_thai_in_berlin/) is an approved candidate source for authentic training and community photography, subject to the asset and consent checks in M1-02.
+- The official [KRUTIGER Instagram account](https://www.instagram.com/krutigermuaythai/) is an approved candidate source for authentic training and community photography, subject to the asset and consent checks in M1-02.
 - Kru Tiger's experience, Thai heritage, and personality will be central to the eventual content direction.
 - Chímosa and Superjack are references for structure and presentation only. The site must not copy either one.
 

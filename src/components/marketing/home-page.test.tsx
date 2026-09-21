@@ -28,6 +28,10 @@ describe("HomePage", () => {
     expect(markup).toContain('data-integration-boundary="home-schedule"');
     expect(markup).toContain('id="bsport-widget-679237"');
     expect(markup).not.toContain('data-placeholder-data="true"');
+    expect(markup).toContain("Mitte");
+    expect(markup).toContain("Karl-Marx-Allee 3");
+    expect(markup).toContain("10178 Berlin");
+    expect(markup).not.toContain("Melechstr. 11");
 
     for (const item of de.homePage.values.items) {
       expect(markup).toContain(item.title);

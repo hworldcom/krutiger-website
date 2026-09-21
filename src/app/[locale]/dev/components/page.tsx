@@ -184,7 +184,7 @@ export default async function ComponentShowcasePage({
 
           <div className="mt-12 flex items-center gap-4">
             <IconLink
-              href="https://www.instagram.com/krutiger.muay_thai_in_berlin/"
+              href="https://www.instagram.com/krutigermuaythai/"
               icon={<InstagramIcon />}
               label={labels.iconLink}
             />

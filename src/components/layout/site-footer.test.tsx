@@ -32,7 +32,7 @@ describe("SiteFooter", () => {
     expect(markup).toContain("© 2030 KRUTIGER Muay Thai Berlin");
   });
 
-  it("labels sample contact content and uses appropriate link formats", () => {
+  it("shows the verified address and labels remaining sample contact content", () => {
     const markup = renderToStaticMarkup(
       <SiteFooter
         currentYear={2030}
@@ -45,10 +45,13 @@ describe("SiteFooter", () => {
 
     expect(siteSettings.contact.status).toBe("placeholder");
     expect(markup).toContain(de.shell.footer.placeholderDataLabel);
-    expect(markup).toContain('href="mailto:hello@example.com"');
+    expect(markup).toContain('href="mailto:info@krutigermuaythai.de"');
     expect(markup).toContain('href="tel:+493000000000"');
-    expect(markup).toContain("google.com/maps/search");
+    expect(markup).toContain("Karl-Marx-Allee 3");
+    expect(markup).toContain("10178 Berlin");
+    expect(markup).toContain("Karl-Marx-Allee+3%2C+10178+Berlin");
     expect(markup).toContain(siteSettings.social.instagram.url);
+    expect(markup).toContain("@krutigermuaythai");
     expect(markup).toContain(de.shell.footer.instagramLinkLabel);
   });
 

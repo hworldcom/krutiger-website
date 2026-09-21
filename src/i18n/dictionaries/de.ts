@@ -47,7 +47,7 @@ const de = {
       legalNavigationLabel: "Rechtliche Hinweise",
       placeholderDataLabel: "Entwicklungsdaten",
       placeholderDataDescription:
-        "Adresse, Kontakt und Öffnungszeiten sind Beispieldaten und noch nicht für einen Besuch oder eine Kontaktaufnahme freigegeben.",
+        "Telefon und Öffnungszeiten sind Beispieldaten und noch nicht freigegeben.",
       rightsStatement: "Alle Rechte vorbehalten.",
     },
   },
@@ -120,7 +120,7 @@ const de = {
       eyebrow: "Kontakt",
       title: "Nimm Kontakt mit KRUTIGER auf",
       description:
-        "Hier werden geprüfte Kontaktmöglichkeiten, Adresse und Hinweise zur Anfahrt bereitgestellt.",
+        "Schreib uns über das Kontaktformular oder direkt per E-Mail. Du findest uns in Berlin-Mitte, nahe dem Alexanderplatz.",
     },
     memberArea: {
       navigationLabel: "Mitglied werden",
@@ -174,9 +174,9 @@ const de = {
         "Aktuell konnten keine weiteren Kurse gefunden werden. Öffne den Kursplan für alle Termine.",
       allLevels: "Alle Levels",
       location: {
-        district: "Kreuzberg",
-        addressLineOne: "Melechstr. 11",
-        addressLineTwo: "10961 Berlin",
+        district: "Mitte",
+        addressLineOne: "Karl-Marx-Allee 3",
+        addressLineTwo: "10178 Berlin",
       },
     },
     values: {
@@ -382,6 +382,45 @@ const de = {
           "Melde dich bei bSport an oder erstelle ein Konto und schließe deine Buchung ab.",
       },
     ],
+  },
+  contactPage: {
+    form: {
+      eyebrow: "Schreib uns",
+      title: "Wie können wir dir helfen?",
+      description:
+        "Fülle die Felder aus und wir bereiten eine E-Mail an KRUTIGER für dich vor.",
+      nameLabel: "Name",
+      namePlaceholder: "Dein Name",
+      emailLabel: "E-Mail-Adresse",
+      emailPlaceholder: "du@beispiel.de",
+      topicLabel: "Thema",
+      topics: [
+        "Allgemeine Frage",
+        "Probetraining",
+        "Mitgliedschaft und Preise",
+        "Privattraining",
+      ],
+      messageLabel: "Nachricht",
+      messagePlaceholder: "Wie können wir dir helfen?",
+      privacyPrefix: "Ich habe die",
+      privacyLinkLabel: "Datenschutzerklärung",
+      privacySuffix: " gelesen.",
+      submitAction: "E-Mail vorbereiten",
+      deliveryNotice:
+        "Beim Absenden öffnet sich dein E-Mail-Programm. Die Website speichert deine Angaben nicht.",
+      submittedNotice:
+        "Deine E-Mail wurde vorbereitet. Falls sich kein E-Mail-Programm öffnet, schreibe direkt an info@krutigermuaythai.de.",
+      subjectPrefix: "Anfrage über die Website",
+      mailGreeting: "Hallo KRUTIGER-Team,",
+    },
+    details: {
+      eyebrow: "Direkter Kontakt",
+      title: "Kontakt und Anfahrt",
+      emailLabel: "E-Mail",
+      addressLabel: "Adresse",
+      addressAction: "Route öffnen",
+      instagramLabel: "Instagram",
+    },
   },
   integrations: {
     schedule: {
