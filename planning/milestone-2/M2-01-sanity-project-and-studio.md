@@ -1,6 +1,6 @@
 # M2-01 — Bootstrap Sanity and the Studio
 
-**Status:** Ready
+**Status:** In progress
 
 ## Outcome
 
@@ -34,6 +34,28 @@ browser.
 - Repository-integrated versus separately deployed Studio
 - Initial administrator and editor accounts
 - Local, preview, and production origins requiring CORS access
+
+## Decisions recorded
+
+- Connect the website and Studio to the KRUTIGER Sanity project `nsznfiun`.
+- Keep a standalone Sanity Studio in this repository rather than embedding it in a Next.js route.
+- Use `development` for local/editorial integration work and `production` for published website content.
+- Use Sanity hosting for the deployed Studio unless a later hosting requirement changes.
+- Use a public production dataset for public marketing content; tokens remain server-only for drafts and other authenticated operations.
+- Require Node.js 22.12 or newer and recommend Node.js 24 LTS for the current Sanity toolchain.
+- Keep both `development` and `production` public; both datasets were confirmed on the connected project.
+- Host the production Studio at `https://krutiger-studio.sanity.studio` with Sanity application ID `ubywro7on9gltov2bpy3eqml`.
+- Allow credentialed preview access only from `http://localhost:3000` and
+  `https://krutiger-website.vercel.app`; retain `http://localhost:3333` for the
+  local Studio. Add a future canonical production origin only after it is
+  approved.
+
+## Remaining external setup
+
+- Confirm that project `nsznfiun` belongs to the gym-controlled Sanity organization.
+- Invite the initial administrators and editors.
+- Approve and configure the future canonical production origin if it differs
+  from the current Vercel preview deployment.
 
 ## Security rules
 

@@ -4,6 +4,7 @@ import Script from "next/script";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import type { Dictionary } from "@/i18n/dictionaries/types";
+import type { Locale } from "@/i18n/config";
 import {
   bsportCalendarWidgetScriptUrl,
   bsportScheduleElementId,
@@ -13,11 +14,15 @@ import {
 
 type BsportScheduleWidgetProps = Readonly<{
   copy: Dictionary["integrations"]["schedule"];
+  locale: Locale;
 }>;
 
 type WidgetStatus = "loading" | "mounted" | "error";
 
-export function BsportScheduleWidget({ copy }: BsportScheduleWidgetProps) {
+export function BsportScheduleWidget({
+  copy,
+  locale,
+}: BsportScheduleWidgetProps) {
   const hasMounted = useRef(false);
   const [status, setStatus] = useState<WidgetStatus>("loading");
 
@@ -58,22 +63,26 @@ export function BsportScheduleWidget({ copy }: BsportScheduleWidgetProps) {
     const mountElement = document.getElementById(bsportScheduleElementId);
 
     if (
-      hasMounted.current ||
       !window.BsportWidget ||
-      !prepareBsportWidgetMount(bsportCalendarWidgetScriptUrl, mountElement)
+      !prepareBsportWidgetMount(
+        bsportCalendarWidgetScriptUrl,
+        mountElement,
+        locale,
+      ) ||
+      hasMounted.current
     ) {
       return;
     }
 
     try {
       window.BsportWidget.mount(
-        createBsportCalendarConfig(bsportScheduleElementId),
+        createBsportCalendarConfig(bsportScheduleElementId, locale),
       );
       hasMounted.current = true;
     } catch {
       setStatus("error");
     }
-  }, []);
+  }, [locale]);
 
   useEffect(() => {
     const mountAttemptId = window.setTimeout(mountWidget, 0);

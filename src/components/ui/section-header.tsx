@@ -19,7 +19,7 @@ const headingTags = {
 } as const;
 
 const headingClasses: Record<HeaderSize, string> = {
-  page: "text-6xl leading-[0.9] sm:text-7xl lg:text-8xl",
+  page: "text-[2.5rem] leading-[0.92] xs:text-5xl sm:text-7xl lg:text-8xl",
   section: "text-5xl leading-none sm:text-7xl",
 };
 
@@ -55,7 +55,7 @@ export function SectionHeader({
         </p>
       ) : null}
       <Heading
-        className={`mt-5 max-w-4xl font-display font-extrabold tracking-tight uppercase ${headingClasses[size]}`}
+        className={`mt-5 max-w-4xl break-words font-display font-extrabold tracking-tight uppercase ${headingClasses[size]}`}
         id={headingId}
       >
         {title}

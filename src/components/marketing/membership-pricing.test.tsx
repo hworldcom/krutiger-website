@@ -4,14 +4,28 @@ import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import { afterEach, describe, expect, it } from "vitest";
 
 import de from "@/i18n/dictionaries/de";
+import {
+  membershipDurations,
+  membershipsByDuration,
+} from "@/lib/bsport/memberships";
 
 import { MembershipPricing } from "./membership-pricing";
 
 afterEach(cleanup);
 
 describe("MembershipPricing", () => {
+  const memberships = membershipDurations.flatMap(
+    (duration) => membershipsByDuration[duration],
+  );
+
   it("shows the four 12-month memberships and their bsport checkouts", () => {
-    render(<MembershipPricing copy={de.integrations.pricing} locale="de" />);
+    render(
+      <MembershipPricing
+        copy={de.integrations.pricing}
+        locale="de"
+        memberships={memberships}
+      />,
+    );
 
     expect(screen.getAllByRole("article")).toHaveLength(4);
     expect(
@@ -34,7 +48,13 @@ describe("MembershipPricing", () => {
   });
 
   it("allows switching between membership durations", () => {
-    render(<MembershipPricing copy={de.integrations.pricing} locale="de" />);
+    render(
+      <MembershipPricing
+        copy={de.integrations.pricing}
+        locale="de"
+        memberships={memberships}
+      />,
+    );
 
     fireEvent.click(screen.getByRole("tab", { name: "6 Monate" }));
 
@@ -57,7 +77,13 @@ describe("MembershipPricing", () => {
   });
 
   it("shows the four 3-month memberships", () => {
-    render(<MembershipPricing copy={de.integrations.pricing} locale="de" />);
+    render(
+      <MembershipPricing
+        copy={de.integrations.pricing}
+        locale="de"
+        memberships={memberships}
+      />,
+    );
 
     fireEvent.click(screen.getByRole("tab", { name: "3 Monate" }));
 

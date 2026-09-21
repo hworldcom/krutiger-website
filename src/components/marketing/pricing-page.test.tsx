@@ -3,6 +3,11 @@ import { describe, expect, it } from "vitest";
 
 import de from "@/i18n/dictionaries/de";
 import en from "@/i18n/dictionaries/en";
+import {
+  membershipDurations,
+  membershipsByDuration,
+} from "@/lib/bsport/memberships";
+import { monthlyPasses } from "@/lib/bsport/passes";
 
 import { PricingPage } from "./pricing-page";
 
@@ -16,8 +21,13 @@ describe("PricingPage", () => {
       const markup = renderToStaticMarkup(
         <PricingPage
           content={dictionary.routes.prices}
+          contentSource="fallback"
           integration={dictionary.integrations.pricing}
           locale={locale}
+          memberships={membershipDurations.flatMap(
+            (duration) => membershipsByDuration[duration],
+          )}
+          monthlyPasses={monthlyPasses}
         />,
       );
 

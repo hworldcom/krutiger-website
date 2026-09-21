@@ -1,6 +1,6 @@
 # M2-05 — Implement secure draft preview
 
-**Status:** Planned
+**Status:** Complete
 
 ## Outcome
 
@@ -53,3 +53,33 @@ drafts or credentials publicly.
 - A bespoke editorial approval system
 - Previewing bsport-managed operational content
 - Production deployment of the public website
+
+## Implementation notes
+
+- The Studio uses Sanity's Presentation Tool and its generated preview URL
+  credential rather than a static application preview secret.
+- The website wraps the supported `next-sanity` enable handler with a shared
+  German/English route allowlist and uses a same-origin POST to exit.
+- Draft-aware queries use a token-bearing server-only client and bypass the CDN
+  and published cache. Ordinary requests retain the published perspective and
+  five-minute tagged cache.
+- The Sanity visual-editing bridge is rendered only in Draft Mode so the
+  Presentation iframe can connect without changing ordinary published-page
+  behavior.
+- Document locations are configured for Site settings, Homepage, About,
+  Training, Team, FAQ, memberships, and monthly passes.
+- The local Viewer token was detected and authenticated draft reads were
+  verified against the development dataset on 2026-09-14.
+- The Studio Presentation connection was exercised successfully after adding
+  the Draft Mode-only visual-editing bridge.
+- Local end-to-end acceptance uses the real bilingual Homepage, About,
+  Training, and Team drafts seeded by M2-06. Ordinary German and English
+  requests omit them, Draft Mode renders the matching localized values, and
+  the exit action expires every preview cookie while preserving the localized
+  destination. The temporary M2-05-only Training document was removed after
+  the baseline drafts replaced it.
+- The content owner chose to leave the current Vercel deployment untouched
+  while website and bSport testing continue. Installing
+  `SANITY_API_READ_TOKEN` and repeating the check against the hosted preview
+  origin are recorded as deployment verification, which is outside this
+  ticket's implementation scope.

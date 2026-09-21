@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import type { EditorialImage } from "../content/editorial";
 import { siteConfig } from "../lib/site";
 
 import type { Locale } from "./config";
@@ -17,8 +18,16 @@ function createSocialMetadata(
   title: string,
   description: string,
   path: string,
+  shareImage?: EditorialImage,
 ): Pick<Metadata, "openGraph" | "twitter"> {
   const canonical = getLocalizedPath(locale, path);
+  const image = shareImage ?? {
+    src: socialImagePath,
+    alternativeText: title,
+  };
+  const imageDimensions = shareImage
+    ? { width: 1200, height: 630 }
+    : { width: 1536, height: 1024 };
 
   return {
     openGraph: {
@@ -31,10 +40,9 @@ function createSocialMetadata(
       alternateLocale: [socialLocales[locale === "de" ? "en" : "de"]],
       images: [
         {
-          url: socialImagePath,
-          width: 1536,
-          height: 1024,
-          alt: title,
+          url: image.src,
+          alt: image.alternativeText,
+          ...imageDimensions,
         },
       ],
     },
@@ -42,7 +50,7 @@ function createSocialMetadata(
       card: "summary_large_image",
       title,
       description,
-      images: [{ url: socialImagePath, alt: title }],
+      images: [{ url: image.src, alt: image.alternativeText }],
     },
   };
 }
@@ -85,6 +93,7 @@ export function createLocalizedPageMetadata(
   title: string,
   description: string,
   path: string,
+  shareImage?: EditorialImage,
 ): Metadata {
   return {
     title,
@@ -93,6 +102,6 @@ export function createLocalizedPageMetadata(
       canonical: getLocalizedPath(locale, path),
       languages: getLanguageAlternates(path),
     },
-    ...createSocialMetadata(locale, title, description, path),
+    ...createSocialMetadata(locale, title, description, path, shareImage),
   };
 }

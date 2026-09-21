@@ -25,6 +25,7 @@ export default async function ScheduleRoute({ params }: ScheduleRouteProps) {
     <SchedulePage
       content={dictionary.routes.schedule}
       integration={dictionary.integrations.schedule}
+      locale={locale}
     />
   );
 }

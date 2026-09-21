@@ -2,7 +2,11 @@ import { describe, expect, it } from "vitest";
 
 import {
   bsportCalendarWidgetScriptUrl,
+  bsportGiftCardElementId,
+  bsportGiftCardWidgetScriptUrl,
   bsportMemberAreaElementId,
+  bsportPrivateTrainingElementId,
+  bsportPrivateTrainingWidgetScriptUrl,
   bsportPricingElementId,
   bsportPricingWidgetScriptUrl,
   bsportScheduleElementId,
@@ -10,7 +14,9 @@ import {
   bsportShopElementId,
   bsportShopWidgetScriptUrl,
   createBsportCalendarConfig,
+  createBsportGiftCardConfig,
   createBsportLoginConfig,
+  createBsportPrivateTrainingConfig,
   createBsportShopConfig,
   createBsportSubscriptionConfig,
   createBsportTodayConfig,
@@ -22,10 +28,11 @@ describe("bsport widget configuration", () => {
     expect(bsportCalendarWidgetScriptUrl).toBe(
       "https://cdn.bsport.io/scripts/widget.js",
     );
-    expect(createBsportCalendarConfig(bsportScheduleElementId)).toEqual({
+    expect(createBsportCalendarConfig(bsportScheduleElementId, "de")).toEqual({
       parentElement: "bsport-widget-368485",
       companyId: 6720,
       franchiseId: null,
+      language: "de",
       dialogMode: 3,
       widgetType: "calendar",
       showFab: false,
@@ -35,10 +42,11 @@ describe("bsport widget configuration", () => {
   });
 
   it("uses the supplied production today-only calendar configuration", () => {
-    expect(createBsportTodayConfig(bsportTodayElementId)).toEqual({
+    expect(createBsportTodayConfig(bsportTodayElementId, "en")).toEqual({
       parentElement: "bsport-widget-679237",
       companyId: 6720,
       franchiseId: null,
+      language: "en",
       dialogMode: 1,
       widgetType: "calendar",
       showFab: false,
@@ -48,10 +56,11 @@ describe("bsport widget configuration", () => {
   });
 
   it("uses the supplied production member login configuration", () => {
-    expect(createBsportLoginConfig(bsportMemberAreaElementId)).toEqual({
+    expect(createBsportLoginConfig(bsportMemberAreaElementId, "de")).toEqual({
       parentElement: "bsport-widget-832086",
       companyId: 6720,
       franchiseId: null,
+      language: "de",
       dialogMode: 3,
       widgetType: "loginButton",
       showFab: false,
@@ -68,10 +77,13 @@ describe("bsport widget configuration", () => {
     expect(bsportPricingWidgetScriptUrl).toBe(
       "https://cdn.bsport.io/scripts/widget.js",
     );
-    expect(createBsportSubscriptionConfig(bsportPricingElementId)).toEqual({
+    expect(
+      createBsportSubscriptionConfig(bsportPricingElementId, "en"),
+    ).toEqual({
       parentElement: "bsport-widget-361765",
       companyId: 6720,
       franchiseId: null,
+      language: "en",
       dialogMode: 3,
       widgetType: "subscription",
       showFab: false,
@@ -86,16 +98,62 @@ describe("bsport widget configuration", () => {
     expect(bsportShopWidgetScriptUrl).toBe(
       "https://cdn.bsport.io/scripts/widget.js",
     );
-    expect(createBsportShopConfig(bsportShopElementId)).toEqual({
+    expect(createBsportShopConfig(bsportShopElementId, "de")).toEqual({
       parentElement: "bsport-widget-140155",
       companyId: 6720,
       franchiseId: null,
+      language: "de",
       dialogMode: 1,
       widgetType: "shop",
       showFab: false,
       fullScreenPopup: false,
       config: {
         shop: {},
+      },
+    });
+  });
+
+  it("uses the supplied production gift-card configuration", () => {
+    expect(bsportGiftCardWidgetScriptUrl).toBe(
+      "https://cdn.bsport.io/scripts/widget.js",
+    );
+    expect(createBsportGiftCardConfig(bsportGiftCardElementId, "en")).toEqual({
+      parentElement: "bsport-widget-29534",
+      companyId: 6720,
+      franchiseId: null,
+      language: "en",
+      dialogMode: 1,
+      widgetType: "giftcard",
+      showFab: false,
+      fullScreenPopup: false,
+      config: {
+        giftcard: {
+          giftcards: [],
+        },
+      },
+    });
+  });
+
+  it("uses the supplied production private-training configuration", () => {
+    expect(bsportPrivateTrainingWidgetScriptUrl).toBe(
+      "https://cdn.bsport.io/scripts/widget.js",
+    );
+    expect(
+      createBsportPrivateTrainingConfig(bsportPrivateTrainingElementId, "de"),
+    ).toEqual({
+      parentElement: "bsport-widget-856944",
+      companyId: 6720,
+      franchiseId: null,
+      language: "de",
+      dialogMode: 1,
+      widgetType: "privateService",
+      showFab: false,
+      fullScreenPopup: false,
+      config: {
+        privateService: {
+          type: "detail",
+          serviceId: 30595,
+        },
       },
     });
   });
@@ -110,10 +168,31 @@ describe("bsport widget configuration", () => {
       ),
     ).toBe(6720);
     expect(
+      resolveBsportCompanyId(
+        "",
+        "NEXT_PUBLIC_BSPORT_PRIVATE_TRAINING_SERVICE_ID",
+        30595,
+      ),
+    ).toBe(30595);
+    expect(
       resolveBsportCompanyId("", "NEXT_PUBLIC_BSPORT_SHOP_COMPANY_ID", 6720),
     ).toBe(6720);
     expect(
+      resolveBsportCompanyId(
+        "",
+        "NEXT_PUBLIC_BSPORT_GIFT_CARD_COMPANY_ID",
+        6720,
+      ),
+    ).toBe(6720);
+    expect(
       resolveBsportCompanyId("", "NEXT_PUBLIC_BSPORT_PRICING_COMPANY_ID", 6720),
+    ).toBe(6720);
+    expect(
+      resolveBsportCompanyId(
+        "",
+        "NEXT_PUBLIC_BSPORT_PRIVATE_TRAINING_COMPANY_ID",
+        6720,
+      ),
     ).toBe(6720);
     expect(resolveBsportCompanyId(" 42 ")).toBe(42);
     expect(() => resolveBsportCompanyId("0")).toThrow(/positive integer/);

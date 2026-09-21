@@ -64,7 +64,14 @@ const de = {
       eyebrow: "Trainingsangebote",
       title: "Finde das passende Muay-Thai-Training",
       description:
-        "Hier stellen wir die Trainingsformate für Anfänger, Fortgeschrittene, Kinder und individuelle Einheiten vor.",
+        "Von sauberen Grundlagen bis zu anspruchsvoller Technik: Wähle das Training, das zu deiner Erfahrung passt, und entwickle dich Schritt für Schritt weiter.",
+    },
+    privateTraining: {
+      navigationLabel: "Private Classes",
+      eyebrow: "Individuelles Training",
+      title: "Private Classes",
+      description:
+        "Individuelles Training mit voller Aufmerksamkeit. Wähle dein Angebot und buche einen verfügbaren Termin direkt über bSport.",
     },
     schedule: {
       navigationLabel: "Kursplan",
@@ -92,7 +99,7 @@ const de = {
       eyebrow: "Trainerteam",
       title: "Lerne die Menschen hinter dem Training kennen",
       description:
-        "Diese Seite stellt Kru Tiger und das Trainerteam mit Erfahrung, Schwerpunkten und persönlichem Hintergrund vor.",
+        "Lerne die Menschen kennen, die bei KRUTIGER traditionelles Muay Thai mit Erfahrung, Klarheit und Respekt weitergeben.",
     },
     about: {
       navigationLabel: "Über uns",
@@ -116,11 +123,11 @@ const de = {
         "Hier werden geprüfte Kontaktmöglichkeiten, Adresse und Hinweise zur Anfahrt bereitgestellt.",
     },
     memberArea: {
-      navigationLabel: "Mitgliederbereich",
-      eyebrow: "Für Mitglieder",
-      title: "Dein Mitgliederbereich",
+      navigationLabel: "Mitglied werden",
+      eyebrow: "Dein Start bei KRUTIGER",
+      title: "Mitglied werden",
       description:
-        "Melde dich über bsport an, um deinen persönlichen Mitgliederbereich zu öffnen.",
+        "Wähle das passende Angebot, richte dein bSport-Konto beim Kauf ein und buche anschließend dein erstes Training.",
     },
     giftCards: {
       navigationLabel: "Gutscheine",
@@ -273,6 +280,109 @@ const de = {
       ],
     },
   },
+  teamPage: {
+    sectionHeading: "Das Team",
+    specialtiesLabel: "Schwerpunkte",
+    socialLinkAction: "Profil ansehen",
+    socialLinkLabel: "Social-Media-Profil von {name} öffnen",
+  },
+  trainingPage: {
+    sectionHeading: "Unsere Kurse",
+    sectionIntroduction:
+      "Vier Formate schaffen einen klaren Einstieg und Raum für Entwicklung. Wenn du dein Level nicht sicher einschätzen kannst, sprich vor dem Training mit unserem Trainerteam.",
+    levelLabels: {
+      beginners: "Basic",
+      intermediate: "Intermediate",
+      advanced: "Advanced",
+      allLevels: "Alle Levels",
+    },
+    duration: "Typisch {minutes} Min.",
+    audienceLabel: "Für wen?",
+    equipmentLabel: "Empfohlene Ausrüstung",
+    scheduleActionLabel: "Kursplan für {name} öffnen",
+    scheduleNotice:
+      "Die Karten beschreiben unsere Trainingsformate. Aktuelle Termine, Trainer und verfügbare Plätze findest du immer im Live-Kursplan.",
+  },
+  memberAreaPage: {
+    pricingAction: "Angebote vergleichen",
+    existingMemberAction: "Zum Mitglieder-Login",
+    choices: {
+      eyebrow: "Dein Angebot",
+      title: "Was passt zu deinem Training?",
+      description:
+        "Regelmäßig trainieren, flexibel bleiben oder erst einmal ausprobieren: Wähle den Einstieg, der zu dir passt.",
+      membership: {
+        title: "Mitgliedschaft",
+        description:
+          "Für regelmäßiges Training mit 3, 6 oder 12 Monaten Laufzeit und bis zu unbegrenzten Teilnahmen.",
+        action: "Mitgliedschaften ansehen",
+      },
+      passes: {
+        title: "Trainingspass",
+        description:
+          "Für flexible Besuche ohne Mitgliedschaft – vom einzelnen Drop-in bis zum 50er-Pass.",
+        action: "Trainingspässe ansehen",
+      },
+      trial: {
+        title: "Probetraining",
+        description:
+          "Du bist neu bei KRUTIGER? Buche zuerst dein Probetraining und lerne uns im Training kennen.",
+        action: "Probetraining buchen",
+      },
+    },
+    steps: {
+      eyebrow: "So funktioniert es",
+      title: "In vier Schritten ins Training",
+      description:
+        "Die Auswahl, Zahlung und Buchung laufen über bSport. Dein Konto verbindet alle Schritte an einem Ort.",
+      items: [
+        {
+          title: "Passendes Angebot wählen",
+          description:
+            "Wähle eine Mitgliedschaft für regelmäßiges Training, einen flexiblen Trainingspass oder den Probetrainingspass für deinen Einstieg.",
+        },
+        {
+          title: "bSport-Konto erstellen oder anmelden",
+          description:
+            "Beim Kauf wirst du zu bSport weitergeleitet. Dort erstellst du dein Konto oder meldest dich mit einem bestehenden Konto an.",
+        },
+        {
+          title: "Buchung sicher abschließen",
+          description:
+            "Prüfe Laufzeit, Gültigkeit und Preis und schließe die Zahlung sicher über bSport ab.",
+        },
+        {
+          title: "Erstes Training buchen",
+          description:
+            "Öffne anschließend den Kursplan, wähle einen passenden Kurs und reserviere deinen Platz.",
+        },
+      ],
+      scheduleAction: "Kursplan öffnen",
+    },
+  },
+  privateTrainingPage: {
+    eyebrow: "Direkt buchen",
+    title: "So buchst du deine Private Class",
+    description:
+      "Die verfügbaren Termine werden live aus bSport geladen. In drei Schritten reservierst du dein individuelles Training.",
+    steps: [
+      {
+        title: "Einheit und Trainer wählen",
+        description:
+          "Wähle die 60-minütige Einheit und auf Wunsch einen bestimmten Trainer. Mit „Alle Lehrkräfte“ siehst du die größte Auswahl.",
+      },
+      {
+        title: "Termin auswählen",
+        description:
+          "Wechsle bei Bedarf die Woche und wähle einen verfügbaren Termin im Kalender.",
+      },
+      {
+        title: "Buchung bestätigen",
+        description:
+          "Melde dich bei bSport an oder erstelle ein Konto und schließe deine Buchung ab.",
+      },
+    ],
+  },
   integrations: {
     schedule: {
       heading: "Live-Kursplan",
@@ -281,6 +391,14 @@ const de = {
       loading: "Der Live-Kursplan wird geladen …",
       error:
         "Der Live-Kursplan konnte gerade nicht geladen werden. Bitte versuche es später erneut.",
+    },
+    privateTraining: {
+      heading: "Private Classes",
+      description:
+        "Individuelles Training mit voller Aufmerksamkeit. Wähle dein Angebot und buche einen verfügbaren Termin direkt über bSport.",
+      loading: "Verfügbare Termine werden geladen …",
+      error:
+        "Die Termine für Privattraining konnten gerade nicht geladen werden. Bitte versuche es später erneut.",
     },
     memberArea: {
       heading: "Bei bsport anmelden",
@@ -296,6 +414,9 @@ const de = {
         "Wähle die Laufzeit und Mitgliedschaft, die zu deinem Training passt.",
       secureCheckoutNotice:
         "Zahlung und Abschluss aller Mitgliedschaften und Pässe werden sicher über bSport abgewickelt.",
+      offerSelectorLabel: "Preisangebot wählen",
+      membershipTab: "Mitgliedschaften",
+      passesTab: "Pässe",
       termsLabel: "Gilt für alle Mitgliedschaften",
       loading: "Die aktuellen Preise werden geladen …",
       error:
@@ -326,11 +447,14 @@ const de = {
       unavailableDescription:
         "Die Mitgliedschaften für diese Laufzeit werden ergänzt, sobald die bestätigten Konditionen und Buchungslinks vorliegen.",
       monthlyPasses: {
-        heading: "Monatspässe",
-        description: "Wähle den Pass, der zu deinem Trainingsrhythmus passt.",
+        heading: "Trainingspässe",
+        description:
+          "Trainiere flexibel ohne laufende Mitgliedschaft. Wähle die Anzahl der Einheiten, die zu deinem Trainingsrhythmus passt.",
         validityLabel: "Gültigkeit",
-        validity: "Gültig für {count} Monat ab dem Abrechnungsdatum.",
-        passLabel: "Monatspass",
+        validityOne: "Gültig für {count} Monat",
+        validityMany: "Gültig für {count} Monate",
+        passLabel: "Trainingspass",
+        singleSession: "1 Teilnahme",
         sessions: "{count} Teilnahmen",
         unlimitedSessions: "Unbegrenzte Teilnahmen",
         buyAction: "Pass kaufen",
@@ -345,9 +469,12 @@ const de = {
         "Der Shop konnte gerade nicht geladen werden. Bitte versuche es später erneut.",
     },
     giftCards: {
-      heading: "Gutscheinverkauf folgt",
+      heading: "Gutscheine",
       description:
-        "Der Kauf von Gutscheinen wird später über bsport angeboten. Diese Vorschau simuliert keinen Kaufvorgang.",
+        "Wähle einen festen Betrag oder erstelle einen Gutschein mit individuellem Wert. Kauf und Zahlung werden sicher über bsport abgewickelt.",
+      loading: "Die Gutscheine werden geladen …",
+      error:
+        "Die Gutscheine konnten gerade nicht geladen werden. Bitte versuche es später erneut.",
     },
   },
   notFound: {
@@ -363,6 +490,18 @@ const de = {
     description:
       "Die Seite konnte gerade nicht geladen werden. Bitte versuche es noch einmal.",
     retryAction: "Erneut versuchen",
+  },
+  draftMode: {
+    landmarkLabel: "Entwurfsvorschau",
+    status:
+      "Entwurfsvorschau ist aktiv. Du siehst unveröffentlichte Sanity-Inhalte.",
+    exitAction: "Vorschau beenden",
+    incompleteContent:
+      "Dieser Entwurf ist für die gewählte Sprache noch unvollständig oder ungültig. Bis die markierten Felder korrigiert sind, zeigt die Seite ihre lokale Ersatzfassung.",
+    missingContent:
+      "Für diese Vorschau ist noch kein Sanity-Inhalt vorhanden. Die lokale Ausgangsversion wird angezeigt.",
+    unavailableContent:
+      "Sanity konnte für diese Vorschau nicht geladen werden. Die lokale Ausgangsversion wird angezeigt.",
   },
   preview: {
     eyebrow: "Markengrundlage · Meilenstein 1",

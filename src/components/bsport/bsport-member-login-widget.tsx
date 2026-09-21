@@ -4,6 +4,7 @@ import Script from "next/script";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import type { Dictionary } from "@/i18n/dictionaries/types";
+import type { Locale } from "@/i18n/config";
 import {
   bsportMemberAreaElementId,
   bsportWidgetScriptUrl,
@@ -13,12 +14,14 @@ import {
 
 type BsportMemberLoginWidgetProps = Readonly<{
   copy: Dictionary["integrations"]["memberArea"];
+  locale: Locale;
 }>;
 
 type WidgetStatus = "loading" | "mounted" | "error";
 
 export function BsportMemberLoginWidget({
   copy,
+  locale,
 }: BsportMemberLoginWidgetProps) {
   const hasMounted = useRef(false);
   const [status, setStatus] = useState<WidgetStatus>("loading");
@@ -60,22 +63,22 @@ export function BsportMemberLoginWidget({
     const mountElement = document.getElementById(bsportMemberAreaElementId);
 
     if (
-      hasMounted.current ||
       !window.BsportWidget ||
-      !prepareBsportWidgetMount(bsportWidgetScriptUrl, mountElement)
+      !prepareBsportWidgetMount(bsportWidgetScriptUrl, mountElement, locale) ||
+      hasMounted.current
     ) {
       return;
     }
 
     try {
       window.BsportWidget.mount(
-        createBsportLoginConfig(bsportMemberAreaElementId),
+        createBsportLoginConfig(bsportMemberAreaElementId, locale),
       );
       hasMounted.current = true;
     } catch {
       setStatus("error");
     }
-  }, []);
+  }, [locale]);
 
   useEffect(() => {
     const mountAttemptId = window.setTimeout(mountWidget, 0);

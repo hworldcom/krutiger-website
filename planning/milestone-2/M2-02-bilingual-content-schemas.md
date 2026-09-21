@@ -1,6 +1,6 @@
 # M2-02 — Define the bilingual content schemas
 
-**Status:** Planned
+**Status:** Complete
 
 ## Outcome
 
@@ -62,7 +62,23 @@ fallback.
 - Coach name, photo, biography, specialties, social link, and order
 - FAQ question, answer, category, and order
 
+## Implementation notes
+
+- Added reusable localized short text, multiline text, rich text, and image alternative text types.
+- Added shared editorial image metadata with hotspot/crop, rights, approval, consent, caption, and bilingual accessibility fields.
+- Added reusable SEO/social metadata, postal address, and opening-hours objects.
+- Added the fixed `siteSettings` document with contact verification safeguards.
+- Added fixed `homepage` and `aboutPage` documents that mirror the approved page structures without exposing layout controls.
+- Added ordered `classType`, `coach`, and `faq` collections with stable identifiers and visibility controls.
+- Added singleton navigation and action restrictions so fixed documents cannot be duplicated or deleted accidentally.
+- Kept generic pages and announcements out of the model because no current route requires them.
+
 ## Content boundaries
+
+The initial boundary below was implemented as written. The later decision to
+support editor-managed website cards that deep-link to existing bSport products
+is tracked separately in M2-07; bSport remains the commercial and transactional
+source of truth.
 
 - Do not model schedules, availability, booking state, subscription prices,
   member accounts, or shop inventory in Sanity; these remain in bsport.

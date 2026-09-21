@@ -1,6 +1,7 @@
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
 
+import { createAboutPageFallback } from "@/content/page-fallbacks";
 import de from "../../i18n/dictionaries/de";
 import en from "../../i18n/dictionaries/en";
 
@@ -8,7 +9,12 @@ import { AboutPage } from "./about-page";
 
 describe("AboutPage", () => {
   it("renders the complete ordered story and uploaded image set", () => {
-    const markup = renderToStaticMarkup(<AboutPage content={de.aboutPage} />);
+    const markup = renderToStaticMarkup(
+      <AboutPage
+        content={createAboutPageFallback(de)}
+        contentSource="fallback"
+      />,
+    );
 
     expect(markup).toContain("<h1");
     expect(markup).toContain("<ol");
@@ -33,7 +39,12 @@ describe("AboutPage", () => {
   });
 
   it("renders English page copy without leaking the German hero", () => {
-    const markup = renderToStaticMarkup(<AboutPage content={en.aboutPage} />);
+    const markup = renderToStaticMarkup(
+      <AboutPage
+        content={createAboutPageFallback(en)}
+        contentSource="fallback"
+      />,
+    );
 
     expect(markup).toContain(en.aboutPage.hero.titlePrimary);
     expect(markup).toContain(en.aboutPage.hero.titleSecondary);

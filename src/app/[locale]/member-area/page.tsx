@@ -27,7 +27,9 @@ export default async function MemberAreaRoute({
   return (
     <MemberAreaPage
       content={dictionary.routes.memberArea}
+      guide={dictionary.memberAreaPage}
       integration={dictionary.integrations.memberArea}
+      locale={locale}
     />
   );
 }

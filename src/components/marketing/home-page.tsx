@@ -1,15 +1,20 @@
 import Image from "next/image";
 
 import { BsportTodayWidget } from "@/components/bsport/bsport-today-widget";
+import type { HomepageEditorialContent } from "@/content/editorial";
 import type { Locale } from "@/i18n/config";
 import type { HomePageCopy } from "@/i18n/dictionaries/types";
+import { getHeaderCtaHref } from "@/lib/header-navigation";
 
 import { getLocalizedPath } from "../../i18n/routing";
 import { ButtonLink, Container } from "../ui";
 
 type HomePageProps = Readonly<{
-  content: HomePageCopy;
+  content: HomepageEditorialContent;
+  contentSource: "sanity" | "fallback";
+  draftContentIssue?: string;
   locale: Locale;
+  schedule: HomePageCopy["schedule"];
 }>;
 
 function ArrowIcon() {
@@ -127,24 +132,33 @@ function FeatureIcon({ index }: Readonly<{ index: number }>) {
   );
 }
 
-export function HomePage({ content, locale }: HomePageProps) {
-  const contactHref = getLocalizedPath(locale, "/contact");
+export function HomePage({
+  content,
+  contentSource,
+  draftContentIssue,
+  locale,
+  schedule,
+}: HomePageProps) {
+  const trialClassHref = getHeaderCtaHref(locale);
   const scheduleHref = getLocalizedPath(locale, "/schedule");
 
   return (
-    <div className="overflow-hidden bg-canvas text-copy">
+    <div
+      className="overflow-hidden bg-canvas text-copy"
+      data-content-source={contentSource}
+    >
       <section
         aria-labelledby="home-page-title"
         className="relative isolate min-h-[47rem] overflow-hidden lg:min-h-[clamp(40rem,72svh,46rem)]"
       >
         <div className="home-hero-media absolute inset-0 lg:left-[34%]">
           <Image
-            alt={content.hero.imageAlt}
+            alt={content.hero.image.alternativeText}
             className="object-cover object-[52%_center] sm:object-[center_42%]"
             fill
             preload
             sizes="(min-width: 1024px) 66vw, 100vw"
-            src="/images/home/main.png"
+            src={content.hero.image.src}
           />
         </div>
         <div
@@ -178,12 +192,12 @@ export function HomePage({ content, locale }: HomePageProps) {
               </p>
 
               <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-                <ButtonLink href={contactHref}>
-                  {content.hero.trialAction}
+                <ButtonLink href={trialClassHref}>
+                  {content.hero.trialActionLabel}
                   <ArrowIcon />
                 </ButtonLink>
                 <ButtonLink href={scheduleHref} variant="secondary">
-                  {content.hero.scheduleAction}
+                  {content.hero.scheduleActionLabel}
                   <ArrowIcon />
                 </ButtonLink>
               </div>
@@ -191,6 +205,18 @@ export function HomePage({ content, locale }: HomePageProps) {
           </div>
         </Container>
       </section>
+
+      {draftContentIssue ? (
+        <Container>
+          <p
+            className="mt-8 border border-brand bg-brand/10 px-5 py-4 text-sm leading-6 text-copy sm:text-base"
+            data-draft-content-issue
+            role="alert"
+          >
+            {draftContentIssue}
+          </p>
+        </Container>
+      ) : null}
 
       <section
         aria-labelledby="home-schedule-title"
@@ -204,26 +230,26 @@ export function HomePage({ content, locale }: HomePageProps) {
                   className="font-display text-3xl leading-none font-extrabold uppercase"
                   id="home-schedule-title"
                 >
-                  {content.schedule.title}
+                  {schedule.title}
                 </p>
                 <ButtonLink href={scheduleHref} size="compact" variant="ghost">
-                  {content.schedule.action}
+                  {schedule.action}
                   <ArrowIcon />
                 </ButtonLink>
               </header>
 
-              <BsportTodayWidget copy={content.schedule} locale={locale} />
+              <BsportTodayWidget copy={schedule} locale={locale} />
 
               <div className="flex items-start gap-3 border-t border-line p-6 text-brand lg:col-start-2 lg:border-l xl:col-start-auto xl:border-t-0">
                 <LocationIcon />
                 <div className="text-copy">
                   <p className="font-display text-lg font-bold tracking-wide uppercase">
-                    {content.schedule.location.district}
+                    {schedule.location.district}
                   </p>
                   <p className="mt-1 text-xs leading-5 tracking-[0.08em] text-copy-muted uppercase">
-                    {content.schedule.location.addressLineOne}
+                    {schedule.location.addressLineOne}
                     <br />
-                    {content.schedule.location.addressLineTwo}
+                    {schedule.location.addressLineTwo}
                   </p>
                 </div>
               </div>
@@ -250,7 +276,7 @@ export function HomePage({ content, locale }: HomePageProps) {
                 className="mt-3 font-display text-4xl leading-[0.92] font-extrabold uppercase sm:text-5xl"
                 id="home-values-title"
               >
-                {content.values.titlePrimary}
+                {content.values.title}
                 <span className="block text-brand">
                   {content.values.titleAccent}
                 </span>
@@ -261,10 +287,10 @@ export function HomePage({ content, locale }: HomePageProps) {
             </header>
 
             <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              {content.values.items.map((item, index) => (
+              {content.values.features.map((item, index) => (
                 <li
                   className="flex min-h-60 flex-col items-center justify-center border border-brand/35 bg-panel/45 p-6 text-center transition-colors hover:border-brand/70 hover:bg-panel"
-                  key={item.title}
+                  key={item.internalKey}
                 >
                   <div className="text-brand">
                     <FeatureIcon index={index} />

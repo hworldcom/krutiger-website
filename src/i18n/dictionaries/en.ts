@@ -64,7 +64,14 @@ const en = {
       eyebrow: "Training options",
       title: "Find the right Muay Thai training",
       description:
-        "This page will introduce training formats for beginners, advanced students, children, and private sessions.",
+        "From clean foundations to demanding technical work, choose the training that matches your experience and progress step by step.",
+    },
+    privateTraining: {
+      navigationLabel: "Private Classes",
+      eyebrow: "One-to-one training",
+      title: "Private Classes",
+      description:
+        "One-to-one coaching focused on your goals. Choose your service and book an available appointment directly through bSport.",
     },
     schedule: {
       navigationLabel: "Schedule",
@@ -92,7 +99,7 @@ const en = {
       eyebrow: "Coaching team",
       title: "Meet the people behind the training",
       description:
-        "This page will introduce Kru Tiger and the coaching team through their experience, focus, and personal background.",
+        "Meet the people who share traditional Muay Thai at KRUTIGER with experience, clarity, and respect.",
     },
     about: {
       navigationLabel: "About",
@@ -116,10 +123,11 @@ const en = {
         "Verified contact options, the gym address, and directions will be provided here.",
     },
     memberArea: {
-      navigationLabel: "Member area",
-      eyebrow: "For members",
-      title: "Your member area",
-      description: "Sign in through bsport to open your personal member area.",
+      navigationLabel: "Become a member",
+      eyebrow: "Start at KRUTIGER",
+      title: "Become a member",
+      description:
+        "Choose the right option, set up your bSport account during checkout, and then book your first training session.",
     },
     giftCards: {
       navigationLabel: "Gift cards",
@@ -272,6 +280,109 @@ const en = {
       ],
     },
   },
+  teamPage: {
+    sectionHeading: "The team",
+    specialtiesLabel: "Focus areas",
+    socialLinkAction: "View profile",
+    socialLinkLabel: "Open {name}'s social profile",
+  },
+  trainingPage: {
+    sectionHeading: "Our classes",
+    sectionIntroduction:
+      "Four formats provide a clear starting point and room to progress. If you are unsure which level fits, speak with our coaching team before training.",
+    levelLabels: {
+      beginners: "Basic",
+      intermediate: "Intermediate",
+      advanced: "Advanced",
+      allLevels: "All levels",
+    },
+    duration: "Typically {minutes} min",
+    audienceLabel: "Who is it for?",
+    equipmentLabel: "Recommended equipment",
+    scheduleActionLabel: "Open the schedule for {name}",
+    scheduleNotice:
+      "These cards describe our training formats. Current dates, coaches, and available places are always shown in the live schedule.",
+  },
+  memberAreaPage: {
+    pricingAction: "Compare options",
+    existingMemberAction: "Go to member login",
+    choices: {
+      eyebrow: "Your training option",
+      title: "What suits your training?",
+      description:
+        "Train regularly, stay flexible, or try us first: choose the way into KRUTIGER that works for you.",
+      membership: {
+        title: "Membership",
+        description:
+          "For regular training with a 3, 6, or 12-month term and up to unlimited sessions.",
+        action: "View memberships",
+      },
+      passes: {
+        title: "Training pass",
+        description:
+          "For flexible visits without a membership, from a single drop-in to a 50-session pass.",
+        action: "View training passes",
+      },
+      trial: {
+        title: "Trial session",
+        description:
+          "New to KRUTIGER? Book a trial session first and get to know us in training.",
+        action: "Book a trial session",
+      },
+    },
+    steps: {
+      eyebrow: "How it works",
+      title: "Start training in four steps",
+      description:
+        "Selection, payment, and booking are handled through bSport. Your account keeps every step in one place.",
+      items: [
+        {
+          title: "Choose the right option",
+          description:
+            "Choose a membership for regular training, a flexible training pass, or the trial-session pass for your first visit.",
+        },
+        {
+          title: "Create or sign in to your bSport account",
+          description:
+            "Checkout takes you to bSport, where you can create an account or sign in to an existing one.",
+        },
+        {
+          title: "Complete checkout securely",
+          description:
+            "Review the term, validity, and price, then complete your payment securely through bSport.",
+        },
+        {
+          title: "Book your first class",
+          description:
+            "Open the schedule, choose a suitable class, and reserve your place.",
+        },
+      ],
+      scheduleAction: "Open the schedule",
+    },
+  },
+  privateTrainingPage: {
+    eyebrow: "Book directly",
+    title: "How to book a private class",
+    description:
+      "Available appointments are loaded live from bSport. Reserve your individual training in three steps.",
+    steps: [
+      {
+        title: "Choose session and coach",
+        description:
+          "Choose the 60-minute session and, if you wish, a specific coach. Leave All teachers selected to see the widest availability.",
+      },
+      {
+        title: "Choose an appointment",
+        description:
+          "Change the week if needed and select an available appointment in the calendar.",
+      },
+      {
+        title: "Confirm your booking",
+        description:
+          "Sign in to bSport or create an account, then complete your booking.",
+      },
+    ],
+  },
   integrations: {
     schedule: {
       heading: "Live schedule",
@@ -280,6 +391,14 @@ const en = {
       loading: "The live schedule is loading…",
       error:
         "The live schedule could not be loaded right now. Please try again later.",
+    },
+    privateTraining: {
+      heading: "Private Classes",
+      description:
+        "One-to-one coaching focused on your goals. Choose your service and book an available appointment directly through bSport.",
+      loading: "Available appointments are loading…",
+      error:
+        "Private-training appointments could not be loaded right now. Please try again later.",
     },
     memberArea: {
       heading: "Sign in with bsport",
@@ -295,6 +414,9 @@ const en = {
         "Choose the contract length and membership that suit your training.",
       secureCheckoutNotice:
         "Payment and checkout for all memberships and passes are handled securely through bSport.",
+      offerSelectorLabel: "Choose a pricing option",
+      membershipTab: "Memberships",
+      passesTab: "Passes",
       termsLabel: "Applies to all memberships",
       loading: "The current prices are loading…",
       error:
@@ -325,11 +447,14 @@ const en = {
       unavailableDescription:
         "Memberships for this duration will be added as soon as the confirmed terms and checkout links are available.",
       monthlyPasses: {
-        heading: "Monthly passes",
-        description: "Choose the pass that matches your training rhythm.",
+        heading: "Training passes",
+        description:
+          "Train flexibly without a recurring membership. Choose the number of sessions that matches your training rhythm.",
         validityLabel: "Validity",
-        validity: "Valid for {count} month from the billing date.",
-        passLabel: "Monthly pass",
+        validityOne: "Valid for {count} month",
+        validityMany: "Valid for {count} months",
+        passLabel: "Training pass",
+        singleSession: "1 session",
         sessions: "{count} sessions",
         unlimitedSessions: "Unlimited sessions",
         buyAction: "Buy pass",
@@ -343,9 +468,12 @@ const en = {
       error: "The shop could not be loaded right now. Please try again later.",
     },
     giftCards: {
-      heading: "Gift-card purchases coming later",
+      heading: "Gift cards",
       description:
-        "Gift cards will later be sold through bsport. This preview does not simulate a purchase flow.",
+        "Choose a fixed amount or create a gift card with a custom value. Purchase and payment are handled securely through bsport.",
+      loading: "The gift cards are loading…",
+      error:
+        "The gift cards could not be loaded right now. Please try again later.",
     },
   },
   notFound: {
@@ -360,6 +488,18 @@ const en = {
     title: "Something went wrong",
     description: "The page could not be loaded right now. Please try again.",
     retryAction: "Try again",
+  },
+  draftMode: {
+    landmarkLabel: "Draft preview",
+    status:
+      "Draft preview is active. You are viewing unpublished Sanity content.",
+    exitAction: "Exit preview",
+    incompleteContent:
+      "This draft is incomplete or invalid for the selected language. The page is showing its local fallback until the marked fields are corrected.",
+    missingContent:
+      "No Sanity content exists for this preview yet. The local baseline is being shown.",
+    unavailableContent:
+      "Sanity could not be loaded for this preview. The local baseline is being shown.",
   },
   preview: {
     eyebrow: "Brand foundation · Milestone 1",

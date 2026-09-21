@@ -532,12 +532,18 @@ NEXT_PUBLIC_SITE_URL=
 
 NEXT_PUBLIC_SANITY_PROJECT_ID=
 NEXT_PUBLIC_SANITY_DATASET=
+NEXT_PUBLIC_SANITY_API_VERSION=
+NEXT_PUBLIC_SANITY_STUDIO_URL=
 SANITY_API_READ_TOKEN=
+SANITY_REVALIDATE_SECRET=
 
 NEXT_PUBLIC_BSPORT_COMPANY_ID=
 NEXT_PUBLIC_BSPORT_CALENDAR_COMPANY_ID=
 NEXT_PUBLIC_BSPORT_PRICING_COMPANY_ID=
 NEXT_PUBLIC_BSPORT_SHOP_COMPANY_ID=
+NEXT_PUBLIC_BSPORT_GIFT_CARD_COMPANY_ID=
+NEXT_PUBLIC_BSPORT_PRIVATE_TRAINING_COMPANY_ID=
+NEXT_PUBLIC_BSPORT_PRIVATE_TRAINING_SERVICE_ID=
 
 # Future API integration only
 BSPORT_API_KEY=
@@ -546,6 +552,12 @@ BSPORT_API_KEY=
 Exact bsport variables will depend on the access and integration method provided by bsport.
 
 Secrets must never use the `NEXT_PUBLIC_` prefix.
+
+The separate Studio uses public `SANITY_STUDIO_*` build variables, including
+`SANITY_STUDIO_PREVIEW_URL` for the exact website origin shown in its
+Presentation Tool. Draft preview uses a Sanity-generated short-lived credential
+validated with the server-only `SANITY_API_READ_TOKEN`; it does not require a
+static `SANITY_PREVIEW_SECRET`.
 
 ---
 
@@ -879,8 +891,8 @@ This separation should remain clear throughout development.
 
 ### Requirements
 
-- Node.js 20.9 or newer
-- npm 10
+- Node.js 22.12 or newer (Node.js 24 LTS is recommended)
+- npm 11
 
 ### Setup
 
@@ -890,7 +902,9 @@ cp .env.example .env.local
 npm run dev
 ```
 
-Open `http://localhost:3000` after the development server starts. The environment values may remain empty during Milestone 1 because Sanity and bsport are not configured yet.
+Open `http://localhost:3000` after the development server starts. The public website can continue without Sanity configuration while the Milestone 2 migration is in progress; the standalone Studio requires its documented project and dataset values.
+
+Sanity Studio setup, dataset handling, security rules, and local commands are documented in [Sanity setup and operations](./docs/sanity-setup.md).
 
 ### Quality Checks
 

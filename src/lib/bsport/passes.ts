@@ -4,41 +4,56 @@ export type MonthlyPass = Readonly<{
   name: string;
   price: number;
   sessions: number | "unlimited";
+  validityMonths: number;
 }>;
 
-export const monthlyPassValidityMonths = 1;
+export const trialSessionPassCheckoutUrl =
+  "https://backoffice.bsport.io/customer/payment/pass/795677/?membership=6720&force=true";
 
 export const monthlyPasses: readonly MonthlyPass[] = [
   {
     checkoutUrl:
-      "https://backoffice.bsport.io/customer/payment/pass/792602/?membership=6720&force=true",
-    id: "basic-monthly-pass",
-    name: "Basic",
-    price: 100,
-    sessions: 4,
+      "https://backoffice.bsport.io/customer/payment/pass/795480/?membership=6720&force=true",
+    id: "single-drop-in",
+    name: "Single Drop In",
+    price: 25,
+    sessions: 1,
+    validityMonths: 1,
   },
   {
     checkoutUrl:
-      "https://backoffice.bsport.io/customer/payment/pass/792752/?membership=6720&force=true",
-    id: "flex-monthly-pass",
-    name: "Flex",
-    price: 150,
-    sessions: 8,
+      "https://backoffice.bsport.io/customer/payment/pass/795521/?membership=6720&force=true",
+    id: "five-session-pass",
+    name: "5 x Pass",
+    price: 115,
+    sessions: 5,
+    validityMonths: 3,
   },
   {
     checkoutUrl:
-      "https://backoffice.bsport.io/customer/payment/pass/792761/?membership=6720&force=true",
-    id: "plus-monthly-pass",
-    name: "Plus",
+      "https://backoffice.bsport.io/customer/payment/pass/795523/?membership=6720&force=true",
+    id: "ten-session-pass",
+    name: "10 x Pass",
     price: 200,
-    sessions: 12,
+    sessions: 10,
+    validityMonths: 3,
   },
   {
     checkoutUrl:
-      "https://backoffice.bsport.io/customer/payment/pass/792762/?membership=6720&force=true",
-    id: "unlimited-monthly-pass",
-    name: "Unlimited",
-    price: 250,
-    sessions: "unlimited",
+      "https://backoffice.bsport.io/customer/payment/pass/795527/?membership=6720&force=true",
+    id: "twenty-session-pass",
+    name: "20 x Pass",
+    price: 350,
+    sessions: 20,
+    validityMonths: 6,
+  },
+  {
+    checkoutUrl:
+      "https://backoffice.bsport.io/customer/payment/pass/795529/?membership=6720&force=true",
+    id: "fifty-session-pass",
+    name: "50 x Pass",
+    price: 750,
+    sessions: 50,
+    validityMonths: 6,
   },
 ];

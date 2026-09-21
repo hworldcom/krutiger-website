@@ -81,6 +81,29 @@ describe("SiteShell", () => {
     expect(main.tabIndex).toBe(-1);
   });
 
+  it("uses one compact language dropdown in each navigation layout", () => {
+    const { container } = renderShell();
+    const switchers = container.querySelectorAll("[data-language-switcher]");
+
+    expect(switchers).toHaveLength(2);
+
+    for (const switcher of switchers) {
+      const summary = switcher.querySelector("summary");
+      const languageLinks = switcher.querySelectorAll(
+        "[data-bsport-language-switch]",
+      );
+
+      expect(summary?.textContent).toContain("DE");
+      expect(
+        summary?.querySelector('[data-language-flag="de"]'),
+      ).not.toBeNull();
+      expect(languageLinks).toHaveLength(2);
+      expect(languageLinks[0]?.getAttribute("aria-current")).toBe("page");
+      expect(languageLinks[0]?.getAttribute("href")).toBe("/de");
+      expect(languageLinks[1]?.getAttribute("href")).toBe("/en");
+    }
+  });
+
   it("opens and closes the mobile navigation while restoring focus and scroll", () => {
     renderShell();
 

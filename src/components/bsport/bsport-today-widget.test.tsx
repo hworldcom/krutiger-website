@@ -39,6 +39,7 @@ afterEach(() => {
   cleanup();
   vi.unstubAllGlobals();
   delete window.__krutigerBsportWidgetMountElement;
+  delete window.__krutigerBsportWidgetLanguage;
   delete window.__krutigerBsportWidgetReloadPending;
   delete window.__krutigerBsportWidgetScriptUrl;
   delete window.BsportWidget;
@@ -67,7 +68,7 @@ describe("BsportTodayWidget", () => {
 
     expect(mount).toHaveBeenCalledOnce();
     expect(mount).toHaveBeenCalledWith(
-      createBsportTodayConfig(bsportTodayElementId),
+      createBsportTodayConfig(bsportTodayElementId, "de"),
     );
     await waitFor(() => expect(screen.queryByRole("status")).toBeNull());
   });
@@ -84,7 +85,7 @@ describe("BsportTodayWidget", () => {
 
     await waitFor(() => expect(mount).toHaveBeenCalledOnce());
     expect(mount).toHaveBeenCalledWith(
-      createBsportTodayConfig(bsportTodayElementId),
+      createBsportTodayConfig(bsportTodayElementId, "de"),
     );
     expect(screen.queryByRole("status")).toBeNull();
   });

@@ -1,5 +1,6 @@
 import type { Locale } from "../config";
 import type { IntegrationArea, RouteId } from "../../lib/routes";
+import type { TrainingLevel } from "../../content/training";
 
 type PageCopy = Readonly<{
   navigationLabel: string;
@@ -28,6 +29,9 @@ type WidgetIntegrationCopy = IntegrationCopy &
 type PricingIntegrationCopy = WidgetIntegrationCopy &
   Readonly<{
     secureCheckoutNotice: string;
+    offerSelectorLabel: string;
+    membershipTab: string;
+    passesTab: string;
     termsLabel: string;
     durationSelectorLabel: string;
     durationLabels: Readonly<Record<12 | 6 | 3, string>>;
@@ -52,8 +56,10 @@ type PricingIntegrationCopy = WidgetIntegrationCopy &
       heading: string;
       description: string;
       validityLabel: string;
-      validity: string;
+      validityOne: string;
+      validityMany: string;
       passLabel: string;
+      singleSession: string;
       sessions: string;
       unlimitedSessions: string;
       buyAction: string;
@@ -144,6 +150,76 @@ export type AboutPageCopy = Readonly<{
   }>;
 }>;
 
+export type TeamPageCopy = Readonly<{
+  sectionHeading: string;
+  specialtiesLabel: string;
+  socialLinkAction: string;
+  socialLinkLabel: string;
+}>;
+
+export type TrainingPageCopy = Readonly<{
+  sectionHeading: string;
+  sectionIntroduction: string;
+  levelLabels: Readonly<Record<TrainingLevel, string>>;
+  duration: string;
+  audienceLabel: string;
+  equipmentLabel: string;
+  scheduleActionLabel: string;
+  scheduleNotice: string;
+}>;
+
+type MemberAreaChoiceCopy = Readonly<{
+  title: string;
+  description: string;
+  action: string;
+}>;
+
+type MemberAreaStepCopy = Readonly<{
+  title: string;
+  description: string;
+}>;
+
+export type MemberAreaPageCopy = Readonly<{
+  pricingAction: string;
+  existingMemberAction: string;
+  choices: Readonly<{
+    eyebrow: string;
+    title: string;
+    description: string;
+    membership: MemberAreaChoiceCopy;
+    passes: MemberAreaChoiceCopy;
+    trial: MemberAreaChoiceCopy;
+  }>;
+  steps: Readonly<{
+    eyebrow: string;
+    title: string;
+    description: string;
+    items: readonly [
+      MemberAreaStepCopy,
+      MemberAreaStepCopy,
+      MemberAreaStepCopy,
+      MemberAreaStepCopy,
+    ];
+    scheduleAction: string;
+  }>;
+}>;
+
+type PrivateTrainingStepCopy = Readonly<{
+  title: string;
+  description: string;
+}>;
+
+export type PrivateTrainingPageCopy = Readonly<{
+  eyebrow: string;
+  title: string;
+  description: string;
+  steps: readonly [
+    PrivateTrainingStepCopy,
+    PrivateTrainingStepCopy,
+    PrivateTrainingStepCopy,
+  ];
+}>;
+
 export type Dictionary = Readonly<{
   metadata: Readonly<{
     title: string;
@@ -189,12 +265,18 @@ export type Dictionary = Readonly<{
   routes: Readonly<Record<RouteId, PageCopy>>;
   homePage: HomePageCopy;
   aboutPage: AboutPageCopy;
+  teamPage: TeamPageCopy;
+  trainingPage: TrainingPageCopy;
+  memberAreaPage: MemberAreaPageCopy;
+  privateTrainingPage: PrivateTrainingPageCopy;
   integrations: Readonly<
     Record<IntegrationArea, IntegrationCopy> & {
       schedule: WidgetIntegrationCopy;
+      privateTraining: WidgetIntegrationCopy;
       memberArea: WidgetIntegrationCopy;
       pricing: PricingIntegrationCopy;
       shop: WidgetIntegrationCopy;
+      giftCards: WidgetIntegrationCopy;
     }
   >;
   notFound: StateCopy &
@@ -205,6 +287,14 @@ export type Dictionary = Readonly<{
     Readonly<{
       retryAction: string;
     }>;
+  draftMode: Readonly<{
+    landmarkLabel: string;
+    status: string;
+    exitAction: string;
+    incompleteContent: string;
+    missingContent: string;
+    unavailableContent: string;
+  }>;
   preview: Readonly<{
     eyebrow: string;
     heading: string;

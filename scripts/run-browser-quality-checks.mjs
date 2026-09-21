@@ -29,6 +29,7 @@ if (!executablePath) {
 }
 
 const viewports = [
+  { name: "mobile-280", width: 280, height: 720 },
   { name: "mobile-320", width: 320, height: 800 },
   { name: "iphone", width: 390, height: 844 },
   { name: "android", width: 412, height: 915 },
@@ -38,6 +39,7 @@ const viewports = [
 const routes = [
   "/",
   "/training",
+  "/private",
   "/schedule",
   "/prices",
   "/shop",
@@ -94,6 +96,71 @@ async function checkNoHorizontalOverflow(page, label) {
   );
 }
 
+async function checkNoClippedPricingText(page, label) {
+  const clippedText = await page.evaluate(() => {
+    const cards = [
+      ...document.querySelectorAll(
+        "[data-membership-pricing] article, [data-monthly-pass-pricing] article",
+      ),
+    ];
+
+    return cards.flatMap((card) => {
+      const cardRectangle = card.getBoundingClientRect();
+
+      return [...card.querySelectorAll("h3, p, li span, a")]
+        .filter((element) => element.textContent?.trim())
+        .flatMap((element) => {
+          const range = document.createRange();
+          range.selectNodeContents(element);
+          const textRectangle = range.getBoundingClientRect();
+
+          if (
+            textRectangle.left >= cardRectangle.left - 1 &&
+            textRectangle.right <= cardRectangle.right + 1
+          ) {
+            return [];
+          }
+
+          return [
+            {
+              element: element.tagName.toLowerCase(),
+              text: element.textContent?.trim().replace(/\s+/g, " "),
+            },
+          ];
+        });
+    });
+  });
+
+  assert(
+    clippedText.length === 0,
+    `${label} clips pricing text: ${JSON.stringify(clippedText.slice(0, 5))}`,
+  );
+}
+
+async function checkPricingOfferTabs(page, label) {
+  const membershipTab = page.locator("#pricing-offer-tab-memberships");
+  const passesTab = page.locator("#pricing-offer-tab-passes");
+
+  assert(
+    (await membershipTab.getAttribute("aria-selected")) === "true",
+    `${label} does not select memberships by default.`,
+  );
+
+  await passesTab.click();
+
+  assert(
+    (await passesTab.getAttribute("aria-selected")) === "true",
+    `${label} did not select the passes tab.`,
+  );
+  assert(
+    (await page.locator("#pricing-offer-panel-passes article").count()) === 5,
+    `${label} does not show the five training passes.`,
+  );
+
+  await checkNoHorizontalOverflow(page, `${label} passes tab`);
+  await membershipTab.click();
+}
+
 async function loadLazyImages(page) {
   await page.evaluate(async () => {
     const step = Math.max(window.innerHeight * 0.75, 320);
@@ -122,13 +189,27 @@ try {
     const page = await context.newPage();
 
     for (const locale of locales) {
-      for (const route of ["/", "/about"]) {
+      for (const route of [
+        "/",
+        "/training",
+        "/private",
+        "/prices",
+        "/about",
+        "/coaches",
+        "/member-area",
+      ]) {
         const url = localizedUrl(locale, route);
         await openPage(page, url);
         await checkNoHorizontalOverflow(
           page,
           `${locale}${route} at ${viewport.name}`,
         );
+        if (route === "/prices") {
+          await checkPricingOfferTabs(
+            page,
+            `${locale}${route} at ${viewport.name}`,
+          );
+        }
 
         const language = await page.locator("html").getAttribute("lang");
         assert(
@@ -138,7 +219,8 @@ try {
 
         if (locale === "de") {
           await loadLazyImages(page);
-          const screenshotName = `${viewport.name}-${route === "/" ? "home" : "about"}.jpg`;
+          const routeName = route === "/" ? "home" : route.slice(1);
+          const screenshotName = `${viewport.name}-${routeName}.jpg`;
           await page.screenshot({
             fullPage: true,
             path: join(screenshotDirectory, screenshotName),
@@ -151,6 +233,27 @@ try {
 
     await context.close();
   }
+
+  const enlargedTextContext = await browser.newContext({
+    locale: "de-DE",
+    viewport: { width: 320, height: 800 },
+  });
+  const enlargedTextPage = await enlargedTextContext.newPage();
+
+  await openPage(enlargedTextPage, localizedUrl("de", "/prices"));
+  await enlargedTextPage.addStyleTag({
+    content: "html { font-size: 24px !important; }",
+  });
+  await checkNoClippedPricingText(
+    enlargedTextPage,
+    "de/prices memberships at 320px with 150% text scaling",
+  );
+  await enlargedTextPage.locator("#pricing-offer-tab-passes").click();
+  await checkNoClippedPricingText(
+    enlargedTextPage,
+    "de/prices passes at 320px with 150% text scaling",
+  );
+  await enlargedTextContext.close();
 
   const metadataContext = await browser.newContext({
     viewport: { width: 1440, height: 900 },

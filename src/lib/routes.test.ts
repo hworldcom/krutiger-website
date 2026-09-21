@@ -26,6 +26,7 @@ describe("site route configuration", () => {
     expect(siteRoutes.map((route) => route.path)).toEqual([
       "/",
       "/training",
+      "/private",
       "/schedule",
       "/prices",
       "/shop",
@@ -44,6 +45,7 @@ describe("site route configuration", () => {
     expect(primaryNavigationRoutes.map((route) => route.id)).toEqual([
       "home",
       "training",
+      "privateTraining",
       "schedule",
       "prices",
       "shop",
@@ -66,6 +68,7 @@ describe("site route configuration", () => {
   it("resolves known path segments and rejects unknown paths", () => {
     expect(getRouteBySegments(["gift-cards"])?.id).toBe("giftCards");
     expect(getRouteBySegments(["shop"])?.id).toBe("shop");
+    expect(getRouteBySegments(["private"])?.id).toBe("privateTraining");
     expect(getRouteBySegments(["training", "advanced"])).toBeUndefined();
     expect(getRouteBySegments(["unknown"])).toBeUndefined();
     expect(contentRoutes.map((route) => route.path)).not.toContain("/");
@@ -73,6 +76,7 @@ describe("site route configuration", () => {
 
   it("marks only operational pages with future integration boundaries", () => {
     expect(getRouteById("schedule").integration).toBe("schedule");
+    expect(getRouteById("privateTraining").integration).toBe("privateTraining");
     expect(getRouteById("prices").integration).toBe("pricing");
     expect(getRouteById("shop").integration).toBe("shop");
     expect(getRouteById("memberArea").integration).toBe("memberArea");

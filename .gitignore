@@ -1,5 +1,6 @@
 # Dependencies and package-manager state
 /node_modules/
+/studio/node_modules/
 /.pnp/
 .pnp.*
 /.yarn/*
@@ -20,6 +21,9 @@
 /out/
 /build/
 /dist/
+/studio/dist/
+/studio/.sanity/
+/sanity.schema.json
 
 # Tool caches
 /.cache/

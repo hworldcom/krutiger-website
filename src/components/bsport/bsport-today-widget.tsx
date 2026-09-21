@@ -101,20 +101,26 @@ export function BsportTodayWidget({ copy, locale }: BsportTodayWidgetProps) {
     const mountElement = document.getElementById(bsportTodayElementId);
 
     if (
-      hasMounted.current ||
       !window.BsportWidget ||
-      !prepareBsportWidgetMount(bsportCalendarWidgetScriptUrl, mountElement)
+      !prepareBsportWidgetMount(
+        bsportCalendarWidgetScriptUrl,
+        mountElement,
+        locale,
+      ) ||
+      hasMounted.current
     ) {
       return;
     }
 
     try {
-      window.BsportWidget.mount(createBsportTodayConfig(bsportTodayElementId));
+      window.BsportWidget.mount(
+        createBsportTodayConfig(bsportTodayElementId, locale),
+      );
       hasMounted.current = true;
     } catch {
       setStatus("error");
     }
-  }, []);
+  }, [locale]);
 
   useEffect(() => {
     const mountAttemptId = window.setTimeout(mountWidget, 0);

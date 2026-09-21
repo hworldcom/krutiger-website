@@ -1,7 +1,8 @@
 # bsport shop integration
 
-The localized `/de/shop` and `/en/shop` routes load the shop widget supplied by
-bsport. Product data, availability, prices, and checkout remain owned by bsport.
+The localized `/de/shop` and `/en/shop` routes load the shop and gift-card
+widgets supplied by bsport. Product data, gift-card values, availability,
+prices, and checkout remain owned by bsport.
 
 ## Current production configuration
 
@@ -13,10 +14,18 @@ bsport. Product data, availability, prices, and checkout remain owned by bsport.
 - Floating action button: disabled
 - Full-screen popup: disabled
 
-The public company ID can be overridden at build time with
-`NEXT_PUBLIC_BSPORT_SHOP_COMPANY_ID`. The external script loads only when a
-visitor opens a shop route, with localized loading and failure states supplied
-by the website.
+The gift-card section shares the production script and uses:
+
+- Widget type: `giftcard`
+- Parent element: `bsport-widget-29534`
+- Dialog mode: `1`
+- Gift-card filter: all available gift cards
+
+The public company IDs can be overridden at build time with
+`NEXT_PUBLIC_BSPORT_SHOP_COMPANY_ID` and
+`NEXT_PUBLIC_BSPORT_GIFT_CARD_COMPANY_ID`. The external script loads only once
+when a visitor opens a shop route. Each widget has an independent localized
+loading and failure state supplied by the website.
 
 With the local app running, verify all bsport integrations in Chrome with:
 

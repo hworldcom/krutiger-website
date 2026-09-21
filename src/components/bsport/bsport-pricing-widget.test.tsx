@@ -38,6 +38,7 @@ beforeEach(() => {
 afterEach(() => {
   cleanup();
   delete window.__krutigerBsportWidgetMountElement;
+  delete window.__krutigerBsportWidgetLanguage;
   delete window.__krutigerBsportWidgetReloadPending;
   delete window.__krutigerBsportWidgetScriptUrl;
   delete window.BsportWidget;
@@ -50,7 +51,7 @@ describe("BsportPricingWidget", () => {
     });
     window.BsportWidget = { mount };
 
-    render(<BsportPricingWidget copy={de.integrations.pricing} />);
+    render(<BsportPricingWidget copy={de.integrations.pricing} locale="de" />);
 
     expect(screen.getByRole("status").textContent).toBe(
       de.integrations.pricing.loading,
@@ -64,7 +65,7 @@ describe("BsportPricingWidget", () => {
 
     expect(mount).toHaveBeenCalledOnce();
     expect(mount).toHaveBeenCalledWith(
-      createBsportSubscriptionConfig(bsportPricingElementId),
+      createBsportSubscriptionConfig(bsportPricingElementId, "de"),
     );
     expect(window.__krutigerBsportWidgetScriptUrl).toBe(
       bsportPricingWidgetScriptUrl,
@@ -78,7 +79,7 @@ describe("BsportPricingWidget", () => {
   });
 
   it("shows localized fallback copy when the external script fails", () => {
-    render(<BsportPricingWidget copy={de.integrations.pricing} />);
+    render(<BsportPricingWidget copy={de.integrations.pricing} locale="de" />);
 
     act(() => scriptHandlers.onError?.());
 

@@ -23,26 +23,30 @@ Deliver a working, branded, responsive, bilingual Next.js application shell for 
 - German-first routing and English-language support
 - Localized placeholder routes for the complete MVP site map
 - A small reusable UI foundation
+- A responsive Team page with reusable person cards ready for Sanity content
+- A responsive Training page with reusable course cards ready for Sanity content
 - Baseline accessibility, SEO, and performance safeguards
 
 ## Tickets
 
-| ID    | Ticket                                                                                    | Status   | Depends on          |
-| ----- | ----------------------------------------------------------------------------------------- | -------- | ------------------- |
-| M1-01 | [Bootstrap the Next.js application](./M1-01-project-bootstrap.md)                         | Complete | —                   |
-| M1-02 | [Establish the brand and design foundations](./M1-02-brand-foundations.md)                | Complete | —                   |
-| M1-08 | [Establish the German and English foundation](./M1-08-bilingual-foundation.md)            | Complete | M1-01, M1-02        |
-| M1-03 | [Create the application shell and MVP routes](./M1-03-application-shell-and-routes.md)    | Complete | M1-01, M1-02, M1-08 |
-| M1-04 | [Build the responsive header and navigation](./M1-04-responsive-header-and-navigation.md) | Complete | M1-03, M1-06, M1-08 |
-| M1-05 | [Build the global footer](./M1-05-global-footer.md)                                       | Complete | M1-03, M1-06, M1-08 |
-| M1-06 | [Create the core UI primitives](./M1-06-core-ui-primitives.md)                            | Complete | M1-01, M1-02        |
-| M1-07 | [Establish foundation quality gates](./M1-07-foundation-quality-gates.md)                 | Complete | M1-03–M1-06, M1-08  |
+| ID    | Ticket                                                                                         | Status   | Depends on                 |
+| ----- | ---------------------------------------------------------------------------------------------- | -------- | -------------------------- |
+| M1-01 | [Bootstrap the Next.js application](./M1-01-project-bootstrap.md)                              | Complete | —                          |
+| M1-02 | [Establish the brand and design foundations](./M1-02-brand-foundations.md)                     | Complete | —                          |
+| M1-08 | [Establish the German and English foundation](./M1-08-bilingual-foundation.md)                 | Complete | M1-01, M1-02               |
+| M1-03 | [Create the application shell and MVP routes](./M1-03-application-shell-and-routes.md)         | Complete | M1-01, M1-02, M1-08        |
+| M1-04 | [Build the responsive header and navigation](./M1-04-responsive-header-and-navigation.md)      | Complete | M1-03, M1-06, M1-08        |
+| M1-05 | [Build the global footer](./M1-05-global-footer.md)                                            | Complete | M1-03, M1-06, M1-08        |
+| M1-06 | [Create the core UI primitives](./M1-06-core-ui-primitives.md)                                 | Complete | M1-01, M1-02               |
+| M1-07 | [Establish foundation quality gates](./M1-07-foundation-quality-gates.md)                      | Complete | M1-03–M1-06, M1-08         |
+| M1-09 | [Build the Team page and reusable person cards](./M1-09-team-page-and-cards.md)                | Complete | M1-02, M1-03, M1-06, M1-08 |
+| M1-10 | [Build the Training page and reusable course cards](./M1-10-training-page-and-course-cards.md) | Complete | M1-02, M1-03, M1-06, M1-08 |
 
-M1-01 and M1-02 can proceed in parallel. M1-08 establishes the locale contract before M1-03 creates the route shell. M1-06 can proceed alongside that work. M1-04 and M1-05 can then proceed in parallel.
+M1-01 and M1-02 can proceed in parallel. M1-08 establishes the locale contract before M1-03 creates the route shell. M1-06 can proceed alongside that work. M1-04 and M1-05 can then proceed in parallel. M1-09 and M1-10 build on the completed shell, localization, brand, and UI foundations and can be implemented before their content sources change to Sanity.
 
 ## Milestone definition of done
 
-- All eight tickets meet their acceptance criteria.
+- All ten tickets meet their acceptance criteria.
 - All MVP routes render in German and English without errors on mobile and desktop.
 - Header, mobile navigation, and footer work using keyboard and pointer input.
 - The language switcher preserves the corresponding route and clearly identifies the active language.
@@ -56,7 +60,8 @@ M1-01 and M1-02 can proceed in parallel. M1-08 establishes the locale contract b
 
 - Sanity project creation, schemas, queries, previews, and production content
 - bsport widgets, APIs, credentials, purchase links, or booking logic
-- Final page designs and complete editorial content
+- Final designs for the remaining content pages and complete editorial content
+  beyond the Team and Training foundations
 - Production analytics and consent management
 - Custom authentication, payments, memberships, or scheduling
 - A redesign of the official KRUTIGER logo

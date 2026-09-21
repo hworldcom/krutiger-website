@@ -1,36 +1,31 @@
 import Image from "next/image";
 
-import type { AboutPageCopy } from "@/i18n/dictionaries/types";
+import type { AboutEditorialContent } from "@/content/editorial";
 
 const chapterMedia = [
   {
-    src: "/images/about/second.png",
     position: "object-[center_14%]",
     tone: "dark",
   },
   {
-    src: "/images/about/third.jpg",
     position: "object-[center_20%]",
     tone: "paper",
   },
   {
-    src: "/images/about/fourth.jpg",
     position: "object-[center_12%]",
     tone: "dark",
   },
   {
-    src: "/images/about/fifth.jpg",
     position: "object-[center_48%]",
-    secondary: {
-      src: "/images/about/six.jpg",
-      position: "object-[center_12%]",
-    },
+    secondaryPosition: "object-[center_12%]",
     tone: "paper",
   },
 ] as const;
 
 type AboutPageProps = Readonly<{
-  content: AboutPageCopy;
+  content: AboutEditorialContent;
+  contentSource: "sanity" | "fallback";
+  draftContentIssue?: string;
 }>;
 
 function ValueIcon({ index }: Readonly<{ index: number }>) {
@@ -108,21 +103,28 @@ function ValueIcon({ index }: Readonly<{ index: number }>) {
   );
 }
 
-export function AboutPage({ content }: AboutPageProps) {
+export function AboutPage({
+  content,
+  contentSource,
+  draftContentIssue,
+}: AboutPageProps) {
   return (
-    <div className="overflow-hidden bg-canvas text-copy">
+    <div
+      className="overflow-hidden bg-canvas text-copy"
+      data-content-source={contentSource}
+    >
       <section
         aria-labelledby="about-page-title"
         className="relative isolate min-h-[42rem] overflow-hidden sm:min-h-[46rem] lg:min-h-[38rem]"
       >
         <div className="about-hero-media absolute inset-0 lg:left-[34%]">
           <Image
-            alt={content.hero.imageAlt}
+            alt={content.hero.image.alternativeText}
             className="object-cover object-[62%_center] lg:object-[center_35%]"
             fill
             preload
             sizes="(min-width: 1024px) 66vw, 100vw"
-            src="/images/about/main.png"
+            src={content.hero.image.src}
           />
         </div>
         <div
@@ -153,6 +155,18 @@ export function AboutPage({ content }: AboutPageProps) {
         </div>
       </section>
 
+      {draftContentIssue ? (
+        <div className="mx-auto w-full max-w-shell px-6 lg:px-10">
+          <p
+            className="my-8 border border-brand bg-brand/10 px-5 py-4 text-sm leading-6 text-copy sm:text-base"
+            data-draft-content-issue
+            role="alert"
+          >
+            {draftContentIssue}
+          </p>
+        </div>
+      ) : null}
+
       <section aria-labelledby="about-story-title">
         <h2 className="sr-only" id="about-story-title">
           {content.storyHeading}
@@ -160,17 +174,17 @@ export function AboutPage({ content }: AboutPageProps) {
         <ol>
           {content.chapters.map((chapter, index) => {
             const media = chapterMedia[index];
-            const headingId = `about-chapter-${chapter.number}`;
+            const chapterNumber = String(index + 1).padStart(2, "0");
+            const headingId = `about-chapter-${chapterNumber}`;
             const isPaper = media.tone === "paper";
-            const secondaryMedia =
-              "secondary" in media ? media.secondary : undefined;
+            const secondaryImage = chapter.secondaryImage;
             const imageClassName = `object-cover ${isPaper ? "mix-blend-multiply grayscale sepia-[.45] contrast-[1.03]" : "sepia-[.18] contrast-[1.08] saturate-[.72]"}`;
 
             return (
               <li
                 className={`overflow-hidden ${isPaper ? "about-paper-row text-ink" : "bg-canvas text-copy"}`}
-                data-chapter-number={chapter.number}
-                key={chapter.number}
+                data-chapter-number={chapterNumber}
+                key={chapter.internalKey}
               >
                 <div className="grid w-full pl-6 lg:grid-cols-[24rem_minmax(0,1fr)] lg:pl-10">
                   <article
@@ -180,7 +194,7 @@ export function AboutPage({ content }: AboutPageProps) {
                     <p
                       className={`font-display text-4xl leading-none font-extrabold ${isPaper ? "text-[#a93600]" : "text-brand"}`}
                     >
-                      {chapter.number}
+                      {chapterNumber}
                     </p>
                     <h3
                       className="mt-1 font-display text-4xl leading-[0.92] font-extrabold tracking-tight uppercase sm:text-5xl"
@@ -203,34 +217,34 @@ export function AboutPage({ content }: AboutPageProps) {
                   <figure
                     className={`about-chapter-media relative min-h-72 overflow-hidden lg:-ml-14 lg:min-h-[22rem] ${isPaper ? "bg-[#c1aa80]" : "bg-canvas"}`}
                   >
-                    {secondaryMedia ? (
+                    {secondaryImage ? (
                       <div className="absolute inset-0 grid grid-cols-[44%_56%]">
                         <div className="relative overflow-hidden">
                           <Image
-                            alt={chapter.imageAlt}
+                            alt={chapter.primaryImage.alternativeText}
                             className={`${imageClassName} ${media.position}`}
                             fill
                             sizes="(min-width: 1024px) 30vw, 44vw"
-                            src={media.src}
+                            src={chapter.primaryImage.src}
                           />
                         </div>
                         <div className="relative -ml-px overflow-hidden">
                           <Image
-                            alt={chapter.secondaryImageAlt ?? ""}
-                            className={`${imageClassName} ${secondaryMedia.position}`}
+                            alt={secondaryImage.alternativeText}
+                            className={`${imageClassName} ${"secondaryPosition" in media ? media.secondaryPosition : ""}`}
                             fill
                             sizes="(min-width: 1024px) 38vw, 56vw"
-                            src={secondaryMedia.src}
+                            src={secondaryImage.src}
                           />
                         </div>
                       </div>
                     ) : (
                       <Image
-                        alt={chapter.imageAlt}
+                        alt={chapter.primaryImage.alternativeText}
                         className={`${imageClassName} ${media.position}`}
                         fill
                         sizes="(min-width: 1024px) 60vw, 100vw"
-                        src={media.src}
+                        src={chapter.primaryImage.src}
                       />
                     )}
                   </figure>
@@ -248,7 +262,7 @@ export function AboutPage({ content }: AboutPageProps) {
         <div className="mx-auto w-full max-w-shell px-6 lg:px-10">
           <header className="flex flex-wrap items-baseline gap-x-5 gap-y-2">
             <p className="font-display text-4xl leading-none font-extrabold text-brand">
-              {content.philosophy.number}
+              {String(content.chapters.length + 1).padStart(2, "0")}
             </p>
             <h2
               className="font-display text-4xl leading-none font-extrabold tracking-tight uppercase sm:text-5xl"
@@ -262,7 +276,7 @@ export function AboutPage({ content }: AboutPageProps) {
             {content.philosophy.values.map((value, index) => (
               <li
                 className="border-t border-line px-2 py-8 sm:px-6 lg:border-t-0 lg:border-l lg:first:border-l-0"
-                key={value.title}
+                key={value.internalKey}
               >
                 <div className="text-brand">
                   <ValueIcon index={index} />
