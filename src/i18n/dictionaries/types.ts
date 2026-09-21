@@ -32,9 +32,20 @@ type PricingIntegrationCopy = WidgetIntegrationCopy &
     offerSelectorLabel: string;
     membershipTab: string;
     passesTab: string;
+    audienceSelectorLabel: string;
+    audienceLabels: Readonly<{
+      adult: string;
+      student: string;
+      kid: string;
+    }>;
+    audienceDescriptions: Readonly<{
+      adult: string;
+      student: string;
+      kid: string;
+    }>;
     termsLabel: string;
     durationSelectorLabel: string;
-    durationLabels: Readonly<Record<12 | 6 | 3, string>>;
+    durationLabels: Readonly<Record<24 | 12 | 6 | 3, string>>;
     membershipLabel: string;
     perMonth: string;
     billingDay: string;
@@ -49,7 +60,10 @@ type PricingIntegrationCopy = WidgetIntegrationCopy &
       strengthConditioning: string;
       mobility: string;
     }>;
+    kidMuayThaiBenefit: string;
     bookAction: string;
+    pendingPrice: string;
+    pendingAction: string;
     unavailableHeading: string;
     unavailableDescription: string;
     monthlyPasses: Readonly<{

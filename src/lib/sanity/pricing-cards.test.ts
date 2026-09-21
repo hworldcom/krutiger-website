@@ -6,6 +6,7 @@ import {
   validateAccessType,
   validateBsportCheckoutUrl,
   validateMembershipBenefitSelection,
+  validateMembershipAudience,
   validateMembershipDuration,
   validatePositiveInteger,
   validateSessionAllowance,
@@ -52,7 +53,17 @@ describe("Sanity pricing-card validation", () => {
     expect(validateMembershipDuration(3)).toBe(true);
     expect(validateMembershipDuration(6)).toBe(true);
     expect(validateMembershipDuration(12)).toBe(true);
-    expect(validateMembershipDuration(1)).toMatch(/3, 6, or 12/);
+    expect(validateMembershipDuration(24)).toBe(true);
+    expect(validateMembershipDuration(1)).toMatch(/3, 6, 12, or 24/);
+  });
+
+  it("accepts only the supported membership groups", () => {
+    expect(validateMembershipAudience("adult")).toBe(true);
+    expect(validateMembershipAudience("student")).toBe(true);
+    expect(validateMembershipAudience("kid")).toBe(true);
+    expect(validateMembershipAudience("senior")).toMatch(
+      /Adults, Students, or Kids/,
+    );
   });
 
   it("requires positive whole-number quantities for limited products", () => {

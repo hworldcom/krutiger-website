@@ -314,7 +314,7 @@ const en = {
       membership: {
         title: "Membership",
         description:
-          "For regular training with a 3, 6, or 12-month term and up to unlimited sessions.",
+          "For regular training with a 3, 6, 12, or 24-month term and up to unlimited sessions.",
         action: "View memberships",
       },
       passes: {
@@ -417,19 +417,32 @@ const en = {
       offerSelectorLabel: "Choose a pricing option",
       membershipTab: "Memberships",
       passesTab: "Passes",
+      audienceSelectorLabel: "Choose a membership group",
+      audienceLabels: {
+        adult: "Adults",
+        student: "Students",
+        kid: "Kids",
+      },
+      audienceDescriptions: {
+        adult: "Standard memberships for adults.",
+        student:
+          "Memberships for pupils and students. A valid school or student ID is required.",
+        kid: "Memberships for children and youths up to 16 years old.",
+      },
       termsLabel: "Applies to all memberships",
       loading: "The current prices are loading…",
       error:
         "The prices could not be loaded right now. Please try again later.",
       durationSelectorLabel: "Choose a membership duration",
       durationLabels: {
+        24: "24 months",
         12: "12 months",
         6: "6 months",
         3: "3 months",
       },
       membershipLabel: "Membership",
       perMonth: "/ month",
-      billingDay: "Billed on the {day}st of each month",
+      billingDay: "Billed on day {day} of each month",
       joiningFee: "Joining fee",
       autoRenewal:
         "Your membership renews automatically after the selected contract term unless cancelled in time.",
@@ -442,7 +455,10 @@ const en = {
         strengthConditioning: "Strength and Conditioning",
         mobility: "Mobility classes",
       },
+      kidMuayThaiBenefit: "Age-appropriate Muay Thai classes",
       bookAction: "Book now",
+      pendingPrice: "Price coming soon",
+      pendingAction: "Booking coming soon",
       unavailableHeading: "Plans coming soon",
       unavailableDescription:
         "Memberships for this duration will be added as soon as the confirmed terms and checkout links are available.",

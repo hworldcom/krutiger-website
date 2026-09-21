@@ -200,6 +200,7 @@ describe("Sanity schema contract", () => {
     expect(fieldNames("membershipCard")).toEqual([
       "internalKey",
       "name",
+      "audience",
       "monthlyPriceCents",
       "durationMonths",
       "accessType",

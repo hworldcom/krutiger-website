@@ -7,11 +7,13 @@ import {
 import {
   formatEuroCents,
   formatVerificationDate,
+  membershipAudiences,
   membershipBenefits,
   membershipDurations,
   validateAccessType,
   validateBsportCheckoutUrl,
   validateMembershipBenefitSelection,
+  validateMembershipAudience,
   validateMembershipDuration,
   validateSessionAllowance,
   validateVerificationTimestamp,
@@ -22,6 +24,7 @@ type AccessParent = Readonly<{
 }>;
 
 type MembershipSourceDocument = Readonly<{
+  audience?: unknown;
   durationMonths?: unknown;
   name?: Readonly<{
     de?: unknown;
@@ -46,7 +49,7 @@ export const membershipCard = defineType({
       type: "slug",
       group: "workflow",
       description:
-        "Stable website identifier. Generate it from the name and duration, then do not change it after publication.",
+        "Stable website identifier. Generate it from the name, membership group, and duration, then do not change it after publication.",
       options: {
         source: (document) => {
           const sourceDocument = document as MembershipSourceDocument;
@@ -58,8 +61,12 @@ export const membershipCard = defineType({
             typeof sourceDocument.durationMonths === "number"
               ? sourceDocument.durationMonths
               : "";
+          const audience =
+            typeof sourceDocument.audience === "string"
+              ? sourceDocument.audience
+              : "adult";
 
-          return `${name}-${duration}`;
+          return `${name}-${audience}-${duration}`;
         },
         maxLength: 64,
       },
@@ -73,6 +80,23 @@ export const membershipCard = defineType({
       description:
         "Name shown on the card. Complete German and English explicitly even when the product name is identical.",
       validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "audience",
+      title: "Membership group",
+      type: "string",
+      group: "card",
+      description:
+        "Controls whether the card appears under Adults, Students, or Kids on the pricing page. Existing cards without a selection are treated as Adults.",
+      options: {
+        layout: "radio",
+        list: [...membershipAudiences],
+      },
+      initialValue: "adult",
+      validation: (Rule) =>
+        Rule.custom((value) =>
+          value == null ? true : validateMembershipAudience(value),
+        ),
     }),
     defineField({
       name: "monthlyPriceCents",
@@ -194,8 +218,9 @@ export const membershipCard = defineType({
   orderings: [
     {
       name: "displayOrder",
-      title: "Duration and display order",
+      title: "Membership group, duration, and display order",
       by: [
+        { field: "audience", direction: "asc" },
         { field: "durationMonths", direction: "desc" },
         { field: "order", direction: "asc" },
         { field: "name.de", direction: "asc" },
@@ -205,6 +230,7 @@ export const membershipCard = defineType({
   preview: {
     select: {
       active: "active",
+      audience: "audience",
       durationMonths: "durationMonths",
       editorialState: "editorialState",
       englishName: "name.en",
@@ -214,6 +240,7 @@ export const membershipCard = defineType({
     },
     prepare({
       active,
+      audience,
       durationMonths,
       editorialState,
       englishName,
@@ -227,6 +254,7 @@ export const membershipCard = defineType({
           : "Duration missing";
       const detail = [
         "Membership",
+        typeof audience === "string" ? audience : "adult",
         duration,
         `${formatEuroCents(monthlyPriceCents)}/month`,
         formatVerificationDate(verifiedAt),

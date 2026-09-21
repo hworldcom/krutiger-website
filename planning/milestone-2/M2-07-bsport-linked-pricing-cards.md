@@ -26,7 +26,7 @@ update both systems deliberately when commercial terms change.
 - Model stable internal keys, bilingual display names where needed, Euro prices
   in integer cents, access limits, and the existing application-owned benefit
   identifiers.
-- Model membership duration using the supported 3-, 6-, and 12-month options.
+- Model membership duration using the supported 3-, 6-, 12-, and 24-month options.
 - Keep shared membership terms such as billing day, joining fee, and automatic
   renewal application-owned for now rather than repeating them in individual
   cards.
@@ -60,7 +60,7 @@ update both systems deliberately when commercial terms change.
   shaped for the existing website pricing-card models.
 - Stored Euro display prices as positive integer cents and modeled limited or
   unlimited access explicitly.
-- Constrained memberships to 3-, 6-, or 12-month durations and benefits to the
+- Constrained memberships to 3-, 6-, 12-, or 24-month durations and benefits to the
   existing application-owned identifiers.
 - Added strict URL validation for KRUTIGER company `6720` membership and pass
   checkouts on the production `backoffice.bsport.io` host.

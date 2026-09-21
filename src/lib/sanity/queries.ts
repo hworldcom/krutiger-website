@@ -192,10 +192,11 @@ export const FAQS_QUERY = defineQuery(`
 
 export const MEMBERSHIP_CARDS_QUERY = defineQuery(`
   *[_type == "membershipCard" && active == true]
-    | order(durationMonths desc, order asc, name.de asc, internalKey.current asc) {
+    | order(audience asc, durationMonths desc, order asc, name.de asc, internalKey.current asc) {
       _id,
       "internalKey": internalKey.current,
       name,
+      audience,
       monthlyPriceCents,
       durationMonths,
       accessType,

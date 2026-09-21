@@ -29,7 +29,7 @@ type SeedDefinition = Readonly<{
   build: (assets: AssetMap) => SeedDocument;
 }>;
 
-const baselineVerifiedAt = "2026-09-14T00:00:00.000Z";
+const membershipVerifiedAt = "2026-09-21T00:00:00.000Z";
 const trainingPassVerifiedAt = "2026-09-21T00:00:00.000Z";
 const repositoryRoot = join(
   dirname(fileURLToPath(import.meta.url)),
@@ -475,6 +475,7 @@ function buildMembershipCards(): SeedDocument[] {
       _type: "membershipCard",
       internalKey: { _type: "slug", current: membership.id },
       name: localizedString(membership.name, membership.name),
+      audience: membership.audience,
       monthlyPriceCents: Math.round(membership.monthlyPrice * 100),
       durationMonths: membership.durationMonths,
       accessType:
@@ -484,7 +485,7 @@ function buildMembershipCards(): SeedDocument[] {
         : { monthlySessions: membership.monthlySessions }),
       benefits: [...membership.benefits],
       checkoutUrl: membership.checkoutUrl,
-      verifiedAt: baselineVerifiedAt,
+      verifiedAt: membershipVerifiedAt,
       order: (index + 1) * 10,
       active: true,
       editorialState: "ready",

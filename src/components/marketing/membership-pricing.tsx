@@ -6,8 +6,10 @@ import { getButtonClassName } from "@/components/ui";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries/types";
 import {
+  membershipAudiences,
   membershipDurations,
   membershipTerms,
+  type MembershipAudience,
   type MembershipDuration,
   type MembershipPlan,
 } from "@/lib/bsport/memberships";
@@ -18,16 +20,42 @@ type MembershipPricingProps = Readonly<{
   memberships: readonly MembershipPlan[];
 }>;
 
+type DisplayedMembership = Omit<
+  MembershipPlan,
+  "checkoutUrl" | "monthlyPrice"
+> &
+  Readonly<{
+    checkoutUrl: string | null;
+    monthlyPrice: number | null;
+  }>;
+
 export function MembershipPricing({
   copy,
   locale,
   memberships: allMemberships,
 }: MembershipPricingProps) {
+  const [selectedAudience, setSelectedAudience] =
+    useState<MembershipAudience>("adult");
   const [selectedDuration, setSelectedDuration] =
-    useState<MembershipDuration>(12);
-  const memberships = allMemberships.filter(
-    ({ durationMonths }) => durationMonths === selectedDuration,
+    useState<MembershipDuration>(24);
+  const confirmedMemberships = allMemberships.filter(
+    ({ audience, durationMonths }) =>
+      audience === selectedAudience && durationMonths === selectedDuration,
   );
+  const adultTemplates = allMemberships.filter(
+    ({ audience, durationMonths }) =>
+      audience === "adult" && durationMonths === selectedDuration,
+  );
+  const memberships: readonly DisplayedMembership[] =
+    confirmedMemberships.length > 0 || selectedAudience === "adult"
+      ? confirmedMemberships
+      : adultTemplates.map((membership) => ({
+          ...membership,
+          audience: selectedAudience,
+          checkoutUrl: null,
+          id: `${selectedAudience}-${membership.id}`,
+          monthlyPrice: null,
+        }));
   const currencyFormatter = new Intl.NumberFormat(locale, {
     style: "currency",
     currency: "EUR",
@@ -38,6 +66,38 @@ export function MembershipPricing({
   const selectDuration = (duration: MembershipDuration) => {
     setSelectedDuration(duration);
     document.getElementById(`membership-duration-${duration}`)?.focus();
+  };
+
+  const selectAudience = (audience: MembershipAudience) => {
+    setSelectedAudience(audience);
+    document.getElementById(`membership-audience-${audience}`)?.focus();
+  };
+
+  const handleAudienceKeyDown = (
+    event: React.KeyboardEvent<HTMLButtonElement>,
+    audience: MembershipAudience,
+  ) => {
+    const currentIndex = membershipAudiences.indexOf(audience);
+    let nextIndex: number | undefined;
+
+    if (event.key === "ArrowRight") {
+      nextIndex = (currentIndex + 1) % membershipAudiences.length;
+    } else if (event.key === "ArrowLeft") {
+      nextIndex =
+        (currentIndex - 1 + membershipAudiences.length) %
+        membershipAudiences.length;
+    } else if (event.key === "Home") {
+      nextIndex = 0;
+    } else if (event.key === "End") {
+      nextIndex = membershipAudiences.length - 1;
+    }
+
+    if (nextIndex === undefined) {
+      return;
+    }
+
+    event.preventDefault();
+    selectAudience(membershipAudiences[nextIndex]);
   };
 
   const handleTabKeyDown = (
@@ -84,159 +144,222 @@ export function MembershipPricing({
         <p className="mt-4 leading-7 text-copy-muted">{copy.description}</p>
       </div>
 
-      <div className="mt-6 border-l-2 border-brand bg-panel/70 p-4 xs:p-5">
-        <p className="font-display text-sm font-bold tracking-[0.14em] text-brand uppercase">
-          {copy.termsLabel}
-        </p>
-        <ul className="mt-3 grid gap-2 text-sm leading-6 text-copy-muted sm:grid-cols-3 sm:gap-5">
-          <li>
-            {copy.billingDay.replace(
-              "{day}",
-              String(membershipTerms.billingDay),
-            )}
-          </li>
-          <li>
-            {copy.joiningFee}:{" "}
-            {currencyFormatter.format(membershipTerms.joiningFee)}
-          </li>
-          {membershipTerms.autoRenewal ? <li>{copy.autoRenewal}</li> : null}
-        </ul>
-      </div>
-
       <div
-        aria-label={copy.durationSelectorLabel}
-        className="mt-10 flex flex-wrap gap-2 border-b border-line"
+        aria-label={copy.audienceSelectorLabel}
+        className="mt-8 grid grid-cols-3 border border-line"
         role="tablist"
       >
-        {membershipDurations.map((duration) => {
-          const isSelected = selectedDuration === duration;
+        {membershipAudiences.map((audience) => {
+          const isSelected = selectedAudience === audience;
 
           return (
             <button
-              aria-controls={`membership-panel-${duration}`}
+              aria-controls="membership-audience-panel"
               aria-selected={isSelected}
-              className={`relative min-h-12 px-5 py-3 font-display text-lg font-bold tracking-wide uppercase transition-colors duration-150 ease-brand sm:px-8 ${
-                isSelected ? "text-brand" : "text-copy-muted hover:text-copy"
+              className={`relative min-h-12 min-w-0 px-2 py-3 font-display text-base font-bold tracking-wide uppercase transition-colors duration-150 ease-brand xs:px-4 xs:text-lg sm:px-8 ${
+                isSelected
+                  ? "bg-brand text-brand-ink"
+                  : "bg-panel text-copy-muted hover:text-copy"
               }`}
-              id={`membership-duration-${duration}`}
-              key={duration}
-              onClick={() => setSelectedDuration(duration)}
-              onKeyDown={(event) => handleTabKeyDown(event, duration)}
+              id={`membership-audience-${audience}`}
+              key={audience}
+              onClick={() => setSelectedAudience(audience)}
+              onKeyDown={(event) => handleAudienceKeyDown(event, audience)}
               role="tab"
               tabIndex={isSelected ? 0 : -1}
               type="button"
             >
-              {copy.durationLabels[duration]}
-              <span
-                aria-hidden="true"
-                className={`absolute inset-x-0 -bottom-px h-1 bg-brand transition-opacity ${
-                  isSelected ? "opacity-100" : "opacity-0"
-                }`}
-              />
+              <span className="break-words">
+                {copy.audienceLabels[audience]}
+              </span>
             </button>
           );
         })}
       </div>
 
       <div
-        aria-labelledby={`membership-duration-${selectedDuration}`}
-        className="pt-8"
-        id={`membership-panel-${selectedDuration}`}
+        aria-labelledby={`membership-audience-${selectedAudience}`}
+        id="membership-audience-panel"
         role="tabpanel"
         tabIndex={0}
       >
-        {memberships.length > 0 ? (
-          <div className="grid gap-5 md:grid-cols-2">
-            {memberships.map((membership) => {
-              const accessDescription =
-                membership.monthlySessions === "unlimited"
-                  ? copy.unlimitedAccess
-                  : copy.monthlyAccess.replace(
-                      "{count}",
-                      String(membership.monthlySessions),
-                    );
+        <p className="mt-4 text-sm leading-6 text-copy-muted sm:text-base">
+          {copy.audienceDescriptions[selectedAudience]}
+        </p>
 
-              return (
-                <article
-                  className="group relative flex min-h-full flex-col overflow-hidden border border-line bg-panel p-4 transition-colors hover:border-brand xs:p-6 sm:p-8"
-                  key={membership.id}
-                >
-                  <div
-                    aria-hidden="true"
-                    className="absolute inset-x-0 top-0 h-1 bg-brand"
-                  />
-                  <div className="flex flex-wrap items-start justify-between gap-4">
-                    <div className="min-w-0">
-                      <p className="font-display text-sm font-bold tracking-[0.2em] text-brand uppercase">
-                        {copy.membershipLabel}
-                      </p>
-                      <h3 className="mt-2 break-words font-display text-3xl font-extrabold uppercase xs:text-4xl sm:text-5xl">
-                        {membership.name}
-                      </h3>
-                    </div>
-                    <p className="shrink-0 border border-line px-3 py-2 font-display text-sm font-bold tracking-wide text-copy-muted uppercase">
-                      {copy.durationLabels[membership.durationMonths]}
-                    </p>
-                  </div>
+        <div className="mt-6 border-l-2 border-brand bg-panel/70 p-4 xs:p-5">
+          <p className="font-display text-sm font-bold tracking-[0.14em] text-brand uppercase">
+            {copy.termsLabel}
+          </p>
+          <ul className="mt-3 grid gap-2 text-sm leading-6 text-copy-muted sm:grid-cols-3 sm:gap-5">
+            <li>
+              {copy.billingDay.replace(
+                "{day}",
+                String(membershipTerms.billingDay),
+              )}
+            </li>
+            <li>
+              {copy.joiningFee}:{" "}
+              {currencyFormatter.format(membershipTerms.joiningFee)}
+            </li>
+            {membershipTerms.autoRenewal ? <li>{copy.autoRenewal}</li> : null}
+          </ul>
+        </div>
 
-                  <div className="mt-8 border-b border-line pb-7">
-                    <p className="flex min-w-0 flex-col items-start gap-1 xs:flex-row xs:items-end xs:gap-2">
-                      <span className="font-display text-5xl leading-none font-extrabold text-copy xs:text-6xl">
-                        {currencyFormatter.format(membership.monthlyPrice)}
-                      </span>
-                      <span className="break-words text-copy-muted xs:pb-1">
-                        {copy.perMonth}
-                      </span>
-                    </p>
-                  </div>
+        <div
+          aria-label={copy.durationSelectorLabel}
+          className="mt-10 flex flex-wrap gap-2 border-b border-line"
+          role="tablist"
+        >
+          {membershipDurations.map((duration) => {
+            const isSelected = selectedDuration === duration;
 
-                  <div className="flex-1 py-7">
-                    <p className="font-semibold text-copy">
-                      {accessDescription}
-                    </p>
-                    <ul className="mt-4 space-y-3">
-                      {membership.benefits.map((benefit) => (
-                        <li
-                          className="flex gap-3 leading-6 text-copy-muted"
-                          key={benefit}
-                        >
-                          <span aria-hidden="true" className="text-brand">
-                            +
-                          </span>
-                          <span className="min-w-0 break-words">
-                            {copy.benefits[benefit]}
-                          </span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+            return (
+              <button
+                aria-controls={`membership-panel-${duration}`}
+                aria-selected={isSelected}
+                className={`relative min-h-12 px-5 py-3 font-display text-lg font-bold tracking-wide uppercase transition-colors duration-150 ease-brand sm:px-8 ${
+                  isSelected ? "text-brand" : "text-copy-muted hover:text-copy"
+                }`}
+                id={`membership-duration-${duration}`}
+                key={duration}
+                onClick={() => setSelectedDuration(duration)}
+                onKeyDown={(event) => handleTabKeyDown(event, duration)}
+                role="tab"
+                tabIndex={isSelected ? 0 : -1}
+                type="button"
+              >
+                {copy.durationLabels[duration]}
+                <span
+                  aria-hidden="true"
+                  className={`absolute inset-x-0 -bottom-px h-1 bg-brand transition-opacity ${
+                    isSelected ? "opacity-100" : "opacity-0"
+                  }`}
+                />
+              </button>
+            );
+          })}
+        </div>
 
-                  <a
-                    aria-describedby="pricing-secure-checkout-note"
-                    aria-label={`${copy.bookAction}: ${membership.name}, ${copy.durationLabels[membership.durationMonths]}`}
-                    className={getButtonClassName({ stretch: true })}
-                    href={membership.checkoutUrl}
+        <div
+          aria-labelledby={`membership-duration-${selectedDuration}`}
+          className="pt-8"
+          id={`membership-panel-${selectedDuration}`}
+          role="tabpanel"
+          tabIndex={0}
+        >
+          {memberships.length > 0 ? (
+            <div className="grid gap-5 md:grid-cols-2">
+              {memberships.map((membership) => {
+                const accessDescription =
+                  membership.monthlySessions === "unlimited"
+                    ? copy.unlimitedAccess
+                    : copy.monthlyAccess.replace(
+                        "{count}",
+                        String(membership.monthlySessions),
+                      );
+
+                return (
+                  <article
+                    className="group relative flex min-h-full flex-col overflow-hidden border border-line bg-panel p-4 transition-colors hover:border-brand xs:p-6 sm:p-8"
+                    key={membership.id}
                   >
-                    <span className="min-w-0 break-words">
-                      {copy.bookAction}
-                      <sup aria-hidden="true">*</sup>
-                    </span>
-                    <span aria-hidden="true">→</span>
-                  </a>
-                </article>
-              );
-            })}
-          </div>
-        ) : (
-          <div className="border border-line bg-panel p-8 sm:p-12">
-            <p className="font-display text-3xl font-bold uppercase">
-              {copy.unavailableHeading}
-            </p>
-            <p className="mt-4 max-w-copy leading-7 text-copy-muted">
-              {copy.unavailableDescription}
-            </p>
-          </div>
-        )}
+                    <div
+                      aria-hidden="true"
+                      className="absolute inset-x-0 top-0 h-1 bg-brand"
+                    />
+                    <div className="flex flex-wrap items-start justify-between gap-4">
+                      <div className="min-w-0">
+                        <p className="font-display text-sm font-bold tracking-[0.2em] text-brand uppercase">
+                          {copy.membershipLabel}
+                        </p>
+                        <h3 className="mt-2 break-words font-display text-3xl font-extrabold uppercase xs:text-4xl sm:text-5xl">
+                          {membership.name}
+                        </h3>
+                      </div>
+                      <p className="shrink-0 border border-line px-3 py-2 font-display text-sm font-bold tracking-wide text-copy-muted uppercase">
+                        {copy.durationLabels[membership.durationMonths]}
+                      </p>
+                    </div>
+
+                    <div className="mt-8 border-b border-line pb-7">
+                      {membership.monthlyPrice === null ? (
+                        <p className="font-display text-3xl leading-none font-extrabold text-copy uppercase xs:text-4xl">
+                          {copy.pendingPrice}
+                        </p>
+                      ) : (
+                        <p className="flex min-w-0 flex-col items-start gap-1 xs:flex-row xs:items-end xs:gap-2">
+                          <span className="font-display text-5xl leading-none font-extrabold text-copy xs:text-6xl">
+                            {currencyFormatter.format(membership.monthlyPrice)}
+                          </span>
+                          <span className="break-words text-copy-muted xs:pb-1">
+                            {copy.perMonth}
+                          </span>
+                        </p>
+                      )}
+                    </div>
+
+                    <div className="flex-1 py-7">
+                      <p className="font-semibold text-copy">
+                        {accessDescription}
+                      </p>
+                      <ul className="mt-4 space-y-3">
+                        {membership.benefits.map((benefit) => (
+                          <li
+                            className="flex gap-3 leading-6 text-copy-muted"
+                            key={benefit}
+                          >
+                            <span aria-hidden="true" className="text-brand">
+                              +
+                            </span>
+                            <span className="min-w-0 break-words">
+                              {membership.audience === "kid" &&
+                              benefit === "muayThai"
+                                ? copy.kidMuayThaiBenefit
+                                : copy.benefits[benefit]}
+                            </span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    {membership.checkoutUrl === null ? (
+                      <button
+                        className={getButtonClassName({ stretch: true })}
+                        disabled
+                        type="button"
+                      >
+                        {copy.pendingAction}
+                      </button>
+                    ) : (
+                      <a
+                        aria-describedby="pricing-secure-checkout-note"
+                        aria-label={`${copy.bookAction}: ${membership.name}, ${copy.durationLabels[membership.durationMonths]}`}
+                        className={getButtonClassName({ stretch: true })}
+                        href={membership.checkoutUrl}
+                      >
+                        <span className="min-w-0 break-words">
+                          {copy.bookAction}
+                          <sup aria-hidden="true">*</sup>
+                        </span>
+                        <span aria-hidden="true">→</span>
+                      </a>
+                    )}
+                  </article>
+                );
+              })}
+            </div>
+          ) : (
+            <div className="border border-line bg-panel p-8 sm:p-12">
+              <p className="font-display text-3xl font-bold uppercase">
+                {copy.unavailableHeading}
+              </p>
+              <p className="mt-4 max-w-copy leading-7 text-copy-muted">
+                {copy.unavailableDescription}
+              </p>
+            </div>
+          )}
+        </div>
       </div>
     </section>
   );

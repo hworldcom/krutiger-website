@@ -314,7 +314,7 @@ const de = {
       membership: {
         title: "Mitgliedschaft",
         description:
-          "Für regelmäßiges Training mit 3, 6 oder 12 Monaten Laufzeit und bis zu unbegrenzten Teilnahmen.",
+          "Für regelmäßiges Training mit 3, 6, 12 oder 24 Monaten Laufzeit und bis zu unbegrenzten Teilnahmen.",
         action: "Mitgliedschaften ansehen",
       },
       passes: {
@@ -417,12 +417,25 @@ const de = {
       offerSelectorLabel: "Preisangebot wählen",
       membershipTab: "Mitgliedschaften",
       passesTab: "Pässe",
+      audienceSelectorLabel: "Mitgliedschaftsgruppe wählen",
+      audienceLabels: {
+        adult: "Erwachsene",
+        student: "Studierende",
+        kid: "Kinder",
+      },
+      audienceDescriptions: {
+        adult: "Reguläre Mitgliedschaften für Erwachsene.",
+        student:
+          "Mitgliedschaften für Schüler und Studierende. Ein gültiger Schüler- oder Studentenausweis ist erforderlich.",
+        kid: "Mitgliedschaften für Kinder und Jugendliche bis 16 Jahre.",
+      },
       termsLabel: "Gilt für alle Mitgliedschaften",
       loading: "Die aktuellen Preise werden geladen …",
       error:
         "Die Preise konnten gerade nicht geladen werden. Bitte versuche es später erneut.",
       durationSelectorLabel: "Mitgliedschaftslaufzeit wählen",
       durationLabels: {
+        24: "24 Monate",
         12: "12 Monate",
         6: "6 Monate",
         3: "3 Monate",
@@ -442,7 +455,10 @@ const de = {
         strengthConditioning: "Strength and Conditioning",
         mobility: "Mobility-Kursen",
       },
+      kidMuayThaiBenefit: "Altersgerechten Muay-Thai-Kursen",
       bookAction: "Jetzt buchen",
+      pendingPrice: "Preis folgt",
+      pendingAction: "Bald buchbar",
       unavailableHeading: "Tarife folgen",
       unavailableDescription:
         "Die Mitgliedschaften für diese Laufzeit werden ergänzt, sobald die bestätigten Konditionen und Buchungslinks vorliegen.",

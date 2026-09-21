@@ -154,14 +154,15 @@ describe("Sanity content projections", () => {
   it("maps Sanity membership mirrors into the existing card model", () => {
     const documents: MEMBERSHIP_CARDS_QUERY_RESULT = [
       {
-        _id: "membership-basic-12",
+        _id: "membership-basic-24",
         accessType: "limited",
+        audience: "adult",
         benefits: ["muayThai", "yoga"],
         checkoutUrl:
-          "https://backoffice.bsport.io/checkout/6720/subscription/55347?force=true",
-        durationMonths: 12,
-        internalKey: "basic-12",
-        monthlyPriceCents: 6_900,
+          "https://backoffice.bsport.io/checkout/6720/subscription/55692?force=true",
+        durationMonths: 24,
+        internalKey: "basic-24",
+        monthlyPriceCents: 4_900,
         monthlySessions: 4,
         name: localized("Basic", "Basic"),
         order: 10,
@@ -173,12 +174,13 @@ describe("Sanity content projections", () => {
       status: "ready",
       value: [
         {
+          audience: "adult",
           benefits: ["muayThai", "yoga"],
           checkoutUrl:
-            "https://backoffice.bsport.io/checkout/6720/subscription/55347?force=true",
-          durationMonths: 12,
-          id: "basic-12",
-          monthlyPrice: 69,
+            "https://backoffice.bsport.io/checkout/6720/subscription/55692?force=true",
+          durationMonths: 24,
+          id: "basic-24",
+          monthlyPrice: 49,
           monthlySessions: 4,
           name: "Basic",
         },

@@ -96,6 +96,7 @@ export const structure: StructureResolver = (S) =>
                   S.documentTypeList("membershipCard")
                     .title("Membership cards")
                     .defaultOrdering([
+                      { field: "audience", direction: "asc" },
                       { field: "durationMonths", direction: "desc" },
                       { field: "order", direction: "asc" },
                       { field: "name.de", direction: "asc" },
