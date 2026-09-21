@@ -29,7 +29,7 @@ const de = {
       openMenu: "Menü öffnen",
       closeMenu: "Menü schließen",
       currentPage: "Aktuelle Seite",
-      trialClassAction: "Probetraining anfragen",
+      trialClassAction: "Probetraining",
     },
     footer: {
       brandStatement:
@@ -67,9 +67,9 @@ const de = {
         "Von sauberen Grundlagen bis zu anspruchsvoller Technik: Wähle das Training, das zu deiner Erfahrung passt, und entwickle dich Schritt für Schritt weiter.",
     },
     privateTraining: {
-      navigationLabel: "Private Classes",
+      navigationLabel: "Privattraining",
       eyebrow: "Individuelles Training",
-      title: "Private Classes",
+      title: "Privattraining",
       description:
         "Individuelles Training mit voller Aufmerksamkeit. Wähle dein Angebot und buche einen verfügbaren Termin direkt über bSport.",
     },
@@ -362,7 +362,7 @@ const de = {
   },
   privateTrainingPage: {
     eyebrow: "Direkt buchen",
-    title: "So buchst du deine Private Class",
+    title: "So buchst du dein Privattraining",
     description:
       "Die verfügbaren Termine werden live aus bSport geladen. In drei Schritten reservierst du dein individuelles Training.",
     steps: [
@@ -393,7 +393,7 @@ const de = {
         "Der Live-Kursplan konnte gerade nicht geladen werden. Bitte versuche es später erneut.",
     },
     privateTraining: {
-      heading: "Private Classes",
+      heading: "Privattraining",
       description:
         "Individuelles Training mit voller Aufmerksamkeit. Wähle dein Angebot und buche einen verfügbaren Termin direkt über bSport.",
       loading: "Verfügbare Termine werden geladen …",

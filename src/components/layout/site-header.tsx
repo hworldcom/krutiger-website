@@ -170,7 +170,7 @@ function NavigationLink({
       className={
         mobile
           ? `flex min-h-12 items-center border-l-4 px-5 py-3 font-display text-2xl font-bold uppercase transition-colors ${mobileClasses}`
-          : `flex min-h-11 items-center border-b-2 font-display text-base font-bold tracking-wide uppercase transition-colors ${desktopClasses}`
+          : `flex min-h-11 items-center border-b-2 font-display text-base font-bold tracking-wide whitespace-nowrap uppercase transition-colors ${desktopClasses}`
       }
       href={href}
       onClick={onNavigate}
@@ -376,7 +376,7 @@ export function SiteHeader({
             aria-label={headerLabels.primaryNavigationLabel}
             className="hidden self-stretch xl:block"
           >
-            <ul className="flex h-full items-center gap-5">
+            <ul className="flex h-full items-center gap-4">
               {primaryNavigationRoutes.map((route) => {
                 const href = getLocalizedPath(locale, route.path);
 
@@ -398,7 +398,7 @@ export function SiteHeader({
             </ul>
           </nav>
 
-          <div className="hidden items-center gap-3 xl:flex">
+          <div className="hidden items-center gap-2 whitespace-nowrap xl:flex">
             <LanguageSwitcher
               labels={localeLabels}
               locale={locale}
