@@ -417,6 +417,18 @@ const en = {
       offerSelectorLabel: "Choose a pricing option",
       membershipTab: "Memberships",
       passesTab: "Passes",
+      audienceSelectorLabel: "Choose a membership group",
+      audienceLabels: {
+        adult: "Adults",
+        student: "Students",
+        kid: "Kids",
+      },
+      audienceDescriptions: {
+        adult: "Standard memberships for adults.",
+        student:
+          "Memberships for pupils and students. A valid school or student ID is required.",
+        kid: "Memberships for children and youths up to 16 years old.",
+      },
       termsLabel: "Applies to all memberships",
       loading: "The current prices are loading…",
       error:
@@ -443,7 +455,10 @@ const en = {
         strengthConditioning: "Strength and Conditioning",
         mobility: "Mobility classes",
       },
+      kidMuayThaiBenefit: "Age-appropriate Muay Thai classes",
       bookAction: "Book now",
+      pendingPrice: "Price coming soon",
+      pendingAction: "Booking coming soon",
       unavailableHeading: "Plans coming soon",
       unavailableDescription:
         "Memberships for this duration will be added as soon as the confirmed terms and checkout links are available.",

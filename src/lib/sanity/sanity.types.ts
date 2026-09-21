@@ -54,6 +54,7 @@ export type MembershipCard = {
   _rev: string;
   internalKey?: Slug;
   name?: LocalizedString;
+  audience?: "adult" | "student" | "kid";
   monthlyPriceCents?: number;
   durationMonths?: 3 | 6 | 12 | 24;
   accessType?: "limited" | "unlimited";
@@ -708,11 +709,12 @@ export type FAQS_QUERY_RESULT = Array<{
 
 // Source: ../src/lib/sanity/queries.ts
 // Variable: MEMBERSHIP_CARDS_QUERY
-// Query: *[_type == "membershipCard" && active == true]    | order(durationMonths desc, order asc, name.de asc, internalKey.current asc) {      _id,      "internalKey": internalKey.current,      name,      monthlyPriceCents,      durationMonths,      accessType,      monthlySessions,      benefits,      checkoutUrl,      verifiedAt,      order    }
+// Query: *[_type == "membershipCard" && active == true]    | order(audience asc, durationMonths desc, order asc, name.de asc, internalKey.current asc) {      _id,      "internalKey": internalKey.current,      name,      audience,      monthlyPriceCents,      durationMonths,      accessType,      monthlySessions,      benefits,      checkoutUrl,      verifiedAt,      order    }
 export type MEMBERSHIP_CARDS_QUERY_RESULT = Array<{
   _id: string;
   internalKey: string | null;
   name: LocalizedString | null;
+  audience: "adult" | "kid" | "student" | null;
   monthlyPriceCents: number | null;
   durationMonths: 12 | 24 | 3 | 6 | null;
   accessType: "limited" | "unlimited" | null;
@@ -792,7 +794,7 @@ declare global {
     '\n  *[_type == "classType" && active == true]\n    | order(order asc, name.de asc, internalKey.current asc) {\n      _id,\n      "internalKey": internalKey.current,\n      name,\n      summary,\n      description,\n      level,\n      durationMinutes,\n      audience,\n      equipment,\n      image {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      },\n      ctaLabel,\n      order\n    }\n': TRAINING_CLASSES_QUERY_RESULT;
     '\n  *[_type == "coach" && active == true]\n    | order(order asc, name asc, internalKey.current asc) {\n      _id,\n      "internalKey": internalKey.current,\n      name,\n      role,\n      photo {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      },\n      biography,\n      specialties,\n      socialUrl,\n      order\n    }\n': COACHES_QUERY_RESULT;
     '\n  *[_type == "faq" && active == true]\n    | order(order asc, question.de asc, internalKey.current asc) {\n      _id,\n      "internalKey": internalKey.current,\n      question,\n      answer,\n      category,\n      order\n    }\n': FAQS_QUERY_RESULT;
-    '\n  *[_type == "membershipCard" && active == true]\n    | order(durationMonths desc, order asc, name.de asc, internalKey.current asc) {\n      _id,\n      "internalKey": internalKey.current,\n      name,\n      monthlyPriceCents,\n      durationMonths,\n      accessType,\n      monthlySessions,\n      benefits,\n      checkoutUrl,\n      verifiedAt,\n      order\n    }\n': MEMBERSHIP_CARDS_QUERY_RESULT;
+    '\n  *[_type == "membershipCard" && active == true]\n    | order(audience asc, durationMonths desc, order asc, name.de asc, internalKey.current asc) {\n      _id,\n      "internalKey": internalKey.current,\n      name,\n      audience,\n      monthlyPriceCents,\n      durationMonths,\n      accessType,\n      monthlySessions,\n      benefits,\n      checkoutUrl,\n      verifiedAt,\n      order\n    }\n': MEMBERSHIP_CARDS_QUERY_RESULT;
     '\n  *[_type == "monthlyPassCard" && active == true]\n    | order(order asc, name.de asc, internalKey.current asc) {\n      _id,\n      "internalKey": internalKey.current,\n      name,\n      priceCents,\n      validityMonths,\n      accessType,\n      sessions,\n      checkoutUrl,\n      verifiedAt,\n      order\n    }\n': MONTHLY_PASS_CARDS_QUERY_RESULT;
     '\n  {\n    "default": *[_type == "siteSettings"] | order(_updatedAt desc)[0].defaultSeo {\n      title,\n      description,\n      shareImage {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      }\n    },\n    "homepage": *[_type == "homepage"] | order(_updatedAt desc)[0].seo {\n      title,\n      description,\n      shareImage {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      }\n    },\n    "about": *[_type == "aboutPage"] | order(_updatedAt desc)[0].seo {\n      title,\n      description,\n      shareImage {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      }\n    }\n  }\n': SEO_CONTENT_QUERY_RESULT;
   }

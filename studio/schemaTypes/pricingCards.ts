@@ -1,5 +1,11 @@
 export const membershipDurations = [3, 6, 12, 24] as const;
 
+export const membershipAudiences = [
+  { title: "Adults", value: "adult" },
+  { title: "Students", value: "student" },
+  { title: "Kids", value: "kid" },
+] as const;
+
 export const membershipBenefits = [
   { title: "Muay Thai classes", value: "muayThai" },
   { title: "Open Gym", value: "openGym" },
@@ -11,6 +17,7 @@ export const membershipBenefits = [
 export type PricingCardKind = "membership" | "monthlyPass";
 
 const accessTypes = ["limited", "unlimited"] as const;
+const membershipAudienceValues = membershipAudiences.map(({ value }) => value);
 const membershipBenefitValues = membershipBenefits.map(({ value }) => value);
 
 const checkoutUrlGuidance: Record<PricingCardKind, string> = {
@@ -88,6 +95,12 @@ export function validateMembershipDuration(value: unknown) {
   return membershipDurations.some((duration) => duration === value)
     ? true
     : "Choose a supported membership duration: 3, 6, 12, or 24 months.";
+}
+
+export function validateMembershipAudience(value: unknown) {
+  return membershipAudienceValues.some((audience) => audience === value)
+    ? true
+    : "Choose Adults, Students, or Kids.";
 }
 
 export function validateAccessType(value: unknown) {

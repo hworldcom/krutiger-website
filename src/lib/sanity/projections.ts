@@ -16,6 +16,7 @@ import type { TrainingClass, TrainingLevel } from "@/content/training";
 import type { TeamMember } from "@/content/team";
 import type { Locale } from "@/i18n/config";
 import type {
+  MembershipAudience,
   MembershipBenefit,
   MembershipDuration,
   MembershipPlan,
@@ -69,6 +70,11 @@ const faqCategories = new Set<FaqCategory>([
   "other",
 ]);
 const membershipDurations = new Set<MembershipDuration>([3, 6, 12, 24]);
+const membershipAudiences = new Set<MembershipAudience>([
+  "adult",
+  "student",
+  "kid",
+]);
 const membershipBenefits = new Set<MembershipBenefit>([
   "muayThai",
   "openGym",
@@ -667,6 +673,12 @@ export function projectMembershipCards(
 
   documents.forEach((document, index) => {
     const path = `memberships[${index}]`;
+    const audienceValue = document.audience ?? "adult";
+    const audience = membershipAudiences.has(
+      audienceValue as MembershipAudience,
+    )
+      ? (audienceValue as MembershipAudience)
+      : "adult";
     const durationValue = document.durationMonths;
     const duration = membershipDurations.has(
       durationValue as MembershipDuration,
@@ -707,6 +719,14 @@ export function projectMembershipCards(
         "Unsupported duration.",
       );
     }
+    if (!membershipAudiences.has(audienceValue as MembershipAudience)) {
+      addIssue(
+        issues,
+        "invalid",
+        `${path}.audience`,
+        "Unsupported membership group.",
+      );
+    }
     if (accessType !== "limited" && accessType !== "unlimited") {
       addIssue(
         issues,
@@ -725,6 +745,7 @@ export function projectMembershipCards(
     }
 
     memberships.push({
+      audience,
       id: requiredString(document.internalKey, `${path}.internalKey`, issues),
       name: localizedString(document.name, locale, `${path}.name`, issues),
       monthlyPrice:

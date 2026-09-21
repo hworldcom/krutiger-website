@@ -475,6 +475,7 @@ function buildMembershipCards(): SeedDocument[] {
       _type: "membershipCard",
       internalKey: { _type: "slug", current: membership.id },
       name: localizedString(membership.name, membership.name),
+      audience: membership.audience,
       monthlyPriceCents: Math.round(membership.monthlyPrice * 100),
       durationMonths: membership.durationMonths,
       accessType:

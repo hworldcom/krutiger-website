@@ -156,6 +156,7 @@ describe("Sanity content projections", () => {
       {
         _id: "membership-basic-24",
         accessType: "limited",
+        audience: "adult",
         benefits: ["muayThai", "yoga"],
         checkoutUrl:
           "https://backoffice.bsport.io/checkout/6720/subscription/55692?force=true",
@@ -173,6 +174,7 @@ describe("Sanity content projections", () => {
       status: "ready",
       value: [
         {
+          audience: "adult",
           benefits: ["muayThai", "yoga"],
           checkoutUrl:
             "https://backoffice.bsport.io/checkout/6720/subscription/55692?force=true",
