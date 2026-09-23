@@ -134,7 +134,7 @@ const de = {
       eyebrow: "Gutscheine",
       title: "Muay Thai Training verschenken",
       description:
-        "Die verfügbaren Gutscheine und der Kaufprozess werden später über bsport angebunden.",
+        "Wähle deinen Gutschein und schließe den Kauf sicher über bSport ab.",
     },
     imprint: {
       navigationLabel: "Impressum",

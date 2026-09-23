@@ -134,7 +134,7 @@ const en = {
       eyebrow: "Gift cards",
       title: "Give the gift of Muay Thai training",
       description:
-        "Available gift cards and the purchase flow will later be connected through bsport.",
+        "Choose a gift card and complete your purchase securely through bSport.",
     },
     imprint: {
       navigationLabel: "Imprint",
