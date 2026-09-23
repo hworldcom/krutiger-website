@@ -266,6 +266,23 @@ export type ContactPageCopy = Readonly<{
   }>;
 }>;
 
+type TrialBenefitCopy = Readonly<{
+  title: string;
+  description: string;
+}>;
+
+export type TrialPageCopy = Readonly<{
+  offerEyebrow: string;
+  offerTitle: string;
+  offerDescription: string;
+  benefits: readonly [TrialBenefitCopy, TrialBenefitCopy, TrialBenefitCopy];
+  bookingEyebrow: string;
+  bookingTitle: string;
+  bookingDescription: string;
+  bookingAction: string;
+  secureNotice: string;
+}>;
+
 export type Dictionary = Readonly<{
   metadata: Readonly<{
     title: string;
@@ -316,6 +333,7 @@ export type Dictionary = Readonly<{
   memberAreaPage: MemberAreaPageCopy;
   privateTrainingPage: PrivateTrainingPageCopy;
   contactPage: ContactPageCopy;
+  trialPage: TrialPageCopy;
   integrations: Readonly<
     Record<IntegrationArea, IntegrationCopy> & {
       schedule: WidgetIntegrationCopy;

@@ -1,7 +1,6 @@
 import type { Locale } from "../i18n/config";
 import { getLocalizedPath } from "../i18n/routing";
 
-import { trialSessionPassCheckoutUrl } from "./bsport/passes";
 import { getRouteById, type RouteId } from "./routes";
 
 export type HeaderCtaDestination =
@@ -16,8 +15,8 @@ export type HeaderCtaDestination =
 
 export const headerNavigationConfig = {
   trialClassDestination: {
-    kind: "external",
-    href: trialSessionPassCheckoutUrl,
+    kind: "internal",
+    routeId: "trialClass",
   },
 } as const satisfies Readonly<{
   trialClassDestination: HeaderCtaDestination;

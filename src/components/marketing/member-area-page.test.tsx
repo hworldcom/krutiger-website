@@ -3,7 +3,6 @@ import { describe, expect, it } from "vitest";
 
 import de from "@/i18n/dictionaries/de";
 import en from "@/i18n/dictionaries/en";
-import { trialSessionPassCheckoutUrl } from "@/lib/bsport/passes";
 
 import { MemberAreaPage } from "./member-area-page";
 
@@ -31,9 +30,7 @@ describe("MemberAreaPage", () => {
     expect(markup).toContain('href="#member-login"');
     expect(markup).toContain('id="member-login"');
     expect(markup).toContain('data-integration-boundary="memberArea"');
-    expect(markup).toContain(
-      `href="${trialSessionPassCheckoutUrl.replaceAll("&", "&amp;")}"`,
-    );
+    expect(markup).toContain(`href="/${locale}/trial"`);
 
     dictionary.memberAreaPage.steps.items.forEach((step) => {
       expect(markup).toContain(step.title);

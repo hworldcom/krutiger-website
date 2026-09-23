@@ -191,6 +191,7 @@ try {
     for (const locale of locales) {
       for (const route of [
         "/",
+        "/trial",
         "/training",
         "/private",
         "/prices",

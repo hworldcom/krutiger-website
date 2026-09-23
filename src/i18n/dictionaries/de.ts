@@ -59,6 +59,13 @@ const de = {
       description:
         "Training mit thailändischen Wurzeln, klarer Anleitung und einer offenen Gemeinschaft in Berlin.",
     },
+    trialClass: {
+      navigationLabel: "Probetraining",
+      eyebrow: "Dein Einstieg",
+      title: "Probetraining bei KRUTIGER",
+      description:
+        "Lerne authentisches Muay Thai in drei Trainingseinheiten kennen – ohne Vorerfahrung und ohne eigene Ausrüstung.",
+    },
     training: {
       navigationLabel: "Training",
       eyebrow: "Trainingsangebote",
@@ -421,6 +428,36 @@ const de = {
       addressAction: "Route öffnen",
       instagramLabel: "Instagram",
     },
+  },
+  trialPage: {
+    offerEyebrow: "Das Angebot",
+    offerTitle: "3 Trainings für 20 €",
+    offerDescription:
+      "Mit dem Probetrainingspass kannst du KRUTIGER, unser Team und unterschiedliche Trainingseinheiten in Ruhe kennenlernen.",
+    benefits: [
+      {
+        title: "Drei Trainingseinheiten",
+        description:
+          "Nutze drei Einheiten, um das Training und unsere Community kennenzulernen.",
+      },
+      {
+        title: "Keine Erfahrung nötig",
+        description:
+          "Das Probetraining ist für Einsteiger geeignet. Unsere Trainer führen dich durch die Grundlagen.",
+      },
+      {
+        title: "Ausrüstung ausleihen",
+        description:
+          "Die benötigte Ausrüstung kannst du für deine ersten Einheiten vor Ort ausleihen.",
+      },
+    ],
+    bookingEyebrow: "Bereit für dein erstes Training?",
+    bookingTitle: "Probetrainingspass buchen",
+    bookingDescription:
+      "Über den Button gelangst du zu bSport. Dort erstellst du dein Konto oder meldest dich an und schließt die Buchung ab.",
+    bookingAction: "Jetzt über bSport buchen",
+    secureNotice:
+      "Konto, Buchung und Zahlung werden sicher über bSport abgewickelt.",
   },
   integrations: {
     schedule: {

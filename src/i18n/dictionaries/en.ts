@@ -59,6 +59,13 @@ const en = {
       description:
         "Training with Thai roots, clear instruction, and an open community in Berlin.",
     },
+    trialClass: {
+      navigationLabel: "Trial training",
+      eyebrow: "Your first step",
+      title: "Trial training at KRUTIGER",
+      description:
+        "Discover authentic Muay Thai across three training sessions—with no previous experience or personal equipment required.",
+    },
     training: {
       navigationLabel: "Training",
       eyebrow: "Training options",
@@ -421,6 +428,36 @@ const en = {
       addressAction: "Open directions",
       instagramLabel: "Instagram",
     },
+  },
+  trialPage: {
+    offerEyebrow: "The offer",
+    offerTitle: "3 classes for €20",
+    offerDescription:
+      "The trial pass gives you time to get to know KRUTIGER, our team, and different training sessions.",
+    benefits: [
+      {
+        title: "Three training sessions",
+        description:
+          "Use three sessions to experience the training and meet our community.",
+      },
+      {
+        title: "No experience needed",
+        description:
+          "The trial is suitable for beginners. Our coaches will guide you through the foundations.",
+      },
+      {
+        title: "Borrow equipment",
+        description:
+          "You can borrow the equipment you need on site for your first sessions.",
+      },
+    ],
+    bookingEyebrow: "Ready for your first class?",
+    bookingTitle: "Book your trial pass",
+    bookingDescription:
+      "The button takes you to bSport, where you can create an account or sign in and complete your booking.",
+    bookingAction: "Book now through bSport",
+    secureNotice:
+      "Your account, booking, and payment are handled securely by bSport.",
   },
   integrations: {
     schedule: {

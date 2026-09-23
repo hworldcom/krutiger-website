@@ -25,6 +25,7 @@ describe("site route configuration", () => {
   it("contains the complete MVP and legal route map", () => {
     expect(siteRoutes.map((route) => route.path)).toEqual([
       "/",
+      "/trial",
       "/training",
       "/private",
       "/schedule",
@@ -62,11 +63,12 @@ describe("site route configuration", () => {
       "imprint",
       "privacy",
     ]);
-    expect(footerRoutes).toHaveLength(siteRoutes.length - 1);
+    expect(footerRoutes).toHaveLength(siteRoutes.length - 2);
   });
 
   it("resolves known path segments and rejects unknown paths", () => {
     expect(getRouteBySegments(["gift-cards"])?.id).toBe("giftCards");
+    expect(getRouteBySegments(["trial"])?.id).toBe("trialClass");
     expect(getRouteBySegments(["shop"])?.id).toBe("shop");
     expect(getRouteBySegments(["private"])?.id).toBe("privateTraining");
     expect(getRouteBySegments(["training", "advanced"])).toBeUndefined();
