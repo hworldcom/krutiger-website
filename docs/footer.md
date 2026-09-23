@@ -12,6 +12,6 @@ The footer includes:
 
 ## Contact-data status
 
-`src/lib/site-settings.ts` is the single source of truth for contact and social values until Sanity `siteSettings` is available. The current address, map query, email, phone, and opening hours are dummy development data. They are stored under `contact.status: "placeholder"`, and the footer displays a localized warning explaining that the values are not approved for visits or enquiries.
+`src/lib/site-settings.ts` is the single source of truth for contact and social values until Sanity `siteSettings` is available. The address, map destination, email address, and Instagram profile are approved public values. The phone number and opening hours remain dummy development data. Contact therefore remains under `contact.status: "placeholder"`, and the footer displays a localized warning explaining which values are not approved.
 
-When verified client data arrives, replace every contact value together and change the status to `verified`. Do not change the footer component, copy values from the legacy site, or remove the warning independently of the status. The Instagram account is already the approved real destination.
+When the remaining verified client data arrives, replace the phone number and opening hours and change the status to `verified`. Do not remove the warning independently of the status. The approved address is Karl-Marx-Allee 3, 10178 Berlin, the approved email is `info@krutigermuaythai.de`, and the approved Instagram account is `@krutigermuaythai`.

@@ -3,7 +3,6 @@ import { ButtonLink, Container, SectionHeader } from "@/components/ui";
 import type { Dictionary } from "@/i18n/dictionaries/types";
 import type { Locale } from "@/i18n/config";
 import { getLocalizedPath } from "@/i18n/routing";
-import { trialSessionPassCheckoutUrl } from "@/lib/bsport/passes";
 
 type MemberAreaPageProps = Readonly<{
   content: Dictionary["routes"]["memberArea"];
@@ -25,7 +24,7 @@ export function MemberAreaPage({
   const choiceHrefs = {
     membership: `${pricingHref}#pricing-offer-tab-memberships`,
     passes: `${pricingHref}#pricing-offer-tab-passes`,
-    trial: trialSessionPassCheckoutUrl,
+    trial: getLocalizedPath(locale, "/trial"),
   } as const;
 
   return (

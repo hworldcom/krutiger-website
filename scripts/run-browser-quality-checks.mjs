@@ -191,11 +191,14 @@ try {
     for (const locale of locales) {
       for (const route of [
         "/",
+        "/trial",
         "/training",
         "/private",
         "/prices",
         "/about",
         "/coaches",
+        "/contact",
+        "/gift-cards",
         "/member-area",
       ]) {
         const url = localizedUrl(locale, route);

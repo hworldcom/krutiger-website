@@ -234,6 +234,55 @@ export type PrivateTrainingPageCopy = Readonly<{
   ];
 }>;
 
+export type ContactPageCopy = Readonly<{
+  form: Readonly<{
+    eyebrow: string;
+    title: string;
+    description: string;
+    nameLabel: string;
+    namePlaceholder: string;
+    emailLabel: string;
+    emailPlaceholder: string;
+    topicLabel: string;
+    topics: readonly string[];
+    messageLabel: string;
+    messagePlaceholder: string;
+    privacyPrefix: string;
+    privacyLinkLabel: string;
+    privacySuffix: string;
+    submitAction: string;
+    deliveryNotice: string;
+    submittedNotice: string;
+    subjectPrefix: string;
+    mailGreeting: string;
+  }>;
+  details: Readonly<{
+    eyebrow: string;
+    title: string;
+    emailLabel: string;
+    addressLabel: string;
+    addressAction: string;
+    instagramLabel: string;
+  }>;
+}>;
+
+type TrialBenefitCopy = Readonly<{
+  title: string;
+  description: string;
+}>;
+
+export type TrialPageCopy = Readonly<{
+  offerEyebrow: string;
+  offerTitle: string;
+  offerDescription: string;
+  benefits: readonly [TrialBenefitCopy, TrialBenefitCopy, TrialBenefitCopy];
+  bookingEyebrow: string;
+  bookingTitle: string;
+  bookingDescription: string;
+  bookingAction: string;
+  secureNotice: string;
+}>;
+
 export type Dictionary = Readonly<{
   metadata: Readonly<{
     title: string;
@@ -283,6 +332,8 @@ export type Dictionary = Readonly<{
   trainingPage: TrainingPageCopy;
   memberAreaPage: MemberAreaPageCopy;
   privateTrainingPage: PrivateTrainingPageCopy;
+  contactPage: ContactPageCopy;
+  trialPage: TrialPageCopy;
   integrations: Readonly<
     Record<IntegrationArea, IntegrationCopy> & {
       schedule: WidgetIntegrationCopy;

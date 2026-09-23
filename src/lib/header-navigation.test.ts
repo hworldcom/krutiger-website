@@ -5,16 +5,15 @@ import {
   headerNavigationConfig,
   isNavigationPathActive,
 } from "./header-navigation";
-import { trialSessionPassCheckoutUrl } from "./bsport/passes";
 
 describe("header navigation configuration", () => {
-  it("links the trial-class action directly to the bsport pass", () => {
+  it("links the trial-class action to the localized information page", () => {
     expect(headerNavigationConfig.trialClassDestination).toEqual({
-      kind: "external",
-      href: trialSessionPassCheckoutUrl,
+      kind: "internal",
+      routeId: "trialClass",
     });
-    expect(getHeaderCtaHref("de")).toBe(trialSessionPassCheckoutUrl);
-    expect(getHeaderCtaHref("en")).toBe(trialSessionPassCheckoutUrl);
+    expect(getHeaderCtaHref("de")).toBe("/de/trial");
+    expect(getHeaderCtaHref("en")).toBe("/en/trial");
   });
 
   it("can switch to a future external bsport destination without header changes", () => {

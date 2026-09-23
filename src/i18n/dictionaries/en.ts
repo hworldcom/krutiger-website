@@ -47,7 +47,7 @@ const en = {
       legalNavigationLabel: "Legal information",
       placeholderDataLabel: "Development data",
       placeholderDataDescription:
-        "The address, contact details, and opening hours are sample data and are not yet approved for visits or enquiries.",
+        "The phone number and opening hours are sample data and are not yet approved.",
       rightsStatement: "All rights reserved.",
     },
   },
@@ -58,6 +58,13 @@ const en = {
       title: "Authentic Muay Thai in Berlin",
       description:
         "Training with Thai roots, clear instruction, and an open community in Berlin.",
+    },
+    trialClass: {
+      navigationLabel: "Trial training",
+      eyebrow: "Your first step",
+      title: "Trial training at KRUTIGER",
+      description:
+        "Discover authentic Muay Thai across three training sessions—with no previous experience or personal equipment required.",
     },
     training: {
       navigationLabel: "Training",
@@ -120,7 +127,7 @@ const en = {
       eyebrow: "Contact",
       title: "Get in touch with KRUTIGER",
       description:
-        "Verified contact options, the gym address, and directions will be provided here.",
+        "Send us a message through the contact form or email us directly. You will find us in Berlin-Mitte, near Alexanderplatz.",
     },
     memberArea: {
       navigationLabel: "Become a member",
@@ -134,7 +141,7 @@ const en = {
       eyebrow: "Gift cards",
       title: "Give the gift of Muay Thai training",
       description:
-        "Available gift cards and the purchase flow will later be connected through bsport.",
+        "Choose a gift card and complete your purchase securely through bSport.",
     },
     imprint: {
       navigationLabel: "Imprint",
@@ -174,9 +181,9 @@ const en = {
         "No upcoming classes could be found right now. Open the schedule for all sessions.",
       allLevels: "All levels",
       location: {
-        district: "Kreuzberg",
-        addressLineOne: "Melechstr. 11",
-        addressLineTwo: "10961 Berlin",
+        district: "Mitte",
+        addressLineOne: "Karl-Marx-Allee 3",
+        addressLineTwo: "10178 Berlin",
       },
     },
     values: {
@@ -382,6 +389,75 @@ const en = {
           "Sign in to bSport or create an account, then complete your booking.",
       },
     ],
+  },
+  contactPage: {
+    form: {
+      eyebrow: "Send us a message",
+      title: "How can we help?",
+      description:
+        "Complete the fields and we will prepare an email to KRUTIGER for you.",
+      nameLabel: "Name",
+      namePlaceholder: "Your name",
+      emailLabel: "Email address",
+      emailPlaceholder: "you@example.com",
+      topicLabel: "Topic",
+      topics: [
+        "General question",
+        "Trial session",
+        "Memberships and pricing",
+        "Private training",
+      ],
+      messageLabel: "Message",
+      messagePlaceholder: "How can we help?",
+      privacyPrefix: "I have read the",
+      privacyLinkLabel: "privacy policy",
+      privacySuffix: ".",
+      submitAction: "Prepare email",
+      deliveryNotice:
+        "Submitting opens your email app. This website does not store your details.",
+      submittedNotice:
+        "Your email has been prepared. If no email app opens, write directly to info@krutigermuaythai.de.",
+      subjectPrefix: "Website enquiry",
+      mailGreeting: "Hello KRUTIGER team,",
+    },
+    details: {
+      eyebrow: "Contact us directly",
+      title: "Contact and directions",
+      emailLabel: "Email",
+      addressLabel: "Address",
+      addressAction: "Open directions",
+      instagramLabel: "Instagram",
+    },
+  },
+  trialPage: {
+    offerEyebrow: "The offer",
+    offerTitle: "3 classes for €20",
+    offerDescription:
+      "The trial pass gives you time to get to know KRUTIGER, our team, and different training sessions.",
+    benefits: [
+      {
+        title: "Three training sessions",
+        description:
+          "Use three sessions to experience the training and meet our community.",
+      },
+      {
+        title: "No experience needed",
+        description:
+          "The trial is suitable for beginners. Our coaches will guide you through the foundations.",
+      },
+      {
+        title: "Borrow equipment",
+        description:
+          "You can borrow the equipment you need on site for your first sessions.",
+      },
+    ],
+    bookingEyebrow: "Ready for your first class?",
+    bookingTitle: "Book your trial pass",
+    bookingDescription:
+      "The button takes you to bSport, where you can create an account or sign in and complete your booking.",
+    bookingAction: "Book now through bSport",
+    secureNotice:
+      "Your account, booking, and payment are handled securely by bSport.",
   },
   integrations: {
     schedule: {

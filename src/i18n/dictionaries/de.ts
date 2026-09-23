@@ -47,7 +47,7 @@ const de = {
       legalNavigationLabel: "Rechtliche Hinweise",
       placeholderDataLabel: "Entwicklungsdaten",
       placeholderDataDescription:
-        "Adresse, Kontakt und Öffnungszeiten sind Beispieldaten und noch nicht für einen Besuch oder eine Kontaktaufnahme freigegeben.",
+        "Telefon und Öffnungszeiten sind Beispieldaten und noch nicht freigegeben.",
       rightsStatement: "Alle Rechte vorbehalten.",
     },
   },
@@ -58,6 +58,13 @@ const de = {
       title: "Authentisches Muay Thai in Berlin",
       description:
         "Training mit thailändischen Wurzeln, klarer Anleitung und einer offenen Gemeinschaft in Berlin.",
+    },
+    trialClass: {
+      navigationLabel: "Probetraining",
+      eyebrow: "Dein Einstieg",
+      title: "Probetraining bei KRUTIGER",
+      description:
+        "Lerne authentisches Muay Thai in drei Trainingseinheiten kennen – ohne Vorerfahrung und ohne eigene Ausrüstung.",
     },
     training: {
       navigationLabel: "Training",
@@ -120,7 +127,7 @@ const de = {
       eyebrow: "Kontakt",
       title: "Nimm Kontakt mit KRUTIGER auf",
       description:
-        "Hier werden geprüfte Kontaktmöglichkeiten, Adresse und Hinweise zur Anfahrt bereitgestellt.",
+        "Schreib uns über das Kontaktformular oder direkt per E-Mail. Du findest uns in Berlin-Mitte, nahe dem Alexanderplatz.",
     },
     memberArea: {
       navigationLabel: "Mitglied werden",
@@ -134,7 +141,7 @@ const de = {
       eyebrow: "Gutscheine",
       title: "Muay Thai Training verschenken",
       description:
-        "Die verfügbaren Gutscheine und der Kaufprozess werden später über bsport angebunden.",
+        "Wähle deinen Gutschein und schließe den Kauf sicher über bSport ab.",
     },
     imprint: {
       navigationLabel: "Impressum",
@@ -174,9 +181,9 @@ const de = {
         "Aktuell konnten keine weiteren Kurse gefunden werden. Öffne den Kursplan für alle Termine.",
       allLevels: "Alle Levels",
       location: {
-        district: "Kreuzberg",
-        addressLineOne: "Melechstr. 11",
-        addressLineTwo: "10961 Berlin",
+        district: "Mitte",
+        addressLineOne: "Karl-Marx-Allee 3",
+        addressLineTwo: "10178 Berlin",
       },
     },
     values: {
@@ -382,6 +389,75 @@ const de = {
           "Melde dich bei bSport an oder erstelle ein Konto und schließe deine Buchung ab.",
       },
     ],
+  },
+  contactPage: {
+    form: {
+      eyebrow: "Schreib uns",
+      title: "Wie können wir dir helfen?",
+      description:
+        "Fülle die Felder aus und wir bereiten eine E-Mail an KRUTIGER für dich vor.",
+      nameLabel: "Name",
+      namePlaceholder: "Dein Name",
+      emailLabel: "E-Mail-Adresse",
+      emailPlaceholder: "du@beispiel.de",
+      topicLabel: "Thema",
+      topics: [
+        "Allgemeine Frage",
+        "Probetraining",
+        "Mitgliedschaft und Preise",
+        "Privattraining",
+      ],
+      messageLabel: "Nachricht",
+      messagePlaceholder: "Wie können wir dir helfen?",
+      privacyPrefix: "Ich habe die",
+      privacyLinkLabel: "Datenschutzerklärung",
+      privacySuffix: " gelesen.",
+      submitAction: "E-Mail vorbereiten",
+      deliveryNotice:
+        "Beim Absenden öffnet sich dein E-Mail-Programm. Die Website speichert deine Angaben nicht.",
+      submittedNotice:
+        "Deine E-Mail wurde vorbereitet. Falls sich kein E-Mail-Programm öffnet, schreibe direkt an info@krutigermuaythai.de.",
+      subjectPrefix: "Anfrage über die Website",
+      mailGreeting: "Hallo KRUTIGER-Team,",
+    },
+    details: {
+      eyebrow: "Direkter Kontakt",
+      title: "Kontakt und Anfahrt",
+      emailLabel: "E-Mail",
+      addressLabel: "Adresse",
+      addressAction: "Route öffnen",
+      instagramLabel: "Instagram",
+    },
+  },
+  trialPage: {
+    offerEyebrow: "Das Angebot",
+    offerTitle: "3 Trainings für 20 €",
+    offerDescription:
+      "Mit dem Probetrainingspass kannst du KRUTIGER, unser Team und unterschiedliche Trainingseinheiten in Ruhe kennenlernen.",
+    benefits: [
+      {
+        title: "Drei Trainingseinheiten",
+        description:
+          "Nutze drei Einheiten, um das Training und unsere Community kennenzulernen.",
+      },
+      {
+        title: "Keine Erfahrung nötig",
+        description:
+          "Das Probetraining ist für Einsteiger geeignet. Unsere Trainer führen dich durch die Grundlagen.",
+      },
+      {
+        title: "Ausrüstung ausleihen",
+        description:
+          "Die benötigte Ausrüstung kannst du für deine ersten Einheiten vor Ort ausleihen.",
+      },
+    ],
+    bookingEyebrow: "Bereit für dein erstes Training?",
+    bookingTitle: "Probetrainingspass buchen",
+    bookingDescription:
+      "Über den Button gelangst du zu bSport. Dort erstellst du dein Konto oder meldest dich an und schließt die Buchung ab.",
+    bookingAction: "Jetzt über bSport buchen",
+    secureNotice:
+      "Konto, Buchung und Zahlung werden sicher über bSport abgewickelt.",
   },
   integrations: {
     schedule: {
