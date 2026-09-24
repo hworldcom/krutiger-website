@@ -13,7 +13,6 @@ export type TrainingClassSource = Readonly<{
   level: TrainingLevel;
   durationMinutes: number;
   audience: LocalizedValue;
-  equipment: readonly LocalizedValue[];
   image: Readonly<{
     src: string;
     alternativeText: LocalizedValue;
@@ -32,7 +31,6 @@ export type TrainingClass = Readonly<{
   level: TrainingLevel;
   durationMinutes: number;
   audience: string;
-  equipment: readonly string[];
   image: Readonly<{
     src: string;
     alternativeText: string;
@@ -67,20 +65,6 @@ export const trainingClassSource: readonly TrainingClassSource[] = [
       de: "Für Einsteigerinnen und Einsteiger ohne Vorerfahrung sowie alle, die ihre Grundlagen neu aufbauen möchten.",
       en: "For complete beginners and anyone who wants to rebuild their fundamentals carefully.",
     },
-    equipment: [
-      {
-        de: "Bequeme Sportkleidung",
-        en: "Comfortable sportswear",
-      },
-      {
-        de: "Wasserflasche",
-        en: "Water bottle",
-      },
-      {
-        de: "Boxhandschuhe und Bandagen, falls vorhanden",
-        en: "Boxing gloves and hand wraps, if available",
-      },
-    ],
     image: {
       src: "/images/home/main.png",
       alternativeText: {
@@ -116,20 +100,6 @@ export const trainingClassSource: readonly TrainingClassSource[] = [
       de: "Für Trainierende, die Grundstellung, Beinarbeit und Basistechniken bereits sicher beherrschen.",
       en: "For students who already have a reliable stance, footwork, and command of the basic techniques.",
     },
-    equipment: [
-      {
-        de: "Boxhandschuhe",
-        en: "Boxing gloves",
-      },
-      {
-        de: "Bandagen",
-        en: "Hand wraps",
-      },
-      {
-        de: "Schienbeinschoner",
-        en: "Shin guards",
-      },
-    ],
     image: {
       src: "/images/about/second.png",
       alternativeText: {
@@ -165,20 +135,6 @@ export const trainingClassSource: readonly TrainingClassSource[] = [
       de: "Für erfahrene Trainierende mit sicherer Technik und Erfahrung in kontrollierter Partnerarbeit; Teilnahme nach Rücksprache mit dem Trainerteam.",
       en: "For experienced students with sound technique and controlled partner-work experience; join after consulting the coaching team.",
     },
-    equipment: [
-      {
-        de: "Boxhandschuhe und Bandagen",
-        en: "Boxing gloves and hand wraps",
-      },
-      {
-        de: "Schienbeinschoner",
-        en: "Shin guards",
-      },
-      {
-        de: "Mundschutz",
-        en: "Mouthguard",
-      },
-    ],
     image: {
       src: "/images/about/fourth.jpg",
       alternativeText: {
@@ -214,20 +170,6 @@ export const trainingClassSource: readonly TrainingClassSource[] = [
       de: "Für alle Erfahrungsstufen, die gemeinsam und respektvoll an Technik und Kondition arbeiten möchten.",
       en: "For every experience level looking to work on technique and conditioning together in a respectful setting.",
     },
-    equipment: [
-      {
-        de: "Bequeme Sportkleidung",
-        en: "Comfortable sportswear",
-      },
-      {
-        de: "Boxhandschuhe und Bandagen",
-        en: "Boxing gloves and hand wraps",
-      },
-      {
-        de: "Wasserflasche",
-        en: "Water bottle",
-      },
-    ],
     image: {
       src: "/images/about/six.jpg",
       alternativeText: {
@@ -265,7 +207,6 @@ export function localizeTrainingClasses(
       level: trainingClass.level,
       durationMinutes: trainingClass.durationMinutes,
       audience: trainingClass.audience[locale],
-      equipment: trainingClass.equipment.map((item) => item[locale]),
       image: {
         src: trainingClass.image.src,
         alternativeText: trainingClass.image.alternativeText[locale],

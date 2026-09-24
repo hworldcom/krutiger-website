@@ -57,9 +57,9 @@ fallback.
 
 ### Collections
 
-- Class name, summary, description, level, duration, audience, equipment, image,
-  CTA label, and order
-- Coach name, photo, biography, specialties, social link, and order
+- Class name, summary, description, level, duration, audience, image, CTA label,
+  and order
+- Coach name, photo, biography, social link, and order
 - FAQ question, answer, category, and order
 
 ## Implementation notes

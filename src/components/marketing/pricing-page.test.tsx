@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 
 import de from "@/i18n/dictionaries/de";
 import en from "@/i18n/dictionaries/en";
+import { createPricingPageFallback } from "@/content/page-fallbacks";
 import {
   membershipDurations,
   membershipsByDuration,
@@ -20,7 +21,7 @@ describe("PricingPage", () => {
     (locale, dictionary) => {
       const markup = renderToStaticMarkup(
         <PricingPage
-          content={dictionary.routes.prices}
+          content={createPricingPageFallback(dictionary)}
           contentSource="fallback"
           integration={dictionary.integrations.pricing}
           locale={locale}

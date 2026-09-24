@@ -267,7 +267,6 @@ Coach
 - short bio
 - full bio
 - role
-- specialties
 - Instagram URL
 - sort order
 ```
@@ -402,7 +401,6 @@ slug
 photo
 shortBio
 bio
-specialties
 instagramUrl
 sortOrder
 ```

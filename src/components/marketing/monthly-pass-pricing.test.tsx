@@ -1,6 +1,7 @@
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
 
+import { createPricingPageFallback } from "@/content/page-fallbacks";
 import de from "@/i18n/dictionaries/de";
 import en from "@/i18n/dictionaries/en";
 import { monthlyPasses } from "@/lib/bsport/passes";
@@ -12,6 +13,7 @@ describe("MonthlyPassPricing", () => {
     const markup = renderToStaticMarkup(
       <MonthlyPassPricing
         copy={de.integrations.pricing.monthlyPasses}
+        editorial={createPricingPageFallback(de).passes}
         locale="de"
         passes={monthlyPasses}
       />,
@@ -37,6 +39,7 @@ describe("MonthlyPassPricing", () => {
     const markup = renderToStaticMarkup(
       <MonthlyPassPricing
         copy={en.integrations.pricing.monthlyPasses}
+        editorial={createPricingPageFallback(en).passes}
         locale="en"
         passes={monthlyPasses}
       />,

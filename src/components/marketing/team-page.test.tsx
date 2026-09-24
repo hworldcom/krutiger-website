@@ -2,6 +2,7 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
 
 import { getTeamMembers, type TeamMember } from "@/content/team";
+import { createTeamPageFallback } from "@/content/page-fallbacks";
 import de from "@/i18n/dictionaries/de";
 import en from "@/i18n/dictionaries/en";
 
@@ -13,7 +14,7 @@ describe("TeamPage", () => {
     const members = getTeamMembers("de");
     const markup = renderToStaticMarkup(
       <TeamPage
-        content={de.routes.coaches}
+        content={createTeamPageFallback(de)}
         contentSource="fallback"
         labels={de.teamPage}
         members={members}
@@ -25,6 +26,7 @@ describe("TeamPage", () => {
     expect(markup).toContain('data-team-member="kru-tiger"');
     expect(markup).toContain(members[0].biography);
     expect(markup).toContain(`alt="${members[0].photo.alternativeText}"`);
+    expect(markup).not.toContain("Schwerpunkte");
     expect(markup).not.toContain('target="_blank"');
   });
 
@@ -33,7 +35,7 @@ describe("TeamPage", () => {
     const germanMember = getTeamMembers("de")[0];
     const markup = renderToStaticMarkup(
       <TeamPage
-        content={en.routes.coaches}
+        content={createTeamPageFallback(en)}
         contentSource="fallback"
         labels={en.teamPage}
         members={[englishMember]}
@@ -42,7 +44,7 @@ describe("TeamPage", () => {
 
     expect(markup).toContain(en.routes.coaches.title);
     expect(markup).toContain(englishMember.biography);
-    expect(markup).toContain(en.teamPage.specialtiesLabel);
+    expect(markup).not.toContain("Focus areas");
     expect(markup).not.toContain(germanMember.biography);
   });
 });

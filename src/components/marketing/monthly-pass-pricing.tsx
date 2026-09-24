@@ -1,16 +1,19 @@
 import { getButtonClassName } from "@/components/ui";
+import type { PricingPageEditorialContent } from "@/content/editorial";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries/types";
 import type { MonthlyPass } from "@/lib/bsport/passes";
 
 type MonthlyPassPricingProps = Readonly<{
   copy: Dictionary["integrations"]["pricing"]["monthlyPasses"];
+  editorial: PricingPageEditorialContent["passes"];
   locale: Locale;
   passes: readonly MonthlyPass[];
 }>;
 
 export function MonthlyPassPricing({
   copy,
+  editorial,
   locale,
   passes,
 }: MonthlyPassPricingProps) {
@@ -33,9 +36,11 @@ export function MonthlyPassPricing({
           className="mt-6 font-display text-3xl font-bold uppercase sm:text-4xl"
           id="monthly-pass-pricing-heading"
         >
-          {copy.heading}
+          {editorial.heading}
         </h2>
-        <p className="mt-4 leading-7 text-copy-muted">{copy.description}</p>
+        <p className="mt-4 leading-7 text-copy-muted">
+          {editorial.introduction}
+        </p>
       </div>
 
       <div className="mt-8 grid gap-5 md:grid-cols-2">

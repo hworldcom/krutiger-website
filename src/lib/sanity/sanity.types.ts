@@ -136,11 +136,6 @@ export type Coach = {
   role?: LocalizedString;
   photo?: EditorialImage;
   biography?: LocalizedRichText;
-  specialties?: Array<
-    {
-      _key: string;
-    } & LocalizedString
-  >;
   socialUrl?: string;
   order?: number;
   active?: boolean;
@@ -189,11 +184,6 @@ export type ClassType = {
     | "private";
   durationMinutes?: number;
   audience?: LocalizedText;
-  equipment?: Array<
-    {
-      _key: string;
-    } & LocalizedString
-  >;
   image?: EditorialImage;
   ctaLabel?: LocalizedString;
   order?: number;
@@ -205,6 +195,69 @@ export type LocalizedText = {
   _type: "localizedText";
   de?: string;
   en?: string;
+};
+
+export type PricingPage = {
+  _id: string;
+  _type: "pricingPage";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  heroEyebrow?: LocalizedString;
+  heroTitle?: LocalizedString;
+  heroIntroduction?: LocalizedText;
+  membershipHeading?: LocalizedString;
+  membershipIntroduction?: LocalizedText;
+  adultAudienceDescription?: LocalizedText;
+  studentAudienceDescription?: LocalizedText;
+  kidAudienceDescription?: LocalizedText;
+  termsHeading?: LocalizedString;
+  billingDay?: number;
+  joiningFeeCents?: number;
+  autoRenewalExplanation?: LocalizedText;
+  termsVerifiedAt?: string;
+  passesHeading?: LocalizedString;
+  passesIntroduction?: LocalizedText;
+  checkoutNotice?: LocalizedText;
+  seo?: SeoMetadata;
+  editorialState?: "draft" | "review" | "ready";
+};
+
+export type SeoMetadata = {
+  _type: "seoMetadata";
+  title?: LocalizedString;
+  description?: LocalizedText;
+  shareImage?: EditorialImage;
+};
+
+export type TeamPage = {
+  _id: string;
+  _type: "teamPage";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  heroEyebrow?: LocalizedString;
+  heroTitle?: LocalizedString;
+  heroIntroduction?: LocalizedText;
+  teamHeading?: LocalizedString;
+  seo?: SeoMetadata;
+  editorialState?: "draft" | "review" | "ready";
+};
+
+export type TrainingPage = {
+  _id: string;
+  _type: "trainingPage";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  heroEyebrow?: LocalizedString;
+  heroTitle?: LocalizedString;
+  heroIntroduction?: LocalizedText;
+  classesHeading?: LocalizedString;
+  classesIntroduction?: LocalizedText;
+  scheduleNotice?: LocalizedText;
+  seo?: SeoMetadata;
+  editorialState?: "draft" | "review" | "ready";
 };
 
 export type AboutPage = {
@@ -232,13 +285,6 @@ export type AboutPage = {
   >;
   seo?: SeoMetadata;
   editorialState?: "draft" | "review" | "ready";
-};
-
-export type SeoMetadata = {
-  _type: "seoMetadata";
-  title?: LocalizedString;
-  description?: LocalizedText;
-  shareImage?: EditorialImage;
 };
 
 export type Homepage = {
@@ -462,8 +508,11 @@ export type AllSanitySchemaTypes =
   | EditorialImage
   | ClassType
   | LocalizedText
-  | AboutPage
+  | PricingPage
   | SeoMetadata
+  | TeamPage
+  | TrainingPage
+  | AboutPage
   | Homepage
   | SiteSettings
   | PostalAddress
@@ -627,8 +676,91 @@ export type ABOUT_PAGE_QUERY_RESULT = {
 } | null;
 
 // Source: ../src/lib/sanity/queries.ts
+// Variable: TRAINING_PAGE_QUERY
+// Query: *[_type == "trainingPage"] | order(_updatedAt desc)[0] {    _id,    heroEyebrow,    heroTitle,    heroIntroduction,    classesHeading,    classesIntroduction,    scheduleNotice,    seo {      title,      description,      shareImage {        asset,        crop,        hotspot,        decorative,        alternativeText,        caption      }    }  }
+export type TRAINING_PAGE_QUERY_RESULT = {
+  _id: string;
+  heroEyebrow: LocalizedString | null;
+  heroTitle: LocalizedString | null;
+  heroIntroduction: LocalizedText | null;
+  classesHeading: LocalizedString | null;
+  classesIntroduction: LocalizedText | null;
+  scheduleNotice: LocalizedText | null;
+  seo: {
+    title: LocalizedString | null;
+    description: LocalizedText | null;
+    shareImage: {
+      asset: SanityImageAssetReference | null;
+      crop: SanityImageCrop | null;
+      hotspot: SanityImageHotspot | null;
+      decorative: boolean | null;
+      alternativeText: LocalizedAlternativeText | null;
+      caption: LocalizedString | null;
+    } | null;
+  } | null;
+} | null;
+
+// Source: ../src/lib/sanity/queries.ts
+// Variable: TEAM_PAGE_QUERY
+// Query: *[_type == "teamPage"] | order(_updatedAt desc)[0] {    _id,    heroEyebrow,    heroTitle,    heroIntroduction,    teamHeading,    seo {      title,      description,      shareImage {        asset,        crop,        hotspot,        decorative,        alternativeText,        caption      }    }  }
+export type TEAM_PAGE_QUERY_RESULT = {
+  _id: string;
+  heroEyebrow: LocalizedString | null;
+  heroTitle: LocalizedString | null;
+  heroIntroduction: LocalizedText | null;
+  teamHeading: LocalizedString | null;
+  seo: {
+    title: LocalizedString | null;
+    description: LocalizedText | null;
+    shareImage: {
+      asset: SanityImageAssetReference | null;
+      crop: SanityImageCrop | null;
+      hotspot: SanityImageHotspot | null;
+      decorative: boolean | null;
+      alternativeText: LocalizedAlternativeText | null;
+      caption: LocalizedString | null;
+    } | null;
+  } | null;
+} | null;
+
+// Source: ../src/lib/sanity/queries.ts
+// Variable: PRICING_PAGE_QUERY
+// Query: *[_type == "pricingPage"] | order(_updatedAt desc)[0] {    _id,    heroEyebrow,    heroTitle,    heroIntroduction,    membershipHeading,    membershipIntroduction,    adultAudienceDescription,    studentAudienceDescription,    kidAudienceDescription,    termsHeading,    billingDay,    joiningFeeCents,    autoRenewalExplanation,    termsVerifiedAt,    passesHeading,    passesIntroduction,    checkoutNotice,    seo {      title,      description,      shareImage {        asset,        crop,        hotspot,        decorative,        alternativeText,        caption      }    }  }
+export type PRICING_PAGE_QUERY_RESULT = {
+  _id: string;
+  heroEyebrow: LocalizedString | null;
+  heroTitle: LocalizedString | null;
+  heroIntroduction: LocalizedText | null;
+  membershipHeading: LocalizedString | null;
+  membershipIntroduction: LocalizedText | null;
+  adultAudienceDescription: LocalizedText | null;
+  studentAudienceDescription: LocalizedText | null;
+  kidAudienceDescription: LocalizedText | null;
+  termsHeading: LocalizedString | null;
+  billingDay: number | null;
+  joiningFeeCents: number | null;
+  autoRenewalExplanation: LocalizedText | null;
+  termsVerifiedAt: string | null;
+  passesHeading: LocalizedString | null;
+  passesIntroduction: LocalizedText | null;
+  checkoutNotice: LocalizedText | null;
+  seo: {
+    title: LocalizedString | null;
+    description: LocalizedText | null;
+    shareImage: {
+      asset: SanityImageAssetReference | null;
+      crop: SanityImageCrop | null;
+      hotspot: SanityImageHotspot | null;
+      decorative: boolean | null;
+      alternativeText: LocalizedAlternativeText | null;
+      caption: LocalizedString | null;
+    } | null;
+  } | null;
+} | null;
+
+// Source: ../src/lib/sanity/queries.ts
 // Variable: TRAINING_CLASSES_QUERY
-// Query: *[_type == "classType" && active == true]    | order(order asc, name.de asc, internalKey.current asc) {      _id,      "internalKey": internalKey.current,      name,      summary,      description,      level,      durationMinutes,      audience,      equipment,      image {        asset,        crop,        hotspot,        decorative,        alternativeText,        caption      },      ctaLabel,      order    }
+// Query: *[_type == "classType" && active == true]    | order(order asc, name.de asc, internalKey.current asc) {      _id,      "internalKey": internalKey.current,      name,      summary,      description,      level,      durationMinutes,      audience,      image {        asset,        crop,        hotspot,        decorative,        alternativeText,        caption      },      ctaLabel,      order    }
 export type TRAINING_CLASSES_QUERY_RESULT = Array<{
   _id: string;
   internalKey: string | null;
@@ -646,11 +778,6 @@ export type TRAINING_CLASSES_QUERY_RESULT = Array<{
     | null;
   durationMinutes: number | null;
   audience: LocalizedText | null;
-  equipment: Array<
-    {
-      _key: string;
-    } & LocalizedString
-  > | null;
   image: {
     asset: SanityImageAssetReference | null;
     crop: SanityImageCrop | null;
@@ -665,7 +792,7 @@ export type TRAINING_CLASSES_QUERY_RESULT = Array<{
 
 // Source: ../src/lib/sanity/queries.ts
 // Variable: COACHES_QUERY
-// Query: *[_type == "coach" && active == true]    | order(order asc, name asc, internalKey.current asc) {      _id,      "internalKey": internalKey.current,      name,      role,      photo {        asset,        crop,        hotspot,        decorative,        alternativeText,        caption      },      biography,      specialties,      socialUrl,      order    }
+// Query: *[_type == "coach" && active == true]    | order(order asc, name asc, internalKey.current asc) {      _id,      "internalKey": internalKey.current,      name,      role,      photo {        asset,        crop,        hotspot,        decorative,        alternativeText,        caption      },      biography,      socialUrl,      order    }
 export type COACHES_QUERY_RESULT = Array<{
   _id: string;
   internalKey: string | null;
@@ -680,11 +807,6 @@ export type COACHES_QUERY_RESULT = Array<{
     caption: LocalizedString | null;
   } | null;
   biography: LocalizedRichText | null;
-  specialties: Array<
-    {
-      _key: string;
-    } & LocalizedString
-  > | null;
   socialUrl: string | null;
   order: number | null;
 }>;
@@ -745,7 +867,7 @@ export type MONTHLY_PASS_CARDS_QUERY_RESULT = Array<{
 
 // Source: ../src/lib/sanity/queries.ts
 // Variable: SEO_CONTENT_QUERY
-// Query: {    "default": *[_type == "siteSettings"] | order(_updatedAt desc)[0].defaultSeo {      title,      description,      shareImage {        asset,        crop,        hotspot,        decorative,        alternativeText,        caption      }    },    "homepage": *[_type == "homepage"] | order(_updatedAt desc)[0].seo {      title,      description,      shareImage {        asset,        crop,        hotspot,        decorative,        alternativeText,        caption      }    },    "about": *[_type == "aboutPage"] | order(_updatedAt desc)[0].seo {      title,      description,      shareImage {        asset,        crop,        hotspot,        decorative,        alternativeText,        caption      }    }  }
+// Query: {    "default": *[_type == "siteSettings"] | order(_updatedAt desc)[0].defaultSeo {      title,      description,      shareImage {        asset,        crop,        hotspot,        decorative,        alternativeText,        caption      }    },    "homepage": *[_type == "homepage"] | order(_updatedAt desc)[0].seo {      title,      description,      shareImage {        asset,        crop,        hotspot,        decorative,        alternativeText,        caption      }    },    "about": *[_type == "aboutPage"] | order(_updatedAt desc)[0].seo {      title,      description,      shareImage {        asset,        crop,        hotspot,        decorative,        alternativeText,        caption      }    },    "training": *[_type == "trainingPage"] | order(_updatedAt desc)[0].seo {      title,      description,      shareImage {        asset,        crop,        hotspot,        decorative,        alternativeText,        caption      }    },    "team": *[_type == "teamPage"] | order(_updatedAt desc)[0].seo {      title,      description,      shareImage {        asset,        crop,        hotspot,        decorative,        alternativeText,        caption      }    },    "pricing": *[_type == "pricingPage"] | order(_updatedAt desc)[0].seo {      title,      description,      shareImage {        asset,        crop,        hotspot,        decorative,        alternativeText,        caption      }    }  }
 export type SEO_CONTENT_QUERY_RESULT = {
   default: {
     title: LocalizedString | null;
@@ -783,6 +905,42 @@ export type SEO_CONTENT_QUERY_RESULT = {
       caption: LocalizedString | null;
     } | null;
   } | null;
+  training: {
+    title: LocalizedString | null;
+    description: LocalizedText | null;
+    shareImage: {
+      asset: SanityImageAssetReference | null;
+      crop: SanityImageCrop | null;
+      hotspot: SanityImageHotspot | null;
+      decorative: boolean | null;
+      alternativeText: LocalizedAlternativeText | null;
+      caption: LocalizedString | null;
+    } | null;
+  } | null;
+  team: {
+    title: LocalizedString | null;
+    description: LocalizedText | null;
+    shareImage: {
+      asset: SanityImageAssetReference | null;
+      crop: SanityImageCrop | null;
+      hotspot: SanityImageHotspot | null;
+      decorative: boolean | null;
+      alternativeText: LocalizedAlternativeText | null;
+      caption: LocalizedString | null;
+    } | null;
+  } | null;
+  pricing: {
+    title: LocalizedString | null;
+    description: LocalizedText | null;
+    shareImage: {
+      asset: SanityImageAssetReference | null;
+      crop: SanityImageCrop | null;
+      hotspot: SanityImageHotspot | null;
+      decorative: boolean | null;
+      alternativeText: LocalizedAlternativeText | null;
+      caption: LocalizedString | null;
+    } | null;
+  } | null;
 };
 
 // Query TypeMap
@@ -791,12 +949,15 @@ declare global {
     '\n  *[_type == "siteSettings"] | order(_updatedAt desc)[0] {\n    _id,\n    gymName,\n    footerStatement,\n    contactStatus,\n    address,\n    email,\n    telephone,\n    openingHours,\n    instagramUrl,\n    instagramHandle,\n    defaultSeo {\n      title,\n      description,\n      shareImage {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      }\n    }\n  }\n': SITE_SETTINGS_QUERY_RESULT;
     '\n  *[_type == "homepage"] | order(_updatedAt desc)[0] {\n    _id,\n    heroEyebrow,\n    heroTitleLines,\n    heroIntroduction,\n    heroImage {\n      asset,\n      crop,\n      hotspot,\n      decorative,\n      alternativeText,\n      caption\n    },\n    trialActionLabel,\n    scheduleActionLabel,\n    valuesEyebrow,\n    valuesTitle,\n    valuesTitleAccent,\n    valuesIntroduction,\n    features[] {\n      internalKey,\n      title,\n      description\n    },\n    seo {\n      title,\n      description,\n      shareImage {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      }\n    }\n  }\n': HOMEPAGE_QUERY_RESULT;
     '\n  *[_type == "aboutPage"] | order(_updatedAt desc)[0] {\n    _id,\n    heroEyebrow,\n    heroTitlePrimary,\n    heroTitleSecondary,\n    heroIntroduction,\n    heroImage {\n      asset,\n      crop,\n      hotspot,\n      decorative,\n      alternativeText,\n      caption\n    },\n    storyHeading,\n    chapters[] {\n      internalKey,\n      title,\n      description,\n      accent,\n      primaryImage {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      },\n      secondaryImage {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      }\n    },\n    philosophyTitle,\n    philosophyValues[] {\n      internalKey,\n      title,\n      description\n    },\n    seo {\n      title,\n      description,\n      shareImage {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      }\n    }\n  }\n': ABOUT_PAGE_QUERY_RESULT;
-    '\n  *[_type == "classType" && active == true]\n    | order(order asc, name.de asc, internalKey.current asc) {\n      _id,\n      "internalKey": internalKey.current,\n      name,\n      summary,\n      description,\n      level,\n      durationMinutes,\n      audience,\n      equipment,\n      image {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      },\n      ctaLabel,\n      order\n    }\n': TRAINING_CLASSES_QUERY_RESULT;
-    '\n  *[_type == "coach" && active == true]\n    | order(order asc, name asc, internalKey.current asc) {\n      _id,\n      "internalKey": internalKey.current,\n      name,\n      role,\n      photo {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      },\n      biography,\n      specialties,\n      socialUrl,\n      order\n    }\n': COACHES_QUERY_RESULT;
+    '\n  *[_type == "trainingPage"] | order(_updatedAt desc)[0] {\n    _id,\n    heroEyebrow,\n    heroTitle,\n    heroIntroduction,\n    classesHeading,\n    classesIntroduction,\n    scheduleNotice,\n    seo {\n      title,\n      description,\n      shareImage {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      }\n    }\n  }\n': TRAINING_PAGE_QUERY_RESULT;
+    '\n  *[_type == "teamPage"] | order(_updatedAt desc)[0] {\n    _id,\n    heroEyebrow,\n    heroTitle,\n    heroIntroduction,\n    teamHeading,\n    seo {\n      title,\n      description,\n      shareImage {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      }\n    }\n  }\n': TEAM_PAGE_QUERY_RESULT;
+    '\n  *[_type == "pricingPage"] | order(_updatedAt desc)[0] {\n    _id,\n    heroEyebrow,\n    heroTitle,\n    heroIntroduction,\n    membershipHeading,\n    membershipIntroduction,\n    adultAudienceDescription,\n    studentAudienceDescription,\n    kidAudienceDescription,\n    termsHeading,\n    billingDay,\n    joiningFeeCents,\n    autoRenewalExplanation,\n    termsVerifiedAt,\n    passesHeading,\n    passesIntroduction,\n    checkoutNotice,\n    seo {\n      title,\n      description,\n      shareImage {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      }\n    }\n  }\n': PRICING_PAGE_QUERY_RESULT;
+    '\n  *[_type == "classType" && active == true]\n    | order(order asc, name.de asc, internalKey.current asc) {\n      _id,\n      "internalKey": internalKey.current,\n      name,\n      summary,\n      description,\n      level,\n      durationMinutes,\n      audience,\n      image {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      },\n      ctaLabel,\n      order\n    }\n': TRAINING_CLASSES_QUERY_RESULT;
+    '\n  *[_type == "coach" && active == true]\n    | order(order asc, name asc, internalKey.current asc) {\n      _id,\n      "internalKey": internalKey.current,\n      name,\n      role,\n      photo {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      },\n      biography,\n      socialUrl,\n      order\n    }\n': COACHES_QUERY_RESULT;
     '\n  *[_type == "faq" && active == true]\n    | order(order asc, question.de asc, internalKey.current asc) {\n      _id,\n      "internalKey": internalKey.current,\n      question,\n      answer,\n      category,\n      order\n    }\n': FAQS_QUERY_RESULT;
     '\n  *[_type == "membershipCard" && active == true]\n    | order(audience asc, durationMonths desc, order asc, name.de asc, internalKey.current asc) {\n      _id,\n      "internalKey": internalKey.current,\n      name,\n      audience,\n      monthlyPriceCents,\n      durationMonths,\n      accessType,\n      monthlySessions,\n      benefits,\n      checkoutUrl,\n      verifiedAt,\n      order\n    }\n': MEMBERSHIP_CARDS_QUERY_RESULT;
     '\n  *[_type == "monthlyPassCard" && active == true]\n    | order(order asc, name.de asc, internalKey.current asc) {\n      _id,\n      "internalKey": internalKey.current,\n      name,\n      priceCents,\n      validityMonths,\n      accessType,\n      sessions,\n      checkoutUrl,\n      verifiedAt,\n      order\n    }\n': MONTHLY_PASS_CARDS_QUERY_RESULT;
-    '\n  {\n    "default": *[_type == "siteSettings"] | order(_updatedAt desc)[0].defaultSeo {\n      title,\n      description,\n      shareImage {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      }\n    },\n    "homepage": *[_type == "homepage"] | order(_updatedAt desc)[0].seo {\n      title,\n      description,\n      shareImage {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      }\n    },\n    "about": *[_type == "aboutPage"] | order(_updatedAt desc)[0].seo {\n      title,\n      description,\n      shareImage {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      }\n    }\n  }\n': SEO_CONTENT_QUERY_RESULT;
+    '\n  {\n    "default": *[_type == "siteSettings"] | order(_updatedAt desc)[0].defaultSeo {\n      title,\n      description,\n      shareImage {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      }\n    },\n    "homepage": *[_type == "homepage"] | order(_updatedAt desc)[0].seo {\n      title,\n      description,\n      shareImage {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      }\n    },\n    "about": *[_type == "aboutPage"] | order(_updatedAt desc)[0].seo {\n      title,\n      description,\n      shareImage {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      }\n    },\n    "training": *[_type == "trainingPage"] | order(_updatedAt desc)[0].seo {\n      title,\n      description,\n      shareImage {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      }\n    },\n    "team": *[_type == "teamPage"] | order(_updatedAt desc)[0].seo {\n      title,\n      description,\n      shareImage {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      }\n    },\n    "pricing": *[_type == "pricingPage"] | order(_updatedAt desc)[0].seo {\n      title,\n      description,\n      shareImage {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      }\n    }\n  }\n': SEO_CONTENT_QUERY_RESULT;
   }
 }
 // Lets @sanity/client releases that predate the global registry read it too

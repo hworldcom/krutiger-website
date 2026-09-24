@@ -9,16 +9,21 @@ import { getPreviewSanityClient } from "./preview-client";
 type RegisteredQuery = keyof SanityQueries & string;
 
 /**
- * Ordinary reads use Sanity's published perspective and Next's five-minute
- * data cache. Draft Mode switches to the server-only authenticated client and
- * bypasses both the CDN and the published cache.
+ * Production reads use Sanity's published perspective and Next's five-minute
+ * data cache. Local development bypasses that cache so published edits can be
+ * verified immediately. Draft Mode also bypasses caching and uses the
+ * server-only authenticated client.
  */
 export async function fetchSanityQuery<const Query extends RegisteredQuery>(
   query: Query,
   tags: readonly string[],
 ): Promise<SanityQueries[Query]> {
   const { isEnabled } = await draftMode();
-  const plan = createSanityQueryPlan(isEnabled, tags);
+  const plan = createSanityQueryPlan(
+    isEnabled,
+    tags,
+    process.env.NODE_ENV === "development",
+  );
   const client =
     plan.client === "preview"
       ? getPreviewSanityClient()

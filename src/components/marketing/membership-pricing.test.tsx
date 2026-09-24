@@ -3,6 +3,7 @@
 import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import { afterEach, describe, expect, it } from "vitest";
 
+import { createPricingPageFallback } from "@/content/page-fallbacks";
 import de from "@/i18n/dictionaries/de";
 import {
   membershipDurations,
@@ -22,6 +23,7 @@ describe("MembershipPricing", () => {
     render(
       <MembershipPricing
         copy={de.integrations.pricing}
+        editorial={createPricingPageFallback(de).memberships}
         locale="de"
         memberships={memberships}
       />,
@@ -51,6 +53,7 @@ describe("MembershipPricing", () => {
     render(
       <MembershipPricing
         copy={de.integrations.pricing}
+        editorial={createPricingPageFallback(de).memberships}
         locale="de"
         memberships={memberships}
       />,
@@ -72,6 +75,7 @@ describe("MembershipPricing", () => {
     render(
       <MembershipPricing
         copy={de.integrations.pricing}
+        editorial={createPricingPageFallback(de).memberships}
         locale="de"
         memberships={memberships}
       />,
@@ -101,6 +105,7 @@ describe("MembershipPricing", () => {
     render(
       <MembershipPricing
         copy={de.integrations.pricing}
+        editorial={createPricingPageFallback(de).memberships}
         locale="de"
         memberships={memberships}
       />,
@@ -130,6 +135,7 @@ describe("MembershipPricing", () => {
     render(
       <MembershipPricing
         copy={de.integrations.pricing}
+        editorial={createPricingPageFallback(de).memberships}
         locale="de"
         memberships={memberships}
       />,
@@ -162,6 +168,7 @@ describe("MembershipPricing", () => {
     render(
       <MembershipPricing
         copy={de.integrations.pricing}
+        editorial={createPricingPageFallback(de).memberships}
         locale="de"
         memberships={memberships}
       />,
@@ -191,6 +198,7 @@ describe("MembershipPricing", () => {
     render(
       <MembershipPricing
         copy={de.integrations.pricing}
+        editorial={createPricingPageFallback(de).memberships}
         locale="de"
         memberships={memberships}
       />,
@@ -210,6 +218,7 @@ describe("MembershipPricing", () => {
     render(
       <MembershipPricing
         copy={de.integrations.pricing}
+        editorial={createPricingPageFallback(de).memberships}
         locale="de"
         memberships={memberships}
       />,
@@ -239,6 +248,7 @@ describe("MembershipPricing", () => {
     render(
       <MembershipPricing
         copy={de.integrations.pricing}
+        editorial={createPricingPageFallback(de).memberships}
         locale="de"
         memberships={memberships}
       />,

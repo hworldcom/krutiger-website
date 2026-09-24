@@ -2,6 +2,7 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
 
 import { getTrainingClasses } from "@/content/training";
+import { createTrainingPageFallback } from "@/content/page-fallbacks";
 import de from "@/i18n/dictionaries/de";
 import en from "@/i18n/dictionaries/en";
 
@@ -13,7 +14,7 @@ describe("TrainingPage", () => {
     const trainingClasses = getTrainingClasses("de");
     const markup = renderToStaticMarkup(
       <TrainingPage
-        content={de.routes.training}
+        content={createTrainingPageFallback(de)}
         contentSource="fallback"
         labels={de.trainingPage}
         locale="de"
@@ -29,6 +30,7 @@ describe("TrainingPage", () => {
     expect(markup).toContain(
       `alt="${trainingClasses[0].image.alternativeText}"`,
     );
+    expect(markup).not.toContain("Empfohlene Ausrüstung");
   });
 
   it("renders explicit English copy without leaking German descriptions", () => {
@@ -36,7 +38,7 @@ describe("TrainingPage", () => {
     const germanClasses = getTrainingClasses("de");
     const markup = renderToStaticMarkup(
       <TrainingPage
-        content={en.routes.training}
+        content={createTrainingPageFallback(en)}
         contentSource="fallback"
         labels={en.trainingPage}
         locale="en"
@@ -47,13 +49,14 @@ describe("TrainingPage", () => {
     expect(markup).toContain(en.routes.training.title);
     expect(markup).toContain(englishClasses[0].description);
     expect(markup).not.toContain(germanClasses[0].description);
+    expect(markup).not.toContain("Recommended equipment");
     expect(markup).toContain('href="/en/schedule"');
   });
 
   it("makes incomplete draft content visible to the editor", () => {
     const markup = renderToStaticMarkup(
       <TrainingPage
-        content={en.routes.training}
+        content={createTrainingPageFallback(en)}
         contentSource="fallback"
         draftContentIssue={en.draftMode.incompleteContent}
         labels={en.trainingPage}

@@ -132,7 +132,6 @@ function createStudentMemberships(
 }
 
 export const membershipTerms = {
-  autoRenewal: true,
   billingDay: 3,
   joiningFee: 29,
 } as const;

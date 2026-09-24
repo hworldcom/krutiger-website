@@ -1,4 +1,4 @@
-import { defineArrayMember, defineField, defineType } from "sanity";
+import { defineField, defineType } from "sanity";
 
 import {
   createEditorialPreviewSubtitle,
@@ -60,16 +60,6 @@ export const coach = defineType({
       description:
         "Use only reviewed biographical and qualification claims. Complete German and English independently.",
       validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: "specialties",
-      title: "Specialties",
-      type: "array",
-      group: "profile",
-      description:
-        "Add concise, verified coaching focus areas. Complete every item in German and English.",
-      of: [defineArrayMember({ type: "localizedString" })],
-      validation: (Rule) => Rule.required().min(1),
     }),
     defineField({
       name: "socialUrl",

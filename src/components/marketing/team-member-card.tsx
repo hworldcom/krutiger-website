@@ -4,10 +4,7 @@ import type { TeamMember } from "@/content/team";
 import type { TeamPageCopy } from "@/i18n/dictionaries/types";
 
 type TeamMemberCardProps = Readonly<{
-  labels: Pick<
-    TeamPageCopy,
-    "specialtiesLabel" | "socialLinkAction" | "socialLinkLabel"
-  >;
+  labels: Pick<TeamPageCopy, "socialLinkAction" | "socialLinkLabel">;
   member: TeamMember;
 }>;
 
@@ -52,22 +49,6 @@ export function TeamMemberCard({ labels, member }: TeamMemberCardProps) {
         <p className="mt-5 text-base leading-7 text-copy-muted">
           {member.biography}
         </p>
-
-        <div className="mt-6 border-t border-line pt-5">
-          <p className="font-display text-sm font-bold tracking-[0.14em] text-copy uppercase">
-            {labels.specialtiesLabel}
-          </p>
-          <ul className="mt-3 flex flex-wrap gap-2">
-            {member.specialties.map((specialty) => (
-              <li
-                className="rounded-pill border border-brand/50 px-3 py-1 text-sm text-copy-muted"
-                key={specialty}
-              >
-                {specialty}
-              </li>
-            ))}
-          </ul>
-        </div>
 
         {member.socialUrl ? (
           <a

@@ -166,7 +166,6 @@ export type AboutPageCopy = Readonly<{
 
 export type TeamPageCopy = Readonly<{
   sectionHeading: string;
-  specialtiesLabel: string;
   socialLinkAction: string;
   socialLinkLabel: string;
 }>;
@@ -177,7 +176,6 @@ export type TrainingPageCopy = Readonly<{
   levelLabels: Readonly<Record<TrainingLevel, string>>;
   duration: string;
   audienceLabel: string;
-  equipmentLabel: string;
   scheduleActionLabel: string;
   scheduleNotice: string;
 }>;

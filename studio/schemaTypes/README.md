@@ -40,11 +40,16 @@ passes. In particular, `contactStatus` must be changed from `placeholder` to
 
 ## Fixed pages
 
-`homepage` and `aboutPage` use the fixed document IDs `homepage` and
-`aboutPage`. Editors can update copy, calls-to-action labels, SEO metadata, and
-approved images, but cannot choose components or visual styles. The homepage
-does not duplicate schedule or location data: live sessions remain in bsport,
-and global contact details belong to `siteSettings`.
+`homepage`, `aboutPage`, `trainingPage`, `teamPage`, and `pricingPage` use fixed
+document IDs. Editors can update approved page-level copy and SEO metadata but
+cannot choose components or visual styles. Training classes, team profiles,
+memberships, and passes remain separate ordered collections. The homepage does
+not duplicate schedule or location data: live sessions remain in bsport, and
+global contact details belong to `siteSettings`.
+
+`pricingPage` owns shared display terms such as the joining fee, billing day,
+renewal explanation, and the date those facts were last verified. bSport and
+the approved contract terms remain authoritative for actual purchases.
 
 Homepage features, About chapters, and philosophy values are ordered embedded
 objects. Each has a constrained, unique `internalKey` that allows the frontend
@@ -55,8 +60,8 @@ order.
 
 - `classType` describes training formats but never live sessions, capacity, or
   booking state.
-- `coach` stores team biographies, specialties, approved photos, and an
-  optional social profile.
+- `coach` stores team biographies, approved photos, and an optional social
+  profile.
 - `faq` stores categorized questions and rich-text answers.
 - `membershipCard` stores a reviewed presentation mirror of an existing bSport
   membership and its exact checkout destination.

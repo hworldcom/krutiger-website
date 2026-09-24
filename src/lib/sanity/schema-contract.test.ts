@@ -117,6 +117,9 @@ describe("Sanity schema contract", () => {
       "siteSettings",
       "homepage",
       "aboutPage",
+      "trainingPage",
+      "teamPage",
+      "pricingPage",
       "classType",
       "coach",
       "faq",
@@ -130,6 +133,50 @@ describe("Sanity schema contract", () => {
       "siteSettings",
       "homepage",
       "aboutPage",
+      "trainingPage",
+      "teamPage",
+      "pricingPage",
+    ]);
+  });
+
+  it("models page-level Training, Team, and Pricing copy separately from cards", () => {
+    expect(fieldNames("trainingPage")).toEqual([
+      "heroEyebrow",
+      "heroTitle",
+      "heroIntroduction",
+      "classesHeading",
+      "classesIntroduction",
+      "scheduleNotice",
+      "seo",
+      "editorialState",
+    ]);
+    expect(fieldNames("teamPage")).toEqual([
+      "heroEyebrow",
+      "heroTitle",
+      "heroIntroduction",
+      "teamHeading",
+      "seo",
+      "editorialState",
+    ]);
+    expect(fieldNames("pricingPage")).toEqual([
+      "heroEyebrow",
+      "heroTitle",
+      "heroIntroduction",
+      "membershipHeading",
+      "membershipIntroduction",
+      "adultAudienceDescription",
+      "studentAudienceDescription",
+      "kidAudienceDescription",
+      "termsHeading",
+      "billingDay",
+      "joiningFeeCents",
+      "autoRenewalExplanation",
+      "termsVerifiedAt",
+      "passesHeading",
+      "passesIntroduction",
+      "checkoutNotice",
+      "seo",
+      "editorialState",
     ]);
   });
 
@@ -148,6 +195,9 @@ describe("Sanity schema contract", () => {
     "siteSettings",
     "homepage",
     "aboutPage",
+    "trainingPage",
+    "teamPage",
+    "pricingPage",
     "classType",
     "coach",
     "faq",
@@ -194,6 +244,11 @@ describe("Sanity schema contract", () => {
         "allLevels",
       ]),
     );
+  });
+
+  it("omits card details that are no longer displayed", () => {
+    expect(fieldNames("classType")).not.toContain("equipment");
+    expect(fieldNames("coach")).not.toContain("specialties");
   });
 
   it("defines pricing-card fields that project into the existing website models", () => {

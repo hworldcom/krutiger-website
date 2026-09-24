@@ -8,6 +8,10 @@ export type SanityQueryPlan =
       };
     }>
   | Readonly<{
+      client: "published";
+      request: { cache: "no-store" };
+    }>
+  | Readonly<{
       client: "preview";
       request: { cache: "no-store" };
     }>;
@@ -15,10 +19,18 @@ export type SanityQueryPlan =
 export function createSanityQueryPlan(
   previewEnabled: boolean,
   tags: readonly string[],
+  bypassPublishedCache = false,
 ): SanityQueryPlan {
   if (previewEnabled) {
     return {
       client: "preview",
+      request: { cache: "no-store" },
+    };
+  }
+
+  if (bypassPublishedCache) {
+    return {
+      client: "published",
       request: { cache: "no-store" },
     };
   }

@@ -5,6 +5,9 @@ export const singletonTypes = new Set([
   "siteSettings",
   "homepage",
   "aboutPage",
+  "trainingPage",
+  "teamPage",
+  "pricingPage",
 ]);
 
 export const studioDeskSectionIds = [
@@ -74,21 +77,49 @@ export const structure: StructureResolver = (S) =>
         .id("training")
         .title("Training")
         .child(
-          S.documentTypeList("classType")
-            .title("Training classes")
-            .defaultOrdering([
-              { field: "order", direction: "asc" },
-              { field: "name.de", direction: "asc" },
+          S.list()
+            .id("training")
+            .title("Training")
+            .items([
+              S.listItem()
+                .id("trainingPage")
+                .title("Training page")
+                .child(
+                  S.document()
+                    .schemaType("trainingPage")
+                    .documentId("trainingPage")
+                    .title("Training page"),
+                ),
+              S.listItem()
+                .id("trainingClasses")
+                .title("Training classes")
+                .child(
+                  S.documentTypeList("classType")
+                    .title("Training classes")
+                    .defaultOrdering([
+                      { field: "order", direction: "asc" },
+                      { field: "name.de", direction: "asc" },
+                    ]),
+                ),
             ]),
         ),
       S.listItem()
         .id("pricing")
-        .title("Pricing cards")
+        .title("Pricing")
         .child(
           S.list()
             .id("pricing")
-            .title("Pricing cards")
+            .title("Pricing")
             .items([
+              S.listItem()
+                .id("pricingPage")
+                .title("Pricing page")
+                .child(
+                  S.document()
+                    .schemaType("pricingPage")
+                    .documentId("pricingPage")
+                    .title("Pricing page"),
+                ),
               S.listItem()
                 .id("membershipCards")
                 .title("Memberships")
@@ -119,11 +150,30 @@ export const structure: StructureResolver = (S) =>
         .id("team")
         .title("Team")
         .child(
-          S.documentTypeList("coach")
+          S.list()
+            .id("team")
             .title("Team")
-            .defaultOrdering([
-              { field: "order", direction: "asc" },
-              { field: "name", direction: "asc" },
+            .items([
+              S.listItem()
+                .id("teamPage")
+                .title("Team page")
+                .child(
+                  S.document()
+                    .schemaType("teamPage")
+                    .documentId("teamPage")
+                    .title("Team page"),
+                ),
+              S.listItem()
+                .id("teamMembers")
+                .title("Team members")
+                .child(
+                  S.documentTypeList("coach")
+                    .title("Team members")
+                    .defaultOrdering([
+                      { field: "order", direction: "asc" },
+                      { field: "name", direction: "asc" },
+                    ]),
+                ),
             ]),
         ),
       S.listItem()

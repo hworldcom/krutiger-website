@@ -131,6 +131,86 @@ export const ABOUT_PAGE_QUERY = defineQuery(`
   }
 `);
 
+export const TRAINING_PAGE_QUERY = defineQuery(`
+  *[_type == "trainingPage"] | order(_updatedAt desc)[0] {
+    _id,
+    heroEyebrow,
+    heroTitle,
+    heroIntroduction,
+    classesHeading,
+    classesIntroduction,
+    scheduleNotice,
+    seo {
+      title,
+      description,
+      shareImage {
+        asset,
+        crop,
+        hotspot,
+        decorative,
+        alternativeText,
+        caption
+      }
+    }
+  }
+`);
+
+export const TEAM_PAGE_QUERY = defineQuery(`
+  *[_type == "teamPage"] | order(_updatedAt desc)[0] {
+    _id,
+    heroEyebrow,
+    heroTitle,
+    heroIntroduction,
+    teamHeading,
+    seo {
+      title,
+      description,
+      shareImage {
+        asset,
+        crop,
+        hotspot,
+        decorative,
+        alternativeText,
+        caption
+      }
+    }
+  }
+`);
+
+export const PRICING_PAGE_QUERY = defineQuery(`
+  *[_type == "pricingPage"] | order(_updatedAt desc)[0] {
+    _id,
+    heroEyebrow,
+    heroTitle,
+    heroIntroduction,
+    membershipHeading,
+    membershipIntroduction,
+    adultAudienceDescription,
+    studentAudienceDescription,
+    kidAudienceDescription,
+    termsHeading,
+    billingDay,
+    joiningFeeCents,
+    autoRenewalExplanation,
+    termsVerifiedAt,
+    passesHeading,
+    passesIntroduction,
+    checkoutNotice,
+    seo {
+      title,
+      description,
+      shareImage {
+        asset,
+        crop,
+        hotspot,
+        decorative,
+        alternativeText,
+        caption
+      }
+    }
+  }
+`);
+
 export const TRAINING_CLASSES_QUERY = defineQuery(`
   *[_type == "classType" && active == true]
     | order(order asc, name.de asc, internalKey.current asc) {
@@ -142,7 +222,6 @@ export const TRAINING_CLASSES_QUERY = defineQuery(`
       level,
       durationMinutes,
       audience,
-      equipment,
       image {
         asset,
         crop,
@@ -172,7 +251,6 @@ export const COACHES_QUERY = defineQuery(`
         caption
       },
       biography,
-      specialties,
       socialUrl,
       order
     }
@@ -251,6 +329,42 @@ export const SEO_CONTENT_QUERY = defineQuery(`
       }
     },
     "about": *[_type == "aboutPage"] | order(_updatedAt desc)[0].seo {
+      title,
+      description,
+      shareImage {
+        asset,
+        crop,
+        hotspot,
+        decorative,
+        alternativeText,
+        caption
+      }
+    },
+    "training": *[_type == "trainingPage"] | order(_updatedAt desc)[0].seo {
+      title,
+      description,
+      shareImage {
+        asset,
+        crop,
+        hotspot,
+        decorative,
+        alternativeText,
+        caption
+      }
+    },
+    "team": *[_type == "teamPage"] | order(_updatedAt desc)[0].seo {
+      title,
+      description,
+      shareImage {
+        asset,
+        crop,
+        hotspot,
+        decorative,
+        alternativeText,
+        caption
+      }
+    },
+    "pricing": *[_type == "pricingPage"] | order(_updatedAt desc)[0].seo {
       title,
       description,
       shareImage {

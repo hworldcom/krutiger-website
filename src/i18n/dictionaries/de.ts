@@ -289,7 +289,6 @@ const de = {
   },
   teamPage: {
     sectionHeading: "Das Team",
-    specialtiesLabel: "Schwerpunkte",
     socialLinkAction: "Profil ansehen",
     socialLinkLabel: "Social-Media-Profil von {name} öffnen",
   },
@@ -305,7 +304,6 @@ const de = {
     },
     duration: "Typisch {minutes} Min.",
     audienceLabel: "Für wen?",
-    equipmentLabel: "Empfohlene Ausrüstung",
     scheduleActionLabel: "Kursplan für {name} öffnen",
     scheduleNotice:
       "Die Karten beschreiben unsere Trainingsformate. Aktuelle Termine, Trainer und verfügbare Plätze findest du immer im Live-Kursplan.",

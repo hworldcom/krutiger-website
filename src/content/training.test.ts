@@ -20,7 +20,6 @@ function createSourceClass(
     level: "beginners",
     durationMinutes: 60,
     audience: { de: "Deutsches Publikum.", en: "English audience." },
-    equipment: [{ de: "Bandagen", en: "Hand wraps" }],
     image: {
       src: "/class.jpg",
       alternativeText: {
@@ -93,7 +92,6 @@ describe("training content adapter", () => {
     expect(englishClass.summary).toContain("Your introduction");
     expect(englishClass.summary).not.toBe(germanClass.summary);
     expect(englishClass.audience).not.toBe(germanClass.audience);
-    expect(englishClass.equipment).not.toEqual(germanClass.equipment);
     expect(englishClass.image.alternativeText).not.toBe(
       germanClass.image.alternativeText,
     );

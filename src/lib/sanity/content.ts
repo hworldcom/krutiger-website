@@ -4,7 +4,10 @@ import type {
   AboutEditorialContent,
   FaqItem,
   HomepageEditorialContent,
+  PricingPageEditorialContent,
   SiteEditorialContent,
+  TeamPageEditorialContent,
+  TrainingPageEditorialContent,
 } from "@/content/editorial";
 import type { TeamMember } from "@/content/team";
 import type { TrainingClass } from "@/content/training";
@@ -22,8 +25,11 @@ import {
   HOMEPAGE_QUERY,
   MEMBERSHIP_CARDS_QUERY,
   MONTHLY_PASS_CARDS_QUERY,
+  PRICING_PAGE_QUERY,
   SITE_SETTINGS_QUERY,
+  TEAM_PAGE_QUERY,
   TRAINING_CLASSES_QUERY,
+  TRAINING_PAGE_QUERY,
 } from "./queries";
 import {
   projectAboutPage,
@@ -32,8 +38,11 @@ import {
   projectHomepage,
   projectMembershipCards,
   projectMonthlyPassCards,
+  projectPricingPage,
   projectSiteSettings,
+  projectTeamPage,
   projectTrainingClasses,
+  projectTrainingPage,
 } from "./projections";
 import type { SanityContentResult } from "./result";
 import { resolveListProjection, toUnavailableContentResult } from "./state";
@@ -141,6 +150,63 @@ export async function getAboutPageContent(
 
     const imageUrl = createSanityImageUrlFactory(getSanityImageProject());
     return projectAboutPage(document, locale, imageUrl);
+  } catch (error) {
+    return toUnavailableContentResult(error);
+  }
+}
+
+export async function getTrainingPageContent(
+  locale: Locale,
+): Promise<SanityContentResult<TrainingPageEditorialContent>> {
+  try {
+    const document = await fetchSanityQuery(TRAINING_PAGE_QUERY, [
+      "sanity:trainingPage",
+    ]);
+
+    if (!document) {
+      return { status: "missing" };
+    }
+
+    const imageUrl = createSanityImageUrlFactory(getSanityImageProject());
+    return projectTrainingPage(document, locale, imageUrl);
+  } catch (error) {
+    return toUnavailableContentResult(error);
+  }
+}
+
+export async function getTeamPageContent(
+  locale: Locale,
+): Promise<SanityContentResult<TeamPageEditorialContent>> {
+  try {
+    const document = await fetchSanityQuery(TEAM_PAGE_QUERY, [
+      "sanity:teamPage",
+    ]);
+
+    if (!document) {
+      return { status: "missing" };
+    }
+
+    const imageUrl = createSanityImageUrlFactory(getSanityImageProject());
+    return projectTeamPage(document, locale, imageUrl);
+  } catch (error) {
+    return toUnavailableContentResult(error);
+  }
+}
+
+export async function getPricingPageContent(
+  locale: Locale,
+): Promise<SanityContentResult<PricingPageEditorialContent>> {
+  try {
+    const document = await fetchSanityQuery(PRICING_PAGE_QUERY, [
+      "sanity:pricingPage",
+    ]);
+
+    if (!document) {
+      return { status: "missing" };
+    }
+
+    const imageUrl = createSanityImageUrlFactory(getSanityImageProject());
+    return projectPricingPage(document, locale, imageUrl);
   } catch (error) {
     return toUnavailableContentResult(error);
   }

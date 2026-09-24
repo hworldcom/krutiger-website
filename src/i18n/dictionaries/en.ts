@@ -289,7 +289,6 @@ const en = {
   },
   teamPage: {
     sectionHeading: "The team",
-    specialtiesLabel: "Focus areas",
     socialLinkAction: "View profile",
     socialLinkLabel: "Open {name}'s social profile",
   },
@@ -305,7 +304,6 @@ const en = {
     },
     duration: "Typically {minutes} min",
     audienceLabel: "Who is it for?",
-    equipmentLabel: "Recommended equipment",
     scheduleActionLabel: "Open the schedule for {name}",
     scheduleNotice:
       "These cards describe our training formats. Current dates, coaches, and available places are always shown in the live schedule.",
