@@ -24,4 +24,11 @@ describe("Sanity query mode", () => {
       request: { cache: "no-store" },
     });
   });
+
+  it("bypasses the published cache during local content testing", () => {
+    expect(createSanityQueryPlan(false, ["sanity:classType"], true)).toEqual({
+      client: "published",
+      request: { cache: "no-store" },
+    });
+  });
 });
