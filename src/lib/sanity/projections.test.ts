@@ -3,13 +3,19 @@ import { describe, expect, it } from "vitest";
 import type {
   MEMBERSHIP_CARDS_QUERY_RESULT,
   MONTHLY_PASS_CARDS_QUERY_RESULT,
+  PRICING_PAGE_QUERY_RESULT,
+  TEAM_PAGE_QUERY_RESULT,
   TRAINING_CLASSES_QUERY_RESULT,
+  TRAINING_PAGE_QUERY_RESULT,
 } from "./sanity.types";
 import type { SanityImageUrlFactory } from "./images";
 import {
   projectMembershipCards,
   projectMonthlyPassCards,
+  projectPricingPage,
+  projectTeamPage,
   projectTrainingClasses,
+  projectTrainingPage,
 } from "./projections";
 
 const imageUrl: SanityImageUrlFactory = (_source, dimensions) =>
@@ -59,6 +65,27 @@ const richText = (de: string, en: string) => ({
   ],
 });
 
+const editorialImage = {
+  alternativeText: localizedAlternativeText(
+    "Training im Ring",
+    "Training in the ring",
+  ),
+  asset: {
+    _ref: "image-928ac96d53b0c9049836c86ff25fd3c009039a16-2000x1200-jpg",
+    _type: "reference" as const,
+  },
+  caption: null,
+  crop: null,
+  decorative: false,
+  hotspot: null,
+};
+
+const seo = {
+  description: localizedText("Deutsche SEO", "English SEO"),
+  shareImage: editorialImage,
+  title: localized("Deutscher Titel", "English title"),
+};
+
 const trainingDocuments: TRAINING_CLASSES_QUERY_RESULT = [
   {
     _id: "class-basic",
@@ -66,20 +93,7 @@ const trainingDocuments: TRAINING_CLASSES_QUERY_RESULT = [
     ctaLabel: localized("Kurs ansehen", "View class"),
     description: richText("Deutsche Beschreibung", "English description"),
     durationMinutes: 60,
-    image: {
-      alternativeText: localizedAlternativeText(
-        "Training im Ring",
-        "Training in the ring",
-      ),
-      asset: {
-        _ref: "image-928ac96d53b0c9049836c86ff25fd3c009039a16-2000x1200-jpg",
-        _type: "reference",
-      },
-      caption: null,
-      crop: null,
-      decorative: false,
-      hotspot: null,
-    },
+    image: editorialImage,
     internalKey: "muay-thai-basic",
     level: "beginners",
     name: localized("Muay Thai Basic", "Muay Thai Basic"),
@@ -89,6 +103,89 @@ const trainingDocuments: TRAINING_CLASSES_QUERY_RESULT = [
 ];
 
 describe("Sanity content projections", () => {
+  it("projects page-level Training, Team, and Pricing content", () => {
+    const trainingPage: TRAINING_PAGE_QUERY_RESULT = {
+      _id: "trainingPage",
+      classesHeading: localized("Unsere Kurse", "Our classes"),
+      classesIntroduction: localizedText(
+        "Deutsche Kurseinführung",
+        "English class introduction",
+      ),
+      heroEyebrow: localized("Training", "Training"),
+      heroIntroduction: localizedText(
+        "Deutsche Einführung",
+        "English introduction",
+      ),
+      heroTitle: localized("Muay Thai lernen", "Learn Muay Thai"),
+      scheduleNotice: localizedText(
+        "Aktuelle Zeiten im Kursplan.",
+        "Current times are in the schedule.",
+      ),
+      seo,
+    };
+    const teamPage: TEAM_PAGE_QUERY_RESULT = {
+      _id: "teamPage",
+      heroEyebrow: localized("Team", "Team"),
+      heroIntroduction: localizedText(
+        "Lerne unser Team kennen.",
+        "Meet our team.",
+      ),
+      heroTitle: localized("Unser Team", "Our team"),
+      seo,
+      teamHeading: localized("Trainerteam", "Coaching team"),
+    };
+    const pricingPage: PRICING_PAGE_QUERY_RESULT = {
+      _id: "pricingPage",
+      adultAudienceDescription: localizedText("Erwachsene", "Adults"),
+      autoRenewalExplanation: localizedText(
+        "Verlängert sich automatisch.",
+        "Renews automatically.",
+      ),
+      billingDay: 3,
+      checkoutNotice: localizedText(
+        "Abschluss über bSport.",
+        "Checkout through bSport.",
+      ),
+      heroEyebrow: localized("Preise", "Pricing"),
+      heroIntroduction: localizedText(
+        "Finde dein Angebot.",
+        "Find your option.",
+      ),
+      heroTitle: localized("Mitgliedschaften", "Memberships"),
+      joiningFeeCents: 2_900,
+      kidAudienceDescription: localizedText("Kinder", "Kids"),
+      membershipHeading: localized("Mitgliedschaften", "Memberships"),
+      membershipIntroduction: localizedText(
+        "Wähle deine Mitgliedschaft.",
+        "Choose your membership.",
+      ),
+      passesHeading: localized("Pässe", "Passes"),
+      passesIntroduction: localizedText("Flexible Pässe.", "Flexible passes."),
+      seo,
+      studentAudienceDescription: localizedText("Studierende", "Students"),
+      termsHeading: localized("Konditionen", "Terms"),
+      termsVerifiedAt: "2026-09-21T00:00:00.000Z",
+    };
+
+    expect(projectTrainingPage(trainingPage, "en", imageUrl)).toMatchObject({
+      status: "ready",
+      value: { classes: { heading: "Our classes" } },
+    });
+    expect(projectTeamPage(teamPage, "de", imageUrl)).toMatchObject({
+      status: "ready",
+      value: { team: { heading: "Trainerteam" } },
+    });
+    expect(projectPricingPage(pricingPage, "en", imageUrl)).toMatchObject({
+      status: "ready",
+      value: {
+        checkoutNotice: "Checkout through bSport.",
+        memberships: {
+          terms: { billingDay: 3, joiningFee: 29 },
+        },
+      },
+    });
+  });
+
   it("projects only the requested Training-page language", () => {
     const german = projectTrainingClasses(trainingDocuments, "de", imageUrl);
     const english = projectTrainingClasses(trainingDocuments, "en", imageUrl);

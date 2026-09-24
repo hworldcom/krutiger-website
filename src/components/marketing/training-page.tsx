@@ -1,3 +1,4 @@
+import type { TrainingPageEditorialContent } from "@/content/editorial";
 import type { TrainingClass } from "@/content/training";
 import type { Locale } from "@/i18n/config";
 import type { TrainingPageCopy } from "@/i18n/dictionaries/types";
@@ -6,11 +7,7 @@ import { Container } from "../ui";
 import { TrainingClassCard } from "./training-class-card";
 
 type TrainingPageProps = Readonly<{
-  content: Readonly<{
-    eyebrow: string;
-    title: string;
-    description: string;
-  }>;
+  content: TrainingPageEditorialContent;
   contentSource: "sanity" | "fallback";
   labels: TrainingPageCopy;
   locale: Locale;
@@ -49,16 +46,16 @@ export function TrainingPage({
         <Container>
           <header className="max-w-4xl">
             <p className="font-display text-sm font-bold tracking-[0.24em] text-brand uppercase sm:text-base">
-              {content.eyebrow}
+              {content.hero.eyebrow}
             </p>
             <h1
               className="mt-5 max-w-4xl font-display text-5xl leading-[0.9] font-extrabold tracking-tight uppercase sm:text-7xl lg:text-8xl"
               id="training-page-title"
             >
-              {content.title}
+              {content.hero.title}
             </h1>
             <p className="mt-7 max-w-2xl text-base leading-7 text-copy-muted sm:text-lg sm:leading-8">
-              {content.description}
+              {content.hero.description}
             </p>
           </header>
         </Container>
@@ -83,10 +80,10 @@ export function TrainingPage({
               className="font-display text-4xl leading-none font-extrabold tracking-tight uppercase sm:text-5xl"
               id="training-classes-title"
             >
-              {labels.sectionHeading}
+              {content.classes.heading}
             </h2>
             <p className="mt-5 text-base leading-7 text-copy-muted sm:text-lg">
-              {labels.sectionIntroduction}
+              {content.classes.introduction}
             </p>
           </header>
 
@@ -104,7 +101,7 @@ export function TrainingPage({
           </ol>
 
           <p className="mt-10 max-w-3xl border-l-2 border-brand pl-5 text-sm leading-6 text-copy-muted sm:text-base sm:leading-7">
-            {labels.scheduleNotice}
+            {content.classes.scheduleNotice}
           </p>
         </Container>
       </section>

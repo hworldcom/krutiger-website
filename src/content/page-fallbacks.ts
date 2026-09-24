@@ -4,8 +4,12 @@ import type {
   HomepageEditorialContent,
   HomepageFeatureKey,
   PhilosophyValueKey,
+  PricingPageEditorialContent,
+  TeamPageEditorialContent,
+  TrainingPageEditorialContent,
 } from "@/content/editorial";
 import type { Dictionary } from "@/i18n/dictionaries/types";
+import { membershipTerms } from "@/lib/bsport/memberships";
 
 const homepageFeatureKeys: readonly HomepageFeatureKey[] = [
   "authenticity",
@@ -120,5 +124,79 @@ export function createAboutPageFallback(
         alternativeText: aboutPage.hero.imageAlt,
       },
     },
+  };
+}
+
+function createPageSeo(
+  dictionary: Dictionary,
+  route: "training" | "coaches" | "prices",
+) {
+  return {
+    title: dictionary.routes[route].title,
+    description: dictionary.routes[route].description,
+    shareImage: {
+      src: "/images/home/main.png",
+      alternativeText: dictionary.homePage.hero.imageAlt,
+    },
+  };
+}
+
+export function createTrainingPageFallback(
+  dictionary: Dictionary,
+): TrainingPageEditorialContent {
+  const route = dictionary.routes.training;
+  const page = dictionary.trainingPage;
+
+  return {
+    hero: route,
+    classes: {
+      heading: page.sectionHeading,
+      introduction: page.sectionIntroduction,
+      scheduleNotice: page.scheduleNotice,
+    },
+    seo: createPageSeo(dictionary, "training"),
+  };
+}
+
+export function createTeamPageFallback(
+  dictionary: Dictionary,
+): TeamPageEditorialContent {
+  const route = dictionary.routes.coaches;
+
+  return {
+    hero: route,
+    team: {
+      heading: dictionary.teamPage.sectionHeading,
+    },
+    seo: createPageSeo(dictionary, "coaches"),
+  };
+}
+
+export function createPricingPageFallback(
+  dictionary: Dictionary,
+): PricingPageEditorialContent {
+  const route = dictionary.routes.prices;
+  const pricing = dictionary.integrations.pricing;
+
+  return {
+    hero: route,
+    memberships: {
+      heading: pricing.heading,
+      introduction: pricing.description,
+      audienceDescriptions: pricing.audienceDescriptions,
+      terms: {
+        heading: pricing.termsLabel,
+        billingDay: membershipTerms.billingDay,
+        joiningFee: membershipTerms.joiningFee,
+        autoRenewal: pricing.autoRenewal,
+        verifiedAt: "2026-09-21T00:00:00.000Z",
+      },
+    },
+    passes: {
+      heading: pricing.monthlyPasses.heading,
+      introduction: pricing.monthlyPasses.description,
+    },
+    checkoutNotice: pricing.secureCheckoutNotice,
+    seo: createPageSeo(dictionary, "prices"),
   };
 }

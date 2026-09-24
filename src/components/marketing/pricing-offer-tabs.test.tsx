@@ -3,6 +3,7 @@
 import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import { afterEach, describe, expect, it } from "vitest";
 
+import { createPricingPageFallback } from "@/content/page-fallbacks";
 import de from "@/i18n/dictionaries/de";
 import {
   membershipDurations,
@@ -23,6 +24,7 @@ describe("PricingOfferTabs", () => {
     render(
       <PricingOfferTabs
         copy={de.integrations.pricing}
+        editorial={createPricingPageFallback(de)}
         locale="de"
         memberships={memberships}
         passes={monthlyPasses}
@@ -54,6 +56,7 @@ describe("PricingOfferTabs", () => {
     render(
       <PricingOfferTabs
         copy={de.integrations.pricing}
+        editorial={createPricingPageFallback(de)}
         locale="de"
         memberships={memberships}
         passes={monthlyPasses}
@@ -76,6 +79,7 @@ describe("PricingOfferTabs", () => {
     render(
       <PricingOfferTabs
         copy={de.integrations.pricing}
+        editorial={createPricingPageFallback(de)}
         locale="de"
         memberships={memberships}
         passes={monthlyPasses}

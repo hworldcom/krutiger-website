@@ -1,4 +1,5 @@
 import { Container, SectionHeader } from "@/components/ui";
+import type { PricingPageEditorialContent } from "@/content/editorial";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries/types";
 import type { MembershipPlan } from "@/lib/bsport/memberships";
@@ -7,7 +8,7 @@ import type { MonthlyPass } from "@/lib/bsport/passes";
 import { PricingOfferTabs } from "./pricing-offer-tabs";
 
 type PricingPageProps = Readonly<{
-  content: Dictionary["routes"]["prices"];
+  content: PricingPageEditorialContent;
   contentSource: "sanity" | "fallback";
   draftContentIssue?: string;
   integration: Dictionary["integrations"]["pricing"];
@@ -32,11 +33,11 @@ export function PricingPage({
     >
       <Container>
         <SectionHeader
-          description={content.description}
-          eyebrow={content.eyebrow}
+          description={content.hero.description}
+          eyebrow={content.hero.eyebrow}
           level={1}
           size="page"
-          title={content.title}
+          title={content.hero.title}
         />
         {draftContentIssue ? (
           <p
@@ -49,6 +50,10 @@ export function PricingPage({
         ) : null}
         <PricingOfferTabs
           copy={integration}
+          editorial={{
+            memberships: content.memberships,
+            passes: content.passes,
+          }}
           locale={locale}
           passes={monthlyPasses}
           memberships={memberships}
@@ -58,7 +63,7 @@ export function PricingPage({
           id="pricing-secure-checkout-note"
         >
           <span aria-hidden="true">*</span>
-          {integration.secureCheckoutNotice}
+          {content.checkoutNotice}
         </p>
       </Container>
     </section>

@@ -67,7 +67,8 @@ drafts or credentials publicly.
   Presentation iframe can connect without changing ordinary published-page
   behavior.
 - Document locations are configured for Site settings, Homepage, About,
-  Training, Team, FAQ, memberships, and monthly passes.
+  Training, Team, Pricing, FAQ, training classes, team members, memberships,
+  and monthly passes.
 - The local Viewer token was detected and authenticated draft reads were
   verified against the development dataset on 2026-09-14.
 - The Studio Presentation connection was exercised successfully after adding

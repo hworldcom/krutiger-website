@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 
+import type { PricingPageEditorialContent } from "@/content/editorial";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries/types";
 import type { MembershipPlan } from "@/lib/bsport/memberships";
@@ -14,6 +15,7 @@ type PricingOffer = "memberships" | "passes";
 
 type PricingOfferTabsProps = Readonly<{
   copy: Dictionary["integrations"]["pricing"];
+  editorial: Pick<PricingPageEditorialContent, "memberships" | "passes">;
   locale: Locale;
   memberships: readonly MembershipPlan[];
   passes: readonly MonthlyPass[];
@@ -23,6 +25,7 @@ const offers: readonly PricingOffer[] = ["memberships", "passes"];
 
 export function PricingOfferTabs({
   copy,
+  editorial,
   locale,
   memberships,
   passes,
@@ -123,6 +126,7 @@ export function PricingOfferTabs({
       >
         <MembershipPricing
           copy={copy}
+          editorial={editorial.memberships}
           locale={locale}
           memberships={memberships}
         />
@@ -137,6 +141,7 @@ export function PricingOfferTabs({
       >
         <MonthlyPassPricing
           copy={copy.monthlyPasses}
+          editorial={editorial.passes}
           locale={locale}
           passes={passes}
         />

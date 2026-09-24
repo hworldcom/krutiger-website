@@ -1,7 +1,12 @@
-import { createLocalizedPlaceholderRoute } from "@/components/marketing/localized-placeholder-route";
+import type { Metadata } from "next";
+import { draftMode } from "next/headers";
+import { notFound } from "next/navigation";
+
 import { PricingPage } from "@/components/marketing/pricing-page";
+import { createPricingPageFallback } from "@/content/page-fallbacks";
 import { isLocale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
+import { createLocalizedPageMetadata } from "@/i18n/metadata";
 import {
   membershipDurations,
   membershipsByDuration,
@@ -10,21 +15,41 @@ import { monthlyPasses } from "@/lib/bsport/passes";
 import {
   getMembershipCardContent,
   getMonthlyPassCardContent,
+  getPricingPageContent,
 } from "@/lib/sanity/content";
 import {
   getDraftContentFallbackMessage,
   resolveContent,
 } from "@/lib/sanity/resolve-content";
-import { draftMode } from "next/headers";
-import { notFound } from "next/navigation";
-
-const route = createLocalizedPlaceholderRoute("prices");
-
-export const generateMetadata = route.generateMetadata;
 
 type PricingRouteProps = Readonly<{
   params: Promise<{ locale: string }>;
 }>;
+
+export async function generateMetadata({
+  params,
+}: PricingRouteProps): Promise<Metadata> {
+  const { locale } = await params;
+
+  if (!isLocale(locale)) {
+    return {};
+  }
+
+  const dictionary = await getDictionary(locale);
+  const sanityContent = await getPricingPageContent(locale);
+  const content =
+    sanityContent.status === "ready"
+      ? sanityContent.value.seo
+      : createPricingPageFallback(dictionary).seo;
+
+  return createLocalizedPageMetadata(
+    locale,
+    content.title,
+    content.description,
+    "/prices",
+    content.shareImage,
+  );
+}
 
 export default async function PricingRoute({ params }: PricingRouteProps) {
   const { locale } = await params;
@@ -34,23 +59,31 @@ export default async function PricingRoute({ params }: PricingRouteProps) {
   }
 
   const dictionary = await getDictionary(locale);
-  const [membershipContent, passContent] = await Promise.all([
+  const [pageContent, membershipContent, passContent] = await Promise.all([
+    getPricingPageContent(locale),
     getMembershipCardContent(locale),
     getMonthlyPassCardContent(locale),
   ]);
+  const page = resolveContent(
+    pageContent,
+    createPricingPageFallback(dictionary),
+  );
   const memberships = resolveContent(
     membershipContent,
     membershipDurations.flatMap((duration) => membershipsByDuration[duration]),
   );
   const passes = resolveContent(passContent, monthlyPasses);
   const { isEnabled: isDraftPreview } = await draftMode();
-  const fallbackReason = memberships.fallbackReason ?? passes.fallbackReason;
+  const fallbackReason =
+    page.fallbackReason ?? memberships.fallbackReason ?? passes.fallbackReason;
 
   return (
     <PricingPage
-      content={dictionary.routes.prices}
+      content={page.value}
       contentSource={
-        memberships.source === "sanity" && passes.source === "sanity"
+        page.source === "sanity" &&
+        memberships.source === "sanity" &&
+        passes.source === "sanity"
           ? "sanity"
           : "fallback"
       }

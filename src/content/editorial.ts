@@ -101,6 +101,56 @@ export type AboutEditorialContent = Readonly<{
   seo: SeoContent;
 }>;
 
+export type PageHeroEditorialContent = Readonly<{
+  eyebrow: string;
+  title: string;
+  description: string;
+}>;
+
+export type TrainingPageEditorialContent = Readonly<{
+  hero: PageHeroEditorialContent;
+  classes: Readonly<{
+    heading: string;
+    introduction: string;
+    scheduleNotice: string;
+  }>;
+  seo: SeoContent;
+}>;
+
+export type TeamPageEditorialContent = Readonly<{
+  hero: PageHeroEditorialContent;
+  team: Readonly<{
+    heading: string;
+  }>;
+  seo: SeoContent;
+}>;
+
+export type PricingPageEditorialContent = Readonly<{
+  hero: PageHeroEditorialContent;
+  memberships: Readonly<{
+    heading: string;
+    introduction: string;
+    audienceDescriptions: Readonly<{
+      adult: string;
+      student: string;
+      kid: string;
+    }>;
+    terms: Readonly<{
+      heading: string;
+      billingDay: number;
+      joiningFee: number;
+      autoRenewal: string;
+      verifiedAt: string;
+    }>;
+  }>;
+  passes: Readonly<{
+    heading: string;
+    introduction: string;
+  }>;
+  checkoutNotice: string;
+  seo: SeoContent;
+}>;
+
 export type FaqCategory =
   "gettingStarted" | "equipment" | "training" | "memberships" | "other";
 

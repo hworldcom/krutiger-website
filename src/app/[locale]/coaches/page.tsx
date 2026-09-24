@@ -3,12 +3,13 @@ import { draftMode } from "next/headers";
 import { notFound } from "next/navigation";
 
 import { TeamPage } from "@/components/marketing";
+import { createTeamPageFallback } from "@/content/page-fallbacks";
 import { getTeamMembers } from "@/content/team";
 import { isLocale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 import { createLocalizedPageMetadata } from "@/i18n/metadata";
 import { getRouteById } from "@/lib/routes";
-import { getCoachContent } from "@/lib/sanity/content";
+import { getCoachContent, getTeamPageContent } from "@/lib/sanity/content";
 import {
   getDraftContentFallbackMessage,
   resolveContent,
@@ -32,13 +33,18 @@ export async function generateMetadata({
   }
 
   const dictionary = await getDictionary(locale);
-  const content = dictionary.routes.coaches;
+  const sanityContent = await getTeamPageContent(locale);
+  const content =
+    sanityContent.status === "ready"
+      ? sanityContent.value.seo
+      : createTeamPageFallback(dictionary).seo;
 
   return createLocalizedPageMetadata(
     locale,
     content.title,
     content.description,
     teamRoute.path,
+    content.shareImage,
   );
 }
 
@@ -50,18 +56,26 @@ export default async function TeamRoute({ params }: TeamRouteProps) {
   }
 
   const dictionary = await getDictionary(locale);
-  const sanityContent = await getCoachContent(locale);
-  const members = resolveContent(sanityContent, getTeamMembers(locale));
+  const [pageContent, coachContent] = await Promise.all([
+    getTeamPageContent(locale),
+    getCoachContent(locale),
+  ]);
+  const page = resolveContent(pageContent, createTeamPageFallback(dictionary));
+  const members = resolveContent(coachContent, getTeamMembers(locale));
   const { isEnabled: isDraftPreview } = await draftMode();
 
   return (
     <TeamPage
-      content={dictionary.routes.coaches}
-      contentSource={members.source}
+      content={page.value}
+      contentSource={
+        page.source === "sanity" && members.source === "sanity"
+          ? "sanity"
+          : "fallback"
+      }
       draftContentIssue={
         isDraftPreview
           ? getDraftContentFallbackMessage(
-              members.fallbackReason,
+              page.fallbackReason ?? members.fallbackReason,
               dictionary.draftMode,
             )
           : undefined

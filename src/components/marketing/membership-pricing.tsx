@@ -3,12 +3,12 @@
 import { useState } from "react";
 
 import { getButtonClassName } from "@/components/ui";
+import type { PricingPageEditorialContent } from "@/content/editorial";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries/types";
 import {
   membershipAudiences,
   membershipDurations,
-  membershipTerms,
   type MembershipAudience,
   type MembershipDuration,
   type MembershipPlan,
@@ -16,6 +16,7 @@ import {
 
 type MembershipPricingProps = Readonly<{
   copy: Dictionary["integrations"]["pricing"];
+  editorial: PricingPageEditorialContent["memberships"];
   locale: Locale;
   memberships: readonly MembershipPlan[];
 }>;
@@ -31,6 +32,7 @@ type DisplayedMembership = Omit<
 
 export function MembershipPricing({
   copy,
+  editorial,
   locale,
   memberships: allMemberships,
 }: MembershipPricingProps) {
@@ -139,9 +141,11 @@ export function MembershipPricing({
           className="mt-6 font-display text-3xl font-bold uppercase sm:text-4xl"
           id="membership-pricing-heading"
         >
-          {copy.heading}
+          {editorial.heading}
         </h2>
-        <p className="mt-4 leading-7 text-copy-muted">{copy.description}</p>
+        <p className="mt-4 leading-7 text-copy-muted">
+          {editorial.introduction}
+        </p>
       </div>
 
       <div
@@ -184,25 +188,25 @@ export function MembershipPricing({
         tabIndex={0}
       >
         <p className="mt-4 text-sm leading-6 text-copy-muted sm:text-base">
-          {copy.audienceDescriptions[selectedAudience]}
+          {editorial.audienceDescriptions[selectedAudience]}
         </p>
 
         <div className="mt-6 border-l-2 border-brand bg-panel/70 p-4 xs:p-5">
           <p className="font-display text-sm font-bold tracking-[0.14em] text-brand uppercase">
-            {copy.termsLabel}
+            {editorial.terms.heading}
           </p>
           <ul className="mt-3 grid gap-2 text-sm leading-6 text-copy-muted sm:grid-cols-3 sm:gap-5">
             <li>
               {copy.billingDay.replace(
                 "{day}",
-                String(membershipTerms.billingDay),
+                String(editorial.terms.billingDay),
               )}
             </li>
             <li>
               {copy.joiningFee}:{" "}
-              {currencyFormatter.format(membershipTerms.joiningFee)}
+              {currencyFormatter.format(editorial.terms.joiningFee)}
             </li>
-            {membershipTerms.autoRenewal ? <li>{copy.autoRenewal}</li> : null}
+            <li>{editorial.terms.autoRenewal}</li>
           </ul>
         </div>
 

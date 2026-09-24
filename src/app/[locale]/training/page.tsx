@@ -3,12 +3,16 @@ import { draftMode } from "next/headers";
 import { notFound } from "next/navigation";
 
 import { TrainingPage } from "@/components/marketing";
+import { createTrainingPageFallback } from "@/content/page-fallbacks";
 import { getTrainingClasses } from "@/content/training";
 import { isLocale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 import { createLocalizedPageMetadata } from "@/i18n/metadata";
 import { getRouteById } from "@/lib/routes";
-import { getTrainingClassContent } from "@/lib/sanity/content";
+import {
+  getTrainingClassContent,
+  getTrainingPageContent,
+} from "@/lib/sanity/content";
 import {
   getDraftContentFallbackMessage,
   resolveContent,
@@ -32,13 +36,18 @@ export async function generateMetadata({
   }
 
   const dictionary = await getDictionary(locale);
-  const content = dictionary.routes.training;
+  const sanityContent = await getTrainingPageContent(locale);
+  const content =
+    sanityContent.status === "ready"
+      ? sanityContent.value.seo
+      : createTrainingPageFallback(dictionary).seo;
 
   return createLocalizedPageMetadata(
     locale,
     content.title,
     content.description,
     trainingRoute.path,
+    content.shareImage,
   );
 }
 
@@ -50,8 +59,15 @@ export default async function TrainingRoute({ params }: TrainingRouteProps) {
   }
 
   const dictionary = await getDictionary(locale);
-  const classContent = await getTrainingClassContent(locale);
+  const [pageContent, classContent] = await Promise.all([
+    getTrainingPageContent(locale),
+    getTrainingClassContent(locale),
+  ]);
   const { isEnabled: isDraftPreview } = await draftMode();
+  const page = resolveContent(
+    pageContent,
+    createTrainingPageFallback(dictionary),
+  );
   const trainingClasses = resolveContent(
     classContent,
     getTrainingClasses(locale),
@@ -59,12 +75,16 @@ export default async function TrainingRoute({ params }: TrainingRouteProps) {
 
   return (
     <TrainingPage
-      content={dictionary.routes.training}
-      contentSource={trainingClasses.source}
+      content={page.value}
+      contentSource={
+        page.source === "sanity" && trainingClasses.source === "sanity"
+          ? "sanity"
+          : "fallback"
+      }
       draftContentIssue={
         isDraftPreview
           ? getDraftContentFallbackMessage(
-              trainingClasses.fallbackReason,
+              page.fallbackReason ?? trainingClasses.fallbackReason,
               dictionary.draftMode,
             )
           : undefined

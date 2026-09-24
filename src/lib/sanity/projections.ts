@@ -9,8 +9,11 @@ import type {
   HomepageEditorialContent,
   HomepageFeatureKey,
   PhilosophyValueKey,
+  PricingPageEditorialContent,
   SeoContent,
   SiteEditorialContent,
+  TeamPageEditorialContent,
+  TrainingPageEditorialContent,
 } from "@/content/editorial";
 import type { TrainingClass, TrainingLevel } from "@/content/training";
 import type { TeamMember } from "@/content/team";
@@ -30,8 +33,11 @@ import type {
   HOMEPAGE_QUERY_RESULT,
   MEMBERSHIP_CARDS_QUERY_RESULT,
   MONTHLY_PASS_CARDS_QUERY_RESULT,
+  PRICING_PAGE_QUERY_RESULT,
   SITE_SETTINGS_QUERY_RESULT,
+  TEAM_PAGE_QUERY_RESULT,
   TRAINING_CLASSES_QUERY_RESULT,
+  TRAINING_PAGE_QUERY_RESULT,
 } from "./sanity.types";
 import type { ContentIssue, ProjectionResult } from "./result";
 import type { SanityImageUrlFactory } from "./images";
@@ -126,6 +132,30 @@ function requiredPositiveInteger(
   }
 
   return number;
+}
+
+function requiredNonNegativeInteger(
+  value: unknown,
+  path: string,
+  issues: ContentIssue[],
+) {
+  const number = requiredNumber(value, path, issues);
+
+  if (!Number.isInteger(number) || number < 0) {
+    addIssue(issues, "invalid", path, "Expected a non-negative whole number.");
+  }
+
+  return number;
+}
+
+function requiredIsoDate(value: unknown, path: string, issues: ContentIssue[]) {
+  const date = requiredString(value, path, issues);
+
+  if (date && Number.isNaN(Date.parse(date))) {
+    addIssue(issues, "invalid", path, "Expected an ISO date and time.");
+  }
+
+  return date;
 }
 
 function localizedString(
@@ -1103,6 +1133,257 @@ export function projectAboutPage(
   };
 
   return result(issues, aboutPage);
+}
+
+export function projectTrainingPage(
+  document: TRAINING_PAGE_QUERY_RESULT,
+  locale: Locale,
+  createImageUrl: SanityImageUrlFactory,
+): ProjectionResult<TrainingPageEditorialContent> {
+  const issues: ContentIssue[] = [];
+  const value: UnknownRecord = isRecord(document) ? document : {};
+
+  if (!isRecord(document)) {
+    addIssue(issues, "invalid", "trainingPage", "Expected a Training page.");
+  }
+
+  const trainingPage: TrainingPageEditorialContent = {
+    hero: {
+      eyebrow: localizedString(
+        value.heroEyebrow,
+        locale,
+        "trainingPage.heroEyebrow",
+        issues,
+      ),
+      title: localizedString(
+        value.heroTitle,
+        locale,
+        "trainingPage.heroTitle",
+        issues,
+      ),
+      description: localizedString(
+        value.heroIntroduction,
+        locale,
+        "trainingPage.heroIntroduction",
+        issues,
+      ),
+    },
+    classes: {
+      heading: localizedString(
+        value.classesHeading,
+        locale,
+        "trainingPage.classesHeading",
+        issues,
+      ),
+      introduction: localizedString(
+        value.classesIntroduction,
+        locale,
+        "trainingPage.classesIntroduction",
+        issues,
+      ),
+      scheduleNotice: localizedString(
+        value.scheduleNotice,
+        locale,
+        "trainingPage.scheduleNotice",
+        issues,
+      ),
+    },
+    seo: projectSeo(
+      value.seo,
+      locale,
+      "trainingPage.seo",
+      issues,
+      createImageUrl,
+    ),
+  };
+
+  return result(issues, trainingPage);
+}
+
+export function projectTeamPage(
+  document: TEAM_PAGE_QUERY_RESULT,
+  locale: Locale,
+  createImageUrl: SanityImageUrlFactory,
+): ProjectionResult<TeamPageEditorialContent> {
+  const issues: ContentIssue[] = [];
+  const value: UnknownRecord = isRecord(document) ? document : {};
+
+  if (!isRecord(document)) {
+    addIssue(issues, "invalid", "teamPage", "Expected a Team page.");
+  }
+
+  const teamPage: TeamPageEditorialContent = {
+    hero: {
+      eyebrow: localizedString(
+        value.heroEyebrow,
+        locale,
+        "teamPage.heroEyebrow",
+        issues,
+      ),
+      title: localizedString(
+        value.heroTitle,
+        locale,
+        "teamPage.heroTitle",
+        issues,
+      ),
+      description: localizedString(
+        value.heroIntroduction,
+        locale,
+        "teamPage.heroIntroduction",
+        issues,
+      ),
+    },
+    team: {
+      heading: localizedString(
+        value.teamHeading,
+        locale,
+        "teamPage.teamHeading",
+        issues,
+      ),
+    },
+    seo: projectSeo(value.seo, locale, "teamPage.seo", issues, createImageUrl),
+  };
+
+  return result(issues, teamPage);
+}
+
+export function projectPricingPage(
+  document: PRICING_PAGE_QUERY_RESULT,
+  locale: Locale,
+  createImageUrl: SanityImageUrlFactory,
+): ProjectionResult<PricingPageEditorialContent> {
+  const issues: ContentIssue[] = [];
+  const value: UnknownRecord = isRecord(document) ? document : {};
+  const joiningFeeCents = requiredNonNegativeInteger(
+    value.joiningFeeCents,
+    "pricingPage.joiningFeeCents",
+    issues,
+  );
+  const billingDay = requiredPositiveInteger(
+    value.billingDay,
+    "pricingPage.billingDay",
+    issues,
+  );
+
+  if (billingDay > 28) {
+    addIssue(
+      issues,
+      "invalid",
+      "pricingPage.billingDay",
+      "Expected a billing day between 1 and 28.",
+    );
+  }
+
+  if (!isRecord(document)) {
+    addIssue(issues, "invalid", "pricingPage", "Expected a Pricing page.");
+  }
+
+  const pricingPage: PricingPageEditorialContent = {
+    hero: {
+      eyebrow: localizedString(
+        value.heroEyebrow,
+        locale,
+        "pricingPage.heroEyebrow",
+        issues,
+      ),
+      title: localizedString(
+        value.heroTitle,
+        locale,
+        "pricingPage.heroTitle",
+        issues,
+      ),
+      description: localizedString(
+        value.heroIntroduction,
+        locale,
+        "pricingPage.heroIntroduction",
+        issues,
+      ),
+    },
+    memberships: {
+      heading: localizedString(
+        value.membershipHeading,
+        locale,
+        "pricingPage.membershipHeading",
+        issues,
+      ),
+      introduction: localizedString(
+        value.membershipIntroduction,
+        locale,
+        "pricingPage.membershipIntroduction",
+        issues,
+      ),
+      audienceDescriptions: {
+        adult: localizedString(
+          value.adultAudienceDescription,
+          locale,
+          "pricingPage.adultAudienceDescription",
+          issues,
+        ),
+        student: localizedString(
+          value.studentAudienceDescription,
+          locale,
+          "pricingPage.studentAudienceDescription",
+          issues,
+        ),
+        kid: localizedString(
+          value.kidAudienceDescription,
+          locale,
+          "pricingPage.kidAudienceDescription",
+          issues,
+        ),
+      },
+      terms: {
+        heading: localizedString(
+          value.termsHeading,
+          locale,
+          "pricingPage.termsHeading",
+          issues,
+        ),
+        billingDay,
+        joiningFee: joiningFeeCents / 100,
+        autoRenewal: localizedString(
+          value.autoRenewalExplanation,
+          locale,
+          "pricingPage.autoRenewalExplanation",
+          issues,
+        ),
+        verifiedAt: requiredIsoDate(
+          value.termsVerifiedAt,
+          "pricingPage.termsVerifiedAt",
+          issues,
+        ),
+      },
+    },
+    passes: {
+      heading: localizedString(
+        value.passesHeading,
+        locale,
+        "pricingPage.passesHeading",
+        issues,
+      ),
+      introduction: localizedString(
+        value.passesIntroduction,
+        locale,
+        "pricingPage.passesIntroduction",
+        issues,
+      ),
+    },
+    checkoutNotice: localizedString(
+      value.checkoutNotice,
+      locale,
+      "pricingPage.checkoutNotice",
+      issues,
+    ),
+    seo: projectSeo(
+      value.seo,
+      locale,
+      "pricingPage.seo",
+      issues,
+      createImageUrl,
+    ),
+  };
+
+  return result(issues, pricingPage);
 }
 
 export function projectSiteSettings(

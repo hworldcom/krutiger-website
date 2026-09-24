@@ -10,6 +10,7 @@ import de from "../../src/i18n/dictionaries/de";
 import en from "../../src/i18n/dictionaries/en";
 import {
   membershipDurations,
+  membershipTerms,
   membershipsByDuration,
 } from "../../src/lib/bsport/memberships";
 import { monthlyPasses } from "../../src/lib/bsport/passes";
@@ -340,6 +341,172 @@ function buildAboutPage(assets: AssetMap): SeedDocument {
   };
 }
 
+function buildTrainingPage(assets: AssetMap): SeedDocument {
+  const shareImage = image(
+    assets,
+    "/images/home/main.png",
+    {
+      de: de.homePage.hero.imageAlt,
+      en: en.homePage.hero.imageAlt,
+    },
+    0.42,
+  );
+
+  return {
+    _id: "drafts.trainingPage",
+    _type: "trainingPage",
+    heroEyebrow: localizedString(
+      de.routes.training.eyebrow,
+      en.routes.training.eyebrow,
+    ),
+    heroTitle: localizedString(
+      de.routes.training.title,
+      en.routes.training.title,
+    ),
+    heroIntroduction: localizedText(
+      de.routes.training.description,
+      en.routes.training.description,
+    ),
+    classesHeading: localizedString(
+      de.trainingPage.sectionHeading,
+      en.trainingPage.sectionHeading,
+    ),
+    classesIntroduction: localizedText(
+      de.trainingPage.sectionIntroduction,
+      en.trainingPage.sectionIntroduction,
+    ),
+    scheduleNotice: localizedText(
+      de.trainingPage.scheduleNotice,
+      en.trainingPage.scheduleNotice,
+    ),
+    seo: seo(
+      assets,
+      { de: de.routes.training.title, en: en.routes.training.title },
+      {
+        de: de.routes.training.description,
+        en: en.routes.training.description,
+      },
+      shareImage,
+    ),
+    editorialState: "review",
+  };
+}
+
+function buildTeamPage(assets: AssetMap): SeedDocument {
+  const shareImage = image(
+    assets,
+    "/images/home/main.png",
+    {
+      de: de.homePage.hero.imageAlt,
+      en: en.homePage.hero.imageAlt,
+    },
+    0.42,
+  );
+
+  return {
+    _id: "drafts.teamPage",
+    _type: "teamPage",
+    heroEyebrow: localizedString(
+      de.routes.coaches.eyebrow,
+      en.routes.coaches.eyebrow,
+    ),
+    heroTitle: localizedString(
+      de.routes.coaches.title,
+      en.routes.coaches.title,
+    ),
+    heroIntroduction: localizedText(
+      de.routes.coaches.description,
+      en.routes.coaches.description,
+    ),
+    teamHeading: localizedString(
+      de.teamPage.sectionHeading,
+      en.teamPage.sectionHeading,
+    ),
+    seo: seo(
+      assets,
+      { de: de.routes.coaches.title, en: en.routes.coaches.title },
+      {
+        de: de.routes.coaches.description,
+        en: en.routes.coaches.description,
+      },
+      shareImage,
+    ),
+    editorialState: "review",
+  };
+}
+
+function buildPricingPage(assets: AssetMap): SeedDocument {
+  const german = de.integrations.pricing;
+  const english = en.integrations.pricing;
+  const shareImage = image(
+    assets,
+    "/images/home/main.png",
+    {
+      de: de.homePage.hero.imageAlt,
+      en: en.homePage.hero.imageAlt,
+    },
+    0.42,
+  );
+
+  return {
+    _id: "drafts.pricingPage",
+    _type: "pricingPage",
+    heroEyebrow: localizedString(
+      de.routes.prices.eyebrow,
+      en.routes.prices.eyebrow,
+    ),
+    heroTitle: localizedString(de.routes.prices.title, en.routes.prices.title),
+    heroIntroduction: localizedText(
+      de.routes.prices.description,
+      en.routes.prices.description,
+    ),
+    membershipHeading: localizedString(german.heading, english.heading),
+    membershipIntroduction: localizedText(
+      german.description,
+      english.description,
+    ),
+    adultAudienceDescription: localizedText(
+      german.audienceDescriptions.adult,
+      english.audienceDescriptions.adult,
+    ),
+    studentAudienceDescription: localizedText(
+      german.audienceDescriptions.student,
+      english.audienceDescriptions.student,
+    ),
+    kidAudienceDescription: localizedText(
+      german.audienceDescriptions.kid,
+      english.audienceDescriptions.kid,
+    ),
+    termsHeading: localizedString(german.termsLabel, english.termsLabel),
+    billingDay: membershipTerms.billingDay,
+    joiningFeeCents: Math.round(membershipTerms.joiningFee * 100),
+    autoRenewalExplanation: localizedText(
+      german.autoRenewal,
+      english.autoRenewal,
+    ),
+    termsVerifiedAt: membershipVerifiedAt,
+    passesHeading: localizedString(
+      german.monthlyPasses.heading,
+      english.monthlyPasses.heading,
+    ),
+    passesIntroduction: localizedText(
+      german.monthlyPasses.description,
+      english.monthlyPasses.description,
+    ),
+    checkoutNotice: localizedText(
+      german.secureCheckoutNotice,
+      english.secureCheckoutNotice,
+    ),
+    seo: seo(
+      assets,
+      { de: de.routes.prices.title, en: en.routes.prices.title },
+      { de: de.routes.prices.description, en: en.routes.prices.description },
+      shareImage,
+    ),
+    editorialState: "review",
+  };
+}
+
 function buildTrainingClasses(assets: AssetMap): SeedDocument[] {
   return trainingClassSource.map((trainingClass) => {
     const path = trainingClass.image.src as (typeof imagePaths)[number];
@@ -555,6 +722,9 @@ function buildDefinitions(assets: AssetMap): SeedDefinition[] {
   const draftDocuments = [
     buildHomepage(assets),
     buildAboutPage(assets),
+    buildTrainingPage(assets),
+    buildTeamPage(assets),
+    buildPricingPage(assets),
     buildSiteSettings(assets),
     ...buildTrainingClasses(assets),
     ...buildCoaches(assets),

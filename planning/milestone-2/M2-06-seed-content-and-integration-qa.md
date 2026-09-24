@@ -83,21 +83,22 @@ and the complete integration is ready for Milestone 3 page work.
 - Stable published IDs contain no dots so they remain readable by anonymous
   website queries in a public Sanity dataset. Draft IDs use only Sanity's
   reserved `drafts.` prefix.
-- The seed currently contains 27 documents: 11 editorial drafts and 16
+- The seed currently contains 67 documents: 14 editorial drafts and 53
   published pricing mirrors. A second dry run reports zero missing documents.
-- Homepage, About, Training, and Team render the seeded German and English
-  drafts in Preview Mode. Public local requests retain the same-language local
-  baseline until those documents are approved and published. Pricing renders
-  its 12 memberships and four monthly passes from published Sanity documents.
+- Homepage, About, Training, Team, and Pricing render their seeded German and
+  English page-level drafts in Preview Mode. Public local requests retain the
+  same-language local baseline until those documents are approved and
+  published. Pricing renders its 48 memberships and five passes from published
+  Sanity documents.
 - Page content resolution records whether Sanity or the local baseline was
   used. Preview Mode distinguishes missing, invalid or untranslated, and
   unavailable content without falling back across languages.
-- Homepage and About metadata use their Sanity SEO title, description, and
-  share image in Preview Mode while route-owned canonical and reciprocal
-  language-alternate URLs remain intact.
+- Homepage, About, Training, Team, and Pricing metadata use their Sanity SEO
+  title, description, and share image in Preview Mode while route-owned
+  canonical and reciprocal language-alternate URLs remain intact.
 - The responsive/accessibility browser matrix, unit tests, lint, TypeScript,
   Sanity TypeGen, production build, and generated-output credential checks pass
   locally.
-- Publication remains intentionally blocked for eight image/contact documents.
+- Publication remains intentionally blocked for eleven image/contact documents.
   The outstanding content-owner decisions are recorded in
   [`docs/m2-content-review.md`](../../docs/m2-content-review.md).

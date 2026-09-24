@@ -19,14 +19,15 @@ Approved/Confirmed and publishing a referencing document:
 - `public/images/about/fifth.jpg`
 - `public/images/about/six.jpg`
 
-These records block publication of Homepage, About page, four Training-class
-documents, the Kru Tiger Team profile, and Site settings. Alternative text and
-the current focal-point metadata have already been migrated independently for
-German and English.
+These records block publication of Homepage, About, Training, Team, and Pricing
+page-level documents, four Training-class documents, the Kru Tiger Team
+profile, and Site settings. Alternative text and the current focal-point
+metadata have already been migrated independently for German and English.
 
 ## Copy review
 
-- Confirm the Homepage and About copy and both SEO descriptions.
+- Confirm the Homepage, About, Training, Team, and Pricing page-level copy and
+  SEO descriptions.
 - Replace and approve the placeholder Kru Tiger biography.
 - Review the three starter FAQ answers; they remain drafts for later FAQ-page
   work.
@@ -46,8 +47,7 @@ The Instagram profile is seeded as
 
 ## Pricing snapshot
 
-Twelve memberships and four monthly passes were seeded as published website
-presentation mirrors using the values and checkout links reviewed during
-Milestone 1. Their baseline verification timestamp is
-`2026-09-14T00:00:00.000Z`. bSport remains authoritative for products, prices,
-availability, payment, and checkout.
+Forty-eight memberships and five passes were seeded as published website
+presentation mirrors using the reviewed values and checkout links. Their
+baseline verification timestamp is `2026-09-21T00:00:00.000Z`. bSport remains
+authoritative for products, prices, availability, payment, and checkout.

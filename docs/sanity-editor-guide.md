@@ -16,16 +16,16 @@ The Studio desk is organized into six destinations:
 1. **Site settings** — gym identity, footer, contact information, social profile,
    and default SEO.
 2. **Core pages** — Homepage and About page.
-3. **Training** — reusable descriptions of training formats. Live sessions and
-   bookings remain in bsport.
-4. **Pricing cards** — reviewed website cards for existing bSport memberships
-   and monthly passes.
-5. **Team** — team-member profiles, photos, and biographies.
+3. **Training** — Training-page copy and reusable descriptions of training
+   formats. Live sessions and bookings remain in bsport.
+4. **Pricing** — Pricing-page copy, reviewed shared terms, and website cards for
+   existing bSport memberships and passes.
+5. **Team** — Team-page copy plus team-member profiles, photos, and biographies.
 6. **FAQ** — categorized visitor questions and answers.
 
-Site settings, Homepage, and About page are fixed documents. Open them directly
-from the desk; do not create copies. Training classes, team members, and FAQs
-are collections and may contain multiple documents.
+Site settings and all five page-level documents are fixed documents. Open them
+directly from the desk; do not create copies. Training classes, team members,
+pricing cards, and FAQs are collections and may contain multiple documents.
 
 ## Editing and translation workflow
 

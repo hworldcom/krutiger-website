@@ -7,7 +7,10 @@ import { faq } from "./documents/faq";
 import { homepage } from "./documents/homepage";
 import { membershipCard } from "./documents/membershipCard";
 import { monthlyPassCard } from "./documents/monthlyPassCard";
+import { pricingPage } from "./documents/pricingPage";
 import { siteSettings } from "./documents/siteSettings";
+import { teamPage } from "./documents/teamPage";
+import { trainingPage } from "./documents/trainingPage";
 import { aboutChapter, philosophyValue } from "./objects/aboutContent";
 import { postalAddress, openingHoursEntry } from "./objects/contactDetails";
 import { editorialImage } from "./objects/editorialImage";
@@ -35,6 +38,9 @@ export const schemaTypes: SchemaTypeDefinition[] = [
   siteSettings,
   homepage,
   aboutPage,
+  trainingPage,
+  teamPage,
+  pricingPage,
   classType,
   coach,
   faq,
