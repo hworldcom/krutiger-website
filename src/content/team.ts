@@ -12,7 +12,6 @@ export type TeamMemberSource = Readonly<{
     objectPosition?: string;
   }>;
   biography: LocalizedValue;
-  specialties: readonly LocalizedValue[];
   socialUrl?: string;
   order: number;
   active: boolean;
@@ -28,7 +27,6 @@ export type TeamMember = Readonly<{
     objectPosition?: string;
   }>;
   biography: string;
-  specialties: readonly string[];
   socialUrl?: string;
 }>;
 
@@ -57,20 +55,6 @@ export const teamMemberSource: readonly TeamMemberSource[] = [
       de: "Platzhaltertext für die Kurzbiografie. Die finalen Angaben zu Erfahrung und Trainingsschwerpunkten werden noch ergänzt.",
       en: "Placeholder text for the short biography. Final information about experience and training focus will be added later.",
     },
-    specialties: [
-      {
-        de: "Traditionelles Muay Thai",
-        en: "Traditional Muay Thai",
-      },
-      {
-        de: "Technik",
-        en: "Technique",
-      },
-      {
-        de: "Kampfverständnis",
-        en: "Fight understanding",
-      },
-    ],
     order: 0,
     active: true,
   },
@@ -100,7 +84,6 @@ export function localizeTeamMembers(
           : {}),
       },
       biography: member.biography[locale],
-      specialties: member.specialties.map((specialty) => specialty[locale]),
       ...(member.socialUrl ? { socialUrl: member.socialUrl } : {}),
     }));
 }

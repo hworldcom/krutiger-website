@@ -25,6 +25,7 @@ describe("TeamPage", () => {
     expect(markup).toContain('data-team-member="kru-tiger"');
     expect(markup).toContain(members[0].biography);
     expect(markup).toContain(`alt="${members[0].photo.alternativeText}"`);
+    expect(markup).not.toContain("Schwerpunkte");
     expect(markup).not.toContain('target="_blank"');
   });
 
@@ -42,7 +43,7 @@ describe("TeamPage", () => {
 
     expect(markup).toContain(en.routes.coaches.title);
     expect(markup).toContain(englishMember.biography);
-    expect(markup).toContain(en.teamPage.specialtiesLabel);
+    expect(markup).not.toContain("Focus areas");
     expect(markup).not.toContain(germanMember.biography);
   });
 });

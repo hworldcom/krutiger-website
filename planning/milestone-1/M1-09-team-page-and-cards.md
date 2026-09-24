@@ -14,13 +14,13 @@ and can later consume Sanity `coach` documents without redesigning the page.
 - Add a page introduction that explains who visitors will meet without making
   unverified biography or qualification claims.
 - Create a reusable person-card component for a name, localized role, photo,
-  localized image alternative text, short biography, specialties, and an
-  optional social link.
+  localized image alternative text, short biography, and an optional social
+  link.
 - Render cards from one centralized, typed temporary data source rather than
   embedding individual people directly in the page component.
 - Keep the temporary content shape compatible with the Sanity `coach` schema:
-  `internalKey`, `name`, `role`, `photo`, `biography`, `specialties`,
-  `socialUrl`, `order`, and `active`.
+  `internalKey`, `name`, `role`, `photo`, `biography`, `socialUrl`, `order`,
+  and `active`.
 - Apply deterministic ordering and omit inactive people from the rendered card
   grid.
 - Use the established KRUTIGER typography, colors, image treatment, spacing,

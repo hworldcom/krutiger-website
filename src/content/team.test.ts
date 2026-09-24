@@ -24,7 +24,6 @@ function createSourceMember(
       de: "Deutsche Biografie.",
       en: "English biography.",
     },
-    specialties: [{ de: "Technik", en: "Technique" }],
     order: 0,
     active: true,
     ...overrides,
@@ -73,9 +72,7 @@ describe("team content adapter", () => {
     const englishMember = getTeamMembers("en")[0];
 
     expect(germanMember.role).toBe("Kru · Trainer");
-    expect(germanMember.specialties).toContain("Technik");
     expect(englishMember.role).toBe("Kru · Coach");
-    expect(englishMember.specialties).toContain("Technique");
     expect(englishMember.biography).not.toBe(germanMember.biography);
     expect(englishMember.photo.alternativeText).not.toBe(
       germanMember.photo.alternativeText,

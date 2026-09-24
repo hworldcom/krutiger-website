@@ -86,23 +86,6 @@ export function TrainingClassCard({
               {trainingClass.audience}
             </dd>
           </div>
-          <div>
-            <dt className="font-display text-sm font-bold tracking-[0.14em] text-brand uppercase">
-              {labels.equipmentLabel}
-            </dt>
-            <dd>
-              <ul className="mt-3 flex flex-wrap gap-2">
-                {trainingClass.equipment.map((item) => (
-                  <li
-                    className="border border-line px-3 py-1.5 text-sm text-copy-muted"
-                    key={item}
-                  >
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </dd>
-          </div>
         </dl>
 
         <div className="mt-auto pt-8">

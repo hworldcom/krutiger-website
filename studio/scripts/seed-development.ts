@@ -365,10 +365,6 @@ function buildTrainingClasses(assets: AssetMap): SeedDocument[] {
         trainingClass.audience.de,
         trainingClass.audience.en,
       ),
-      equipment: trainingClass.equipment.map((entry, index) => ({
-        _key: keyed(`${trainingClass.internalKey}-equipment`, index),
-        ...localizedString(entry.de, entry.en),
-      })),
       image: image(
         assets,
         path,
@@ -404,10 +400,6 @@ function buildCoaches(assets: AssetMap): SeedDocument[] {
       member.biography.en,
       `${member.internalKey}-biography`,
     ),
-    specialties: member.specialties.map((entry, index) => ({
-      _key: keyed(`${member.internalKey}-specialty`, index),
-      ...localizedString(entry.de, entry.en),
-    })),
     ...(member.socialUrl ? { socialUrl: member.socialUrl } : {}),
     order: member.order,
     active: member.active,
@@ -437,8 +429,8 @@ function buildFaqs(): SeedDocument[] {
         en: "What do I need for training?",
       },
       answer: {
-        de: "Für den Einstieg brauchst du bequeme Sportkleidung und eine Wasserflasche. Falls vorhanden, bring Boxhandschuhe und Bandagen mit. Die jeweilige Kurskarte nennt weitere empfohlene Ausrüstung.",
-        en: "To get started, bring comfortable sportswear and a water bottle. If available, bring boxing gloves and hand wraps. Each class card lists any additional recommended equipment.",
+        de: "Für den Einstieg brauchst du bequeme Sportkleidung und eine Wasserflasche. Falls vorhanden, bring Boxhandschuhe und Bandagen mit. Benötigte Ausrüstung kannst du für deine ersten Einheiten vor Ort ausleihen.",
+        en: "To get started, bring comfortable sportswear and a water bottle. If available, bring boxing gloves and hand wraps. You can borrow the equipment you need on site for your first sessions.",
       },
     },
     {

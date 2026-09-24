@@ -55,8 +55,8 @@ order.
 
 - `classType` describes training formats but never live sessions, capacity, or
   booking state.
-- `coach` stores team biographies, specialties, approved photos, and an
-  optional social profile.
+- `coach` stores team biographies, approved photos, and an optional social
+  profile.
 - `faq` stores categorized questions and rich-text answers.
 - `membershipCard` stores a reviewed presentation mirror of an existing bSport
   membership and its exact checkout destination.

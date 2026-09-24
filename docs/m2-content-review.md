@@ -30,8 +30,7 @@ German and English.
 - Replace and approve the placeholder Kru Tiger biography.
 - Review the three starter FAQ answers; they remain drafts for later FAQ-page
   work.
-- Review the four Training descriptions, audience guidance, equipment lists,
-  and action labels.
+- Review the four Training descriptions, audience guidance, and action labels.
 - Confirm whether the current English translations are ready for publication.
 
 ## Site settings

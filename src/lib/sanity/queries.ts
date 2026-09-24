@@ -142,7 +142,6 @@ export const TRAINING_CLASSES_QUERY = defineQuery(`
       level,
       durationMinutes,
       audience,
-      equipment,
       image {
         asset,
         crop,
@@ -172,7 +171,6 @@ export const COACHES_QUERY = defineQuery(`
         caption
       },
       biography,
-      specialties,
       socialUrl,
       order
     }

@@ -196,6 +196,11 @@ describe("Sanity schema contract", () => {
     );
   });
 
+  it("omits card details that are no longer displayed", () => {
+    expect(fieldNames("classType")).not.toContain("equipment");
+    expect(fieldNames("coach")).not.toContain("specialties");
+  });
+
   it("defines pricing-card fields that project into the existing website models", () => {
     expect(fieldNames("membershipCard")).toEqual([
       "internalKey",

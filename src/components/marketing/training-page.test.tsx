@@ -29,6 +29,7 @@ describe("TrainingPage", () => {
     expect(markup).toContain(
       `alt="${trainingClasses[0].image.alternativeText}"`,
     );
+    expect(markup).not.toContain("Empfohlene Ausrüstung");
   });
 
   it("renders explicit English copy without leaking German descriptions", () => {
@@ -47,6 +48,7 @@ describe("TrainingPage", () => {
     expect(markup).toContain(en.routes.training.title);
     expect(markup).toContain(englishClasses[0].description);
     expect(markup).not.toContain(germanClasses[0].description);
+    expect(markup).not.toContain("Recommended equipment");
     expect(markup).toContain('href="/en/schedule"');
   });
 

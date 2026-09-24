@@ -18,15 +18,15 @@ without redesigning the page.
   clearly identified bilingual development placeholders until the final copy
   is supplied.
 - Create a reusable course-card component for a localized name, summary,
-  description, level, typical duration, audience, recommended equipment, image,
-  and call-to-action label.
+  description, level, typical duration, audience, image, and call-to-action
+  label.
 - Keep CTA destinations application-owned and direct course actions to the
   appropriate localized schedule or contact route.
 - Render every card from one centralized, typed temporary data source rather
   than embedding courses directly in the page component.
 - Keep the temporary content shape aligned with the Sanity `classType` schema:
   `internalKey`, `name`, `summary`, `description`, `level`, `durationMinutes`,
-  `audience`, `equipment`, `image`, `ctaLabel`, `order`, and `active`.
+  `audience`, `image`, `ctaLabel`, `order`, and `active`.
 - Add `intermediate` to the existing Sanity class-level options so every public
   Training page level can be represented without changing the card contract.
 - Apply deterministic ordering and omit inactive course records from the
@@ -40,7 +40,7 @@ without redesigning the page.
 
 ## Content safeguards
 
-- Use only course names, descriptions, levels, durations, equipment guidance,
+- Use only course names, descriptions, levels, durations, audience guidance,
   and imagery approved by KRUTIGER before presenting them as current offerings.
 - Clearly label temporary development copy and avoid inventing training claims
   or participation requirements.

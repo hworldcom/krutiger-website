@@ -1,4 +1,4 @@
-import { defineArrayMember, defineField, defineType } from "sanity";
+import { defineField, defineType } from "sanity";
 
 import {
   createEditorialPreviewSubtitle,
@@ -86,16 +86,6 @@ export const classType = defineType({
       type: "localizedText",
       group: "details",
       validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: "equipment",
-      title: "Recommended equipment",
-      type: "array",
-      group: "details",
-      description:
-        "Add only equipment guidance that applies generally to this class. Complete every item in German and English.",
-      of: [defineArrayMember({ type: "localizedString" })],
-      validation: (Rule) => Rule.required().min(1),
     }),
     defineField({
       name: "image",

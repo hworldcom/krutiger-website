@@ -20,7 +20,7 @@ The Studio desk is organized into six destinations:
    bookings remain in bsport.
 4. **Pricing cards** — reviewed website cards for existing bSport memberships
    and monthly passes.
-5. **Team** — team-member profiles, photos, biographies, and specialties.
+5. **Team** — team-member profiles, photos, and biographies.
 6. **FAQ** — categorized visitor questions and answers.
 
 Site settings, Homepage, and About page are fixed documents. Open them directly

@@ -418,27 +418,6 @@ export function projectTrainingClasses(
       );
     }
 
-    const equipmentValue = document.equipment;
-    const equipment = Array.isArray(equipmentValue)
-      ? equipmentValue.map((item, itemIndex) =>
-          localizedString(
-            item,
-            locale,
-            `${path}.equipment[${itemIndex}]`,
-            issues,
-          ),
-        )
-      : [];
-
-    if (!Array.isArray(equipmentValue) || equipmentValue.length === 0) {
-      addIssue(
-        issues,
-        "invalid",
-        `${path}.equipment`,
-        "Expected at least one equipment item.",
-      );
-    }
-
     const image = projectImage(
       document.image,
       locale,
@@ -479,7 +458,6 @@ export function projectTrainingClasses(
         `${path}.audience`,
         issues,
       ),
-      equipment,
       image: image ?? { src: "", alternativeText: "" },
       ctaLabel: localizedString(
         document.ctaLabel,
@@ -508,7 +486,6 @@ export function projectCoaches(
 
   documents.forEach((document, index) => {
     const path = `coaches[${index}]`;
-    const specialtiesValue = document.specialties;
     const photo = projectImage(
       document.photo,
       locale,
@@ -517,15 +494,6 @@ export function projectCoaches(
       createImageUrl,
       { width: 1_200, height: 1_500 },
     );
-
-    if (!Array.isArray(specialtiesValue) || specialtiesValue.length === 0) {
-      addIssue(
-        issues,
-        "invalid",
-        `${path}.specialties`,
-        "Expected at least one specialty.",
-      );
-    }
 
     coaches.push({
       internalKey: requiredString(
@@ -542,16 +510,6 @@ export function projectCoaches(
         `${path}.biography`,
         issues,
       ),
-      specialties: Array.isArray(specialtiesValue)
-        ? specialtiesValue.map((specialty, specialtyIndex) =>
-            localizedString(
-              specialty,
-              locale,
-              `${path}.specialties[${specialtyIndex}]`,
-              issues,
-            ),
-          )
-        : [],
       ...(document.socialUrl
         ? {
             socialUrl: requiredHttpsUrl(

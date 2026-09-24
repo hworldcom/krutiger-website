@@ -136,11 +136,6 @@ export type Coach = {
   role?: LocalizedString;
   photo?: EditorialImage;
   biography?: LocalizedRichText;
-  specialties?: Array<
-    {
-      _key: string;
-    } & LocalizedString
-  >;
   socialUrl?: string;
   order?: number;
   active?: boolean;
@@ -189,11 +184,6 @@ export type ClassType = {
     | "private";
   durationMinutes?: number;
   audience?: LocalizedText;
-  equipment?: Array<
-    {
-      _key: string;
-    } & LocalizedString
-  >;
   image?: EditorialImage;
   ctaLabel?: LocalizedString;
   order?: number;
@@ -628,7 +618,7 @@ export type ABOUT_PAGE_QUERY_RESULT = {
 
 // Source: ../src/lib/sanity/queries.ts
 // Variable: TRAINING_CLASSES_QUERY
-// Query: *[_type == "classType" && active == true]    | order(order asc, name.de asc, internalKey.current asc) {      _id,      "internalKey": internalKey.current,      name,      summary,      description,      level,      durationMinutes,      audience,      equipment,      image {        asset,        crop,        hotspot,        decorative,        alternativeText,        caption      },      ctaLabel,      order    }
+// Query: *[_type == "classType" && active == true]    | order(order asc, name.de asc, internalKey.current asc) {      _id,      "internalKey": internalKey.current,      name,      summary,      description,      level,      durationMinutes,      audience,      image {        asset,        crop,        hotspot,        decorative,        alternativeText,        caption      },      ctaLabel,      order    }
 export type TRAINING_CLASSES_QUERY_RESULT = Array<{
   _id: string;
   internalKey: string | null;
@@ -646,11 +636,6 @@ export type TRAINING_CLASSES_QUERY_RESULT = Array<{
     | null;
   durationMinutes: number | null;
   audience: LocalizedText | null;
-  equipment: Array<
-    {
-      _key: string;
-    } & LocalizedString
-  > | null;
   image: {
     asset: SanityImageAssetReference | null;
     crop: SanityImageCrop | null;
@@ -665,7 +650,7 @@ export type TRAINING_CLASSES_QUERY_RESULT = Array<{
 
 // Source: ../src/lib/sanity/queries.ts
 // Variable: COACHES_QUERY
-// Query: *[_type == "coach" && active == true]    | order(order asc, name asc, internalKey.current asc) {      _id,      "internalKey": internalKey.current,      name,      role,      photo {        asset,        crop,        hotspot,        decorative,        alternativeText,        caption      },      biography,      specialties,      socialUrl,      order    }
+// Query: *[_type == "coach" && active == true]    | order(order asc, name asc, internalKey.current asc) {      _id,      "internalKey": internalKey.current,      name,      role,      photo {        asset,        crop,        hotspot,        decorative,        alternativeText,        caption      },      biography,      socialUrl,      order    }
 export type COACHES_QUERY_RESULT = Array<{
   _id: string;
   internalKey: string | null;
@@ -680,11 +665,6 @@ export type COACHES_QUERY_RESULT = Array<{
     caption: LocalizedString | null;
   } | null;
   biography: LocalizedRichText | null;
-  specialties: Array<
-    {
-      _key: string;
-    } & LocalizedString
-  > | null;
   socialUrl: string | null;
   order: number | null;
 }>;
@@ -791,8 +771,8 @@ declare global {
     '\n  *[_type == "siteSettings"] | order(_updatedAt desc)[0] {\n    _id,\n    gymName,\n    footerStatement,\n    contactStatus,\n    address,\n    email,\n    telephone,\n    openingHours,\n    instagramUrl,\n    instagramHandle,\n    defaultSeo {\n      title,\n      description,\n      shareImage {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      }\n    }\n  }\n': SITE_SETTINGS_QUERY_RESULT;
     '\n  *[_type == "homepage"] | order(_updatedAt desc)[0] {\n    _id,\n    heroEyebrow,\n    heroTitleLines,\n    heroIntroduction,\n    heroImage {\n      asset,\n      crop,\n      hotspot,\n      decorative,\n      alternativeText,\n      caption\n    },\n    trialActionLabel,\n    scheduleActionLabel,\n    valuesEyebrow,\n    valuesTitle,\n    valuesTitleAccent,\n    valuesIntroduction,\n    features[] {\n      internalKey,\n      title,\n      description\n    },\n    seo {\n      title,\n      description,\n      shareImage {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      }\n    }\n  }\n': HOMEPAGE_QUERY_RESULT;
     '\n  *[_type == "aboutPage"] | order(_updatedAt desc)[0] {\n    _id,\n    heroEyebrow,\n    heroTitlePrimary,\n    heroTitleSecondary,\n    heroIntroduction,\n    heroImage {\n      asset,\n      crop,\n      hotspot,\n      decorative,\n      alternativeText,\n      caption\n    },\n    storyHeading,\n    chapters[] {\n      internalKey,\n      title,\n      description,\n      accent,\n      primaryImage {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      },\n      secondaryImage {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      }\n    },\n    philosophyTitle,\n    philosophyValues[] {\n      internalKey,\n      title,\n      description\n    },\n    seo {\n      title,\n      description,\n      shareImage {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      }\n    }\n  }\n': ABOUT_PAGE_QUERY_RESULT;
-    '\n  *[_type == "classType" && active == true]\n    | order(order asc, name.de asc, internalKey.current asc) {\n      _id,\n      "internalKey": internalKey.current,\n      name,\n      summary,\n      description,\n      level,\n      durationMinutes,\n      audience,\n      equipment,\n      image {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      },\n      ctaLabel,\n      order\n    }\n': TRAINING_CLASSES_QUERY_RESULT;
-    '\n  *[_type == "coach" && active == true]\n    | order(order asc, name asc, internalKey.current asc) {\n      _id,\n      "internalKey": internalKey.current,\n      name,\n      role,\n      photo {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      },\n      biography,\n      specialties,\n      socialUrl,\n      order\n    }\n': COACHES_QUERY_RESULT;
+    '\n  *[_type == "classType" && active == true]\n    | order(order asc, name.de asc, internalKey.current asc) {\n      _id,\n      "internalKey": internalKey.current,\n      name,\n      summary,\n      description,\n      level,\n      durationMinutes,\n      audience,\n      image {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      },\n      ctaLabel,\n      order\n    }\n': TRAINING_CLASSES_QUERY_RESULT;
+    '\n  *[_type == "coach" && active == true]\n    | order(order asc, name asc, internalKey.current asc) {\n      _id,\n      "internalKey": internalKey.current,\n      name,\n      role,\n      photo {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      },\n      biography,\n      socialUrl,\n      order\n    }\n': COACHES_QUERY_RESULT;
     '\n  *[_type == "faq" && active == true]\n    | order(order asc, question.de asc, internalKey.current asc) {\n      _id,\n      "internalKey": internalKey.current,\n      question,\n      answer,\n      category,\n      order\n    }\n': FAQS_QUERY_RESULT;
     '\n  *[_type == "membershipCard" && active == true]\n    | order(audience asc, durationMonths desc, order asc, name.de asc, internalKey.current asc) {\n      _id,\n      "internalKey": internalKey.current,\n      name,\n      audience,\n      monthlyPriceCents,\n      durationMonths,\n      accessType,\n      monthlySessions,\n      benefits,\n      checkoutUrl,\n      verifiedAt,\n      order\n    }\n': MEMBERSHIP_CARDS_QUERY_RESULT;
     '\n  *[_type == "monthlyPassCard" && active == true]\n    | order(order asc, name.de asc, internalKey.current asc) {\n      _id,\n      "internalKey": internalKey.current,\n      name,\n      priceCents,\n      validityMonths,\n      accessType,\n      sessions,\n      checkoutUrl,\n      verifiedAt,\n      order\n    }\n': MONTHLY_PASS_CARDS_QUERY_RESULT;

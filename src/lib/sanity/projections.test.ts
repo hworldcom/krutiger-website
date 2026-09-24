@@ -66,9 +66,6 @@ const trainingDocuments: TRAINING_CLASSES_QUERY_RESULT = [
     ctaLabel: localized("Kurs ansehen", "View class"),
     description: richText("Deutsche Beschreibung", "English description"),
     durationMinutes: 60,
-    equipment: [
-      { _key: "gloves", ...localized("Boxhandschuhe", "Boxing gloves") },
-    ],
     image: {
       alternativeText: localizedAlternativeText(
         "Training im Ring",
