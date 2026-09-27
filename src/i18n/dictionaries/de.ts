@@ -47,7 +47,7 @@ const de = {
       legalNavigationLabel: "Rechtliche Hinweise",
       placeholderDataLabel: "Entwicklungsdaten",
       placeholderDataDescription:
-        "Telefon und Öffnungszeiten sind Beispieldaten und noch nicht freigegeben.",
+        "Die Öffnungszeiten sind Beispieldaten und noch nicht freigegeben.",
       rightsStatement: "Alle Rechte vorbehalten.",
     },
   },

@@ -1,19 +1,25 @@
 import { ContactForm } from "@/components/marketing/contact-form";
 import { ButtonLink, Container, SectionHeader } from "@/components/ui";
+import type { SiteEditorialContent } from "@/content/editorial";
 import type { Locale } from "@/i18n/config";
 import type { ContactPageCopy, Dictionary } from "@/i18n/dictionaries/types";
 import { getLocalizedPath } from "@/i18n/routing";
-import { siteSettings } from "@/lib/site-settings";
 
 type ContactPageProps = Readonly<{
   content: Dictionary["routes"]["contact"];
   details: ContactPageCopy;
   locale: Locale;
+  siteContent: SiteEditorialContent;
 }>;
 
-export function ContactPage({ content, details, locale }: ContactPageProps) {
-  const { address, email } = siteSettings.contact;
-  const { instagram } = siteSettings.social;
+export function ContactPage({
+  content,
+  details,
+  locale,
+  siteContent,
+}: ContactPageProps) {
+  const { address, email } = siteContent.contact;
+  const { instagram } = siteContent.social;
 
   return (
     <div className="min-h-screen overflow-hidden bg-canvas py-section text-copy">

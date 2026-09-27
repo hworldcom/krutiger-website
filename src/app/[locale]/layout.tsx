@@ -5,10 +5,13 @@ import type { ReactNode } from "react";
 
 import { SiteShell } from "@/components/layout/site-shell";
 import { PreviewBanner } from "@/components/preview/preview-banner";
+import { createSiteSettingsFallback } from "@/content/page-fallbacks";
 import { defaultLocale, isLocale, locales } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 import { createLocalizedMetadata } from "@/i18n/metadata";
 import { getLocalizedPath } from "@/i18n/routing";
+import { getSiteSettingsContent } from "@/lib/sanity/content";
+import { resolveContent } from "@/lib/sanity/resolve-content";
 import { bodyFont, headingFont, thaiFont } from "@/styles/fonts";
 
 import "../globals.css";
@@ -50,6 +53,10 @@ export default async function LocaleLayout({
   const { locale } = await params;
   const activeLocale = isLocale(locale) ? locale : defaultLocale;
   const dictionary = await getDictionary(activeLocale);
+  const siteSettings = resolveContent(
+    await getSiteSettingsContent(activeLocale),
+    createSiteSettingsFallback(dictionary, activeLocale),
+  );
   const { isEnabled: isDraftPreview } = await draftMode();
 
   return (
@@ -67,7 +74,11 @@ export default async function LocaleLayout({
         />
       </head>
       <body>
-        <SiteShell dictionary={dictionary} locale={activeLocale}>
+        <SiteShell
+          dictionary={dictionary}
+          locale={activeLocale}
+          siteContent={siteSettings.value}
+        >
           {children}
         </SiteShell>
         {isDraftPreview ? (

@@ -5,11 +5,14 @@ import type {
   HomepageFeatureKey,
   PhilosophyValueKey,
   PricingPageEditorialContent,
+  SiteEditorialContent,
   TeamPageEditorialContent,
   TrainingPageEditorialContent,
 } from "@/content/editorial";
+import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries/types";
 import { membershipTerms } from "@/lib/bsport/memberships";
+import { siteSettings } from "@/lib/site-settings";
 
 const homepageFeatureKeys: readonly HomepageFeatureKey[] = [
   "authenticity",
@@ -35,6 +38,37 @@ const aboutChapterImages = [
   "/images/about/fourth.jpg",
   "/images/about/fifth.jpg",
 ] as const;
+
+export function createSiteSettingsFallback(
+  dictionary: Dictionary,
+  locale: Locale,
+): SiteEditorialContent {
+  const { contact, social } = siteSettings;
+
+  return {
+    gymName: dictionary.metadata.title,
+    footerStatement: dictionary.shell.footer.brandStatement,
+    contact: {
+      status: contact.status,
+      address: contact.address,
+      email: contact.email,
+      ...(contact.phone ? { phone: contact.phone } : {}),
+      openingHours: contact.openingHours.map((entry) => ({
+        days: entry.days[locale],
+        hours: entry.hours[locale],
+      })),
+    },
+    social,
+    defaultSeo: {
+      title: dictionary.metadata.title,
+      description: dictionary.metadata.description,
+      shareImage: {
+        src: "/images/home/main.png",
+        alternativeText: dictionary.homePage.hero.imageAlt,
+      },
+    },
+  };
+}
 
 export function createHomepageFallback(
   dictionary: Dictionary,

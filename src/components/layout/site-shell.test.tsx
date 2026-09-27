@@ -4,6 +4,7 @@ import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import axe from "axe-core";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
+import { createSiteSettingsFallback } from "@/content/page-fallbacks";
 import de from "@/i18n/dictionaries/de";
 
 import { SiteShell } from "./site-shell";
@@ -43,7 +44,11 @@ afterEach(() => {
 
 function renderShell() {
   return render(
-    <SiteShell dictionary={de} locale="de">
+    <SiteShell
+      dictionary={de}
+      locale="de"
+      siteContent={createSiteSettingsFallback(de, "de")}
+    >
       <section aria-labelledby="test-page-heading">
         <h1 id="test-page-heading">Test page</h1>
         <p>Test content</p>

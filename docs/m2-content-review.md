@@ -37,7 +37,7 @@ metadata have already been migrated independently for German and English.
 ## Site settings
 
 The seeded address, map URL, and email address are approved public values. The
-telephone and opening hours remain explicitly dummy values. `contactStatus`
+opening hours remain explicitly dummy values and the optional telephone is omitted. `contactStatus`
 remains `placeholder`, and the schema blocks the Site settings document from
 publication. Replace the remaining contact fields with KRUTIGER-approved
 information before selecting Verified.

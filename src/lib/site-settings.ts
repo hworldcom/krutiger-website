@@ -15,7 +15,7 @@ export type SiteSettings = Readonly<{
       displayValue: string;
       href: `mailto:${string}`;
     }>;
-    phone: Readonly<{
+    phone?: Readonly<{
       displayValue: string;
       href: `tel:${string}`;
     }>;
@@ -32,7 +32,7 @@ export type SiteSettings = Readonly<{
   }>;
 }>;
 
-export const siteSettings = {
+export const siteSettings: SiteSettings = {
   contact: {
     status: "placeholder",
     address: {
@@ -43,10 +43,6 @@ export const siteSettings = {
     email: {
       displayValue: "info@krutigermuaythai.de",
       href: "mailto:info@krutigermuaythai.de",
-    },
-    phone: {
-      displayValue: "+49 30 00000000",
-      href: "tel:+493000000000",
     },
     openingHours: [
       {
@@ -87,4 +83,4 @@ export const siteSettings = {
       url: "https://www.instagram.com/krutigermuaythai/",
     },
   },
-} as const satisfies SiteSettings;
+};
