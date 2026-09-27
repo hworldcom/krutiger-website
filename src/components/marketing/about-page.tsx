@@ -136,7 +136,7 @@ export function AboutPage({
           className="absolute inset-0 bg-[linear-gradient(0deg,rgba(8,8,8,0.98)_0%,rgba(8,8,8,0.12)_48%,rgba(8,8,8,0.22)_100%)] lg:bg-[linear-gradient(0deg,rgba(8,8,8,0.74)_0%,transparent_38%)]"
         />
 
-        <div className="relative mx-auto flex min-h-[42rem] w-full max-w-shell items-end px-6 py-16 sm:min-h-[46rem] lg:min-h-[38rem] lg:items-center lg:px-10 lg:py-20">
+        <div className="relative mx-auto flex min-h-[42rem] w-full max-w-shell items-end px-6 py-16 sm:min-h-[46rem] lg:min-h-[38rem] lg:items-start lg:px-10 lg:pt-section lg:pb-20">
           <header className="max-w-[42rem]">
             <p className="font-display text-sm font-bold tracking-[0.24em] text-brand uppercase sm:text-base">
               {content.hero.eyebrow}
