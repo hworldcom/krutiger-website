@@ -354,6 +354,10 @@ export type SiteSettings = {
   _rev: string;
   gymName?: LocalizedString;
   footerStatement?: LocalizedText;
+  promotionEnabled?: boolean;
+  promotionMessage?: LocalizedString;
+  promotionLinkLabel?: LocalizedString;
+  promotionLinkUrl?: string;
   contactStatus?: "placeholder" | "verified";
   address?: PostalAddress;
   email?: string;
@@ -566,11 +570,15 @@ export type AllSanitySchemaTypes =
 
 // Source: ../src/lib/sanity/queries.ts
 // Variable: SITE_SETTINGS_QUERY
-// Query: *[_type == "siteSettings"] | order(_updatedAt desc)[0] {    _id,    gymName,    footerStatement,    contactStatus,    address,    email,    telephone,    openingHours,    instagramUrl,    instagramHandle,    defaultSeo {      title,      description,      shareImage {        asset,        crop,        hotspot,        decorative,        alternativeText,        caption      }    }  }
+// Query: *[_type == "siteSettings"] | order(_updatedAt desc)[0] {    _id,    gymName,    footerStatement,    promotionEnabled,    promotionMessage,    promotionLinkLabel,    promotionLinkUrl,    contactStatus,    address,    email,    telephone,    openingHours,    instagramUrl,    instagramHandle,    defaultSeo {      title,      description,      shareImage {        asset,        crop,        hotspot,        decorative,        alternativeText,        caption      }    }  }
 export type SITE_SETTINGS_QUERY_RESULT = {
   _id: string;
   gymName: LocalizedString | null;
   footerStatement: LocalizedText | null;
+  promotionEnabled: boolean | null;
+  promotionMessage: LocalizedString | null;
+  promotionLinkLabel: LocalizedString | null;
+  promotionLinkUrl: string | null;
   contactStatus: "placeholder" | "verified" | null;
   address: PostalAddress | null;
   email: string | null;
@@ -1024,7 +1032,7 @@ export type SEO_CONTENT_QUERY_RESULT = {
 // Query TypeMap
 declare global {
   interface SanityQueries {
-    '\n  *[_type == "siteSettings"] | order(_updatedAt desc)[0] {\n    _id,\n    gymName,\n    footerStatement,\n    contactStatus,\n    address,\n    email,\n    telephone,\n    openingHours,\n    instagramUrl,\n    instagramHandle,\n    defaultSeo {\n      title,\n      description,\n      shareImage {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      }\n    }\n  }\n': SITE_SETTINGS_QUERY_RESULT;
+    '\n  *[_type == "siteSettings"] | order(_updatedAt desc)[0] {\n    _id,\n    gymName,\n    footerStatement,\n    promotionEnabled,\n    promotionMessage,\n    promotionLinkLabel,\n    promotionLinkUrl,\n    contactStatus,\n    address,\n    email,\n    telephone,\n    openingHours,\n    instagramUrl,\n    instagramHandle,\n    defaultSeo {\n      title,\n      description,\n      shareImage {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      }\n    }\n  }\n': SITE_SETTINGS_QUERY_RESULT;
     '\n  *[_type == "homepage"] | order(_updatedAt desc)[0] {\n    _id,\n    heroEyebrow,\n    heroTitleLines,\n    heroIntroduction,\n    heroImage {\n      asset,\n      crop,\n      hotspot,\n      decorative,\n      alternativeText,\n      caption\n    },\n    trialActionLabel,\n    scheduleActionLabel,\n    valuesEyebrow,\n    valuesTitle,\n    valuesTitleAccent,\n    valuesIntroduction,\n    features[] {\n      internalKey,\n      title,\n      description\n    },\n    seo {\n      title,\n      description,\n      shareImage {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      }\n    }\n  }\n': HOMEPAGE_QUERY_RESULT;
     '\n  *[_type == "aboutPage"] | order(_updatedAt desc)[0] {\n    _id,\n    heroEyebrow,\n    heroTitlePrimary,\n    heroTitleSecondary,\n    heroIntroduction,\n    heroImage {\n      asset,\n      crop,\n      hotspot,\n      decorative,\n      alternativeText,\n      caption\n    },\n    storyHeading,\n    chapters[] {\n      internalKey,\n      title,\n      description,\n      accent,\n      primaryImage {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      },\n      secondaryImage {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      }\n    },\n    philosophyTitle,\n    philosophyValues[] {\n      internalKey,\n      title,\n      description\n    },\n    seo {\n      title,\n      description,\n      shareImage {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      }\n    }\n  }\n': ABOUT_PAGE_QUERY_RESULT;
     '\n  *[_type == "trainingPage"] | order(_updatedAt desc)[0] {\n    _id,\n    heroEyebrow,\n    heroTitle,\n    heroIntroduction,\n    classesHeading,\n    classesIntroduction,\n    scheduleNotice,\n    seo {\n      title,\n      description,\n      shareImage {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      }\n    }\n  }\n': TRAINING_PAGE_QUERY_RESULT;

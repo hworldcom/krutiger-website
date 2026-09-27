@@ -49,6 +49,10 @@ export function createSiteSettingsFallback(
   return {
     gymName: dictionary.metadata.title,
     footerStatement: dictionary.shell.footer.brandStatement,
+    promotion: {
+      enabled: false,
+      message: "",
+    },
     contact: {
       status: contact.status,
       address: contact.address,

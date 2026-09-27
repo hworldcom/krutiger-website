@@ -117,10 +117,10 @@ export function AboutPage({
         aria-labelledby="about-page-title"
         className="relative isolate min-h-[42rem] overflow-hidden sm:min-h-[46rem] lg:min-h-[38rem]"
       >
-        <div className="about-hero-media absolute inset-0 lg:left-[34%]">
+        <div className="about-hero-media absolute inset-x-0 top-0 aspect-[8/5] lg:inset-y-0 lg:right-0 lg:left-[34%] lg:aspect-auto">
           <Image
             alt={content.hero.image.alternativeText}
-            className="object-cover object-[62%_center] lg:object-[center_35%]"
+            className="object-cover object-center lg:object-[center_35%]"
             fill
             preload
             sizes="(min-width: 1024px) 66vw, 100vw"
@@ -129,7 +129,7 @@ export function AboutPage({
         </div>
         <div
           aria-hidden="true"
-          className="absolute inset-0 bg-[linear-gradient(90deg,rgba(8,8,8,0.98)_0%,rgba(8,8,8,0.9)_34%,rgba(8,8,8,0.4)_68%,rgba(8,8,8,0.12)_100%)]"
+          className="absolute inset-0 hidden bg-[linear-gradient(90deg,rgba(8,8,8,0.98)_0%,rgba(8,8,8,0.82)_30%,rgba(8,8,8,0.24)_46%,rgba(8,8,8,0.08)_100%)] lg:block"
         />
         <div
           aria-hidden="true"

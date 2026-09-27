@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import type {
+  ABOUT_PAGE_QUERY_RESULT,
   IMPRINT_PAGE_QUERY_RESULT,
   MEMBERSHIP_CARDS_QUERY_RESULT,
   MONTHLY_PASS_CARDS_QUERY_RESULT,
@@ -12,6 +13,7 @@ import type {
 } from "./sanity.types";
 import type { SanityImageUrlFactory } from "./images";
 import {
+  projectAboutPage,
   projectLegalPage,
   projectMembershipCards,
   projectMonthlyPassCards,
@@ -106,7 +108,87 @@ const trainingDocuments: TRAINING_CLASSES_QUERY_RESULT = [
   },
 ];
 
+const aboutDocument: NonNullable<ABOUT_PAGE_QUERY_RESULT> = {
+  _id: "aboutPage",
+  chapters: [
+    "kruTiger",
+    "rootsThailand",
+    "ringExperience",
+    "thailandToBerlin",
+  ].map((internalKey, index) => ({
+    accent: localized(`Akzent ${index + 1}`, `Accent ${index + 1}`),
+    description: localizedText(
+      `Deutsche Beschreibung ${index + 1}`,
+      `English description ${index + 1}`,
+    ),
+    internalKey: internalKey as
+      "kruTiger" | "rootsThailand" | "ringExperience" | "thailandToBerlin",
+    primaryImage: editorialImage,
+    secondaryImage: null,
+    title: localized(`Kapitel ${index + 1}`, `Chapter ${index + 1}`),
+  })),
+  heroEyebrow: localized("Über uns", "About us"),
+  heroImage: editorialImage,
+  heroIntroduction: localizedText(
+    "Deutsche Hero-Einführung",
+    "English hero introduction",
+  ),
+  heroTitlePrimary: localized("Echtes Muay Thai", "Real Muay Thai"),
+  heroTitleSecondary: localized("Echte Wurzeln", "Real roots"),
+  philosophyTitle: localized("Unsere Philosophie", "Our philosophy"),
+  philosophyValues: ["technique", "discipline", "respect", "community"].map(
+    (internalKey, index) => ({
+      description: localizedText(
+        `Deutscher Wert ${index + 1}`,
+        `English value ${index + 1}`,
+      ),
+      internalKey: internalKey as
+        "technique" | "discipline" | "respect" | "community",
+      title: localized(`Wert ${index + 1}`, `Value ${index + 1}`),
+    }),
+  ),
+  seo,
+  storyHeading: localized("Unsere Geschichte", "Our story"),
+};
+
 describe("Sanity content projections", () => {
+  it("ignores an assetless optional About image without hiding valid Sanity content", () => {
+    const document = structuredClone(aboutDocument);
+
+    if (!document.chapters) {
+      throw new Error("Expected the About fixture to include chapters.");
+    }
+
+    document.chapters[1].secondaryImage = {
+      alternativeText: null,
+      asset: null,
+      caption: null,
+      crop: null,
+      decorative: true,
+      hotspot: null,
+    };
+    document.chapters[3].secondaryImage = editorialImage;
+
+    const projection = projectAboutPage(document, "de", imageUrl);
+
+    expect(projection).toMatchObject({
+      status: "ready",
+      value: {
+        hero: {
+          image: {
+            src: expect.stringContaining("w=2400&h=1500"),
+          },
+        },
+      },
+    });
+    if (projection.status === "ready") {
+      expect(projection.value.chapters[1].secondaryImage).toBeUndefined();
+      expect(projection.value.chapters[3].secondaryImage).toMatchObject({
+        src: expect.stringContaining("w=1200&h=900"),
+      });
+    }
+  });
+
   it("projects only the requested legal-page language", () => {
     const document: IMPRINT_PAGE_QUERY_RESULT = {
       _id: "imprintPage",
@@ -161,6 +243,13 @@ describe("Sanity content projections", () => {
         "KRUTIGER Muay Thai Berlin",
         "KRUTIGER Muay Thai Berlin",
       ),
+      promotionEnabled: true,
+      promotionLinkLabel: localized("Angebot ansehen", "View offer"),
+      promotionLinkUrl: "/en/prices",
+      promotionMessage: localized(
+        "Eröffnungsangebot für neue Mitglieder",
+        "Opening offer for new members",
+      ),
       instagramHandle: "@krutigermuaythai",
       instagramUrl: "https://www.instagram.com/krutigermuaythai/",
       openingHours: [
@@ -183,11 +272,69 @@ describe("Sanity content projections", () => {
           openingHours: [{ days: "Monday–Friday", hours: "4–10 pm" }],
         },
         footerStatement: "English footer statement",
+        promotion: {
+          enabled: true,
+          link: {
+            href: "/en/prices",
+            label: "View offer",
+          },
+          message: "Opening offer for new members",
+        },
       },
     });
     if (projection.status === "ready") {
       expect(projection.value.contact.phone).toBeUndefined();
     }
+  });
+
+  it("keeps the optional promotion hidden when legacy settings omit it", () => {
+    const settings: SITE_SETTINGS_QUERY_RESULT = {
+      _id: "siteSettings",
+      address: {
+        _type: "postalAddress",
+        lines: ["Karl-Marx-Allee 3", "10178 Berlin"],
+        mapUrl:
+          "https://www.google.com/maps/search/?api=1&query=Karl-Marx-Allee+3",
+      },
+      contactStatus: "verified",
+      defaultSeo: seo,
+      email: "info@krutigermuaythai.de",
+      footerStatement: localizedText(
+        "Deutscher Footertext",
+        "English footer statement",
+      ),
+      gymName: localized(
+        "KRUTIGER Muay Thai Berlin",
+        "KRUTIGER Muay Thai Berlin",
+      ),
+      instagramHandle: "@krutigermuaythai",
+      instagramUrl: "https://www.instagram.com/krutigermuaythai/",
+      openingHours: [
+        {
+          _key: "weekdays",
+          _type: "openingHoursEntry",
+          days: localized("Montag–Freitag", "Monday–Friday"),
+          hours: localized("16:00–22:00", "4–10 pm"),
+        },
+      ],
+      promotionEnabled: null,
+      promotionLinkLabel: null,
+      promotionLinkUrl: null,
+      promotionMessage: null,
+      telephone: null,
+    };
+
+    const projection = projectSiteSettings(settings, "de", imageUrl);
+
+    expect(projection).toMatchObject({
+      status: "ready",
+      value: {
+        promotion: {
+          enabled: false,
+          message: "",
+        },
+      },
+    });
   });
 
   it("projects page-level Training, Team, and Pricing content", () => {

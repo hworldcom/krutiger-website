@@ -8,6 +8,7 @@ import { siteRoutes, type RouteId } from "@/lib/routes";
 
 import { SiteHeader } from "./site-header";
 import { SiteFooter } from "./site-footer";
+import { PromotionBanner } from "./promotion-banner";
 
 type SiteShellProps = Readonly<{
   children: ReactNode;
@@ -37,6 +38,7 @@ export function SiteShell({
       >
         {dictionary.shell.skipToContent}
       </a>
+      <PromotionBanner promotion={siteContent.promotion} />
       <SiteHeader
         headerLabels={dictionary.shell.header}
         locale={locale}

@@ -692,6 +692,7 @@ function buildSiteSettings(assets: AssetMap): SeedDocument {
       de.shell.footer.brandStatement,
       en.shell.footer.brandStatement,
     ),
+    promotionEnabled: false,
     contactStatus: "placeholder",
     address: {
       _type: "postalAddress",
