@@ -67,7 +67,7 @@ export function TeamMemberCard({ labels, member }: TeamMemberCardProps) {
   return (
     <article
       aria-labelledby={headingId}
-      className="group flex flex-col overflow-hidden rounded-card border border-line bg-panel shadow-card"
+      className="group flex min-w-0 self-start flex-col overflow-hidden rounded-card border border-line bg-panel shadow-card"
       data-team-member={member.internalKey}
     >
       <div className="relative aspect-[4/5] overflow-hidden bg-panel-raised">
