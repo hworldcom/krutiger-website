@@ -74,13 +74,18 @@ export const siteSettings = defineType({
       title: "Telephone",
       type: "string",
       group: "contact",
-      description: "Include the international country code, for example +49.",
+      description:
+        "Optional. Leave empty to hide the telephone entry on the website. Include the international country code when provided, for example +49.",
       validation: (Rule) =>
-        Rule.required().custom((value) =>
-          typeof value === "string" && /^\+?[0-9 ()/\-]{6,}$/.test(value)
+        Rule.custom((value) => {
+          if (value == null || value.trim() === "") {
+            return true;
+          }
+
+          return /^\+?[0-9 ()/\-]{6,}$/.test(value)
             ? true
-            : "Enter a valid telephone number, preferably including the country code.",
-        ),
+            : "Enter a valid telephone number, preferably including the country code.";
+        }),
     }),
     defineField({
       name: "openingHours",

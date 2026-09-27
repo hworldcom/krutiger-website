@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import type { SiteEditorialContent } from "@/content/editorial";
 import type { Locale } from "../../i18n/config";
 import type { Dictionary } from "../../i18n/dictionaries/types";
 import { getLocalizedPath } from "../../i18n/routing";
@@ -10,13 +11,12 @@ import {
   type RouteId,
   type SiteRoute,
 } from "../../lib/routes";
-import { siteConfig } from "../../lib/site";
-import { siteSettings } from "../../lib/site-settings";
 import { Container, ContentCard, IconLink, Logo } from "../ui";
 
 type FooterLabels = Dictionary["shell"]["footer"];
 
 export type SiteFooterProps = Readonly<{
+  content: SiteEditorialContent;
   currentYear?: number;
   homeLinkLabel: string;
   labels: FooterLabels;
@@ -77,13 +77,14 @@ function FooterNavigation({
 }
 
 export function SiteFooter({
+  content,
   currentYear = new Date().getFullYear(),
   homeLinkLabel,
   labels,
   locale,
   routeLabels,
 }: SiteFooterProps) {
-  const { contact, social } = siteSettings;
+  const { contact, social } = content;
   const placeholderNoticeId =
     contact.status === "placeholder" ? "footer-placeholder-notice" : undefined;
 
@@ -100,7 +101,7 @@ export function SiteFooter({
               <Logo decorative display="footer" />
             </Link>
             <p className="mt-6 max-w-narrow leading-7 text-copy-muted">
-              {labels.brandStatement}
+              {content.footerStatement}
             </p>
 
             <div className="mt-8">
@@ -173,19 +174,21 @@ export function SiteFooter({
                     </a>
                   </dd>
                 </div>
-                <div>
-                  <dt className="text-sm font-bold tracking-wide text-copy uppercase">
-                    {labels.phoneLabel}
-                  </dt>
-                  <dd className="mt-1">
-                    <a
-                      className="inline-flex min-h-11 items-center underline-offset-4 hover:text-copy hover:underline"
-                      href={contact.phone.href}
-                    >
-                      {contact.phone.displayValue}
-                    </a>
-                  </dd>
-                </div>
+                {contact.phone ? (
+                  <div>
+                    <dt className="text-sm font-bold tracking-wide text-copy uppercase">
+                      {labels.phoneLabel}
+                    </dt>
+                    <dd className="mt-1">
+                      <a
+                        className="inline-flex min-h-11 items-center underline-offset-4 hover:text-copy hover:underline"
+                        href={contact.phone.href}
+                      >
+                        {contact.phone.displayValue}
+                      </a>
+                    </dd>
+                  </div>
+                ) : null}
               </dl>
 
               <div>
@@ -193,15 +196,13 @@ export function SiteFooter({
                   {labels.openingHoursLabel}
                 </h3>
                 <dl className="mt-2 space-y-2">
-                  {contact.openingHours.map((entry) => (
+                  {contact.openingHours.map((entry, index) => (
                     <div
                       className="flex flex-wrap justify-between gap-x-4 gap-y-1"
-                      key={entry.days.de}
+                      key={`${entry.days}-${index}`}
                     >
-                      <dt>{entry.days[locale]}</dt>
-                      <dd className="font-bold text-copy">
-                        {entry.hours[locale]}
-                      </dd>
+                      <dt>{entry.days}</dt>
+                      <dd className="font-bold text-copy">{entry.hours}</dd>
                     </div>
                   ))}
                 </dl>
@@ -231,7 +232,7 @@ export function SiteFooter({
 
         <div className="mt-12 flex flex-col gap-6 border-t border-line py-8 text-sm text-copy-muted md:flex-row md:items-center md:justify-between">
           <p>
-            © {currentYear} {siteConfig.name}. {labels.rightsStatement}
+            © {currentYear} {content.gymName}. {labels.rightsStatement}
           </p>
           <nav aria-label={labels.legalNavigationLabel}>
             <ul className="flex flex-wrap gap-x-6 gap-y-2">

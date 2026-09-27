@@ -18,7 +18,7 @@ describe("site settings", () => {
       displayValue: "info@krutigermuaythai.de",
       href: "mailto:info@krutigermuaythai.de",
     });
-    expect(siteSettings.contact.phone.href).toMatch(/^tel:/);
+    expect(siteSettings.contact.phone).toBeUndefined();
   });
 
   it("provides localized values for every opening-hours entry", () => {

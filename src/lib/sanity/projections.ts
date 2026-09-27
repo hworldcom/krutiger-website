@@ -111,6 +111,19 @@ function requiredString(value: unknown, path: string, issues: ContentIssue[]) {
   return value.trim();
 }
 
+function optionalString(value: unknown, path: string, issues: ContentIssue[]) {
+  if (value == null || value === "") {
+    return undefined;
+  }
+
+  if (typeof value !== "string") {
+    addIssue(issues, "invalid", path, "Expected text.");
+    return undefined;
+  }
+
+  return value.trim() || undefined;
+}
+
 function requiredNumber(value: unknown, path: string, issues: ContentIssue[]) {
   if (typeof value !== "number" || !Number.isFinite(value)) {
     addIssue(issues, "invalid", path, "Expected a finite number.");
@@ -1435,7 +1448,7 @@ export function projectSiteSettings(
   }
 
   const email = requiredString(value.email, "siteSettings.email", issues);
-  const phone = requiredString(
+  const phone = optionalString(
     value.telephone,
     "siteSettings.telephone",
     issues,
@@ -1482,10 +1495,14 @@ export function projectSiteSettings(
         displayValue: email,
         href: `mailto:${email}`,
       },
-      phone: {
-        displayValue: phone,
-        href: `tel:${phone.replace(/[^+\d]/g, "")}`,
-      },
+      ...(phone
+        ? {
+            phone: {
+              displayValue: phone,
+              href: `tel:${phone.replace(/[^+\d]/g, "")}` as const,
+            },
+          }
+        : {}),
       openingHours,
     },
     social: {

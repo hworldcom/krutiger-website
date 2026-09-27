@@ -1,6 +1,7 @@
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
 
+import { createSiteSettingsFallback } from "@/content/page-fallbacks";
 import de from "@/i18n/dictionaries/de";
 import en from "@/i18n/dictionaries/en";
 import { siteSettings } from "@/lib/site-settings";
@@ -10,11 +11,13 @@ import { ContactPage } from "./contact-page";
 
 describe("ContactPage", () => {
   it("renders the German form and verified contact destinations", () => {
+    const siteContent = createSiteSettingsFallback(de, "de");
     const markup = renderToStaticMarkup(
       <ContactPage
         content={de.routes.contact}
         details={de.contactPage}
         locale="de"
+        siteContent={siteContent}
       />,
     );
 
@@ -30,11 +33,13 @@ describe("ContactPage", () => {
   });
 
   it("renders English form copy without leaking the German heading", () => {
+    const siteContent = createSiteSettingsFallback(en, "en");
     const markup = renderToStaticMarkup(
       <ContactPage
         content={en.routes.contact}
         details={en.contactPage}
         locale="en"
+        siteContent={siteContent}
       />,
     );
 

@@ -699,7 +699,6 @@ function buildSiteSettings(assets: AssetMap): SeedDocument {
       mapUrl: siteSettings.contact.address.mapUrl,
     },
     email: siteSettings.contact.email.displayValue,
-    telephone: siteSettings.contact.phone.displayValue,
     openingHours: siteSettings.contact.openingHours.map((entry, index) => ({
       _key: keyed("opening-hours", index),
       _type: "openingHoursEntry",

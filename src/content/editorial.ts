@@ -23,7 +23,7 @@ export type SiteEditorialContent = Readonly<{
       displayValue: string;
       href: `mailto:${string}`;
     }>;
-    phone: Readonly<{
+    phone?: Readonly<{
       displayValue: string;
       href: `tel:${string}`;
     }>;

@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 
 import { BsportNavigationBoundary } from "@/components/bsport/bsport-navigation-boundary";
+import type { SiteEditorialContent } from "@/content/editorial";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries/types";
 import { siteRoutes, type RouteId } from "@/lib/routes";
@@ -12,9 +13,15 @@ type SiteShellProps = Readonly<{
   children: ReactNode;
   dictionary: Dictionary;
   locale: Locale;
+  siteContent: SiteEditorialContent;
 }>;
 
-export function SiteShell({ children, dictionary, locale }: SiteShellProps) {
+export function SiteShell({
+  children,
+  dictionary,
+  locale,
+  siteContent,
+}: SiteShellProps) {
   const routeLabels = Object.fromEntries(
     siteRoutes.map((route) => [
       route.id,
@@ -40,6 +47,7 @@ export function SiteShell({ children, dictionary, locale }: SiteShellProps) {
         {children}
       </main>
       <SiteFooter
+        content={siteContent}
         homeLinkLabel={dictionary.shell.header.homeLinkLabel}
         labels={dictionary.shell.footer}
         locale={locale}

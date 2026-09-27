@@ -4,6 +4,7 @@ import type {
   MEMBERSHIP_CARDS_QUERY_RESULT,
   MONTHLY_PASS_CARDS_QUERY_RESULT,
   PRICING_PAGE_QUERY_RESULT,
+  SITE_SETTINGS_QUERY_RESULT,
   TEAM_PAGE_QUERY_RESULT,
   TRAINING_CLASSES_QUERY_RESULT,
   TRAINING_PAGE_QUERY_RESULT,
@@ -13,6 +14,7 @@ import {
   projectMembershipCards,
   projectMonthlyPassCards,
   projectPricingPage,
+  projectSiteSettings,
   projectTeamPage,
   projectTrainingClasses,
   projectTrainingPage,
@@ -103,6 +105,55 @@ const trainingDocuments: TRAINING_CLASSES_QUERY_RESULT = [
 ];
 
 describe("Sanity content projections", () => {
+  it("projects localized opening hours and accepts an omitted telephone", () => {
+    const settings: SITE_SETTINGS_QUERY_RESULT = {
+      _id: "siteSettings",
+      address: {
+        _type: "postalAddress",
+        lines: ["Karl-Marx-Allee 3", "10178 Berlin"],
+        mapUrl:
+          "https://www.google.com/maps/search/?api=1&query=Karl-Marx-Allee+3",
+      },
+      contactStatus: "verified",
+      defaultSeo: seo,
+      email: "info@krutigermuaythai.de",
+      footerStatement: localizedText(
+        "Deutscher Footertext",
+        "English footer statement",
+      ),
+      gymName: localized(
+        "KRUTIGER Muay Thai Berlin",
+        "KRUTIGER Muay Thai Berlin",
+      ),
+      instagramHandle: "@krutigermuaythai",
+      instagramUrl: "https://www.instagram.com/krutigermuaythai/",
+      openingHours: [
+        {
+          _key: "weekdays",
+          _type: "openingHoursEntry",
+          days: localized("Montag–Freitag", "Monday–Friday"),
+          hours: localized("16:00–22:00", "4–10 pm"),
+        },
+      ],
+      telephone: null,
+    };
+
+    const projection = projectSiteSettings(settings, "en", imageUrl);
+
+    expect(projection).toMatchObject({
+      status: "ready",
+      value: {
+        contact: {
+          openingHours: [{ days: "Monday–Friday", hours: "4–10 pm" }],
+        },
+        footerStatement: "English footer statement",
+      },
+    });
+    if (projection.status === "ready") {
+      expect(projection.value.contact.phone).toBeUndefined();
+    }
+  });
+
   it("projects page-level Training, Team, and Pricing content", () => {
     const trainingPage: TRAINING_PAGE_QUERY_RESULT = {
       _id: "trainingPage",

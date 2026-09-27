@@ -47,7 +47,7 @@ const en = {
       legalNavigationLabel: "Legal information",
       placeholderDataLabel: "Development data",
       placeholderDataDescription:
-        "The phone number and opening hours are sample data and are not yet approved.",
+        "The opening hours are sample data and are not yet approved.",
       rightsStatement: "All rights reserved.",
     },
   },
