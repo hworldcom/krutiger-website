@@ -4,12 +4,61 @@ import type { TeamMember } from "@/content/team";
 import type { TeamPageCopy } from "@/i18n/dictionaries/types";
 
 type TeamMemberCardProps = Readonly<{
-  labels: Pick<TeamPageCopy, "socialLinkAction" | "socialLinkLabel">;
+  labels: Pick<
+    TeamPageCopy,
+    | "biographyHideAction"
+    | "biographyReadAction"
+    | "socialLinkAction"
+    | "socialLinkLabel"
+    | "socialLinkUnavailable"
+  >;
   member: TeamMember;
 }>;
 
 function getSocialLinkLabel(template: string, name: string) {
   return template.replace("{name}", name);
+}
+
+function InstagramIcon() {
+  return (
+    <svg
+      aria-hidden="true"
+      className="size-5 shrink-0"
+      data-instagram-icon="true"
+      fill="none"
+      viewBox="0 0 24 24"
+    >
+      <rect
+        height="17"
+        rx="5"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        width="17"
+        x="3.5"
+        y="3.5"
+      />
+      <circle cx="12" cy="12" r="4" stroke="currentColor" strokeWidth="1.8" />
+      <circle cx="17.4" cy="6.7" fill="currentColor" r="1.1" />
+    </svg>
+  );
+}
+
+function ChevronIcon() {
+  return (
+    <svg
+      aria-hidden="true"
+      className="size-4 shrink-0 transition-transform group-open/bio:rotate-180"
+      fill="none"
+      viewBox="0 0 24 24"
+    >
+      <path
+        d="m7 9 5 5 5-5"
+        stroke="currentColor"
+        strokeLinecap="square"
+        strokeWidth="2"
+      />
+    </svg>
+  );
 }
 
 export function TeamMemberCard({ labels, member }: TeamMemberCardProps) {
@@ -18,7 +67,7 @@ export function TeamMemberCard({ labels, member }: TeamMemberCardProps) {
   return (
     <article
       aria-labelledby={headingId}
-      className="group overflow-hidden rounded-card border border-line bg-panel shadow-card"
+      className="group flex flex-col overflow-hidden rounded-card border border-line bg-panel shadow-card"
       data-team-member={member.internalKey}
     >
       <div className="relative aspect-[4/5] overflow-hidden bg-panel-raised">
@@ -36,7 +85,7 @@ export function TeamMemberCard({ labels, member }: TeamMemberCardProps) {
         />
       </div>
 
-      <div className="relative -mt-24 px-6 pb-7 sm:px-7 sm:pb-8">
+      <div className="relative -mt-24 flex flex-1 flex-col px-6 pb-7 sm:px-7 sm:pb-8">
         <p className="font-display text-sm font-bold tracking-[0.18em] text-brand uppercase">
           {member.role}
         </p>
@@ -46,23 +95,59 @@ export function TeamMemberCard({ labels, member }: TeamMemberCardProps) {
         >
           {member.name}
         </h3>
-        <p className="mt-5 text-base leading-7 text-copy-muted">
+      </div>
+
+      <details
+        className="group/bio border-t border-line bg-panel-raised/15"
+        data-team-biography="disclosure"
+      >
+        <summary className="flex min-h-14 cursor-pointer list-none items-center gap-3 px-6 font-display text-sm font-bold tracking-[0.08em] text-copy uppercase transition-colors hover:bg-panel-raised hover:text-brand sm:px-7 [&::-webkit-details-marker]:hidden">
+          <span className="group-open/bio:hidden">
+            {labels.biographyReadAction}
+          </span>
+          <span className="hidden group-open/bio:inline">
+            {labels.biographyHideAction}
+          </span>
+          <span className="ml-auto text-brand">
+            <ChevronIcon />
+          </span>
+        </summary>
+        <p className="px-6 pb-6 text-base leading-7 whitespace-pre-line text-copy-muted sm:px-7 sm:pb-7">
           {member.biography}
         </p>
+      </details>
 
-        {member.socialUrl ? (
-          <a
-            aria-label={getSocialLinkLabel(labels.socialLinkLabel, member.name)}
-            className="mt-6 inline-flex min-h-11 items-center gap-2 font-display text-base font-bold tracking-[0.08em] text-brand uppercase underline-offset-4 hover:text-brand-hover hover:underline"
-            href={member.socialUrl}
-            rel="noreferrer"
-            target="_blank"
+      {member.socialUrl ? (
+        <a
+          aria-label={getSocialLinkLabel(labels.socialLinkLabel, member.name)}
+          className="group/profile flex min-h-16 items-center gap-3 border-t border-line bg-panel-raised/35 px-6 font-display text-base font-bold tracking-[0.08em] text-copy uppercase transition-colors hover:bg-panel-raised hover:text-brand sm:px-7"
+          data-team-profile-link="instagram"
+          href={member.socialUrl}
+          rel="noreferrer"
+          target="_blank"
+        >
+          <span className="text-brand">
+            <InstagramIcon />
+          </span>
+          <span>{labels.socialLinkAction}</span>
+          <span
+            aria-hidden="true"
+            className="ml-auto text-brand transition-transform group-hover/profile:translate-x-0.5 group-hover/profile:-translate-y-0.5"
           >
-            {labels.socialLinkAction}
-            <span aria-hidden="true">↗</span>
-          </a>
-        ) : null}
-      </div>
+            ↗
+          </span>
+        </a>
+      ) : (
+        <div
+          className="flex min-h-16 items-center gap-3 border-t border-line bg-panel-raised/20 px-6 font-display text-sm font-bold tracking-[0.06em] text-copy-muted uppercase sm:px-7"
+          data-team-profile-status="unavailable"
+        >
+          <span className="text-copy-muted/60">
+            <InstagramIcon />
+          </span>
+          <span>{labels.socialLinkUnavailable}</span>
+        </div>
+      )}
     </article>
   );
 }

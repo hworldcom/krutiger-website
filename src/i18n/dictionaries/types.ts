@@ -166,8 +166,11 @@ export type AboutPageCopy = Readonly<{
 
 export type TeamPageCopy = Readonly<{
   sectionHeading: string;
+  biographyReadAction: string;
+  biographyHideAction: string;
   socialLinkAction: string;
   socialLinkLabel: string;
+  socialLinkUnavailable: string;
 }>;
 
 export type TrainingPageCopy = Readonly<{

@@ -171,13 +171,13 @@ export function HomePage({
         />
 
         <Container>
-          <div className="relative flex min-h-[47rem] items-end pb-24 lg:min-h-[clamp(40rem,72svh,46rem)] lg:items-center lg:pb-20">
-            <header className="max-w-[43rem] pt-24 lg:pt-8">
+          <div className="relative flex min-h-[47rem] items-end pb-24 lg:min-h-[clamp(40rem,72svh,46rem)] lg:items-start lg:pt-section lg:pb-20">
+            <header className="max-w-[43rem] pt-24 lg:pt-0">
               <p className="font-display text-sm font-bold tracking-[0.28em] text-brand uppercase sm:text-base">
                 {content.hero.eyebrow}
               </p>
               <h1
-                className="mt-4 font-display text-[3.25rem] leading-[0.84] font-extrabold tracking-[-0.025em] uppercase xs:text-6xl sm:text-7xl lg:text-[6.25rem]"
+                className="mt-4 font-display text-[3.25rem] leading-[0.84] font-extrabold tracking-[-0.025em] uppercase xs:text-6xl sm:text-7xl lg:mt-5 lg:text-[6.25rem]"
                 id="home-page-title"
               >
                 {content.hero.titleLines.map((line) => (

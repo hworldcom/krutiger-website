@@ -2,7 +2,7 @@ import type { TeamPageEditorialContent } from "@/content/editorial";
 import type { TeamMember } from "@/content/team";
 import type { TeamPageCopy } from "@/i18n/dictionaries/types";
 
-import { Container } from "../ui";
+import { Container, SectionHeader } from "../ui";
 import { TeamMemberCard } from "./team-member-card";
 
 type TeamPageProps = Readonly<{
@@ -27,7 +27,7 @@ export function TeamPage({
     >
       <section
         aria-labelledby="team-page-title"
-        className="relative isolate overflow-hidden border-b border-brand/30 pb-20 pt-36 sm:pb-24 sm:pt-44"
+        className="relative isolate overflow-hidden border-b border-brand/30 pb-20 pt-section sm:pb-24"
       >
         <div
           aria-hidden="true"
@@ -41,20 +41,14 @@ export function TeamPage({
         </div>
 
         <Container>
-          <header className="max-w-4xl">
-            <p className="font-display text-sm font-bold tracking-[0.24em] text-brand uppercase sm:text-base">
-              {content.hero.eyebrow}
-            </p>
-            <h1
-              className="mt-5 max-w-4xl font-display text-5xl leading-[0.9] font-extrabold tracking-tight uppercase sm:text-7xl lg:text-8xl"
-              id="team-page-title"
-            >
-              {content.hero.title}
-            </h1>
-            <p className="mt-7 max-w-2xl text-base leading-7 text-copy-muted sm:text-lg sm:leading-8">
-              {content.hero.description}
-            </p>
-          </header>
+          <SectionHeader
+            description={content.hero.description}
+            eyebrow={content.hero.eyebrow}
+            headingId="team-page-title"
+            level={1}
+            size="page"
+            title={content.hero.title}
+          />
         </Container>
       </section>
 

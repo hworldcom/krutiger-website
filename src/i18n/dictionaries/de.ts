@@ -289,8 +289,11 @@ const de = {
   },
   teamPage: {
     sectionHeading: "Das Team",
+    biographyReadAction: "Bio lesen",
+    biographyHideAction: "Bio schließen",
     socialLinkAction: "Profil ansehen",
-    socialLinkLabel: "Social-Media-Profil von {name} öffnen",
+    socialLinkLabel: "Instagram-Profil von {name} öffnen",
+    socialLinkUnavailable: "Instagram-Profil derzeit nicht verfügbar",
   },
   trainingPage: {
     sectionHeading: "Unsere Kurse",
