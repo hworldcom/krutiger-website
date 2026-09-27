@@ -4,15 +4,47 @@ import {
   createEditorialPreviewSubtitle,
   defineEditorialStateField,
 } from "../editorialWorkflow";
+import {
+  validateLocalizedMaximumLength,
+  validateOptionalLocalizedPair,
+} from "../validation";
+
+type PromotionDocument = {
+  promotionEnabled?: boolean;
+  promotionLinkLabel?: unknown;
+  promotionLinkUrl?: string;
+};
+
+type LocalizedValue = {
+  de?: unknown;
+  en?: unknown;
+};
+
+function hasLocalizedPair(value: unknown) {
+  if (!value || typeof value !== "object") {
+    return false;
+  }
+
+  const localized = value as LocalizedValue;
+
+  return [localized.de, localized.en].every(
+    (candidate) => typeof candidate === "string" && candidate.trim(),
+  );
+}
+
+function hasPromotionLinkLabel(document: PromotionDocument | undefined) {
+  return hasLocalizedPair(document?.promotionLinkLabel);
+}
 
 export const siteSettings = defineType({
   name: "siteSettings",
   title: "Site settings",
   type: "document",
   description:
-    "Global KRUTIGER contact, social, footer, and default search metadata.",
+    "Global KRUTIGER promotion, contact, social, footer, and default search metadata.",
   groups: [
     { name: "identity", title: "Identity", default: true },
+    { name: "promotion", title: "Promotion banner" },
     { name: "contact", title: "Contact" },
     { name: "social", title: "Social media" },
     { name: "seo", title: "SEO" },
@@ -32,6 +64,92 @@ export const siteSettings = defineType({
       type: "localizedText",
       group: "identity",
       validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "promotionEnabled",
+      title: "Show promotion banner",
+      type: "boolean",
+      group: "promotion",
+      description:
+        "Turn this on to show the promotion strip above the website navigation. Turn it off to hide the strip without deleting its content.",
+      initialValue: false,
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "promotionMessage",
+      title: "Banner message",
+      type: "localizedString",
+      group: "promotion",
+      description:
+        "Required in German and English while the promotion banner is enabled.",
+      validation: (Rule) =>
+        Rule.custom((value, context) => {
+          const document = context.document as PromotionDocument | undefined;
+
+          if (!document?.promotionEnabled) {
+            return validateOptionalLocalizedPair(value);
+          }
+
+          if (!hasLocalizedPair(value)) {
+            return "Complete the German and English banner messages before enabling the promotion.";
+          }
+
+          return validateLocalizedMaximumLength(
+            value,
+            120,
+            "Promotion message",
+          );
+        }),
+    }),
+    defineField({
+      name: "promotionLinkLabel",
+      title: "Optional link label",
+      type: "localizedString",
+      group: "promotion",
+      description:
+        "Complete both languages only when the banner should link to another page or offer.",
+      validation: (Rule) =>
+        Rule.custom((value, context) => {
+          const localizedPair = validateOptionalLocalizedPair(value);
+
+          if (localizedPair !== true) {
+            return localizedPair;
+          }
+
+          const length = validateLocalizedMaximumLength(
+            value,
+            40,
+            "Promotion link label",
+          );
+
+          if (length !== true) {
+            return length;
+          }
+
+          const document = context.document as PromotionDocument | undefined;
+
+          return hasLocalizedPair(value) === Boolean(document?.promotionLinkUrl)
+            ? true
+            : "Complete both link labels and the link destination, or leave all three empty.";
+        }),
+    }),
+    defineField({
+      name: "promotionLinkUrl",
+      title: "Optional link destination",
+      type: "url",
+      group: "promotion",
+      description:
+        "Use a root-relative website path such as /de/prices, or a complete HTTPS URL.",
+      validation: (Rule) =>
+        Rule.uri({ allowRelative: true, scheme: ["https"] }).custom(
+          (value, context) => {
+            const document = context.document as PromotionDocument | undefined;
+
+            return Boolean(value) === hasPromotionLinkLabel(document)
+              ? true
+              : "Add both German and English link labels, or remove the destination.";
+          },
+        ),
     }),
     defineField({
       name: "contactStatus",

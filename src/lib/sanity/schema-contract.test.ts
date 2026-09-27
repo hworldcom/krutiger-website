@@ -93,6 +93,10 @@ describe("Sanity schema contract", () => {
     expect(fieldNames("siteSettings")).toEqual([
       "gymName",
       "footerStatement",
+      "promotionEnabled",
+      "promotionMessage",
+      "promotionLinkLabel",
+      "promotionLinkUrl",
       "contactStatus",
       "address",
       "email",

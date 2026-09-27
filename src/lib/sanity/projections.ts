@@ -355,6 +355,40 @@ function requiredHttpsUrl(
   }
 }
 
+function optionalPromotionUrl(
+  value: unknown,
+  path: string,
+  issues: ContentIssue[],
+) {
+  const candidate = optionalString(value, path, issues);
+
+  if (!candidate) {
+    return undefined;
+  }
+
+  if (candidate.startsWith("/") && !candidate.startsWith("//")) {
+    return candidate;
+  }
+
+  try {
+    const url = new URL(candidate);
+
+    if (url.protocol !== "https:") {
+      throw new Error("Unsupported protocol");
+    }
+
+    return url.href;
+  } catch {
+    addIssue(
+      issues,
+      "invalid",
+      path,
+      "Expected a root-relative path or an absolute HTTPS URL.",
+    );
+    return undefined;
+  }
+}
+
 function imageSource(
   value: unknown,
   path: string,
@@ -430,6 +464,24 @@ function projectImage(
     addIssue(issues, "invalid", path, "Could not build a safe image URL.");
     return null;
   }
+}
+
+function projectOptionalImage(
+  value: unknown,
+  locale: Locale,
+  path: string,
+  issues: ContentIssue[],
+  createImageUrl: SanityImageUrlFactory,
+  dimensions: Readonly<{ width: number; height: number }>,
+) {
+  if (value == null || (isRecord(value) && value.asset == null)) {
+    return undefined;
+  }
+
+  return (
+    projectImage(value, locale, path, issues, createImageUrl, dimensions) ??
+    undefined
+  );
 }
 
 function result<T>(issues: ContentIssue[], value: T): ProjectionResult<T> {
@@ -1054,16 +1106,14 @@ export function projectAboutPage(
           createImageUrl,
           { width: 1_600, height: 900 },
         );
-        const secondaryImage = entry.secondaryImage
-          ? projectImage(
-              entry.secondaryImage,
-              locale,
-              `${path}.secondaryImage`,
-              issues,
-              createImageUrl,
-              { width: 1_200, height: 900 },
-            )
-          : undefined;
+        const secondaryImage = projectOptionalImage(
+          entry.secondaryImage,
+          locale,
+          `${path}.secondaryImage`,
+          issues,
+          createImageUrl,
+          { width: 1_200, height: 900 },
+        );
 
         if (!aboutChapterKeys.has(key as AboutChapterKey)) {
           addIssue(
@@ -1544,6 +1594,55 @@ export function projectSiteSettings(
   );
   const contactStatus =
     value.contactStatus === "verified" ? "verified" : "placeholder";
+  const promotionEnabled = value.promotionEnabled === true;
+
+  if (
+    value.promotionEnabled != null &&
+    typeof value.promotionEnabled !== "boolean"
+  ) {
+    addIssue(
+      issues,
+      "invalid",
+      "siteSettings.promotionEnabled",
+      "Expected a boolean promotion visibility setting.",
+    );
+  }
+
+  const promotionMessage = promotionEnabled
+    ? localizedString(
+        value.promotionMessage,
+        locale,
+        "siteSettings.promotionMessage",
+        issues,
+      )
+    : "";
+  const promotionLinkLabel = promotionEnabled
+    ? optionalLocalizedString(
+        value.promotionLinkLabel,
+        locale,
+        "siteSettings.promotionLinkLabel",
+        issues,
+      )
+    : undefined;
+  const promotionLinkHref = promotionEnabled
+    ? optionalPromotionUrl(
+        value.promotionLinkUrl,
+        "siteSettings.promotionLinkUrl",
+        issues,
+      )
+    : undefined;
+
+  if (
+    promotionEnabled &&
+    Boolean(promotionLinkLabel) !== Boolean(promotionLinkHref)
+  ) {
+    addIssue(
+      issues,
+      "invalid",
+      "siteSettings.promotionLink",
+      "Complete both the promotion link label and destination, or leave both empty.",
+    );
+  }
 
   if (
     value.contactStatus !== "verified" &&
@@ -1570,6 +1669,18 @@ export function projectSiteSettings(
       "siteSettings.footerStatement",
       issues,
     ),
+    promotion: {
+      enabled: promotionEnabled,
+      message: promotionMessage,
+      ...(promotionLinkLabel && promotionLinkHref
+        ? {
+            link: {
+              href: promotionLinkHref,
+              label: promotionLinkLabel,
+            },
+          }
+        : {}),
+    },
     contact: {
       status: contactStatus,
       address: {

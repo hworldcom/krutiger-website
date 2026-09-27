@@ -13,8 +13,8 @@ changing the website layout or code.
 
 The Studio desk is organized into seven destinations:
 
-1. **Site settings** — gym identity, footer, contact information, social profile,
-   and default SEO.
+1. **Site settings** — gym identity, promotion banner, footer, contact
+   information, social profile, and default SEO.
 2. **Core pages** — Homepage and About page.
 3. **Legal pages** — bilingual Impressum and Datenschutz content, including
    page metadata and structured legal text.
@@ -103,6 +103,18 @@ address, map link, email, any supplied telephone, and opening information have
 all been checked by the content owner. Telephone is optional; leave it empty to
 remove the phone entry from the website. The badge at the top of Site settings
 makes this state visible.
+
+## Promotion banner
+
+Use the **Promotion banner** group in Site settings for a temporary message
+above the website navigation. Complete the German and English banner messages,
+then turn on **Show promotion banner**. Turn the switch off to hide the banner
+without deleting its prepared content.
+
+The call-to-action is optional. When it is used, complete both language labels
+and provide one destination. The destination may be a root-relative website
+path, such as `/de/prices`, or a complete HTTPS URL. Preview both languages
+before publishing, especially when the destination contains a locale segment.
 
 ## Legal pages
 

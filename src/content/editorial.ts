@@ -25,6 +25,14 @@ export type LegalPageEditorialContent = Readonly<{
 export type SiteEditorialContent = Readonly<{
   gymName: string;
   footerStatement: string;
+  promotion: Readonly<{
+    enabled: boolean;
+    message: string;
+    link?: Readonly<{
+      href: string;
+      label: string;
+    }>;
+  }>;
   contact: Readonly<{
     status: "placeholder" | "verified";
     address: Readonly<{

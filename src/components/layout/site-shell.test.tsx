@@ -42,13 +42,9 @@ afterEach(() => {
   document.documentElement.style.overflow = "";
 });
 
-function renderShell() {
+function renderShell(siteContent = createSiteSettingsFallback(de, "de")) {
   return render(
-    <SiteShell
-      dictionary={de}
-      locale="de"
-      siteContent={createSiteSettingsFallback(de, "de")}
-    >
+    <SiteShell dictionary={de} locale="de" siteContent={siteContent}>
       <section aria-labelledby="test-page-heading">
         <h1 id="test-page-heading">Test page</h1>
         <p>Test content</p>
@@ -84,6 +80,45 @@ describe("SiteShell", () => {
     expect(skipLink.getAttribute("href")).toBe("#main-content");
     expect(main.id).toBe("main-content");
     expect(main.tabIndex).toBe(-1);
+  });
+
+  it("shows the configured promotion only while it is enabled", () => {
+    const fallback = createSiteSettingsFallback(de, "de");
+    const { container, rerender } = renderShell(fallback);
+
+    expect(container.querySelector("[data-promotion-banner]")).toBeNull();
+
+    rerender(
+      <SiteShell
+        dictionary={de}
+        locale="de"
+        siteContent={{
+          ...fallback,
+          promotion: {
+            enabled: true,
+            message: "Eröffnungsangebot für neue Mitglieder",
+            link: {
+              href: "/de/prices",
+              label: "Angebot ansehen",
+            },
+          },
+        }}
+      >
+        <section aria-labelledby="test-page-heading">
+          <h1 id="test-page-heading">Test page</h1>
+        </section>
+      </SiteShell>,
+    );
+
+    expect(container.querySelector("[data-promotion-banner]")).not.toBeNull();
+    expect(
+      screen.getByText("Eröffnungsangebot für neue Mitglieder"),
+    ).not.toBeNull();
+    expect(
+      screen
+        .getByRole("link", { name: /Angebot ansehen/ })
+        .getAttribute("href"),
+    ).toBe("/de/prices");
   });
 
   it("uses one compact language dropdown in each navigation layout", () => {

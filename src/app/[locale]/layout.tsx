@@ -29,6 +29,13 @@ export const viewport: Viewport = {
 };
 
 export function generateStaticParams() {
+  // Next.js 16.3 can corrupt the development prerender manifest when several
+  // localized routes invoke generateStaticParams concurrently (vercel/next.js#96259).
+  // Let dev routes render on demand while keeping production prerendering intact.
+  if (process.env.NODE_ENV === "development") {
+    return [];
+  }
+
   return locales.map((locale) => ({ locale }));
 }
 

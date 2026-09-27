@@ -91,8 +91,8 @@ body {
 
 @media (min-width: 64rem) {
   .about-hero-media {
-    -webkit-mask-image: linear-gradient(to right, transparent, black 22%);
-    mask-image: linear-gradient(to right, transparent, black 22%);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 12%);
+    mask-image: linear-gradient(to right, transparent, black 12%);
   }
 
   .home-hero-media {
