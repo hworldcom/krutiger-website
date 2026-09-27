@@ -8,11 +8,14 @@ export const singletonTypes = new Set([
   "trainingPage",
   "teamPage",
   "pricingPage",
+  "imprintPage",
+  "privacyPage",
 ]);
 
 export const studioDeskSectionIds = [
   "siteSettings",
   "corePages",
+  "legalPages",
   "training",
   "pricing",
   "team",
@@ -69,6 +72,34 @@ export const structure: StructureResolver = (S) =>
                     .schemaType("aboutPage")
                     .documentId("aboutPage")
                     .title("About page"),
+                ),
+            ]),
+        ),
+      S.listItem()
+        .id("legalPages")
+        .title("Legal pages")
+        .child(
+          S.list()
+            .id("legalPages")
+            .title("Legal pages")
+            .items([
+              S.listItem()
+                .id("imprintPage")
+                .title("Impressum")
+                .child(
+                  S.document()
+                    .schemaType("imprintPage")
+                    .documentId("imprintPage")
+                    .title("Impressum"),
+                ),
+              S.listItem()
+                .id("privacyPage")
+                .title("Datenschutz")
+                .child(
+                  S.document()
+                    .schemaType("privacyPage")
+                    .documentId("privacyPage")
+                    .title("Datenschutz"),
                 ),
             ]),
         ),

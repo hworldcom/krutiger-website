@@ -1,4 +1,5 @@
 import type { SanityImageObject } from "@sanity/image-url";
+import type { PortableTextBlock } from "@portabletext/types";
 
 import type {
   AboutChapterKey,
@@ -8,6 +9,7 @@ import type {
   FaqItem,
   HomepageEditorialContent,
   HomepageFeatureKey,
+  LegalPageEditorialContent,
   PhilosophyValueKey,
   PricingPageEditorialContent,
   SeoContent,
@@ -31,9 +33,11 @@ import type {
   COACHES_QUERY_RESULT,
   FAQS_QUERY_RESULT,
   HOMEPAGE_QUERY_RESULT,
+  IMPRINT_PAGE_QUERY_RESULT,
   MEMBERSHIP_CARDS_QUERY_RESULT,
   MONTHLY_PASS_CARDS_QUERY_RESULT,
   PRICING_PAGE_QUERY_RESULT,
+  PRIVACY_PAGE_QUERY_RESULT,
   SITE_SETTINGS_QUERY_RESULT,
   TEAM_PAGE_QUERY_RESULT,
   TRAINING_CLASSES_QUERY_RESULT,
@@ -226,6 +230,55 @@ function optionalLocalizedString(
   }
 
   return localizedString(value, locale, path, issues);
+}
+
+function localizedPortableText(
+  value: unknown,
+  locale: Locale,
+  path: string,
+  issues: ContentIssue[],
+) {
+  if (!isRecord(value) || !Array.isArray(value[locale])) {
+    addIssue(
+      issues,
+      "missingTranslation",
+      `${path}.${locale}`,
+      `The ${locale} rich text is missing.`,
+    );
+    return [];
+  }
+
+  const blocks = value[locale];
+
+  if (blocks.length === 0) {
+    addIssue(
+      issues,
+      "missingTranslation",
+      `${path}.${locale}`,
+      `The ${locale} rich text is empty.`,
+    );
+    return [];
+  }
+
+  const invalidBlockIndex = blocks.findIndex(
+    (block) =>
+      !isRecord(block) ||
+      block._type !== "block" ||
+      typeof block._key !== "string" ||
+      !Array.isArray(block.children),
+  );
+
+  if (invalidBlockIndex >= 0) {
+    addIssue(
+      issues,
+      "invalid",
+      `${path}.${locale}[${invalidBlockIndex}]`,
+      "Expected a Portable Text block.",
+    );
+    return [];
+  }
+
+  return blocks as PortableTextBlock[];
 }
 
 function portableTextToPlainText(
@@ -1397,6 +1450,42 @@ export function projectPricingPage(
   };
 
   return result(issues, pricingPage);
+}
+
+export function projectLegalPage(
+  document: IMPRINT_PAGE_QUERY_RESULT | PRIVACY_PAGE_QUERY_RESULT,
+  locale: Locale,
+  path: "imprintPage" | "privacyPage",
+  createImageUrl: SanityImageUrlFactory,
+): ProjectionResult<LegalPageEditorialContent> {
+  const issues: ContentIssue[] = [];
+  const value: UnknownRecord = isRecord(document) ? document : {};
+
+  if (!isRecord(document)) {
+    addIssue(issues, "invalid", path, "Expected legal page content.");
+  }
+
+  const legalPage: LegalPageEditorialContent = {
+    hero: {
+      eyebrow: localizedString(
+        value.eyebrow,
+        locale,
+        `${path}.eyebrow`,
+        issues,
+      ),
+      title: localizedString(value.title, locale, `${path}.title`, issues),
+      introduction: localizedString(
+        value.introduction,
+        locale,
+        `${path}.introduction`,
+        issues,
+      ),
+    },
+    body: localizedPortableText(value.body, locale, `${path}.body`, issues),
+    seo: projectSeo(value.seo, locale, `${path}.seo`, issues, createImageUrl),
+  };
+
+  return result(issues, legalPage);
 }
 
 export function projectSiteSettings(

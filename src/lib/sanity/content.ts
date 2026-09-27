@@ -4,6 +4,7 @@ import type {
   AboutEditorialContent,
   FaqItem,
   HomepageEditorialContent,
+  LegalPageEditorialContent,
   PricingPageEditorialContent,
   SiteEditorialContent,
   TeamPageEditorialContent,
@@ -23,9 +24,11 @@ import {
   COACHES_QUERY,
   FAQS_QUERY,
   HOMEPAGE_QUERY,
+  IMPRINT_PAGE_QUERY,
   MEMBERSHIP_CARDS_QUERY,
   MONTHLY_PASS_CARDS_QUERY,
   PRICING_PAGE_QUERY,
+  PRIVACY_PAGE_QUERY,
   SITE_SETTINGS_QUERY,
   TEAM_PAGE_QUERY,
   TRAINING_CLASSES_QUERY,
@@ -36,6 +39,7 @@ import {
   projectCoaches,
   projectFaqs,
   projectHomepage,
+  projectLegalPage,
   projectMembershipCards,
   projectMonthlyPassCards,
   projectPricingPage,
@@ -207,6 +211,44 @@ export async function getPricingPageContent(
 
     const imageUrl = createSanityImageUrlFactory(getSanityImageProject());
     return projectPricingPage(document, locale, imageUrl);
+  } catch (error) {
+    return toUnavailableContentResult(error);
+  }
+}
+
+export async function getImprintPageContent(
+  locale: Locale,
+): Promise<SanityContentResult<LegalPageEditorialContent>> {
+  try {
+    const document = await fetchSanityQuery(IMPRINT_PAGE_QUERY, [
+      "sanity:imprintPage",
+    ]);
+
+    if (!document) {
+      return { status: "missing" };
+    }
+
+    const imageUrl = createSanityImageUrlFactory(getSanityImageProject());
+    return projectLegalPage(document, locale, "imprintPage", imageUrl);
+  } catch (error) {
+    return toUnavailableContentResult(error);
+  }
+}
+
+export async function getPrivacyPageContent(
+  locale: Locale,
+): Promise<SanityContentResult<LegalPageEditorialContent>> {
+  try {
+    const document = await fetchSanityQuery(PRIVACY_PAGE_QUERY, [
+      "sanity:privacyPage",
+    ]);
+
+    if (!document) {
+      return { status: "missing" };
+    }
+
+    const imageUrl = createSanityImageUrlFactory(getSanityImageProject());
+    return projectLegalPage(document, locale, "privacyPage", imageUrl);
   } catch (error) {
     return toUnavailableContentResult(error);
   }

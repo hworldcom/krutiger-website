@@ -5,6 +5,7 @@ import { classType } from "./documents/classType";
 import { coach } from "./documents/coach";
 import { faq } from "./documents/faq";
 import { homepage } from "./documents/homepage";
+import { imprintPage, privacyPage } from "./documents/legalPage";
 import { membershipCard } from "./documents/membershipCard";
 import { monthlyPassCard } from "./documents/monthlyPassCard";
 import { pricingPage } from "./documents/pricingPage";
@@ -41,6 +42,8 @@ export const schemaTypes: SchemaTypeDefinition[] = [
   trainingPage,
   teamPage,
   pricingPage,
+  imprintPage,
+  privacyPage,
   classType,
   coach,
   faq,

@@ -717,6 +717,46 @@ function buildSiteSettings(assets: AssetMap): SeedDocument {
   };
 }
 
+function buildLegalPage(
+  assets: AssetMap,
+  config: Readonly<{
+    documentId: "imprintPage" | "privacyPage";
+    routeId: "imprint" | "privacy";
+  }>,
+): SeedDocument {
+  const german = de.routes[config.routeId];
+  const english = en.routes[config.routeId];
+  const shareImage = image(
+    assets,
+    "/images/home/main.png",
+    {
+      de: de.homePage.hero.imageAlt,
+      en: en.homePage.hero.imageAlt,
+    },
+    0.42,
+  );
+
+  return {
+    _id: `drafts.${config.documentId}`,
+    _type: config.documentId,
+    eyebrow: localizedString(german.eyebrow, english.eyebrow),
+    title: localizedString(german.title, english.title),
+    introduction: localizedText(german.description, english.description),
+    body: localizedRichText(
+      german.description,
+      english.description,
+      config.documentId,
+    ),
+    seo: seo(
+      assets,
+      { de: german.title, en: english.title },
+      { de: german.description, en: english.description },
+      shareImage,
+    ),
+    editorialState: "draft",
+  };
+}
+
 function buildDefinitions(assets: AssetMap): SeedDefinition[] {
   const draftDocuments = [
     buildHomepage(assets),
@@ -725,6 +765,14 @@ function buildDefinitions(assets: AssetMap): SeedDefinition[] {
     buildTeamPage(assets),
     buildPricingPage(assets),
     buildSiteSettings(assets),
+    buildLegalPage(assets, {
+      documentId: "imprintPage",
+      routeId: "imprint",
+    }),
+    buildLegalPage(assets, {
+      documentId: "privacyPage",
+      routeId: "privacy",
+    }),
     ...buildTrainingClasses(assets),
     ...buildCoaches(assets),
     ...buildFaqs(),
