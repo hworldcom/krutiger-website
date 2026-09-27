@@ -289,8 +289,11 @@ const en = {
   },
   teamPage: {
     sectionHeading: "The team",
+    biographyReadAction: "Read bio",
+    biographyHideAction: "Hide bio",
     socialLinkAction: "View profile",
-    socialLinkLabel: "Open {name}'s social profile",
+    socialLinkLabel: "Open {name}'s Instagram profile",
+    socialLinkUnavailable: "Profile not available",
   },
   trainingPage: {
     sectionHeading: "Our classes",

@@ -25,9 +25,14 @@ describe("TeamPage", () => {
     expect(markup).toContain(de.routes.coaches.title);
     expect(markup).toContain('data-team-member="kru-tiger"');
     expect(markup).toContain(members[0].biography);
+    expect(markup).toContain('data-team-biography="disclosure"');
+    expect(markup).toContain(de.teamPage.biographyReadAction);
+    expect(markup).toContain(de.teamPage.biographyHideAction);
     expect(markup).toContain(`alt="${members[0].photo.alternativeText}"`);
     expect(markup).not.toContain("Schwerpunkte");
     expect(markup).not.toContain('target="_blank"');
+    expect(markup).toContain('data-team-profile-status="unavailable"');
+    expect(markup).toContain(de.teamPage.socialLinkUnavailable);
   });
 
   it("renders explicit English copy without leaking the German biography", () => {
@@ -44,6 +49,8 @@ describe("TeamPage", () => {
 
     expect(markup).toContain(en.routes.coaches.title);
     expect(markup).toContain(englishMember.biography);
+    expect(markup).toContain(en.teamPage.biographyReadAction);
+    expect(markup).toContain(en.teamPage.biographyHideAction);
     expect(markup).not.toContain("Focus areas");
     expect(markup).not.toContain(germanMember.biography);
   });
@@ -60,8 +67,11 @@ describe("TeamMemberCard", () => {
     );
 
     expect(markup).toContain(
-      'aria-label="Social-Media-Profil von Kru Tiger öffnen"',
+      'aria-label="Instagram-Profil von Kru Tiger öffnen"',
     );
+    expect(markup).toContain('data-team-profile-link="instagram"');
+    expect(markup).toContain('data-instagram-icon="true"');
+    expect(markup).toContain(de.teamPage.socialLinkAction);
     expect(markup).toContain('href="https://example.com/kru-tiger"');
     expect(markup).toContain('target="_blank"');
     expect(markup).toContain('rel="noreferrer"');
