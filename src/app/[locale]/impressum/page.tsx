@@ -1,6 +1,7 @@
-import { createLocalizedPlaceholderRoute } from "@/components/marketing/localized-placeholder-route";
+import { createLocalizedLegalRoute } from "@/components/marketing/localized-legal-route";
+import { getImprintPageContent } from "@/lib/sanity/content";
 
-const route = createLocalizedPlaceholderRoute("imprint");
+const route = createLocalizedLegalRoute("imprint", getImprintPageContent);
 
 export const generateMetadata = route.generateMetadata;
 export default route.Page;

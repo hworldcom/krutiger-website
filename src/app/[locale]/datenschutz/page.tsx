@@ -1,6 +1,7 @@
-import { createLocalizedPlaceholderRoute } from "@/components/marketing/localized-placeholder-route";
+import { createLocalizedLegalRoute } from "@/components/marketing/localized-legal-route";
+import { getPrivacyPageContent } from "@/lib/sanity/content";
 
-const route = createLocalizedPlaceholderRoute("privacy");
+const route = createLocalizedLegalRoute("privacy", getPrivacyPageContent);
 
 export const generateMetadata = route.generateMetadata;
 export default route.Page;

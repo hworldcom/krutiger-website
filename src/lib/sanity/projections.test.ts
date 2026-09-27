@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import type {
+  IMPRINT_PAGE_QUERY_RESULT,
   MEMBERSHIP_CARDS_QUERY_RESULT,
   MONTHLY_PASS_CARDS_QUERY_RESULT,
   PRICING_PAGE_QUERY_RESULT,
@@ -11,6 +12,7 @@ import type {
 } from "./sanity.types";
 import type { SanityImageUrlFactory } from "./images";
 import {
+  projectLegalPage,
   projectMembershipCards,
   projectMonthlyPassCards,
   projectPricingPage,
@@ -105,6 +107,40 @@ const trainingDocuments: TRAINING_CLASSES_QUERY_RESULT = [
 ];
 
 describe("Sanity content projections", () => {
+  it("projects only the requested legal-page language", () => {
+    const document: IMPRINT_PAGE_QUERY_RESULT = {
+      _id: "imprintPage",
+      body: richText("Deutscher Rechtstext", "English legal text"),
+      eyebrow: localized("Rechtliches", "Legal"),
+      introduction: localizedText(
+        "Deutsche Einführung",
+        "English introduction",
+      ),
+      seo,
+      title: localized("Impressum", "Imprint"),
+    };
+
+    const projection = projectLegalPage(
+      document,
+      "en",
+      "imprintPage",
+      imageUrl,
+    );
+
+    expect(projection).toMatchObject({
+      status: "ready",
+      value: {
+        hero: {
+          eyebrow: "Legal",
+          introduction: "English introduction",
+          title: "Imprint",
+        },
+      },
+    });
+    expect(JSON.stringify(projection)).toContain("English legal text");
+    expect(JSON.stringify(projection)).not.toContain("Deutscher Rechtstext");
+  });
+
   it("projects localized opening hours and accepts an omitted telephone", () => {
     const settings: SITE_SETTINGS_QUERY_RESULT = {
       _id: "siteSettings",

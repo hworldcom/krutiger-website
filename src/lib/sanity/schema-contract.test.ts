@@ -120,6 +120,8 @@ describe("Sanity schema contract", () => {
       "trainingPage",
       "teamPage",
       "pricingPage",
+      "imprintPage",
+      "privacyPage",
       "classType",
       "coach",
       "faq",
@@ -136,6 +138,8 @@ describe("Sanity schema contract", () => {
       "trainingPage",
       "teamPage",
       "pricingPage",
+      "imprintPage",
+      "privacyPage",
     ]);
   });
 
@@ -180,10 +184,26 @@ describe("Sanity schema contract", () => {
     ]);
   });
 
+  it.each(["imprintPage", "privacyPage"])(
+    "models bilingual rich legal content for %s",
+    (typeName) => {
+      expect(fieldNames(typeName)).toEqual([
+        "eyebrow",
+        "title",
+        "introduction",
+        "body",
+        "seo",
+        "editorialState",
+      ]);
+      expect(getField(typeName, "body").type).toBe("localizedRichText");
+    },
+  );
+
   it("organizes the Studio desk into editor-facing content areas", () => {
     expect([...studioDeskSectionIds]).toEqual([
       "siteSettings",
       "corePages",
+      "legalPages",
       "training",
       "pricing",
       "team",
@@ -198,6 +218,8 @@ describe("Sanity schema contract", () => {
     "trainingPage",
     "teamPage",
     "pricingPage",
+    "imprintPage",
+    "privacyPage",
     "classType",
     "coach",
     "faq",

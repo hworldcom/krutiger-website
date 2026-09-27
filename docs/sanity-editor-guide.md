@@ -11,19 +11,21 @@ changing the website layout or code.
 
 ## Finding content
 
-The Studio desk is organized into six destinations:
+The Studio desk is organized into seven destinations:
 
 1. **Site settings** — gym identity, footer, contact information, social profile,
    and default SEO.
 2. **Core pages** — Homepage and About page.
-3. **Training** — Training-page copy and reusable descriptions of training
+3. **Legal pages** — bilingual Impressum and Datenschutz content, including
+   page metadata and structured legal text.
+4. **Training** — Training-page copy and reusable descriptions of training
    formats. Live sessions and bookings remain in bsport.
-4. **Pricing** — Pricing-page copy, reviewed shared terms, and website cards for
+5. **Pricing** — Pricing-page copy, reviewed shared terms, and website cards for
    existing bSport memberships and passes.
-5. **Team** — Team-page copy plus team-member profiles, photos, and biographies.
-6. **FAQ** — categorized visitor questions and answers.
+6. **Team** — Team-page copy plus team-member profiles, photos, and biographies.
+7. **FAQ** — categorized visitor questions and answers.
 
-Site settings and all five page-level documents are fixed documents. Open them
+Site settings and all page-level documents are fixed documents. Open them
 directly from the desk; do not create copies. Training classes, team members,
 pricing cards, and FAQs are collections and may contain multiple documents.
 
@@ -97,9 +99,22 @@ languages.
 
 Contact details remain blocked from publication while **Contact information
 status** is **Placeholder**. Change it to **Verified by KRUTIGER** only after the
-address, map link, email, telephone, and opening information have all been
-checked by the content owner. The badge at the top of Site settings makes this
-state visible.
+address, map link, email, any supplied telephone, and opening information have
+all been checked by the content owner. Telephone is optional; leave it empty to
+remove the phone entry from the website. The badge at the top of Site settings
+makes this state visible.
+
+## Legal pages
+
+Impressum and Datenschutz are separate bilingual singleton documents. Their
+legal text supports paragraphs, second- and third-level headings, quotes,
+numbered and bulleted lists, emphasis, and links. Do not paste raw HTML into the
+editor.
+
+Only publish legally reviewed text. Complete and review German and English
+independently, verify every address and link, and update the SEO fields when the
+page's legal scope changes. The seeded documents are placeholders and are not a
+substitute for legal approval.
 
 ## Links and SEO
 

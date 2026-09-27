@@ -211,6 +211,50 @@ export const PRICING_PAGE_QUERY = defineQuery(`
   }
 `);
 
+export const IMPRINT_PAGE_QUERY = defineQuery(`
+  *[_type == "imprintPage"] | order(_updatedAt desc)[0] {
+    _id,
+    eyebrow,
+    title,
+    introduction,
+    body,
+    seo {
+      title,
+      description,
+      shareImage {
+        asset,
+        crop,
+        hotspot,
+        decorative,
+        alternativeText,
+        caption
+      }
+    }
+  }
+`);
+
+export const PRIVACY_PAGE_QUERY = defineQuery(`
+  *[_type == "privacyPage"] | order(_updatedAt desc)[0] {
+    _id,
+    eyebrow,
+    title,
+    introduction,
+    body,
+    seo {
+      title,
+      description,
+      shareImage {
+        asset,
+        crop,
+        hotspot,
+        decorative,
+        alternativeText,
+        caption
+      }
+    }
+  }
+`);
+
 export const TRAINING_CLASSES_QUERY = defineQuery(`
   *[_type == "classType" && active == true]
     | order(order asc, name.de asc, internalKey.current asc) {

@@ -3,6 +3,7 @@ import type {
   AboutEditorialContent,
   HomepageEditorialContent,
   HomepageFeatureKey,
+  LegalPageEditorialContent,
   PhilosophyValueKey,
   PricingPageEditorialContent,
   SiteEditorialContent,
@@ -62,6 +63,30 @@ export function createSiteSettingsFallback(
     defaultSeo: {
       title: dictionary.metadata.title,
       description: dictionary.metadata.description,
+      shareImage: {
+        src: "/images/home/main.png",
+        alternativeText: dictionary.homePage.hero.imageAlt,
+      },
+    },
+  };
+}
+
+export function createLegalPageFallback(
+  dictionary: Dictionary,
+  route: "imprint" | "privacy",
+): LegalPageEditorialContent {
+  const page = dictionary.routes[route];
+
+  return {
+    hero: {
+      eyebrow: page.eyebrow,
+      title: page.title,
+      introduction: page.description,
+    },
+    body: [],
+    seo: {
+      title: page.title,
+      description: page.description,
       shareImage: {
         src: "/images/home/main.png",
         alternativeText: dictionary.homePage.hero.imageAlt,

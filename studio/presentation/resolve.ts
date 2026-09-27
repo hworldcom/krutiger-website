@@ -30,6 +30,8 @@ export const presentationResolve = {
     coach: bilingualLocations("/coaches"),
     faq: bilingualLocations("/faq"),
     pricingPage: bilingualLocations("/prices"),
+    imprintPage: bilingualLocations("/impressum"),
+    privacyPage: bilingualLocations("/datenschutz"),
     membershipCard: bilingualLocations("/prices"),
     monthlyPassCard: bilingualLocations("/prices"),
   },

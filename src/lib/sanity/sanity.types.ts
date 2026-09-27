@@ -94,10 +94,11 @@ export type LocalizedRichText = {
       _type: "span";
       _key: string;
     }>;
-    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
+    style?: "normal" | "h2" | "h3" | "blockquote";
     listItem?: "bullet" | "number";
     markDefs?: Array<{
       href?: string;
+      openInNewTab?: boolean;
       _type: "link";
       _key: string;
     }>;
@@ -112,10 +113,11 @@ export type LocalizedRichText = {
       _type: "span";
       _key: string;
     }>;
-    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
+    style?: "normal" | "h2" | "h3" | "blockquote";
     listItem?: "bullet" | "number";
     markDefs?: Array<{
       href?: string;
+      openInNewTab?: boolean;
       _type: "link";
       _key: string;
     }>;
@@ -197,6 +199,41 @@ export type LocalizedText = {
   en?: string;
 };
 
+export type PrivacyPage = {
+  _id: string;
+  _type: "privacyPage";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  eyebrow?: LocalizedString;
+  title?: LocalizedString;
+  introduction?: LocalizedText;
+  body?: LocalizedRichText;
+  seo?: SeoMetadata;
+  editorialState?: "draft" | "review" | "ready";
+};
+
+export type SeoMetadata = {
+  _type: "seoMetadata";
+  title?: LocalizedString;
+  description?: LocalizedText;
+  shareImage?: EditorialImage;
+};
+
+export type ImprintPage = {
+  _id: string;
+  _type: "imprintPage";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  eyebrow?: LocalizedString;
+  title?: LocalizedString;
+  introduction?: LocalizedText;
+  body?: LocalizedRichText;
+  seo?: SeoMetadata;
+  editorialState?: "draft" | "review" | "ready";
+};
+
 export type PricingPage = {
   _id: string;
   _type: "pricingPage";
@@ -221,13 +258,6 @@ export type PricingPage = {
   checkoutNotice?: LocalizedText;
   seo?: SeoMetadata;
   editorialState?: "draft" | "review" | "ready";
-};
-
-export type SeoMetadata = {
-  _type: "seoMetadata";
-  title?: LocalizedString;
-  description?: LocalizedText;
-  shareImage?: EditorialImage;
 };
 
 export type TeamPage = {
@@ -508,8 +538,10 @@ export type AllSanitySchemaTypes =
   | EditorialImage
   | ClassType
   | LocalizedText
-  | PricingPage
+  | PrivacyPage
   | SeoMetadata
+  | ImprintPage
+  | PricingPage
   | TeamPage
   | TrainingPage
   | AboutPage
@@ -759,6 +791,52 @@ export type PRICING_PAGE_QUERY_RESULT = {
 } | null;
 
 // Source: ../src/lib/sanity/queries.ts
+// Variable: IMPRINT_PAGE_QUERY
+// Query: *[_type == "imprintPage"] | order(_updatedAt desc)[0] {    _id,    eyebrow,    title,    introduction,    body,    seo {      title,      description,      shareImage {        asset,        crop,        hotspot,        decorative,        alternativeText,        caption      }    }  }
+export type IMPRINT_PAGE_QUERY_RESULT = {
+  _id: string;
+  eyebrow: LocalizedString | null;
+  title: LocalizedString | null;
+  introduction: LocalizedText | null;
+  body: LocalizedRichText | null;
+  seo: {
+    title: LocalizedString | null;
+    description: LocalizedText | null;
+    shareImage: {
+      asset: SanityImageAssetReference | null;
+      crop: SanityImageCrop | null;
+      hotspot: SanityImageHotspot | null;
+      decorative: boolean | null;
+      alternativeText: LocalizedAlternativeText | null;
+      caption: LocalizedString | null;
+    } | null;
+  } | null;
+} | null;
+
+// Source: ../src/lib/sanity/queries.ts
+// Variable: PRIVACY_PAGE_QUERY
+// Query: *[_type == "privacyPage"] | order(_updatedAt desc)[0] {    _id,    eyebrow,    title,    introduction,    body,    seo {      title,      description,      shareImage {        asset,        crop,        hotspot,        decorative,        alternativeText,        caption      }    }  }
+export type PRIVACY_PAGE_QUERY_RESULT = {
+  _id: string;
+  eyebrow: LocalizedString | null;
+  title: LocalizedString | null;
+  introduction: LocalizedText | null;
+  body: LocalizedRichText | null;
+  seo: {
+    title: LocalizedString | null;
+    description: LocalizedText | null;
+    shareImage: {
+      asset: SanityImageAssetReference | null;
+      crop: SanityImageCrop | null;
+      hotspot: SanityImageHotspot | null;
+      decorative: boolean | null;
+      alternativeText: LocalizedAlternativeText | null;
+      caption: LocalizedString | null;
+    } | null;
+  } | null;
+} | null;
+
+// Source: ../src/lib/sanity/queries.ts
 // Variable: TRAINING_CLASSES_QUERY
 // Query: *[_type == "classType" && active == true]    | order(order asc, name.de asc, internalKey.current asc) {      _id,      "internalKey": internalKey.current,      name,      summary,      description,      level,      durationMinutes,      audience,      image {        asset,        crop,        hotspot,        decorative,        alternativeText,        caption      },      ctaLabel,      order    }
 export type TRAINING_CLASSES_QUERY_RESULT = Array<{
@@ -952,6 +1030,8 @@ declare global {
     '\n  *[_type == "trainingPage"] | order(_updatedAt desc)[0] {\n    _id,\n    heroEyebrow,\n    heroTitle,\n    heroIntroduction,\n    classesHeading,\n    classesIntroduction,\n    scheduleNotice,\n    seo {\n      title,\n      description,\n      shareImage {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      }\n    }\n  }\n': TRAINING_PAGE_QUERY_RESULT;
     '\n  *[_type == "teamPage"] | order(_updatedAt desc)[0] {\n    _id,\n    heroEyebrow,\n    heroTitle,\n    heroIntroduction,\n    teamHeading,\n    seo {\n      title,\n      description,\n      shareImage {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      }\n    }\n  }\n': TEAM_PAGE_QUERY_RESULT;
     '\n  *[_type == "pricingPage"] | order(_updatedAt desc)[0] {\n    _id,\n    heroEyebrow,\n    heroTitle,\n    heroIntroduction,\n    membershipHeading,\n    membershipIntroduction,\n    adultAudienceDescription,\n    studentAudienceDescription,\n    kidAudienceDescription,\n    termsHeading,\n    billingDay,\n    joiningFeeCents,\n    autoRenewalExplanation,\n    termsVerifiedAt,\n    passesHeading,\n    passesIntroduction,\n    checkoutNotice,\n    seo {\n      title,\n      description,\n      shareImage {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      }\n    }\n  }\n': PRICING_PAGE_QUERY_RESULT;
+    '\n  *[_type == "imprintPage"] | order(_updatedAt desc)[0] {\n    _id,\n    eyebrow,\n    title,\n    introduction,\n    body,\n    seo {\n      title,\n      description,\n      shareImage {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      }\n    }\n  }\n': IMPRINT_PAGE_QUERY_RESULT;
+    '\n  *[_type == "privacyPage"] | order(_updatedAt desc)[0] {\n    _id,\n    eyebrow,\n    title,\n    introduction,\n    body,\n    seo {\n      title,\n      description,\n      shareImage {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      }\n    }\n  }\n': PRIVACY_PAGE_QUERY_RESULT;
     '\n  *[_type == "classType" && active == true]\n    | order(order asc, name.de asc, internalKey.current asc) {\n      _id,\n      "internalKey": internalKey.current,\n      name,\n      summary,\n      description,\n      level,\n      durationMinutes,\n      audience,\n      image {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      },\n      ctaLabel,\n      order\n    }\n': TRAINING_CLASSES_QUERY_RESULT;
     '\n  *[_type == "coach" && active == true]\n    | order(order asc, name asc, internalKey.current asc) {\n      _id,\n      "internalKey": internalKey.current,\n      name,\n      role,\n      photo {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      },\n      biography,\n      socialUrl,\n      order\n    }\n': COACHES_QUERY_RESULT;
     '\n  *[_type == "faq" && active == true]\n    | order(order asc, question.de asc, internalKey.current asc) {\n      _id,\n      "internalKey": internalKey.current,\n      question,\n      answer,\n      category,\n      order\n    }\n': FAQS_QUERY_RESULT;

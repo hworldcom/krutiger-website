@@ -1,3 +1,5 @@
+import type { PortableTextBlock } from "@portabletext/types";
+
 export type EditorialImage = Readonly<{
   src: string;
   alternativeText: string;
@@ -8,6 +10,16 @@ export type SeoContent = Readonly<{
   title: string;
   description: string;
   shareImage: EditorialImage;
+}>;
+
+export type LegalPageEditorialContent = Readonly<{
+  hero: Readonly<{
+    eyebrow: string;
+    title: string;
+    introduction: string;
+  }>;
+  body: PortableTextBlock[];
+  seo: SeoContent;
 }>;
 
 export type SiteEditorialContent = Readonly<{
