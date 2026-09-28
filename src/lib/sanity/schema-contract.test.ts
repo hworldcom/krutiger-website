@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import { schemaTypes } from "../../../studio/schemaTypes";
+import { promotionMessageMaximumLength } from "../../../studio/schemaTypes/documents/siteSettings";
 import {
   validateLocalizedMaximumLength,
   validateOptionalLocalizedPair,
@@ -110,6 +111,10 @@ describe("Sanity schema contract", () => {
     expect(
       settings.fields?.every((field) => typeof field.validation === "function"),
     ).toBe(true);
+    expect(getField("siteSettings", "promotionMessage").type).toBe(
+      "localizedText",
+    );
+    expect(promotionMessageMaximumLength).toBe(250);
   });
 
   it("registers every intended document type", () => {

@@ -20,6 +20,8 @@ type LocalizedValue = {
   en?: unknown;
 };
 
+export const promotionMessageMaximumLength = 250;
+
 function hasLocalizedPair(value: unknown) {
   if (!value || typeof value !== "object") {
     return false;
@@ -78,25 +80,29 @@ export const siteSettings = defineType({
     defineField({
       name: "promotionMessage",
       title: "Banner message",
-      type: "localizedString",
+      type: "localizedText",
       group: "promotion",
       description:
-        "Required in German and English while the promotion banner is enabled.",
+        "Required in German and English while the promotion banner is enabled. Line breaks are preserved. Maximum 250 characters per language.",
       validation: (Rule) =>
         Rule.custom((value, context) => {
           const document = context.document as PromotionDocument | undefined;
 
           if (!document?.promotionEnabled) {
-            return validateOptionalLocalizedPair(value);
+            const localizedPair = validateOptionalLocalizedPair(value);
+
+            if (localizedPair !== true) {
+              return localizedPair;
+            }
           }
 
-          if (!hasLocalizedPair(value)) {
+          if (document?.promotionEnabled && !hasLocalizedPair(value)) {
             return "Complete the German and English banner messages before enabling the promotion.";
           }
 
           return validateLocalizedMaximumLength(
             value,
-            120,
+            promotionMessageMaximumLength,
             "Promotion message",
           );
         }),

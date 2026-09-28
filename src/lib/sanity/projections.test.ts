@@ -248,7 +248,7 @@ describe("Sanity content projections", () => {
       promotionEnabled: true,
       promotionLinkLabel: localized("Angebot ansehen", "View offer"),
       promotionLinkUrl: "/en/prices",
-      promotionMessage: localized(
+      promotionMessage: localizedText(
         "Eröffnungsangebot für neue Mitglieder",
         "Opening offer for new members",
       ),

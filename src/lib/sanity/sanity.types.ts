@@ -397,7 +397,7 @@ export type SiteSettings = {
   gymName?: LocalizedString;
   footerStatement?: LocalizedText;
   promotionEnabled?: boolean;
-  promotionMessage?: LocalizedString;
+  promotionMessage?: LocalizedText;
   promotionLinkLabel?: LocalizedString;
   promotionLinkUrl?: string;
   contactStatus?: "placeholder" | "verified";
@@ -597,7 +597,7 @@ export type SITE_SETTINGS_QUERY_RESULT = {
   gymName: LocalizedString | null;
   footerStatement: LocalizedText | null;
   promotionEnabled: boolean | null;
-  promotionMessage: LocalizedString | null;
+  promotionMessage: LocalizedText | null;
   promotionLinkLabel: LocalizedString | null;
   promotionLinkUrl: string | null;
   contactStatus: "placeholder" | "verified" | null;
