@@ -40,7 +40,7 @@ passes. In particular, `contactStatus` must be changed from `placeholder` to
 
 ## Fixed pages
 
-`homepage`, `aboutPage`, `trainingPage`, `teamPage`, and `pricingPage` use fixed
+`homepage`, `aboutPage`, `trainingPage`, `schedulePage`, `teamPage`, and `pricingPage` use fixed
 document IDs. Editors can update approved page-level copy and SEO metadata but
 cannot choose components or visual styles. Training classes, team profiles,
 memberships, and passes remain separate ordered collections. The homepage does

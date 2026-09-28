@@ -274,6 +274,46 @@ export type TeamPage = {
   editorialState?: "draft" | "review" | "ready";
 };
 
+export type SchedulePage = {
+  _id: string;
+  _type: "schedulePage";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  timetableImage?: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alternativeText?: LocalizedAlternativeText;
+    caption?: LocalizedString;
+    _type: "image";
+  };
+  editorialState?: "draft" | "review" | "ready";
+};
+
+export type LocalizedAlternativeText = {
+  _type: "localizedAlternativeText";
+  de?: string;
+  en?: string;
+};
+
+export type SanityImageCrop = {
+  _type: "sanity.imageCrop";
+  top?: number;
+  bottom?: number;
+  left?: number;
+  right?: number;
+};
+
+export type SanityImageHotspot = {
+  _type: "sanity.imageHotspot";
+  x?: number;
+  y?: number;
+  height?: number;
+  width?: number;
+};
+
 export type TrainingPage = {
   _id: string;
   _type: "trainingPage";
@@ -411,28 +451,6 @@ export type OpeningHoursEntry = {
   hours?: LocalizedString;
 };
 
-export type LocalizedAlternativeText = {
-  _type: "localizedAlternativeText";
-  de?: string;
-  en?: string;
-};
-
-export type SanityImageCrop = {
-  _type: "sanity.imageCrop";
-  top?: number;
-  bottom?: number;
-  left?: number;
-  right?: number;
-};
-
-export type SanityImageHotspot = {
-  _type: "sanity.imageHotspot";
-  x?: number;
-  y?: number;
-  height?: number;
-  width?: number;
-};
-
 export type SanityImagePaletteSwatch = {
   _type: "sanity.imagePaletteSwatch";
   background?: string;
@@ -547,6 +565,10 @@ export type AllSanitySchemaTypes =
   | ImprintPage
   | PricingPage
   | TeamPage
+  | SchedulePage
+  | LocalizedAlternativeText
+  | SanityImageCrop
+  | SanityImageHotspot
   | TrainingPage
   | AboutPage
   | Homepage
@@ -556,9 +578,6 @@ export type AllSanitySchemaTypes =
   | AboutChapter
   | HomepageFeature
   | OpeningHoursEntry
-  | LocalizedAlternativeText
-  | SanityImageCrop
-  | SanityImageHotspot
   | SanityImagePaletteSwatch
   | SanityImagePalette
   | SanityImageDimensions
@@ -737,6 +756,20 @@ export type TRAINING_PAGE_QUERY_RESULT = {
       alternativeText: LocalizedAlternativeText | null;
       caption: LocalizedString | null;
     } | null;
+  } | null;
+} | null;
+
+// Source: ../src/lib/sanity/queries.ts
+// Variable: SCHEDULE_PAGE_QUERY
+// Query: *[_type == "schedulePage"] | order(_updatedAt desc)[0] {    _id,    timetableImage {      asset,      crop,      hotspot,      alternativeText,      caption    }  }
+export type SCHEDULE_PAGE_QUERY_RESULT = {
+  _id: string;
+  timetableImage: {
+    asset: SanityImageAssetReference | null;
+    crop: SanityImageCrop | null;
+    hotspot: SanityImageHotspot | null;
+    alternativeText: LocalizedAlternativeText | null;
+    caption: LocalizedString | null;
   } | null;
 } | null;
 
@@ -1036,6 +1069,7 @@ declare global {
     '\n  *[_type == "homepage"] | order(_updatedAt desc)[0] {\n    _id,\n    heroEyebrow,\n    heroTitleLines,\n    heroIntroduction,\n    heroImage {\n      asset,\n      crop,\n      hotspot,\n      decorative,\n      alternativeText,\n      caption\n    },\n    trialActionLabel,\n    scheduleActionLabel,\n    valuesEyebrow,\n    valuesTitle,\n    valuesTitleAccent,\n    valuesIntroduction,\n    features[] {\n      internalKey,\n      title,\n      description\n    },\n    seo {\n      title,\n      description,\n      shareImage {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      }\n    }\n  }\n': HOMEPAGE_QUERY_RESULT;
     '\n  *[_type == "aboutPage"] | order(_updatedAt desc)[0] {\n    _id,\n    heroEyebrow,\n    heroTitlePrimary,\n    heroTitleSecondary,\n    heroIntroduction,\n    heroImage {\n      asset,\n      crop,\n      hotspot,\n      decorative,\n      alternativeText,\n      caption\n    },\n    storyHeading,\n    chapters[] {\n      internalKey,\n      title,\n      description,\n      accent,\n      primaryImage {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      },\n      secondaryImage {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      }\n    },\n    philosophyTitle,\n    philosophyValues[] {\n      internalKey,\n      title,\n      description\n    },\n    seo {\n      title,\n      description,\n      shareImage {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      }\n    }\n  }\n': ABOUT_PAGE_QUERY_RESULT;
     '\n  *[_type == "trainingPage"] | order(_updatedAt desc)[0] {\n    _id,\n    heroEyebrow,\n    heroTitle,\n    heroIntroduction,\n    classesHeading,\n    classesIntroduction,\n    scheduleNotice,\n    seo {\n      title,\n      description,\n      shareImage {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      }\n    }\n  }\n': TRAINING_PAGE_QUERY_RESULT;
+    '\n  *[_type == "schedulePage"] | order(_updatedAt desc)[0] {\n    _id,\n    timetableImage {\n      asset,\n      crop,\n      hotspot,\n      alternativeText,\n      caption\n    }\n  }\n': SCHEDULE_PAGE_QUERY_RESULT;
     '\n  *[_type == "teamPage"] | order(_updatedAt desc)[0] {\n    _id,\n    heroEyebrow,\n    heroTitle,\n    heroIntroduction,\n    teamHeading,\n    seo {\n      title,\n      description,\n      shareImage {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      }\n    }\n  }\n': TEAM_PAGE_QUERY_RESULT;
     '\n  *[_type == "pricingPage"] | order(_updatedAt desc)[0] {\n    _id,\n    heroEyebrow,\n    heroTitle,\n    heroIntroduction,\n    membershipHeading,\n    membershipIntroduction,\n    adultAudienceDescription,\n    studentAudienceDescription,\n    kidAudienceDescription,\n    termsHeading,\n    billingDay,\n    joiningFeeCents,\n    autoRenewalExplanation,\n    termsVerifiedAt,\n    passesHeading,\n    passesIntroduction,\n    checkoutNotice,\n    seo {\n      title,\n      description,\n      shareImage {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      }\n    }\n  }\n': PRICING_PAGE_QUERY_RESULT;
     '\n  *[_type == "imprintPage"] | order(_updatedAt desc)[0] {\n    _id,\n    eyebrow,\n    title,\n    introduction,\n    body,\n    seo {\n      title,\n      description,\n      shareImage {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      }\n    }\n  }\n': IMPRINT_PAGE_QUERY_RESULT;

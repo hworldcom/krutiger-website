@@ -137,6 +137,10 @@ export type TrainingPageEditorialContent = Readonly<{
   seo: SeoContent;
 }>;
 
+export type SchedulePageEditorialContent = Readonly<{
+  timetableImage: EditorialImage;
+}>;
+
 export type TeamPageEditorialContent = Readonly<{
   hero: PageHeroEditorialContent;
   team: Readonly<{

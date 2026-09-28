@@ -122,6 +122,7 @@ describe("Sanity schema contract", () => {
       "homepage",
       "aboutPage",
       "trainingPage",
+      "schedulePage",
       "teamPage",
       "pricingPage",
       "imprintPage",
@@ -140,6 +141,7 @@ describe("Sanity schema contract", () => {
       "homepage",
       "aboutPage",
       "trainingPage",
+      "schedulePage",
       "teamPage",
       "pricingPage",
       "imprintPage",
@@ -164,6 +166,10 @@ describe("Sanity schema contract", () => {
       "heroIntroduction",
       "teamHeading",
       "seo",
+      "editorialState",
+    ]);
+    expect(fieldNames("schedulePage")).toEqual([
+      "timetableImage",
       "editorialState",
     ]);
     expect(fieldNames("pricingPage")).toEqual([
@@ -220,6 +226,7 @@ describe("Sanity schema contract", () => {
     "homepage",
     "aboutPage",
     "trainingPage",
+    "schedulePage",
     "teamPage",
     "pricingPage",
     "imprintPage",

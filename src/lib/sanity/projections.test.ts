@@ -6,6 +6,7 @@ import type {
   MEMBERSHIP_CARDS_QUERY_RESULT,
   MONTHLY_PASS_CARDS_QUERY_RESULT,
   PRICING_PAGE_QUERY_RESULT,
+  SCHEDULE_PAGE_QUERY_RESULT,
   SITE_SETTINGS_QUERY_RESULT,
   TEAM_PAGE_QUERY_RESULT,
   TRAINING_CLASSES_QUERY_RESULT,
@@ -18,6 +19,7 @@ import {
   projectMembershipCards,
   projectMonthlyPassCards,
   projectPricingPage,
+  projectSchedulePage,
   projectSiteSettings,
   projectTeamPage,
   projectTrainingClasses,
@@ -415,6 +417,27 @@ describe("Sanity content projections", () => {
         checkoutNotice: "Checkout through bSport.",
         memberships: {
           terms: { billingDay: 3, joiningFee: 29 },
+        },
+      },
+    });
+  });
+
+  it("projects the localized weekly timetable image", () => {
+    const schedulePage: SCHEDULE_PAGE_QUERY_RESULT = {
+      _id: "schedulePage",
+      timetableImage: {
+        ...editorialImage,
+        caption: localized("Regulärer Wochenplan", "Regular weekly timetable"),
+      },
+    };
+
+    expect(projectSchedulePage(schedulePage, "en", imageUrl)).toMatchObject({
+      status: "ready",
+      value: {
+        timetableImage: {
+          alternativeText: "Training in the ring",
+          caption: "Regular weekly timetable",
+          src: expect.stringContaining("w=2400&h=1367"),
         },
       },
     });

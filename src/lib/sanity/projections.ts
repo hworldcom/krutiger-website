@@ -12,6 +12,7 @@ import type {
   LegalPageEditorialContent,
   PhilosophyValueKey,
   PricingPageEditorialContent,
+  SchedulePageEditorialContent,
   SeoContent,
   SiteEditorialContent,
   TeamPageEditorialContent,
@@ -38,6 +39,7 @@ import type {
   MONTHLY_PASS_CARDS_QUERY_RESULT,
   PRICING_PAGE_QUERY_RESULT,
   PRIVACY_PAGE_QUERY_RESULT,
+  SCHEDULE_PAGE_QUERY_RESULT,
   SITE_SETTINGS_QUERY_RESULT,
   TEAM_PAGE_QUERY_RESULT,
   TRAINING_CLASSES_QUERY_RESULT,
@@ -1314,6 +1316,32 @@ export function projectTrainingPage(
   };
 
   return result(issues, trainingPage);
+}
+
+export function projectSchedulePage(
+  document: SCHEDULE_PAGE_QUERY_RESULT,
+  locale: Locale,
+  createImageUrl: SanityImageUrlFactory,
+): ProjectionResult<SchedulePageEditorialContent> {
+  const issues: ContentIssue[] = [];
+  const value: UnknownRecord = isRecord(document) ? document : {};
+
+  if (!isRecord(document)) {
+    addIssue(issues, "invalid", "schedulePage", "Expected a Schedule page.");
+  }
+
+  const timetableImage = projectImage(
+    value.timetableImage,
+    locale,
+    "schedulePage.timetableImage",
+    issues,
+    createImageUrl,
+    { width: 2_400, height: 1_367 },
+  );
+
+  return result(issues, {
+    timetableImage: timetableImage ?? { src: "", alternativeText: "" },
+  });
 }
 
 export function projectTeamPage(

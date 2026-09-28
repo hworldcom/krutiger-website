@@ -159,6 +159,19 @@ export const TRAINING_PAGE_QUERY = defineQuery(`
   }
 `);
 
+export const SCHEDULE_PAGE_QUERY = defineQuery(`
+  *[_type == "schedulePage"] | order(_updatedAt desc)[0] {
+    _id,
+    timetableImage {
+      asset,
+      crop,
+      hotspot,
+      alternativeText,
+      caption
+    }
+  }
+`);
+
 export const TEAM_PAGE_QUERY = defineQuery(`
   *[_type == "teamPage"] | order(_updatedAt desc)[0] {
     _id,

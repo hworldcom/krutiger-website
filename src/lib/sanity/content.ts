@@ -6,6 +6,7 @@ import type {
   HomepageEditorialContent,
   LegalPageEditorialContent,
   PricingPageEditorialContent,
+  SchedulePageEditorialContent,
   SiteEditorialContent,
   TeamPageEditorialContent,
   TrainingPageEditorialContent,
@@ -29,6 +30,7 @@ import {
   MONTHLY_PASS_CARDS_QUERY,
   PRICING_PAGE_QUERY,
   PRIVACY_PAGE_QUERY,
+  SCHEDULE_PAGE_QUERY,
   SITE_SETTINGS_QUERY,
   TEAM_PAGE_QUERY,
   TRAINING_CLASSES_QUERY,
@@ -43,6 +45,7 @@ import {
   projectMembershipCards,
   projectMonthlyPassCards,
   projectPricingPage,
+  projectSchedulePage,
   projectSiteSettings,
   projectTeamPage,
   projectTrainingClasses,
@@ -173,6 +176,25 @@ export async function getTrainingPageContent(
 
     const imageUrl = createSanityImageUrlFactory(getSanityImageProject());
     return projectTrainingPage(document, locale, imageUrl);
+  } catch (error) {
+    return toUnavailableContentResult(error);
+  }
+}
+
+export async function getSchedulePageContent(
+  locale: Locale,
+): Promise<SanityContentResult<SchedulePageEditorialContent>> {
+  try {
+    const document = await fetchSanityQuery(SCHEDULE_PAGE_QUERY, [
+      "sanity:schedulePage",
+    ]);
+
+    if (!document) {
+      return { status: "missing" };
+    }
+
+    const imageUrl = createSanityImageUrlFactory(getSanityImageProject());
+    return projectSchedulePage(document, locale, imageUrl);
   } catch (error) {
     return toUnavailableContentResult(error);
   }
