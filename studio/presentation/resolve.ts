@@ -25,6 +25,7 @@ export const presentationResolve = {
     homepage: bilingualLocations(),
     aboutPage: bilingualLocations("/about"),
     trainingPage: bilingualLocations("/training"),
+    schedulePage: bilingualLocations("/schedule"),
     classType: bilingualLocations("/training"),
     teamPage: bilingualLocations("/coaches"),
     coach: bilingualLocations("/coaches"),

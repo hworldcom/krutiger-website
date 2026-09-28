@@ -85,7 +85,7 @@ const en = {
       eyebrow: "Schedule",
       title: "Plan your next training session",
       description:
-        "View the current schedule and start your booking directly through bsport.",
+        "View our weekly schedule. Then choose your class in the live schedule below and book it directly through bSport.",
     },
     prices: {
       navigationLabel: "Prices",
@@ -519,6 +519,8 @@ const en = {
       },
       membershipLabel: "Membership",
       perMonth: "/ month",
+      regularPriceLabel: "Regular price",
+      discountedPriceLabel: "Discounted price",
       billingDay: "Billed on day {day} of each month",
       joiningFee: "Joining fee",
       autoRenewal:

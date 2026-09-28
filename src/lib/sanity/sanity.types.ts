@@ -56,6 +56,8 @@ export type MembershipCard = {
   name?: LocalizedString;
   audience?: "adult" | "student" | "kid";
   monthlyPriceCents?: number;
+  discountEnabled?: boolean;
+  discountedMonthlyPriceCents?: number;
   durationMonths?: 3 | 6 | 12 | 24;
   accessType?: "limited" | "unlimited";
   monthlySessions?: number;
@@ -274,6 +276,46 @@ export type TeamPage = {
   editorialState?: "draft" | "review" | "ready";
 };
 
+export type SchedulePage = {
+  _id: string;
+  _type: "schedulePage";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  timetableImage?: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alternativeText?: LocalizedAlternativeText;
+    caption?: LocalizedString;
+    _type: "image";
+  };
+  editorialState?: "draft" | "review" | "ready";
+};
+
+export type LocalizedAlternativeText = {
+  _type: "localizedAlternativeText";
+  de?: string;
+  en?: string;
+};
+
+export type SanityImageCrop = {
+  _type: "sanity.imageCrop";
+  top?: number;
+  bottom?: number;
+  left?: number;
+  right?: number;
+};
+
+export type SanityImageHotspot = {
+  _type: "sanity.imageHotspot";
+  x?: number;
+  y?: number;
+  height?: number;
+  width?: number;
+};
+
 export type TrainingPage = {
   _id: string;
   _type: "trainingPage";
@@ -355,7 +397,7 @@ export type SiteSettings = {
   gymName?: LocalizedString;
   footerStatement?: LocalizedText;
   promotionEnabled?: boolean;
-  promotionMessage?: LocalizedString;
+  promotionMessage?: LocalizedText;
   promotionLinkLabel?: LocalizedString;
   promotionLinkUrl?: string;
   contactStatus?: "placeholder" | "verified";
@@ -409,28 +451,6 @@ export type OpeningHoursEntry = {
   _type: "openingHoursEntry";
   days?: LocalizedString;
   hours?: LocalizedString;
-};
-
-export type LocalizedAlternativeText = {
-  _type: "localizedAlternativeText";
-  de?: string;
-  en?: string;
-};
-
-export type SanityImageCrop = {
-  _type: "sanity.imageCrop";
-  top?: number;
-  bottom?: number;
-  left?: number;
-  right?: number;
-};
-
-export type SanityImageHotspot = {
-  _type: "sanity.imageHotspot";
-  x?: number;
-  y?: number;
-  height?: number;
-  width?: number;
 };
 
 export type SanityImagePaletteSwatch = {
@@ -547,6 +567,10 @@ export type AllSanitySchemaTypes =
   | ImprintPage
   | PricingPage
   | TeamPage
+  | SchedulePage
+  | LocalizedAlternativeText
+  | SanityImageCrop
+  | SanityImageHotspot
   | TrainingPage
   | AboutPage
   | Homepage
@@ -556,9 +580,6 @@ export type AllSanitySchemaTypes =
   | AboutChapter
   | HomepageFeature
   | OpeningHoursEntry
-  | LocalizedAlternativeText
-  | SanityImageCrop
-  | SanityImageHotspot
   | SanityImagePaletteSwatch
   | SanityImagePalette
   | SanityImageDimensions
@@ -576,7 +597,7 @@ export type SITE_SETTINGS_QUERY_RESULT = {
   gymName: LocalizedString | null;
   footerStatement: LocalizedText | null;
   promotionEnabled: boolean | null;
-  promotionMessage: LocalizedString | null;
+  promotionMessage: LocalizedText | null;
   promotionLinkLabel: LocalizedString | null;
   promotionLinkUrl: string | null;
   contactStatus: "placeholder" | "verified" | null;
@@ -737,6 +758,20 @@ export type TRAINING_PAGE_QUERY_RESULT = {
       alternativeText: LocalizedAlternativeText | null;
       caption: LocalizedString | null;
     } | null;
+  } | null;
+} | null;
+
+// Source: ../src/lib/sanity/queries.ts
+// Variable: SCHEDULE_PAGE_QUERY
+// Query: *[_type == "schedulePage"] | order(_updatedAt desc)[0] {    _id,    timetableImage {      asset,      crop,      hotspot,      alternativeText,      caption    }  }
+export type SCHEDULE_PAGE_QUERY_RESULT = {
+  _id: string;
+  timetableImage: {
+    asset: SanityImageAssetReference | null;
+    crop: SanityImageCrop | null;
+    hotspot: SanityImageHotspot | null;
+    alternativeText: LocalizedAlternativeText | null;
+    caption: LocalizedString | null;
   } | null;
 } | null;
 
@@ -917,13 +952,15 @@ export type FAQS_QUERY_RESULT = Array<{
 
 // Source: ../src/lib/sanity/queries.ts
 // Variable: MEMBERSHIP_CARDS_QUERY
-// Query: *[_type == "membershipCard" && active == true]    | order(audience asc, durationMonths desc, order asc, name.de asc, internalKey.current asc) {      _id,      "internalKey": internalKey.current,      name,      audience,      monthlyPriceCents,      durationMonths,      accessType,      monthlySessions,      benefits,      checkoutUrl,      verifiedAt,      order    }
+// Query: *[_type == "membershipCard" && active == true]    | order(audience asc, durationMonths desc, order asc, name.de asc, internalKey.current asc) {      _id,      "internalKey": internalKey.current,      name,      audience,      monthlyPriceCents,      discountEnabled,      discountedMonthlyPriceCents,      durationMonths,      accessType,      monthlySessions,      benefits,      checkoutUrl,      verifiedAt,      order    }
 export type MEMBERSHIP_CARDS_QUERY_RESULT = Array<{
   _id: string;
   internalKey: string | null;
   name: LocalizedString | null;
   audience: "adult" | "kid" | "student" | null;
   monthlyPriceCents: number | null;
+  discountEnabled: boolean | null;
+  discountedMonthlyPriceCents: number | null;
   durationMonths: 12 | 24 | 3 | 6 | null;
   accessType: "limited" | "unlimited" | null;
   monthlySessions: number | null;
@@ -1036,6 +1073,7 @@ declare global {
     '\n  *[_type == "homepage"] | order(_updatedAt desc)[0] {\n    _id,\n    heroEyebrow,\n    heroTitleLines,\n    heroIntroduction,\n    heroImage {\n      asset,\n      crop,\n      hotspot,\n      decorative,\n      alternativeText,\n      caption\n    },\n    trialActionLabel,\n    scheduleActionLabel,\n    valuesEyebrow,\n    valuesTitle,\n    valuesTitleAccent,\n    valuesIntroduction,\n    features[] {\n      internalKey,\n      title,\n      description\n    },\n    seo {\n      title,\n      description,\n      shareImage {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      }\n    }\n  }\n': HOMEPAGE_QUERY_RESULT;
     '\n  *[_type == "aboutPage"] | order(_updatedAt desc)[0] {\n    _id,\n    heroEyebrow,\n    heroTitlePrimary,\n    heroTitleSecondary,\n    heroIntroduction,\n    heroImage {\n      asset,\n      crop,\n      hotspot,\n      decorative,\n      alternativeText,\n      caption\n    },\n    storyHeading,\n    chapters[] {\n      internalKey,\n      title,\n      description,\n      accent,\n      primaryImage {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      },\n      secondaryImage {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      }\n    },\n    philosophyTitle,\n    philosophyValues[] {\n      internalKey,\n      title,\n      description\n    },\n    seo {\n      title,\n      description,\n      shareImage {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      }\n    }\n  }\n': ABOUT_PAGE_QUERY_RESULT;
     '\n  *[_type == "trainingPage"] | order(_updatedAt desc)[0] {\n    _id,\n    heroEyebrow,\n    heroTitle,\n    heroIntroduction,\n    classesHeading,\n    classesIntroduction,\n    scheduleNotice,\n    seo {\n      title,\n      description,\n      shareImage {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      }\n    }\n  }\n': TRAINING_PAGE_QUERY_RESULT;
+    '\n  *[_type == "schedulePage"] | order(_updatedAt desc)[0] {\n    _id,\n    timetableImage {\n      asset,\n      crop,\n      hotspot,\n      alternativeText,\n      caption\n    }\n  }\n': SCHEDULE_PAGE_QUERY_RESULT;
     '\n  *[_type == "teamPage"] | order(_updatedAt desc)[0] {\n    _id,\n    heroEyebrow,\n    heroTitle,\n    heroIntroduction,\n    teamHeading,\n    seo {\n      title,\n      description,\n      shareImage {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      }\n    }\n  }\n': TEAM_PAGE_QUERY_RESULT;
     '\n  *[_type == "pricingPage"] | order(_updatedAt desc)[0] {\n    _id,\n    heroEyebrow,\n    heroTitle,\n    heroIntroduction,\n    membershipHeading,\n    membershipIntroduction,\n    adultAudienceDescription,\n    studentAudienceDescription,\n    kidAudienceDescription,\n    termsHeading,\n    billingDay,\n    joiningFeeCents,\n    autoRenewalExplanation,\n    termsVerifiedAt,\n    passesHeading,\n    passesIntroduction,\n    checkoutNotice,\n    seo {\n      title,\n      description,\n      shareImage {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      }\n    }\n  }\n': PRICING_PAGE_QUERY_RESULT;
     '\n  *[_type == "imprintPage"] | order(_updatedAt desc)[0] {\n    _id,\n    eyebrow,\n    title,\n    introduction,\n    body,\n    seo {\n      title,\n      description,\n      shareImage {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      }\n    }\n  }\n': IMPRINT_PAGE_QUERY_RESULT;
@@ -1043,7 +1081,7 @@ declare global {
     '\n  *[_type == "classType" && active == true]\n    | order(order asc, name.de asc, internalKey.current asc) {\n      _id,\n      "internalKey": internalKey.current,\n      name,\n      summary,\n      description,\n      level,\n      durationMinutes,\n      audience,\n      image {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      },\n      ctaLabel,\n      order\n    }\n': TRAINING_CLASSES_QUERY_RESULT;
     '\n  *[_type == "coach" && active == true]\n    | order(order asc, name asc, internalKey.current asc) {\n      _id,\n      "internalKey": internalKey.current,\n      name,\n      role,\n      photo {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      },\n      biography,\n      socialUrl,\n      order\n    }\n': COACHES_QUERY_RESULT;
     '\n  *[_type == "faq" && active == true]\n    | order(order asc, question.de asc, internalKey.current asc) {\n      _id,\n      "internalKey": internalKey.current,\n      question,\n      answer,\n      category,\n      order\n    }\n': FAQS_QUERY_RESULT;
-    '\n  *[_type == "membershipCard" && active == true]\n    | order(audience asc, durationMonths desc, order asc, name.de asc, internalKey.current asc) {\n      _id,\n      "internalKey": internalKey.current,\n      name,\n      audience,\n      monthlyPriceCents,\n      durationMonths,\n      accessType,\n      monthlySessions,\n      benefits,\n      checkoutUrl,\n      verifiedAt,\n      order\n    }\n': MEMBERSHIP_CARDS_QUERY_RESULT;
+    '\n  *[_type == "membershipCard" && active == true]\n    | order(audience asc, durationMonths desc, order asc, name.de asc, internalKey.current asc) {\n      _id,\n      "internalKey": internalKey.current,\n      name,\n      audience,\n      monthlyPriceCents,\n      discountEnabled,\n      discountedMonthlyPriceCents,\n      durationMonths,\n      accessType,\n      monthlySessions,\n      benefits,\n      checkoutUrl,\n      verifiedAt,\n      order\n    }\n': MEMBERSHIP_CARDS_QUERY_RESULT;
     '\n  *[_type == "monthlyPassCard" && active == true]\n    | order(order asc, name.de asc, internalKey.current asc) {\n      _id,\n      "internalKey": internalKey.current,\n      name,\n      priceCents,\n      validityMonths,\n      accessType,\n      sessions,\n      checkoutUrl,\n      verifiedAt,\n      order\n    }\n': MONTHLY_PASS_CARDS_QUERY_RESULT;
     '\n  {\n    "default": *[_type == "siteSettings"] | order(_updatedAt desc)[0].defaultSeo {\n      title,\n      description,\n      shareImage {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      }\n    },\n    "homepage": *[_type == "homepage"] | order(_updatedAt desc)[0].seo {\n      title,\n      description,\n      shareImage {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      }\n    },\n    "about": *[_type == "aboutPage"] | order(_updatedAt desc)[0].seo {\n      title,\n      description,\n      shareImage {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      }\n    },\n    "training": *[_type == "trainingPage"] | order(_updatedAt desc)[0].seo {\n      title,\n      description,\n      shareImage {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      }\n    },\n    "team": *[_type == "teamPage"] | order(_updatedAt desc)[0].seo {\n      title,\n      description,\n      shareImage {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      }\n    },\n    "pricing": *[_type == "pricingPage"] | order(_updatedAt desc)[0].seo {\n      title,\n      description,\n      shareImage {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      }\n    }\n  }\n': SEO_CONTENT_QUERY_RESULT;
   }

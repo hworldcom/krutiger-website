@@ -6,6 +6,7 @@ import type {
   MEMBERSHIP_CARDS_QUERY_RESULT,
   MONTHLY_PASS_CARDS_QUERY_RESULT,
   PRICING_PAGE_QUERY_RESULT,
+  SCHEDULE_PAGE_QUERY_RESULT,
   SITE_SETTINGS_QUERY_RESULT,
   TEAM_PAGE_QUERY_RESULT,
   TRAINING_CLASSES_QUERY_RESULT,
@@ -18,6 +19,7 @@ import {
   projectMembershipCards,
   projectMonthlyPassCards,
   projectPricingPage,
+  projectSchedulePage,
   projectSiteSettings,
   projectTeamPage,
   projectTrainingClasses,
@@ -246,7 +248,7 @@ describe("Sanity content projections", () => {
       promotionEnabled: true,
       promotionLinkLabel: localized("Angebot ansehen", "View offer"),
       promotionLinkUrl: "/en/prices",
-      promotionMessage: localized(
+      promotionMessage: localizedText(
         "Eröffnungsangebot für neue Mitglieder",
         "Opening offer for new members",
       ),
@@ -420,6 +422,27 @@ describe("Sanity content projections", () => {
     });
   });
 
+  it("projects the localized weekly timetable image", () => {
+    const schedulePage: SCHEDULE_PAGE_QUERY_RESULT = {
+      _id: "schedulePage",
+      timetableImage: {
+        ...editorialImage,
+        caption: localized("Regulärer Wochenplan", "Regular weekly timetable"),
+      },
+    };
+
+    expect(projectSchedulePage(schedulePage, "en", imageUrl)).toMatchObject({
+      status: "ready",
+      value: {
+        timetableImage: {
+          alternativeText: "Training in the ring",
+          caption: "Regular weekly timetable",
+          src: expect.stringContaining("w=2400&h=1367"),
+        },
+      },
+    });
+  });
+
   it("projects only the requested Training-page language", () => {
     const german = projectTrainingClasses(trainingDocuments, "de", imageUrl);
     const english = projectTrainingClasses(trainingDocuments, "en", imageUrl);
@@ -488,6 +511,8 @@ describe("Sanity content projections", () => {
         benefits: ["muayThai", "yoga"],
         checkoutUrl:
           "https://backoffice.bsport.io/checkout/6720/subscription/55692?force=true",
+        discountEnabled: true,
+        discountedMonthlyPriceCents: 3_900,
         durationMonths: 24,
         internalKey: "basic-24",
         monthlyPriceCents: 4_900,
@@ -507,6 +532,7 @@ describe("Sanity content projections", () => {
           checkoutUrl:
             "https://backoffice.bsport.io/checkout/6720/subscription/55692?force=true",
           durationMonths: 24,
+          discountedMonthlyPrice: 39,
           id: "basic-24",
           monthlyPrice: 49,
           monthlySessions: 4,

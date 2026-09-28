@@ -85,7 +85,7 @@ const de = {
       eyebrow: "Kursplan",
       title: "Plane dein nächstes Training",
       description:
-        "Sieh dir den aktuellen Kursplan an und starte deine Buchung direkt über bsport.",
+        "Sieh dir unseren Wochenplan an. Wähle anschließend im Live-Kursplan weiter unten deinen Kurs aus und buche ihn direkt über bSport.",
     },
     prices: {
       navigationLabel: "Preise",
@@ -519,6 +519,8 @@ const de = {
       },
       membershipLabel: "Mitgliedschaft",
       perMonth: "/ Monat",
+      regularPriceLabel: "Regulärer Preis",
+      discountedPriceLabel: "Aktionspreis",
       billingDay: "Zahlung jeweils am {day}. des Monats",
       joiningFee: "Aufnahmegebühr",
       autoRenewal:

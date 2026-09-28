@@ -12,6 +12,7 @@ import type {
   LegalPageEditorialContent,
   PhilosophyValueKey,
   PricingPageEditorialContent,
+  SchedulePageEditorialContent,
   SeoContent,
   SiteEditorialContent,
   TeamPageEditorialContent,
@@ -38,6 +39,7 @@ import type {
   MONTHLY_PASS_CARDS_QUERY_RESULT,
   PRICING_PAGE_QUERY_RESULT,
   PRIVACY_PAGE_QUERY_RESULT,
+  SCHEDULE_PAGE_QUERY_RESULT,
   SITE_SETTINGS_QUERY_RESULT,
   TEAM_PAGE_QUERY_RESULT,
   TRAINING_CLASSES_QUERY_RESULT,
@@ -792,6 +794,31 @@ export function projectMembershipCards(
       ? (durationValue as MembershipDuration)
       : 12;
     const accessType = document.accessType;
+    const monthlyPriceCents = requiredPositiveInteger(
+      document.monthlyPriceCents,
+      `${path}.monthlyPriceCents`,
+      issues,
+    );
+    let discountedMonthlyPrice: number | undefined;
+
+    if (document.discountEnabled === true) {
+      const discountedPriceCents = requiredPositiveInteger(
+        document.discountedMonthlyPriceCents,
+        `${path}.discountedMonthlyPriceCents`,
+        issues,
+      );
+
+      if (discountedPriceCents >= monthlyPriceCents) {
+        addIssue(
+          issues,
+          "invalid",
+          `${path}.discountedMonthlyPriceCents`,
+          "Discounted price must be lower than the regular monthly price.",
+        );
+      } else {
+        discountedMonthlyPrice = discountedPriceCents / 100;
+      }
+    }
     const sessions =
       accessType === "unlimited"
         ? "unlimited"
@@ -854,12 +881,10 @@ export function projectMembershipCards(
       audience,
       id: requiredString(document.internalKey, `${path}.internalKey`, issues),
       name: localizedString(document.name, locale, `${path}.name`, issues),
-      monthlyPrice:
-        requiredPositiveInteger(
-          document.monthlyPriceCents,
-          `${path}.monthlyPriceCents`,
-          issues,
-        ) / 100,
+      monthlyPrice: monthlyPriceCents / 100,
+      ...(discountedMonthlyPrice === undefined
+        ? {}
+        : { discountedMonthlyPrice }),
       durationMonths: duration,
       monthlySessions: sessions,
       benefits,
@@ -1314,6 +1339,32 @@ export function projectTrainingPage(
   };
 
   return result(issues, trainingPage);
+}
+
+export function projectSchedulePage(
+  document: SCHEDULE_PAGE_QUERY_RESULT,
+  locale: Locale,
+  createImageUrl: SanityImageUrlFactory,
+): ProjectionResult<SchedulePageEditorialContent> {
+  const issues: ContentIssue[] = [];
+  const value: UnknownRecord = isRecord(document) ? document : {};
+
+  if (!isRecord(document)) {
+    addIssue(issues, "invalid", "schedulePage", "Expected a Schedule page.");
+  }
+
+  const timetableImage = projectImage(
+    value.timetableImage,
+    locale,
+    "schedulePage.timetableImage",
+    issues,
+    createImageUrl,
+    { width: 2_400, height: 1_367 },
+  );
+
+  return result(issues, {
+    timetableImage: timetableImage ?? { src: "", alternativeText: "" },
+  });
 }
 
 export function projectTeamPage(

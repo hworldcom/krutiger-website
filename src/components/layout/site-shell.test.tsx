@@ -121,6 +121,21 @@ describe("SiteShell", () => {
     ).toBe("/de/prices");
   });
 
+  it("preserves line breaks in the promotion message", () => {
+    const fallback = createSiteSettingsFallback(de, "de");
+    const { container } = renderShell({
+      ...fallback,
+      promotion: {
+        enabled: true,
+        message: "Erste Zeile\nZweite Zeile",
+      },
+    });
+    const message = container.querySelector("[data-promotion-banner] p");
+
+    expect(message?.textContent).toBe("Erste Zeile\nZweite Zeile");
+    expect(message?.classList.contains("whitespace-pre-line")).toBe(true);
+  });
+
   it("uses one compact language dropdown in each navigation layout", () => {
     const { container } = renderShell();
     const switchers = container.querySelectorAll("[data-language-switcher]");

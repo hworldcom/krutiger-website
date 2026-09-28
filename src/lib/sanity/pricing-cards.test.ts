@@ -5,6 +5,7 @@ import {
   formatVerificationDate,
   validateAccessType,
   validateBsportCheckoutUrl,
+  validateDiscountedMonthlyPrice,
   validateMembershipBenefitSelection,
   validateMembershipAudience,
   validateMembershipDuration,
@@ -76,6 +77,17 @@ describe("Sanity pricing-card validation", () => {
       /Session allowance/,
     );
     expect(validateSessionAllowance(undefined, "unlimited")).toBe(true);
+  });
+
+  it("requires an enabled discount to be positive and below the regular price", () => {
+    expect(validateDiscountedMonthlyPrice(undefined, false, 4900)).toBe(true);
+    expect(validateDiscountedMonthlyPrice(3900, true, 4900)).toBe(true);
+    expect(validateDiscountedMonthlyPrice(undefined, true, 4900)).toMatch(
+      /greater than zero/,
+    );
+    expect(validateDiscountedMonthlyPrice(4900, true, 4900)).toMatch(
+      /lower than the regular monthly price/,
+    );
   });
 
   it("rejects unsupported access and benefit values", () => {

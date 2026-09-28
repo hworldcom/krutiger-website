@@ -12,6 +12,7 @@ import {
   membershipDurations,
   validateAccessType,
   validateBsportCheckoutUrl,
+  validateDiscountedMonthlyPrice,
   validateMembershipBenefitSelection,
   validateMembershipAudience,
   validateMembershipDuration,
@@ -21,6 +22,11 @@ import {
 
 type AccessParent = Readonly<{
   accessType?: unknown;
+}>;
+
+type DiscountParent = Readonly<{
+  discountEnabled?: unknown;
+  monthlyPriceCents?: unknown;
 }>;
 
 type MembershipSourceDocument = Readonly<{
@@ -106,6 +112,35 @@ export const membershipCard = defineType({
       description:
         "Reviewed display value only. Enter €69.00 as 6900. The amount charged is always controlled by bSport.",
       validation: (Rule) => Rule.required().integer().min(1),
+    }),
+    defineField({
+      name: "discountEnabled",
+      title: "Show a discounted price",
+      type: "boolean",
+      group: "card",
+      description:
+        "When enabled, the regular price is crossed out and the discounted price is emphasized. Confirm that the bSport checkout uses the same discount before publishing.",
+      initialValue: false,
+    }),
+    defineField({
+      name: "discountedMonthlyPriceCents",
+      title: "Discounted monthly price in euro cents",
+      type: "number",
+      group: "card",
+      description:
+        "Enter €39.00 as 3900. This must be lower than the regular monthly price and must match the amount configured in bSport.",
+      hidden: ({ parent }) =>
+        (parent as DiscountParent | undefined)?.discountEnabled !== true,
+      validation: (Rule) =>
+        Rule.custom((value, context) => {
+          const parent = context.parent as DiscountParent | undefined;
+
+          return validateDiscountedMonthlyPrice(
+            value,
+            parent?.discountEnabled,
+            parent?.monthlyPriceCents,
+          );
+        }),
     }),
     defineField({
       name: "durationMonths",
@@ -232,6 +267,8 @@ export const membershipCard = defineType({
       active: "active",
       audience: "audience",
       durationMonths: "durationMonths",
+      discountEnabled: "discountEnabled",
+      discountedMonthlyPriceCents: "discountedMonthlyPriceCents",
       editorialState: "editorialState",
       englishName: "name.en",
       name: "name.de",
@@ -242,6 +279,8 @@ export const membershipCard = defineType({
       active,
       audience,
       durationMonths,
+      discountEnabled,
+      discountedMonthlyPriceCents,
       editorialState,
       englishName,
       monthlyPriceCents,
@@ -256,7 +295,9 @@ export const membershipCard = defineType({
         "Membership",
         typeof audience === "string" ? audience : "adult",
         duration,
-        `${formatEuroCents(monthlyPriceCents)}/month`,
+        discountEnabled === true
+          ? `${formatEuroCents(monthlyPriceCents)} → ${formatEuroCents(discountedMonthlyPriceCents)}/month`
+          : `${formatEuroCents(monthlyPriceCents)}/month`,
         formatVerificationDate(verifiedAt),
       ].join(" · ");
 

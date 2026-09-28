@@ -636,6 +636,7 @@ function buildMembershipCards(): SeedDocument[] {
       name: localizedString(membership.name, membership.name),
       audience: membership.audience,
       monthlyPriceCents: Math.round(membership.monthlyPrice * 100),
+      discountEnabled: false,
       durationMonths: membership.durationMonths,
       accessType:
         membership.monthlySessions === "unlimited" ? "unlimited" : "limited",

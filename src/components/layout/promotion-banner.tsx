@@ -60,7 +60,7 @@ export function PromotionBanner({ promotion }: PromotionBannerProps) {
     <div className="bg-brand text-brand-ink" data-promotion-banner="true">
       <Container>
         <div className="flex min-h-11 flex-col items-center justify-center gap-x-5 gap-y-1 py-1.5 text-center sm:flex-row">
-          <p className="text-sm leading-5 font-semibold sm:text-base">
+          <p className="whitespace-pre-line text-sm leading-5 font-semibold sm:text-base">
             {promotion.message}
           </p>
           {promotion.link ? <PromotionLink {...promotion.link} /> : null}

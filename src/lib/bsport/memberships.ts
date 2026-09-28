@@ -14,6 +14,7 @@ export type MembershipPlan = Readonly<{
   audience: MembershipAudience;
   name: string;
   monthlyPrice: number;
+  discountedMonthlyPrice?: number;
   durationMonths: MembershipDuration;
   monthlySessions: number | "unlimited";
   benefits: readonly MembershipBenefit[];

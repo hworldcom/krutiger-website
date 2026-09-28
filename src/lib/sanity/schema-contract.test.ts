@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import { schemaTypes } from "../../../studio/schemaTypes";
+import { promotionMessageMaximumLength } from "../../../studio/schemaTypes/documents/siteSettings";
 import {
   validateLocalizedMaximumLength,
   validateOptionalLocalizedPair,
@@ -110,6 +111,10 @@ describe("Sanity schema contract", () => {
     expect(
       settings.fields?.every((field) => typeof field.validation === "function"),
     ).toBe(true);
+    expect(getField("siteSettings", "promotionMessage").type).toBe(
+      "localizedText",
+    );
+    expect(promotionMessageMaximumLength).toBe(250);
   });
 
   it("registers every intended document type", () => {
@@ -122,6 +127,7 @@ describe("Sanity schema contract", () => {
       "homepage",
       "aboutPage",
       "trainingPage",
+      "schedulePage",
       "teamPage",
       "pricingPage",
       "imprintPage",
@@ -140,6 +146,7 @@ describe("Sanity schema contract", () => {
       "homepage",
       "aboutPage",
       "trainingPage",
+      "schedulePage",
       "teamPage",
       "pricingPage",
       "imprintPage",
@@ -164,6 +171,10 @@ describe("Sanity schema contract", () => {
       "heroIntroduction",
       "teamHeading",
       "seo",
+      "editorialState",
+    ]);
+    expect(fieldNames("schedulePage")).toEqual([
+      "timetableImage",
       "editorialState",
     ]);
     expect(fieldNames("pricingPage")).toEqual([
@@ -220,6 +231,7 @@ describe("Sanity schema contract", () => {
     "homepage",
     "aboutPage",
     "trainingPage",
+    "schedulePage",
     "teamPage",
     "pricingPage",
     "imprintPage",
@@ -283,6 +295,8 @@ describe("Sanity schema contract", () => {
       "name",
       "audience",
       "monthlyPriceCents",
+      "discountEnabled",
+      "discountedMonthlyPriceCents",
       "durationMonths",
       "accessType",
       "monthlySessions",

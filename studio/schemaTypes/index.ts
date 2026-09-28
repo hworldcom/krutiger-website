@@ -9,6 +9,7 @@ import { imprintPage, privacyPage } from "./documents/legalPage";
 import { membershipCard } from "./documents/membershipCard";
 import { monthlyPassCard } from "./documents/monthlyPassCard";
 import { pricingPage } from "./documents/pricingPage";
+import { schedulePage } from "./documents/schedulePage";
 import { siteSettings } from "./documents/siteSettings";
 import { teamPage } from "./documents/teamPage";
 import { trainingPage } from "./documents/trainingPage";
@@ -40,6 +41,7 @@ export const schemaTypes: SchemaTypeDefinition[] = [
   homepage,
   aboutPage,
   trainingPage,
+  schedulePage,
   teamPage,
   pricingPage,
   imprintPage,

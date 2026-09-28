@@ -291,6 +291,30 @@ export function MembershipPricing({
                         <p className="font-display text-3xl leading-none font-extrabold text-copy uppercase xs:text-4xl">
                           {copy.pendingPrice}
                         </p>
+                      ) : membership.discountedMonthlyPrice !== undefined ? (
+                        <div>
+                          <p className="flex min-w-0 flex-wrap items-end gap-x-4 gap-y-2">
+                            <del
+                              aria-label={`${copy.regularPriceLabel}: ${currencyFormatter.format(membership.monthlyPrice)}`}
+                              className="font-display text-3xl leading-none font-extrabold text-copy-muted decoration-brand decoration-[3px]"
+                            >
+                              {currencyFormatter.format(
+                                membership.monthlyPrice,
+                              )}
+                            </del>
+                            <ins
+                              aria-label={`${copy.discountedPriceLabel}: ${currencyFormatter.format(membership.discountedMonthlyPrice)}`}
+                              className="font-display text-5xl leading-none font-extrabold text-brand no-underline xs:text-6xl"
+                            >
+                              {currencyFormatter.format(
+                                membership.discountedMonthlyPrice,
+                              )}
+                            </ins>
+                          </p>
+                          <p className="mt-2 text-copy-muted">
+                            {copy.perMonth}
+                          </p>
+                        </div>
                       ) : (
                         <p className="flex min-w-0 flex-col items-start gap-1 xs:flex-row xs:items-end xs:gap-2">
                           <span className="font-display text-5xl leading-none font-extrabold text-copy xs:text-6xl">
