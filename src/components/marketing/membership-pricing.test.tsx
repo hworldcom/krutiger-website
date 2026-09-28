@@ -49,6 +49,34 @@ describe("MembershipPricing", () => {
     ).toHaveLength(1);
   });
 
+  it("crosses out the regular price when a discounted price is enabled", () => {
+    const discountedMemberships = memberships.map((membership) =>
+      membership.id === "basic-24"
+        ? { ...membership, discountedMonthlyPrice: 39 }
+        : membership,
+    );
+    const { container } = render(
+      <MembershipPricing
+        copy={de.integrations.pricing}
+        editorial={createPricingPageFallback(de).memberships}
+        locale="de"
+        memberships={discountedMemberships}
+      />,
+    );
+
+    const regularPrice = container.querySelector("del");
+    const discountedPrice = container.querySelector("ins");
+
+    expect(regularPrice?.textContent).toContain("49");
+    expect(regularPrice?.getAttribute("aria-label")).toMatch(
+      /Regulärer Preis:.*49/,
+    );
+    expect(discountedPrice?.textContent).toContain("39");
+    expect(discountedPrice?.getAttribute("aria-label")).toMatch(
+      /Aktionspreis:.*39/,
+    );
+  });
+
   it("keeps the existing 12-month memberships available", () => {
     render(
       <MembershipPricing

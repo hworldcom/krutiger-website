@@ -337,6 +337,8 @@ export const MEMBERSHIP_CARDS_QUERY = defineQuery(`
       name,
       audience,
       monthlyPriceCents,
+      discountEnabled,
+      discountedMonthlyPriceCents,
       durationMonths,
       accessType,
       monthlySessions,

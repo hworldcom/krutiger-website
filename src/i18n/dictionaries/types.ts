@@ -48,6 +48,8 @@ type PricingIntegrationCopy = WidgetIntegrationCopy &
     durationLabels: Readonly<Record<24 | 12 | 6 | 3, string>>;
     membershipLabel: string;
     perMonth: string;
+    regularPriceLabel: string;
+    discountedPriceLabel: string;
     billingDay: string;
     joiningFee: string;
     autoRenewal: string;

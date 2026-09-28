@@ -519,6 +519,8 @@ const en = {
       },
       membershipLabel: "Membership",
       perMonth: "/ month",
+      regularPriceLabel: "Regular price",
+      discountedPriceLabel: "Discounted price",
       billingDay: "Billed on day {day} of each month",
       joiningFee: "Joining fee",
       autoRenewal:

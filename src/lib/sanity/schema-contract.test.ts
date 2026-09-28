@@ -290,6 +290,8 @@ describe("Sanity schema contract", () => {
       "name",
       "audience",
       "monthlyPriceCents",
+      "discountEnabled",
+      "discountedMonthlyPriceCents",
       "durationMonths",
       "accessType",
       "monthlySessions",

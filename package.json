@@ -27,6 +27,8 @@
     "sanity:seed:development:apply": "cd studio && sanity exec scripts/seed-development.ts --with-user-token -- --apply",
     "sanity:sync:training-passes": "cd studio && sanity exec scripts/sync-training-passes.ts --with-user-token",
     "sanity:sync:training-passes:apply": "cd studio && sanity exec scripts/sync-training-passes.ts --with-user-token -- --apply",
+    "sanity:discount:memberships": "cd studio && sanity exec scripts/apply-membership-discounts.ts --with-user-token",
+    "sanity:discount:memberships:apply": "cd studio && sanity exec scripts/apply-membership-discounts.ts --with-user-token -- --apply",
     "studio:dev": "cd studio && sanity dev",
     "studio:build": "cd studio && sanity build",
     "studio:preview": "cd studio && sanity preview",

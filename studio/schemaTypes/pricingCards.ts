@@ -129,6 +129,32 @@ export function validatePositiveInteger(value: unknown, label: string) {
     : `${label} must be a whole number greater than zero.`;
 }
 
+export function validateDiscountedMonthlyPrice(
+  value: unknown,
+  discountEnabled: unknown,
+  regularPriceCents: unknown,
+) {
+  if (discountEnabled !== true) {
+    return true;
+  }
+
+  const positivePrice = validatePositiveInteger(value, "Discounted price");
+
+  if (positivePrice !== true) {
+    return positivePrice;
+  }
+
+  if (
+    typeof regularPriceCents === "number" &&
+    typeof value === "number" &&
+    value >= regularPriceCents
+  ) {
+    return "Discounted price must be lower than the regular monthly price.";
+  }
+
+  return true;
+}
+
 export function validateSessionAllowance(value: unknown, accessType: unknown) {
   if (accessType !== "limited") {
     return true;

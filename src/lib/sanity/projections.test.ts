@@ -511,6 +511,8 @@ describe("Sanity content projections", () => {
         benefits: ["muayThai", "yoga"],
         checkoutUrl:
           "https://backoffice.bsport.io/checkout/6720/subscription/55692?force=true",
+        discountEnabled: true,
+        discountedMonthlyPriceCents: 3_900,
         durationMonths: 24,
         internalKey: "basic-24",
         monthlyPriceCents: 4_900,
@@ -530,6 +532,7 @@ describe("Sanity content projections", () => {
           checkoutUrl:
             "https://backoffice.bsport.io/checkout/6720/subscription/55692?force=true",
           durationMonths: 24,
+          discountedMonthlyPrice: 39,
           id: "basic-24",
           monthlyPrice: 49,
           monthlySessions: 4,
