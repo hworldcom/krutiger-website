@@ -9,6 +9,19 @@ type PageCopy = Readonly<{
   description: string;
 }>;
 
+type SchedulePageCopy = PageCopy &
+  Readonly<{
+    timetable: Readonly<{
+      hint: string;
+      open: string;
+      viewer: string;
+      close: string;
+      zoomIn: string;
+      zoomOut: string;
+      fit: string;
+    }>;
+  }>;
+
 type StateCopy = Readonly<{
   eyebrow: string;
   title: string;
@@ -328,7 +341,11 @@ export type Dictionary = Readonly<{
       rightsStatement: string;
     }>;
   }>;
-  routes: Readonly<Record<RouteId, PageCopy>>;
+  routes: Readonly<
+    Omit<Record<RouteId, PageCopy>, "schedule"> & {
+      schedule: SchedulePageCopy;
+    }
+  >;
   homePage: HomePageCopy;
   aboutPage: AboutPageCopy;
   teamPage: TeamPageCopy;
