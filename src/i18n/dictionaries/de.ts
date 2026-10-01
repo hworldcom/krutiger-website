@@ -86,6 +86,15 @@ const de = {
       title: "Plane dein nächstes Training",
       description:
         "Sieh dir unseren Wochenplan an. Wähle anschließend im Live-Kursplan weiter unten deinen Kurs aus und buche ihn direkt über bSport.",
+      timetable: {
+        hint: "Antippen zum Vergrößern",
+        open: "Kursplan vergrößern",
+        viewer: "Vergrößerter Kursplan",
+        close: "Vergrößerten Kursplan schließen",
+        zoomIn: "Kursplan weiter vergrößern",
+        zoomOut: "Kursplan verkleinern",
+        fit: "Ganzen Kursplan anzeigen",
+      },
     },
     prices: {
       navigationLabel: "Preise",

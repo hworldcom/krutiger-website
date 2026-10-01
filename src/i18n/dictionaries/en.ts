@@ -86,6 +86,15 @@ const en = {
       title: "Plan your next training session",
       description:
         "View our weekly schedule. Then choose your class in the live schedule below and book it directly through bSport.",
+      timetable: {
+        hint: "Tap to enlarge",
+        open: "Enlarge schedule",
+        viewer: "Enlarged schedule",
+        close: "Close enlarged schedule",
+        zoomIn: "Zoom further into schedule",
+        zoomOut: "Zoom out of schedule",
+        fit: "Show the complete schedule",
+      },
     },
     prices: {
       navigationLabel: "Prices",
