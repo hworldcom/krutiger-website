@@ -1,4 +1,8 @@
-export const SANITY_PUBLISHED_REVALIDATE_SECONDS = 300;
+/**
+ * Safety-net TTL for published content if the Sanity webhook is unavailable.
+ * Normal publication updates are applied immediately through tag revalidation.
+ */
+export const SANITY_PUBLISHED_REVALIDATE_SECONDS = 86_400;
 
 export type SanityQueryPlan =
   | Readonly<{
