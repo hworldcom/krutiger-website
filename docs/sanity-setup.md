@@ -99,7 +99,7 @@ Set the exact website origin loaded inside the Studio preview:
 SANITY_STUDIO_PREVIEW_URL=http://localhost:3000
 
 # studio/.env.production.local or the Studio build environment
-SANITY_STUDIO_PREVIEW_URL=https://krutiger-website.vercel.app
+SANITY_STUDIO_PREVIEW_URL=https://www.krutigermuaythai.de
 ```
 
 This variable is public and must be an origin only: no locale path, query, hash,
@@ -139,7 +139,7 @@ origins with credentials rather than approving a wildcard:
 
 ```bash
 npm run sanity:cors:add -- http://localhost:3000 --credentials
-npm run sanity:cors:add -- https://krutiger-website.vercel.app --credentials
+npm run sanity:cors:add -- https://www.krutigermuaythai.de --credentials
 ```
 
 ## Draft preview
