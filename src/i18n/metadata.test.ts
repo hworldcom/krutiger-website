@@ -28,16 +28,8 @@ describe("localized metadata", () => {
         "x-default": "/de",
       },
     });
-    expect(metadata.icons).toEqual({
-      icon: [
-        {
-          url: "/images/home/kru-tiger-logo.png",
-          type: "image/png",
-          sizes: "any",
-        },
-      ],
-      apple: "/images/home/kru-tiger-logo.png",
-    });
+    // Next.js provides icons from src/app/icon.png and apple-icon.png.
+    expect(metadata.icons).toBeUndefined();
     expect(metadata.openGraph).toMatchObject({
       type: "website",
       title: dictionary.metadata.title,

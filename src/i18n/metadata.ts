@@ -74,16 +74,6 @@ export function createLocalizedMetadata(
       canonical: getLocalizedPath(locale, path),
       languages: getLanguageAlternates(path),
     },
-    icons: {
-      icon: [
-        {
-          url: "/images/home/kru-tiger-logo.png",
-          type: "image/png",
-          sizes: "any",
-        },
-      ],
-      apple: "/images/home/kru-tiger-logo.png",
-    },
     ...createSocialMetadata(locale, title, description, path),
   };
 }

@@ -75,7 +75,7 @@ The official circular badge at `public/brand/krutiger-badge.png` must remain unc
 - The available master includes a black background. Place it on canvas or panel backgrounds so its square boundary disappears visually.
 - Do not place the current asset directly on a light background.
 - A transparent or vector asset should replace the web PNG when an approved original becomes available.
-- The full badge is acceptable as a temporary development favicon but is not a final small-size solution.
+- The full badge may be resized without redrawing for favicon use. A simplified small-size mark still requires brand approval.
 - Use the full badge with ample clear space for social-preview images; combine it with live layout text rather than modifying the image.
 
 ## Layout and shape
@@ -116,6 +116,6 @@ Decorative motifs may be used only when the artwork is approved and its use is c
 - Obtain the original vector logo (`SVG`, `AI`, `EPS`, or print-ready `PDF`) if it exists.
 - Obtain an approved transparent-background version.
 - Confirm whether an official horizontal wordmark or simplified small-size mark exists.
-- Create final favicon and social-preview assets only after small-size logo usage is approved.
+- Create a simplified favicon and dedicated social-preview asset only after small-size logo usage is approved.
 - Obtain original Instagram files and publication permission for shortlisted photographs.
 - Record photographer credit and depicted-person consent for each production image.
