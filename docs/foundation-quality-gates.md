@@ -121,8 +121,11 @@ Verified on 26 August 2026:
 - The current social preview reuses the approved 1536 × 1024 home hero. Social
   platforms may crop it. Brand/design owns approval of a dedicated 1.91:1
   preview before launch.
-- The favicon reuses the full approved circular logo. Brand/design owns approval
-  of a small optimized derivative; the badge must not be redrawn to create it.
+- The favicon and Apple touch icon are exact raster derivatives of the approved
+  circular logo at 48 x 48 and 180 x 180 pixels. They use Next.js file-based
+  metadata so browsers do not download the full-size logo for page metadata.
+  Brand/design still owns approval of any simplified small-size mark; the badge
+  must not be redrawn to create one.
 - Browser QA requires a locally installed Chrome/Chromium and a running app, so
   it is intentionally separate from the default production build.
 - Address, contact details, opening hours, and schedule cards are visibly marked

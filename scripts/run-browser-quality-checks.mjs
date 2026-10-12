@@ -294,6 +294,10 @@ try {
         .locator('link[rel="icon"]')
         .first()
         .getAttribute("href");
+      const appleTouchIcon = await metadataPage
+        .locator('link[rel="apple-touch-icon"]')
+        .first()
+        .getAttribute("href");
       assert(
         openGraphUrl === expectedCanonical,
         `${url} has an incorrect og:url.`,
@@ -307,8 +311,14 @@ try {
         `${url} has no large-image Twitter card metadata.`,
       );
       assert(
-        favicon === "/images/home/kru-tiger-logo.png",
-        `${url} does not expose the approved KRUTIGER logo as its icon.`,
+        favicon && new URL(favicon, expectedOrigin).pathname === "/icon.png",
+        `${url} does not expose the optimized KRUTIGER favicon.`,
+      );
+      assert(
+        appleTouchIcon &&
+          new URL(appleTouchIcon, expectedOrigin).pathname ===
+            "/apple-icon.png",
+        `${url} does not expose the optimized KRUTIGER Apple touch icon.`,
       );
 
       for (const alternateLocale of locales) {
