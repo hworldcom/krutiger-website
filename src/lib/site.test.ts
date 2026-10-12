@@ -1,6 +1,11 @@
 import { describe, expect, it } from "vitest";
 
-import { developmentSiteUrl, resolveSiteUrl, siteConfig } from "./site";
+import {
+  developmentSiteUrl,
+  productionSiteUrl,
+  resolveSiteUrl,
+  siteConfig,
+} from "./site";
 
 describe("siteConfig", () => {
   it("provides non-empty default metadata", () => {
@@ -13,6 +18,13 @@ describe("siteConfig", () => {
   it("uses a development-safe URL when no deployment origin is configured", () => {
     expect(resolveSiteUrl()).toBe(developmentSiteUrl);
     expect(resolveSiteUrl("   ")).toBe(developmentSiteUrl);
+  });
+
+  it("uses the public domain for production builds and Vercel aliases", () => {
+    expect(resolveSiteUrl(undefined, "production")).toBe(productionSiteUrl);
+    expect(
+      resolveSiteUrl("https://krutiger-website.vercel.app", "production"),
+    ).toBe(productionSiteUrl);
   });
 
   it("normalizes and validates configured deployment origins", () => {

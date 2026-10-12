@@ -56,16 +56,23 @@ are ignored by Git.
 
 ## Metadata deployment rule
 
-Local development safely uses `http://localhost:3000`. Before a production
-build, set `NEXT_PUBLIC_SITE_URL` to the public origin, for example:
+Local development safely uses `http://localhost:3000`. Production defaults to
+the canonical public origin, but `NEXT_PUBLIC_SITE_URL` should still be set to:
 
 ```env
-NEXT_PUBLIC_SITE_URL=https://www.example.com
+NEXT_PUBLIC_SITE_URL=https://www.krutigermuaythai.de
 ```
 
 The value must be an `http` or `https` origin without a locale path, query, or
 hash. The production build freezes this public value into canonical and social
-metadata, so it must be correct at build time.
+metadata, so it must be correct at build time. A `vercel.app` value is replaced
+with the canonical production origin to prevent deployment aliases from being
+advertised to search engines.
+
+The production alias `krutiger-website.vercel.app` also permanently redirects
+to the matching path on the canonical domain. `/robots.txt` advertises the
+localized `/sitemap.xml`, whose entries and language alternates contain only
+canonical-domain URLs.
 
 ## Release checklist
 

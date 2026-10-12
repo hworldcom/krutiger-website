@@ -12,6 +12,10 @@ import { createLocalizedMetadata } from "@/i18n/metadata";
 import { getLocalizedPath } from "@/i18n/routing";
 import { getSiteSettingsContent } from "@/lib/sanity/content";
 import { resolveContent } from "@/lib/sanity/resolve-content";
+import {
+  createSiteStructuredData,
+  serializeStructuredData,
+} from "@/lib/structured-data";
 import { bodyFont, headingFont, thaiFont } from "@/styles/fonts";
 
 import "../globals.css";
@@ -65,6 +69,7 @@ export default async function LocaleLayout({
     createSiteSettingsFallback(dictionary, activeLocale),
   );
   const { isEnabled: isDraftPreview } = await draftMode();
+  const structuredData = createSiteStructuredData(siteSettings.value);
 
   return (
     <html
@@ -73,6 +78,12 @@ export default async function LocaleLayout({
       className={`${bodyFont.variable} ${headingFont.variable} ${thaiFont.variable}`}
     >
       <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: serializeStructuredData(structuredData),
+          }}
+          type="application/ld+json"
+        />
         <script
           dangerouslySetInnerHTML={{
             __html: `document.cookie = "i18next=${activeLocale}; path=/; SameSite=Lax";`,

@@ -90,6 +90,17 @@ describe("localized metadata", () => {
     });
   });
 
+  it("includes the brand in the homepage title", () => {
+    const metadata = createLocalizedPageMetadata(
+      "de",
+      de.routes.home.title,
+      de.routes.home.description,
+      "/",
+    );
+
+    expect(metadata.title).toBe(`KRUTIGER | ${de.routes.home.title}`);
+  });
+
   it.each([["de", de] as const, ["en", en] as const])(
     "gives every %s route a unique localized title",
     (_locale, dictionary) => {
