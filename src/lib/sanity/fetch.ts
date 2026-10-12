@@ -9,10 +9,10 @@ import { getPreviewSanityClient } from "./preview-client";
 type RegisteredQuery = keyof SanityQueries & string;
 
 /**
- * Production reads use Sanity's published perspective and Next's five-minute
- * data cache. Local development bypasses that cache so published edits can be
- * verified immediately. Draft Mode also bypasses caching and uses the
- * server-only authenticated client.
+ * Production reads use Sanity's published perspective and a tagged Next.js
+ * data cache. A Sanity webhook invalidates affected tags on publication, while
+ * a one-day TTL is retained as a safety net for missed webhook deliveries.
+ * Local development and Draft Mode bypass this cache.
  */
 export async function fetchSanityQuery<const Query extends RegisteredQuery>(
   query: Query,

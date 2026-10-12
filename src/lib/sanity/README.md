@@ -30,9 +30,11 @@ typecheck` runs TypeGen first so query/schema drift is visible in CI.
 
 ## Published caching
 
-Published queries use the Sanity CDN and Next's data cache with a five-minute
-revalidation interval. Each content family also receives a `sanity:<type>`
-cache tag. No webhook is required for the current baseline.
+Published queries use the Sanity CDN and Next's tagged data cache. Each content
+family receives a `sanity:<type>` cache tag. A signed Sanity webhook calls
+`/api/revalidate` on published document changes and invalidates only that
+document type's tag. A one-day time-based revalidation remains as a safety net
+for missed webhook deliveries; Draft Mode and local development stay uncached.
 
 ## Draft preview
 

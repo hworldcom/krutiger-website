@@ -79,6 +79,14 @@ it in the Studio environment:
 SANITY_API_READ_TOKEN=<viewer token>
 ```
 
+Published-content revalidation uses a separate shared webhook secret. Generate
+a random value of at least 32 characters and set the same value in the website
+runtime and the Sanity webhook described below:
+
+```dotenv
+SANITY_REVALIDATE_SECRET=<random webhook secret>
+```
+
 The Presentation Tool creates and validates its own short-lived preview secret.
 There is deliberately no static `SANITY_PREVIEW_SECRET` environment variable.
 The hosted website must receive the Viewer token separately from the hosted
@@ -172,6 +180,37 @@ Current troubleshooting:
 - **An incomplete-language warning appears:** complete the marked fields for
   the selected language. Preview never substitutes German for missing English.
 
+## Published-content revalidation
+
+Published Sanity queries are cached and tagged by document type. Configure one
+GROQ-powered webhook under **Sanity Manage → Project → API → Webhooks** so a
+publication invalidates only queries that depend on the changed type:
+
+- URL: `<NEXT_PUBLIC_SITE_URL>/api/revalidate`
+- Dataset: the dataset configured by `NEXT_PUBLIC_SANITY_DATASET` (this must be
+  `production` for the public release)
+- Trigger on: Create, Update, Delete
+- Filter:
+  `_type in ["siteSettings", "homepage", "aboutPage", "trainingPage", "schedulePage", "teamPage", "pricingPage", "imprintPage", "privacyPage", "classType", "coach", "faq", "membershipCard", "monthlyPassCard"]`
+- Projection: `{_type}`
+- HTTP method: `POST`
+- Secret: the same value as `SANITY_REVALIDATE_SECRET` in Vercel
+- Drafts and versions: disabled
+
+The endpoint verifies Sanity's signed request and waits for Content Lake
+eventual consistency before expiring `sanity:<type>`. The next request for a
+dependent route fetches the published document and regenerates that route.
+Draft edits do not trigger revalidation; editors continue to see them through
+Draft Mode. A one-day fallback TTL limits staleness if a webhook delivery is
+missed while reducing timer-driven regeneration by 288× compared with the old
+five-minute interval.
+
+After deployment, publish a harmless content edit and verify both the webhook
+delivery log and the affected page. The endpoint should return HTTP 200 with
+`{"revalidated":true,"tag":"sanity:<type>"}`. Monitor team-level Vercel Usage
+for ISR Writes and group the chart by project; also check the project's
+Observability view for the `/api/revalidate` requests.
+
 ## Seed the development baseline
 
 The M2-06 seed imports the current German and English website baseline into the
@@ -229,6 +268,12 @@ The Studio is registered as application `ubywro7on9gltov2bpy3eqml` and deployed 
 Schemas are deployed from version control. Content is promoted only after the
 content owner has approved both languages, factual claims, checkout links, SEO,
 and every image's rights and consent record.
+
+The public website deployment must set `NEXT_PUBLIC_SANITY_DATASET=production`.
+Do not point the production domain at `development`: published work-in-progress
+edits in that dataset would invalidate and regenerate public pages. Confirm the
+production dataset is populated and validated before changing the environment;
+an empty dataset intentionally makes the website use its local fallbacks.
 
 Do not import the complete development dataset over production and do not use a
 replace mutation for an existing production document. For each release:

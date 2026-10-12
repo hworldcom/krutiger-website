@@ -96,7 +96,7 @@ export function createLocalizedPageMetadata(
   shareImage?: EditorialImage,
 ): Metadata {
   return {
-    title,
+    title: path === "/" ? `${siteConfig.shortName} | ${title}` : title,
     description,
     alternates: {
       canonical: getLocalizedPath(locale, path),
