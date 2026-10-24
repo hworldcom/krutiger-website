@@ -263,6 +263,25 @@ npm run studio:deploy
 
 The Studio is registered as application `ubywro7on9gltov2bpy3eqml` and deployed at `https://krutiger-studio.sanity.studio`. Store that public application identifier in the deployment environment; do not commit a deploy authorization token. CI deployments use the server-only `SANITY_AUTH_TOKEN` provided by the deployment platform.
 
+## Enable Vercel Web Analytics for the website
+
+Enable Analytics on the Next.js website project in Vercel:
+
+1. Open the [Vercel dashboard](https://vercel.com/dashboard).
+2. Select **Analytics** in the sidebar and choose the **krutiger-website** project.
+3. Click **Enable** in the header if Web Analytics is not already enabled.
+4. Deploy the website version containing the Analytics integration after enabling it.
+5. Visit the deployed website, navigate between pages, and confirm visits appear
+   in the project's Analytics dashboard.
+
+No Analytics API key or environment variable is required. Local development
+does not send Analytics data, and Sanity draft previews exclude Analytics.
+Publishing Sanity content or deploying the Studio does not activate website
+Analytics.
+
+See the [README activation and verification steps](../README.md#enable-vercel-web-analytics)
+and the [Vercel Web Analytics quickstart](https://vercel.com/docs/analytics/quickstart).
+
 ## Dataset promotion
 
 Schemas are deployed from version control. Content is promoted only after the

@@ -18,9 +18,10 @@ npm run build
 
 `npm run build` also runs `verify:production`. That follow-up check scans the
 generated client assets for configured private Sanity and bsport values,
-rejects known integration or analytics runtime sources, and rejects external
+rejects known unapproved integration or analytics runtime sources, and rejects external
 script tags in prerendered HTML except for the explicitly approved bsport
-schedule and member-area widgets.
+schedule and member-area widgets. Vercel Web Analytics is approved and uses
+Vercel's same-origin collection routes; see the README's Analytics section.
 
 ## Browser quality check
 
@@ -90,7 +91,7 @@ canonical-domain URLs.
 - Inspect German and English page source for the expected title, description,
   canonical, language alternates, Open Graph values, and Twitter card values.
 - Confirm no browser network request loads Sanity, an unapproved bsport script,
-  an Instagram embed, analytics, or an unrelated third-party script. The
+  an Instagram embed, unapproved analytics, or an unrelated third-party script. The
   approved bsport widget must load only on schedule and member-area routes.
 - Confirm decorative icons remain hidden from assistive technology and content
   photography still has meaningful localized alternative text.
@@ -134,4 +135,5 @@ Verified on 26 August 2026:
   integration owner must approve the production CDN, verify live content and
   locale behavior, review the widget's internal analytics and privacy
   implications, and repeat accessibility QA before launch. First-party
-  analytics, Sanity, and Instagram embeds remain absent.
+  analytics now uses Vercel Web Analytics; browser-side Sanity fetching and
+  Instagram embeds remain absent.
