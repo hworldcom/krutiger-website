@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/next";
 import type { Metadata, Viewport } from "next";
 import { draftMode } from "next/headers";
 import { VisualEditing } from "next-sanity/visual-editing";
@@ -108,6 +109,7 @@ export default async function LocaleLayout({
             <VisualEditing />
           </>
         ) : null}
+        {!isDraftPreview ? <Analytics /> : null}
       </body>
     </html>
   );

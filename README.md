@@ -131,12 +131,8 @@ Possible options include:
 
 ### Analytics
 
-To be decided.
-
-Possible options:
-
-- Google Analytics 4
-- PostHog
+Vercel Web Analytics tracks page views across the German and English website.
+See [Analytics](#analytics-1) for activation and verification steps.
 
 ---
 
@@ -690,7 +686,25 @@ Third-party bsport components should also be reviewed for accessibility behavior
 
 ## Analytics
 
-We should track important business actions rather than only page views.
+Vercel Web Analytics is integrated through `@vercel/analytics/next` in
+`src/app/[locale]/layout.tsx`. It tracks page views and client-side navigation
+across both locales. Sanity draft previews do not mount Analytics, and the SDK
+does not send analytics data in development mode. No additional environment
+variables or API keys are required.
+
+### Enable Vercel Web Analytics
+
+1. Open the website project in Vercel, select **Analytics**, and click **Enable**
+   if Web Analytics is not already enabled.
+2. Deploy the version containing this integration to Vercel.
+3. Visit the deployed website and navigate between pages. In the browser's
+   Network tab, confirm the analytics script and page-view requests succeed
+   under `/_vercel/insights/*` or Vercel's generated intake path.
+4. Confirm visits appear in the project's Analytics dashboard.
+
+See the [Vercel Web Analytics quickstart](https://vercel.com/docs/analytics/quickstart)
+for the dashboard setup. Custom business events are a possible follow-up;
+only automatic page-view tracking is currently implemented.
 
 Potential events:
 
