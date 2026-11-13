@@ -21,6 +21,13 @@ import type {
 import type { TrainingClass, TrainingLevel } from "@/content/training";
 import type { TeamMember } from "@/content/team";
 import type { Locale } from "@/i18n/config";
+import {
+  kidsBenefitKeys,
+  kidsClassKeys,
+  type KidsBenefitKey,
+  type KidsClassKey,
+  type KidsPageEditorialContent,
+} from "@/content/kids";
 import type {
   MembershipAudience,
   MembershipBenefit,
@@ -35,6 +42,7 @@ import type {
   FAQS_QUERY_RESULT,
   HOMEPAGE_QUERY_RESULT,
   IMPRINT_PAGE_QUERY_RESULT,
+  KIDS_PAGE_QUERY_RESULT,
   MEMBERSHIP_CARDS_QUERY_RESULT,
   MONTHLY_PASS_CARDS_QUERY_RESULT,
   PRICING_PAGE_QUERY_RESULT,
@@ -1339,6 +1347,136 @@ export function projectTrainingPage(
   };
 
   return result(issues, trainingPage);
+}
+
+export function projectKidsPage(
+  document: KIDS_PAGE_QUERY_RESULT,
+  locale: Locale,
+  createImageUrl: SanityImageUrlFactory,
+): ProjectionResult<KidsPageEditorialContent> {
+  const issues: ContentIssue[] = [];
+  const value: UnknownRecord = isRecord(document) ? document : {};
+  if (!isRecord(document))
+    addIssue(issues, "invalid", "kidsPage", "Expected a Kids page.");
+  const text = (candidate: unknown, field: string) =>
+    localizedString(candidate, locale, `kidsPage.${field}`, issues);
+  function entries(field: string, keys?: readonly string[]): UnknownRecord[] {
+    const raw = value[field];
+    if (!Array.isArray(raw) || raw.length === 0) {
+      addIssue(
+        issues,
+        "invalid",
+        `kidsPage.${field}`,
+        "Expected a non-empty list.",
+      );
+      return [];
+    }
+    const items: UnknownRecord[] = raw.map((item, index) => {
+      if (!isRecord(item)) {
+        addIssue(
+          issues,
+          "invalid",
+          `kidsPage.${field}[${index}]`,
+          "Expected a content item.",
+        );
+        return {};
+      }
+      return item;
+    });
+    const actualKeys = items.map((item) => item.internalKey);
+    if (
+      new Set(actualKeys).size !== items.length ||
+      (keys &&
+        (items.length !== keys.length ||
+          keys.some((key) => !actualKeys.includes(key))))
+    ) {
+      addIssue(
+        issues,
+        "invalid",
+        `kidsPage.${field}`,
+        "Every required internal key must appear exactly once.",
+      );
+    }
+    return items;
+  }
+  const lines = Array.isArray(value.heroTitleLines)
+    ? value.heroTitleLines.map((line, index) =>
+        text(line, `heroTitleLines[${index}]`),
+      )
+    : [];
+  if (lines.length !== 3)
+    addIssue(
+      issues,
+      "invalid",
+      "kidsPage.heroTitleLines",
+      "Expected three headline messages.",
+    );
+  const image = projectImage(
+    value.heroImage,
+    locale,
+    "kidsPage.heroImage",
+    issues,
+    createImageUrl,
+    { width: 1402, height: 1122 },
+  );
+  return result(issues, {
+    hero: {
+      eyebrow: text(value.heroEyebrow, "heroEyebrow"),
+      titleLines: [lines[0] ?? "", lines[1] ?? "", lines[2] ?? ""],
+      introduction: text(value.heroIntroduction, "heroIntroduction"),
+      trialAction: text(value.trialActionLabel, "trialActionLabel"),
+      image: image ?? { src: "", alternativeText: "" },
+    },
+    benefits: {
+      eyebrow: text(value.benefitsEyebrow, "benefitsEyebrow"),
+      title: text(value.benefitsHeading, "benefitsHeading"),
+      introduction: text(value.benefitsIntroduction, "benefitsIntroduction"),
+      items: entries("benefits", kidsBenefitKeys).map((item, index) => ({
+        internalKey: item.internalKey as KidsBenefitKey,
+        title: text(item.title, `benefits[${index}].title`),
+        description: text(item.description, `benefits[${index}].description`),
+      })),
+    },
+    classes: {
+      eyebrow: text(value.classesEyebrow, "classesEyebrow"),
+      title: text(value.classesHeading, "classesHeading"),
+      introduction: text(value.classesIntroduction, "classesIntroduction"),
+      ageUnit: text(value.ageUnit, "ageUnit"),
+      items: entries("classes", kidsClassKeys).map((item, index) => ({
+        internalKey: item.internalKey as KidsClassKey,
+        ageRange: requiredString(
+          item.ageRange,
+          `kidsPage.classes[${index}].ageRange`,
+          issues,
+        ),
+        name: text(item.name, `classes[${index}].name`),
+        focus: text(item.focus, `classes[${index}].focus`),
+        description: text(item.description, `classes[${index}].description`),
+      })),
+    },
+    faq: {
+      eyebrow: text(value.faqEyebrow, "faqEyebrow"),
+      title: text(value.faqHeading, "faqHeading"),
+      items: entries("faqs").map((item, index) => ({
+        internalKey: requiredString(
+          item.internalKey,
+          `kidsPage.faqs[${index}].internalKey`,
+          issues,
+        ),
+        question: text(item.question, `faqs[${index}].question`),
+        answer: text(item.answer, `faqs[${index}].answer`),
+      })),
+      contactPrompt: text(value.contactPrompt, "contactPrompt"),
+      contactAction: text(value.contactActionLabel, "contactActionLabel"),
+    },
+    nextSteps: {
+      eyebrow: text(value.nextStepsEyebrow, "nextStepsEyebrow"),
+      title: text(value.nextStepsHeading, "nextStepsHeading"),
+      scheduleAction: text(value.scheduleActionLabel, "scheduleActionLabel"),
+      pricesAction: text(value.pricesActionLabel, "pricesActionLabel"),
+    },
+    seo: projectSeo(value.seo, locale, "kidsPage.seo", issues, createImageUrl),
+  });
 }
 
 export function projectSchedulePage(

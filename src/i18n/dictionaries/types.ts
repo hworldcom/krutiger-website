@@ -1,6 +1,7 @@
 import type { Locale } from "../config";
 import type { IntegrationArea, RouteId } from "../../lib/routes";
 import type { TrainingLevel } from "../../content/training";
+import type { KidsPageCopy } from "../../content/kids";
 
 type PageCopy = Readonly<{
   navigationLabel: string;
@@ -350,6 +351,7 @@ export type Dictionary = Readonly<{
   aboutPage: AboutPageCopy;
   teamPage: TeamPageCopy;
   trainingPage: TrainingPageCopy;
+  kidsPage: KidsPageCopy;
   memberAreaPage: MemberAreaPageCopy;
   privateTrainingPage: PrivateTrainingPageCopy;
   contactPage: ContactPageCopy;

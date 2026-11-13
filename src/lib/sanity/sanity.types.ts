@@ -316,6 +316,55 @@ export type SanityImageHotspot = {
   width?: number;
 };
 
+export type KidsPage = {
+  _id: string;
+  _type: "kidsPage";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  heroEyebrow?: LocalizedString;
+  heroTitleLines?: Array<
+    {
+      _key: string;
+    } & LocalizedString
+  >;
+  heroIntroduction?: LocalizedText;
+  trialActionLabel?: LocalizedString;
+  heroImage?: EditorialImage;
+  benefitsEyebrow?: LocalizedString;
+  benefitsHeading?: LocalizedString;
+  benefitsIntroduction?: LocalizedText;
+  benefits?: Array<
+    {
+      _key: string;
+    } & KidsBenefit
+  >;
+  classesEyebrow?: LocalizedString;
+  classesHeading?: LocalizedString;
+  classesIntroduction?: LocalizedText;
+  ageUnit?: LocalizedString;
+  classes?: Array<
+    {
+      _key: string;
+    } & KidsClass
+  >;
+  faqEyebrow?: LocalizedString;
+  faqHeading?: LocalizedString;
+  faqs?: Array<
+    {
+      _key: string;
+    } & KidsFaq
+  >;
+  contactPrompt?: LocalizedString;
+  contactActionLabel?: LocalizedString;
+  nextStepsEyebrow?: LocalizedString;
+  nextStepsHeading?: LocalizedString;
+  scheduleActionLabel?: LocalizedString;
+  pricesActionLabel?: LocalizedString;
+  seo?: SeoMetadata;
+  editorialState?: "draft" | "review" | "ready";
+};
+
 export type TrainingPage = {
   _id: string;
   _type: "trainingPage";
@@ -419,6 +468,29 @@ export type PostalAddress = {
   _type: "postalAddress";
   lines?: Array<string>;
   mapUrl?: string;
+};
+
+export type KidsFaq = {
+  _type: "kidsFaq";
+  internalKey?: string;
+  question?: LocalizedString;
+  answer?: LocalizedText;
+};
+
+export type KidsClass = {
+  _type: "kidsClass";
+  internalKey?: "youngerKids" | "olderKids" | "teens";
+  ageRange?: string;
+  name?: LocalizedString;
+  focus?: LocalizedString;
+  description?: LocalizedText;
+};
+
+export type KidsBenefit = {
+  _type: "kidsBenefit";
+  internalKey?: "coordination" | "confidence" | "discipline" | "fairness";
+  title?: LocalizedString;
+  description?: LocalizedText;
 };
 
 export type PhilosophyValue = {
@@ -571,11 +643,15 @@ export type AllSanitySchemaTypes =
   | LocalizedAlternativeText
   | SanityImageCrop
   | SanityImageHotspot
+  | KidsPage
   | TrainingPage
   | AboutPage
   | Homepage
   | SiteSettings
   | PostalAddress
+  | KidsFaq
+  | KidsClass
+  | KidsBenefit
   | PhilosophyValue
   | AboutChapter
   | HomepageFeature
@@ -747,6 +823,74 @@ export type TRAINING_PAGE_QUERY_RESULT = {
   classesHeading: LocalizedString | null;
   classesIntroduction: LocalizedText | null;
   scheduleNotice: LocalizedText | null;
+  seo: {
+    title: LocalizedString | null;
+    description: LocalizedText | null;
+    shareImage: {
+      asset: SanityImageAssetReference | null;
+      crop: SanityImageCrop | null;
+      hotspot: SanityImageHotspot | null;
+      decorative: boolean | null;
+      alternativeText: LocalizedAlternativeText | null;
+      caption: LocalizedString | null;
+    } | null;
+  } | null;
+} | null;
+
+// Source: ../src/lib/sanity/queries.ts
+// Variable: KIDS_PAGE_QUERY
+// Query: *[_type == "kidsPage"] | order(_updatedAt desc)[0] {    _id,    heroEyebrow,    heroTitleLines,    heroIntroduction,    trialActionLabel,    heroImage { asset, crop, hotspot, decorative, alternativeText, caption },    benefitsEyebrow,    benefitsHeading,    benefitsIntroduction,    benefits[] { internalKey, title, description },    classesEyebrow,    classesHeading,    classesIntroduction,    ageUnit,    classes[] { internalKey, ageRange, name, focus, description },    faqEyebrow,    faqHeading,    faqs[] { internalKey, question, answer },    contactPrompt,    contactActionLabel,    nextStepsEyebrow,    nextStepsHeading,    scheduleActionLabel,    pricesActionLabel,    seo {      title, description,      shareImage { asset, crop, hotspot, decorative, alternativeText, caption }    }  }
+export type KIDS_PAGE_QUERY_RESULT = {
+  _id: string;
+  heroEyebrow: LocalizedString | null;
+  heroTitleLines: Array<
+    {
+      _key: string;
+    } & LocalizedString
+  > | null;
+  heroIntroduction: LocalizedText | null;
+  trialActionLabel: LocalizedString | null;
+  heroImage: {
+    asset: SanityImageAssetReference | null;
+    crop: SanityImageCrop | null;
+    hotspot: SanityImageHotspot | null;
+    decorative: boolean | null;
+    alternativeText: LocalizedAlternativeText | null;
+    caption: LocalizedString | null;
+  } | null;
+  benefitsEyebrow: LocalizedString | null;
+  benefitsHeading: LocalizedString | null;
+  benefitsIntroduction: LocalizedText | null;
+  benefits: Array<{
+    internalKey:
+      "confidence" | "coordination" | "discipline" | "fairness" | null;
+    title: LocalizedString | null;
+    description: LocalizedText | null;
+  }> | null;
+  classesEyebrow: LocalizedString | null;
+  classesHeading: LocalizedString | null;
+  classesIntroduction: LocalizedText | null;
+  ageUnit: LocalizedString | null;
+  classes: Array<{
+    internalKey: "olderKids" | "teens" | "youngerKids" | null;
+    ageRange: string | null;
+    name: LocalizedString | null;
+    focus: LocalizedString | null;
+    description: LocalizedText | null;
+  }> | null;
+  faqEyebrow: LocalizedString | null;
+  faqHeading: LocalizedString | null;
+  faqs: Array<{
+    internalKey: string | null;
+    question: LocalizedString | null;
+    answer: LocalizedText | null;
+  }> | null;
+  contactPrompt: LocalizedString | null;
+  contactActionLabel: LocalizedString | null;
+  nextStepsEyebrow: LocalizedString | null;
+  nextStepsHeading: LocalizedString | null;
+  scheduleActionLabel: LocalizedString | null;
+  pricesActionLabel: LocalizedString | null;
   seo: {
     title: LocalizedString | null;
     description: LocalizedText | null;
@@ -1073,6 +1217,7 @@ declare global {
     '\n  *[_type == "homepage"] | order(_updatedAt desc)[0] {\n    _id,\n    heroEyebrow,\n    heroTitleLines,\n    heroIntroduction,\n    heroImage {\n      asset,\n      crop,\n      hotspot,\n      decorative,\n      alternativeText,\n      caption\n    },\n    trialActionLabel,\n    scheduleActionLabel,\n    valuesEyebrow,\n    valuesTitle,\n    valuesTitleAccent,\n    valuesIntroduction,\n    features[] {\n      internalKey,\n      title,\n      description\n    },\n    seo {\n      title,\n      description,\n      shareImage {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      }\n    }\n  }\n': HOMEPAGE_QUERY_RESULT;
     '\n  *[_type == "aboutPage"] | order(_updatedAt desc)[0] {\n    _id,\n    heroEyebrow,\n    heroTitlePrimary,\n    heroTitleSecondary,\n    heroIntroduction,\n    heroImage {\n      asset,\n      crop,\n      hotspot,\n      decorative,\n      alternativeText,\n      caption\n    },\n    storyHeading,\n    chapters[] {\n      internalKey,\n      title,\n      description,\n      accent,\n      primaryImage {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      },\n      secondaryImage {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      }\n    },\n    philosophyTitle,\n    philosophyValues[] {\n      internalKey,\n      title,\n      description\n    },\n    seo {\n      title,\n      description,\n      shareImage {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      }\n    }\n  }\n': ABOUT_PAGE_QUERY_RESULT;
     '\n  *[_type == "trainingPage"] | order(_updatedAt desc)[0] {\n    _id,\n    heroEyebrow,\n    heroTitle,\n    heroIntroduction,\n    classesHeading,\n    classesIntroduction,\n    scheduleNotice,\n    seo {\n      title,\n      description,\n      shareImage {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      }\n    }\n  }\n': TRAINING_PAGE_QUERY_RESULT;
+    '\n  *[_type == "kidsPage"] | order(_updatedAt desc)[0] {\n    _id,\n    heroEyebrow,\n    heroTitleLines,\n    heroIntroduction,\n    trialActionLabel,\n    heroImage { asset, crop, hotspot, decorative, alternativeText, caption },\n    benefitsEyebrow,\n    benefitsHeading,\n    benefitsIntroduction,\n    benefits[] { internalKey, title, description },\n    classesEyebrow,\n    classesHeading,\n    classesIntroduction,\n    ageUnit,\n    classes[] { internalKey, ageRange, name, focus, description },\n    faqEyebrow,\n    faqHeading,\n    faqs[] { internalKey, question, answer },\n    contactPrompt,\n    contactActionLabel,\n    nextStepsEyebrow,\n    nextStepsHeading,\n    scheduleActionLabel,\n    pricesActionLabel,\n    seo {\n      title, description,\n      shareImage { asset, crop, hotspot, decorative, alternativeText, caption }\n    }\n  }\n': KIDS_PAGE_QUERY_RESULT;
     '\n  *[_type == "schedulePage"] | order(_updatedAt desc)[0] {\n    _id,\n    timetableImage {\n      asset,\n      crop,\n      hotspot,\n      alternativeText,\n      caption\n    }\n  }\n': SCHEDULE_PAGE_QUERY_RESULT;
     '\n  *[_type == "teamPage"] | order(_updatedAt desc)[0] {\n    _id,\n    heroEyebrow,\n    heroTitle,\n    heroIntroduction,\n    teamHeading,\n    seo {\n      title,\n      description,\n      shareImage {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      }\n    }\n  }\n': TEAM_PAGE_QUERY_RESULT;
     '\n  *[_type == "pricingPage"] | order(_updatedAt desc)[0] {\n    _id,\n    heroEyebrow,\n    heroTitle,\n    heroIntroduction,\n    membershipHeading,\n    membershipIntroduction,\n    adultAudienceDescription,\n    studentAudienceDescription,\n    kidAudienceDescription,\n    termsHeading,\n    billingDay,\n    joiningFeeCents,\n    autoRenewalExplanation,\n    termsVerifiedAt,\n    passesHeading,\n    passesIntroduction,\n    checkoutNotice,\n    seo {\n      title,\n      description,\n      shareImage {\n        asset,\n        crop,\n        hotspot,\n        decorative,\n        alternativeText,\n        caption\n      }\n    }\n  }\n': PRICING_PAGE_QUERY_RESULT;

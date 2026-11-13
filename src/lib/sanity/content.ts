@@ -14,6 +14,7 @@ import type {
 import type { TeamMember } from "@/content/team";
 import type { TrainingClass } from "@/content/training";
 import type { Locale } from "@/i18n/config";
+import type { KidsPageEditorialContent } from "@/content/kids";
 import type { MembershipPlan } from "@/lib/bsport/memberships";
 import type { MonthlyPass } from "@/lib/bsport/passes";
 
@@ -26,6 +27,7 @@ import {
   FAQS_QUERY,
   HOMEPAGE_QUERY,
   IMPRINT_PAGE_QUERY,
+  KIDS_PAGE_QUERY,
   MEMBERSHIP_CARDS_QUERY,
   MONTHLY_PASS_CARDS_QUERY,
   PRICING_PAGE_QUERY,
@@ -42,6 +44,7 @@ import {
   projectFaqs,
   projectHomepage,
   projectLegalPage,
+  projectKidsPage,
   projectMembershipCards,
   projectMonthlyPassCards,
   projectPricingPage,
@@ -176,6 +179,21 @@ export async function getTrainingPageContent(
 
     const imageUrl = createSanityImageUrlFactory(getSanityImageProject());
     return projectTrainingPage(document, locale, imageUrl);
+  } catch (error) {
+    return toUnavailableContentResult(error);
+  }
+}
+
+export async function getKidsPageContent(
+  locale: Locale,
+): Promise<SanityContentResult<KidsPageEditorialContent>> {
+  try {
+    const document = await fetchSanityQuery(KIDS_PAGE_QUERY, [
+      "sanity:kidsPage",
+    ]);
+    if (!document) return { status: "missing" };
+    const imageUrl = createSanityImageUrlFactory(getSanityImageProject());
+    return projectKidsPage(document, locale, imageUrl);
   } catch (error) {
     return toUnavailableContentResult(error);
   }

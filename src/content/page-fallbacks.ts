@@ -12,6 +12,7 @@ import type {
 } from "@/content/editorial";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries/types";
+import type { KidsPageEditorialContent } from "@/content/kids";
 import { membershipTerms } from "@/lib/bsport/memberships";
 import { siteSettings } from "@/lib/site-settings";
 
@@ -21,6 +22,19 @@ const homepageFeatureKeys: readonly HomepageFeatureKey[] = [
   "community",
   "experiencedCoaches",
 ];
+
+export function createKidsPageFallback(
+  dictionary: Dictionary,
+): KidsPageEditorialContent {
+  return {
+    ...dictionary.kidsPage,
+    seo: {
+      title: dictionary.routes.kids.title,
+      description: dictionary.routes.kids.description,
+      shareImage: dictionary.kidsPage.hero.image,
+    },
+  };
+}
 const aboutChapterKeys: readonly AboutChapterKey[] = [
   "kruTiger",
   "rootsThailand",

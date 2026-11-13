@@ -191,7 +191,7 @@ publication invalidates only queries that depend on the changed type:
   `production` for the public release)
 - Trigger on: Create, Update, Delete
 - Filter:
-  `_type in ["siteSettings", "homepage", "aboutPage", "trainingPage", "schedulePage", "teamPage", "pricingPage", "imprintPage", "privacyPage", "classType", "coach", "faq", "membershipCard", "monthlyPassCard"]`
+  `_type in ["siteSettings", "homepage", "aboutPage", "trainingPage", "kidsPage", "schedulePage", "teamPage", "pricingPage", "imprintPage", "privacyPage", "classType", "coach", "faq", "membershipCard", "monthlyPassCard"]`
 - Projection: `{_type}`
 - HTTP method: `POST`
 - Secret: the same value as `SANITY_REVALIDATE_SECRET` in Vercel

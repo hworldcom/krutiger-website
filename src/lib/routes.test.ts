@@ -27,6 +27,7 @@ describe("site route configuration", () => {
       "/",
       "/trial",
       "/training",
+      "/kids",
       "/private",
       "/schedule",
       "/prices",
@@ -46,6 +47,7 @@ describe("site route configuration", () => {
     expect(primaryNavigationRoutes.map((route) => route.id)).toEqual([
       "home",
       "training",
+      "kids",
       "privateTraining",
       "schedule",
       "prices",
@@ -69,6 +71,7 @@ describe("site route configuration", () => {
   it("resolves known path segments and rejects unknown paths", () => {
     expect(getRouteBySegments(["gift-cards"])?.id).toBe("giftCards");
     expect(getRouteBySegments(["trial"])?.id).toBe("trialClass");
+    expect(getRouteBySegments(["kids"])?.id).toBe("kids");
     expect(getRouteBySegments(["shop"])?.id).toBe("shop");
     expect(getRouteBySegments(["private"])?.id).toBe("privateTraining");
     expect(getRouteBySegments(["training", "advanced"])).toBeUndefined();

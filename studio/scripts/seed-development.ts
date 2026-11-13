@@ -6,6 +6,7 @@ import { getCliClient } from "sanity/cli";
 
 import { teamMemberSource } from "../../src/content/team";
 import { trainingClassSource } from "../../src/content/training";
+import { kidsIllustrationPath } from "../../src/content/kids";
 import de from "../../src/i18n/dictionaries/de";
 import en from "../../src/i18n/dictionaries/en";
 import {
@@ -40,6 +41,7 @@ const repositoryRoot = join(
 
 const imagePaths = [
   "/images/home/main.png",
+  kidsIllustrationPath,
   "/images/about/main.png",
   "/images/about/second.png",
   "/images/about/third.jpg",
@@ -759,11 +761,138 @@ function buildLegalPage(
   };
 }
 
+function buildKidsPage(assets: AssetMap): SeedDocument {
+  const german = de.kidsPage;
+  const english = en.kidsPage;
+  const heroImage = {
+    ...image(
+      assets,
+      kidsIllustrationPath,
+      {
+        de: german.hero.image.alternativeText,
+        en: english.hero.image.alternativeText,
+      },
+      0.5,
+    ),
+    source:
+      "AI-generated gouache illustration with Kru Tiger's likeness, based on the project owner's supplied photo and selected for the Kids page in November 2026.",
+  };
+  return {
+    _id: "drafts.kidsPage",
+    _type: "kidsPage",
+    heroEyebrow: localizedString(german.hero.eyebrow, english.hero.eyebrow),
+    heroTitleLines: german.hero.titleLines.map((line, index) => ({
+      _key: keyed("kids-title", index),
+      ...localizedString(line, english.hero.titleLines[index]),
+    })),
+    heroIntroduction: localizedText(
+      german.hero.introduction,
+      english.hero.introduction,
+    ),
+    trialActionLabel: localizedString(
+      german.hero.trialAction,
+      english.hero.trialAction,
+    ),
+    heroImage,
+    benefitsEyebrow: localizedString(
+      german.benefits.eyebrow,
+      english.benefits.eyebrow,
+    ),
+    benefitsHeading: localizedString(
+      german.benefits.title,
+      english.benefits.title,
+    ),
+    benefitsIntroduction: localizedText(
+      german.benefits.introduction,
+      english.benefits.introduction,
+    ),
+    benefits: german.benefits.items.map((item, index) => ({
+      _key: item.internalKey,
+      _type: "kidsBenefit",
+      internalKey: item.internalKey,
+      title: localizedString(item.title, english.benefits.items[index].title),
+      description: localizedText(
+        item.description,
+        english.benefits.items[index].description,
+      ),
+    })),
+    classesEyebrow: localizedString(
+      german.classes.eyebrow,
+      english.classes.eyebrow,
+    ),
+    classesHeading: localizedString(
+      german.classes.title,
+      english.classes.title,
+    ),
+    classesIntroduction: localizedText(
+      german.classes.introduction,
+      english.classes.introduction,
+    ),
+    ageUnit: localizedString(german.classes.ageUnit, english.classes.ageUnit),
+    classes: german.classes.items.map((item, index) => ({
+      _key: item.internalKey,
+      _type: "kidsClass",
+      internalKey: item.internalKey,
+      ageRange: item.ageRange,
+      name: localizedString(item.name, english.classes.items[index].name),
+      focus: localizedString(item.focus, english.classes.items[index].focus),
+      description: localizedText(
+        item.description,
+        english.classes.items[index].description,
+      ),
+    })),
+    faqEyebrow: localizedString(german.faq.eyebrow, english.faq.eyebrow),
+    faqHeading: localizedString(german.faq.title, english.faq.title),
+    faqs: german.faq.items.map((item, index) => ({
+      _key: item.internalKey,
+      _type: "kidsFaq",
+      internalKey: item.internalKey,
+      question: localizedString(
+        item.question,
+        english.faq.items[index].question,
+      ),
+      answer: localizedText(item.answer, english.faq.items[index].answer),
+    })),
+    contactPrompt: localizedString(
+      german.faq.contactPrompt,
+      english.faq.contactPrompt,
+    ),
+    contactActionLabel: localizedString(
+      german.faq.contactAction,
+      english.faq.contactAction,
+    ),
+    nextStepsEyebrow: localizedString(
+      german.nextSteps.eyebrow,
+      english.nextSteps.eyebrow,
+    ),
+    nextStepsHeading: localizedString(
+      german.nextSteps.title,
+      english.nextSteps.title,
+    ),
+    scheduleActionLabel: localizedString(
+      german.nextSteps.scheduleAction,
+      english.nextSteps.scheduleAction,
+    ),
+    pricesActionLabel: localizedString(
+      german.nextSteps.pricesAction,
+      english.nextSteps.pricesAction,
+    ),
+    seo: seo(
+      assets,
+      { de: de.routes.kids.title, en: en.routes.kids.title },
+      { de: de.routes.kids.description, en: en.routes.kids.description },
+      heroImage,
+    ),
+    editorialState: "review",
+  };
+}
+
 function buildDefinitions(assets: AssetMap): SeedDefinition[] {
   const draftDocuments = [
     buildHomepage(assets),
     buildAboutPage(assets),
     buildTrainingPage(assets),
+    buildKidsPage(assets),
     buildTeamPage(assets),
     buildPricingPage(assets),
     buildSiteSettings(assets),

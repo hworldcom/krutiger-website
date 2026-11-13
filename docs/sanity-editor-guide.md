@@ -18,7 +18,7 @@ The Studio desk is organized into seven destinations:
 2. **Core pages** — Homepage and About page.
 3. **Legal pages** — bilingual Impressum and Datenschutz content, including
    page metadata and structured legal text.
-4. **Training** — Training-page copy and reusable descriptions of training
+4. **Training** — Training-page copy, the bilingual Kids & Teens page, and reusable descriptions of training
    formats. Live sessions and bookings remain in bsport.
 5. **Pricing** — Pricing-page copy, reviewed shared terms, and website cards for
    existing bSport memberships and passes.
@@ -77,6 +77,11 @@ Training, Pricing cards, Team, and FAQ documents contain two controls under
 Homepage features and About-page sections are ordered arrays. Drag their entries
 within the document to change their order. Their internal keys select fixed
 website treatments and should not be changed casually.
+
+The **Kids & Teens page** is also a fixed document. Its benefit keys choose the
+four icons; its three age-group cards and practical questions are edited inside
+the page. The free-trial destination stays in application configuration. Only
+its label is editable in Studio. See [the kids-page guide](./kids-training-page.md).
 
 ## Images and accessibility
 

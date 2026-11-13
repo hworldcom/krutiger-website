@@ -1,4 +1,5 @@
 import type { Dictionary } from "./types";
+import { kidsPageCopy } from "../../content/kids";
 
 const de = {
   metadata: {
@@ -72,6 +73,13 @@ const de = {
       title: "Finde das passende Muay-Thai-Training",
       description:
         "Von sauberen Grundlagen bis zu anspruchsvoller Technik: Wähle das Training, das zu deiner Erfahrung passt, und entwickle dich Schritt für Schritt weiter.",
+    },
+    kids: {
+      navigationLabel: "Kids & Teens",
+      eyebrow: "Muay Thai für Kinder & Jugendliche · Berlin",
+      title: "Muay Thai für Kinder und Jugendliche in Berlin",
+      description:
+        "Muay Thai ab 6 Jahren bei KRUTIGER Berlin: Kurse für 6–8, 9–12 und ab 13 Jahren. Alle Gruppen sind für Einsteiger geeignet. Kostenloses Probetraining buchen.",
     },
     privateTraining: {
       navigationLabel: "Privattraining",
@@ -167,6 +175,7 @@ const de = {
         "Diese Seite ist für die aktuelle, rechtlich geprüfte Datenschutzerklärung vorgesehen. Der endgültige Text folgt vor der Veröffentlichung.",
     },
   },
+  kidsPage: kidsPageCopy.de,
   homePage: {
     hero: {
       eyebrow: "Traditionelles Muay Thai · Berlin",

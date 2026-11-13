@@ -2,6 +2,7 @@ export const routeIds = [
   "home",
   "trialClass",
   "training",
+  "kids",
   "privateTraining",
   "schedule",
   "prices",
@@ -50,6 +51,12 @@ export const siteRoutes = [
   {
     id: "training",
     path: "/training",
+    navigation: "primary",
+    showInFooter: true,
+  },
+  {
+    id: "kids",
+    path: "/kids",
     navigation: "primary",
     showInFooter: true,
   },

@@ -11,6 +11,8 @@ describe("draft preview routes", () => {
     "/de",
     "/en",
     "/de/training",
+    "/de/kids",
+    "/en/kids",
     "/en/coaches",
     "/de/prices",
     "/en/datenschutz",

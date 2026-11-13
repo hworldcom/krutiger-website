@@ -5,6 +5,8 @@ import { classType } from "./documents/classType";
 import { coach } from "./documents/coach";
 import { faq } from "./documents/faq";
 import { homepage } from "./documents/homepage";
+import { kidsPage } from "./documents/kidsPage";
+import { kidsBenefit, kidsClass, kidsFaq } from "./objects/kidsContent";
 import { imprintPage, privacyPage } from "./documents/legalPage";
 import { membershipCard } from "./documents/membershipCard";
 import { monthlyPassCard } from "./documents/monthlyPassCard";
@@ -37,10 +39,14 @@ export const schemaTypes: SchemaTypeDefinition[] = [
   homepageFeature,
   aboutChapter,
   philosophyValue,
+  kidsBenefit,
+  kidsClass,
+  kidsFaq,
   siteSettings,
   homepage,
   aboutPage,
   trainingPage,
+  kidsPage,
   schedulePage,
   teamPage,
   pricingPage,

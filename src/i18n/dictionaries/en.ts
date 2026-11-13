@@ -1,4 +1,5 @@
 import type { Dictionary } from "./types";
+import { kidsPageCopy } from "../../content/kids";
 
 const en = {
   metadata: {
@@ -72,6 +73,13 @@ const en = {
       title: "Find the right Muay Thai training",
       description:
         "From clean foundations to demanding technical work, choose the training that matches your experience and progress step by step.",
+    },
+    kids: {
+      navigationLabel: "Kids & Teens",
+      eyebrow: "Muay Thai for kids & teens · Berlin",
+      title: "Muay Thai for kids and teens in Berlin",
+      description:
+        "Muay Thai from age 6 at KRUTIGER Berlin: classes for ages 6–8, 9–12 and 13+. Every group welcomes beginners. Book a free trial class.",
     },
     privateTraining: {
       navigationLabel: "Private Classes",
@@ -167,6 +175,7 @@ const en = {
         "This page is reserved for the current, legally reviewed privacy policy. The final text will follow before launch.",
     },
   },
+  kidsPage: kidsPageCopy.en,
   homePage: {
     hero: {
       eyebrow: "Traditional Muay Thai · Berlin",

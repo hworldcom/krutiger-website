@@ -18,6 +18,13 @@
 
 ## Asset handling
 
+The selected Kids & Teens hero is `public/images/kids/kru-tiger-training.png`.
+It is the v3 generated gouache illustration approved for implementation by the
+project owner in the page-preview review, with fictional children and a cartoon
+likeness of Kru Tiger based on the supplied reference photo. Keep the generated
+composition and transparency; the reference photograph is not part of the public
+kids-page assets. The Studio seed retains the existing image-rights review fields.
+
 - Never overwrite the approved master file with an optimized derivative.
 - Generate responsive web derivatives during the build or image pipeline.
 - Use lowercase, descriptive filenames without dates unless the date is meaningful.

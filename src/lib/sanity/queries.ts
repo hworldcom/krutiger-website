@@ -159,6 +159,39 @@ export const TRAINING_PAGE_QUERY = defineQuery(`
   }
 `);
 
+export const KIDS_PAGE_QUERY = defineQuery(`
+  *[_type == "kidsPage"] | order(_updatedAt desc)[0] {
+    _id,
+    heroEyebrow,
+    heroTitleLines,
+    heroIntroduction,
+    trialActionLabel,
+    heroImage { asset, crop, hotspot, decorative, alternativeText, caption },
+    benefitsEyebrow,
+    benefitsHeading,
+    benefitsIntroduction,
+    benefits[] { internalKey, title, description },
+    classesEyebrow,
+    classesHeading,
+    classesIntroduction,
+    ageUnit,
+    classes[] { internalKey, ageRange, name, focus, description },
+    faqEyebrow,
+    faqHeading,
+    faqs[] { internalKey, question, answer },
+    contactPrompt,
+    contactActionLabel,
+    nextStepsEyebrow,
+    nextStepsHeading,
+    scheduleActionLabel,
+    pricesActionLabel,
+    seo {
+      title, description,
+      shareImage { asset, crop, hotspot, decorative, alternativeText, caption }
+    }
+  }
+`);
+
 export const SCHEDULE_PAGE_QUERY = defineQuery(`
   *[_type == "schedulePage"] | order(_updatedAt desc)[0] {
     _id,

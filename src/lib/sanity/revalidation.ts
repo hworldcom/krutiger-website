@@ -6,6 +6,7 @@ export const SANITY_REVALIDATABLE_DOCUMENT_TYPES = [
   "coach",
   "faq",
   "homepage",
+  "kidsPage",
   "imprintPage",
   "membershipCard",
   "monthlyPassCard",

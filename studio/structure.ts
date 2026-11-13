@@ -6,6 +6,7 @@ export const singletonTypes = new Set([
   "homepage",
   "aboutPage",
   "trainingPage",
+  "kidsPage",
   "schedulePage",
   "teamPage",
   "pricingPage",
@@ -121,6 +122,15 @@ export const structure: StructureResolver = (S) =>
                     .schemaType("trainingPage")
                     .documentId("trainingPage")
                     .title("Training page"),
+                ),
+              S.listItem()
+                .id("kidsPage")
+                .title("Kids & Teens page")
+                .child(
+                  S.document()
+                    .schemaType("kidsPage")
+                    .documentId("kidsPage")
+                    .title("Kids & Teens page"),
                 ),
               S.listItem()
                 .id("schedulePage")

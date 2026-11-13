@@ -39,6 +39,7 @@ const viewports = [
 const routes = [
   "/",
   "/training",
+  "/kids",
   "/private",
   "/schedule",
   "/prices",
@@ -193,6 +194,7 @@ try {
         "/",
         "/trial",
         "/training",
+        "/kids",
         "/private",
         "/prices",
         "/about",
@@ -302,9 +304,29 @@ try {
         openGraphUrl === expectedCanonical,
         `${url} has an incorrect og:url.`,
       );
+      const fallbackSocialImages = {
+        "/about": "/images/about/main.png",
+        "/kids": "/images/kids/kru-tiger-training.png",
+      };
+      const expectedSocialImage =
+        fallbackSocialImages[route] || "/images/home/main.png";
+
       assert(
-        openGraphImage === `${expectedOrigin}/images/home/main.png`,
-        `${url} has an incorrect social preview image.`,
+        openGraphImage === `${expectedOrigin}${expectedSocialImage}` ||
+          openGraphImage?.startsWith("https://cdn.sanity.io/images/nsznfiun/"),
+        `${url} has neither its fallback social image nor a project Sanity image.`,
+      );
+      const twitterImage = await metadataPage
+        .locator('meta[name="twitter:image"]')
+        .first()
+        .getAttribute("content");
+      const socialImageAlternativeText = await metadataPage
+        .locator('meta[property="og:image:alt"]')
+        .first()
+        .getAttribute("content");
+      assert(
+        twitterImage === openGraphImage && socialImageAlternativeText?.trim(),
+        `${url} has inconsistent social images or no image description.`,
       );
       assert(
         twitterCard === "summary_large_image",
