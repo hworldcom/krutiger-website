@@ -1,99 +1,134 @@
-import { ButtonLink, Container, SectionHeader } from "@/components/ui";
-import type { Dictionary, TrialPageCopy } from "@/i18n/dictionaries/types";
-import { trialSessionPassCheckoutUrl } from "@/lib/bsport/passes";
+import { ButtonLink, Container } from "@/components/ui";
+import type {
+  Dictionary,
+  TrialOfferCopy,
+  TrialPageCopy,
+} from "@/i18n/dictionaries/types";
+import {
+  singleTrialSessionPassCheckoutUrl,
+  trialSessionPassCheckoutUrl,
+} from "@/lib/bsport/passes";
+
+import styles from "./trial-page.module.css";
 
 type TrialPageProps = Readonly<{
   content: Dictionary["routes"]["trialClass"];
   details: TrialPageCopy;
 }>;
 
-export function TrialPage({ content, details }: TrialPageProps) {
+function OfferBenefits({
+  benefits,
+  className,
+}: Readonly<{ benefits: TrialOfferCopy["benefits"]; className?: string }>) {
   return (
-    <div className="min-h-screen overflow-hidden bg-canvas py-section text-copy">
+    <ul className={className}>
+      {benefits.map((benefit) => (
+        <li className="flex items-start gap-2.5" key={benefit}>
+          <span aria-hidden="true" className="shrink-0 font-bold text-brand">
+            ✓
+          </span>
+          <span>{benefit}</span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+export function TrialPage({ content, details }: TrialPageProps) {
+  const offers = [
+    {
+      id: "trial-pass",
+      copy: details.trialPass,
+      href: trialSessionPassCheckoutUrl,
+      recommended: true,
+    },
+    {
+      id: "single-session",
+      copy: details.singleSession,
+      href: singleTrialSessionPassCheckoutUrl,
+      recommended: false,
+    },
+  ] as const;
+
+  return (
+    <div className="bg-canvas py-7 text-copy sm:py-10">
       <Container>
-        <section aria-labelledby="trial-page-title" className="relative">
-          <div
-            aria-hidden="true"
-            className="absolute -top-24 right-[-8rem] -z-10 h-96 w-96 rounded-full bg-brand/10 blur-3xl sm:right-0"
-          />
-          <SectionHeader
-            description={content.description}
-            eyebrow={content.eyebrow}
-            headingId="trial-page-title"
-            level={1}
-            size="page"
-            title={content.title}
-          />
-        </section>
+        <header>
+          <p className={styles.eyebrow}>{content.eyebrow}</p>
+          <h1 className={styles.pageTitle}>{content.title}</h1>
+          <p className="mt-3 text-sm leading-6 text-copy-muted sm:text-base">
+            {content.description}
+          </p>
+        </header>
 
         <section
           aria-labelledby="trial-offer-title"
-          className="mt-16 border-t border-line pt-12 sm:mt-20 sm:pt-16"
+          className="mt-6 border-t border-line pt-5 sm:mt-8 sm:pt-6"
           data-trial-offer="true"
         >
-          <div className="max-w-3xl">
-            <p className="font-display text-sm font-bold tracking-[0.22em] text-brand uppercase">
-              {details.offerEyebrow}
-            </p>
-            <h2
-              className="mt-4 font-display text-5xl leading-none font-extrabold tracking-tight uppercase sm:text-7xl"
-              id="trial-offer-title"
-            >
-              {details.offerTitle}
-            </h2>
-            <p className="mt-5 max-w-2xl text-base leading-7 text-copy-muted sm:text-lg">
-              {details.offerDescription}
-            </p>
-          </div>
+          <p className={styles.eyebrow}>{details.offerEyebrow}</p>
+          <h2 className={styles.offerTitle} id="trial-offer-title">
+            {details.offerTitle}
+          </h2>
 
-          <ol className="mt-10 grid gap-5 lg:grid-cols-3">
-            {details.benefits.map((benefit, index) => (
-              <li
-                className="flex min-h-64 flex-col border border-line bg-panel/70 p-6 sm:p-8"
-                key={benefit.title}
+          <div className={styles.offers}>
+            {offers.map(({ id, copy, href, recommended }) => (
+              <article
+                aria-labelledby={`${id}-title`}
+                className={`${styles.offer} ${recommended ? styles.recommended : ""}`}
+                key={id}
               >
-                <p className="font-display text-lg font-bold text-brand">
-                  {String(index + 1).padStart(2, "0")}
+                {recommended ? (
+                  <p className={styles.badge}>{details.recommendedBadge}</p>
+                ) : (
+                  <div aria-hidden="true" className={styles.badgeSpacer} />
+                )}
+
+                <div className={styles.productHeading}>
+                  <h3 id={`${id}-title`}>{copy.title}</h3>
+                  <p className={styles.price}>{copy.price}</p>
+                </div>
+
+                <p className={styles.audience}>
+                  <em>{copy.audience}</em>
                 </p>
-                <h3 className="mt-8 font-display text-3xl leading-none font-extrabold uppercase">
-                  {benefit.title}
-                </h3>
-                <p className="mt-4 text-base leading-7 text-copy-muted">
-                  {benefit.description}
-                </p>
-              </li>
+
+                <p className={styles.description}>{copy.description}</p>
+                <OfferBenefits
+                  benefits={copy.benefits}
+                  className={styles.benefits}
+                />
+
+                <p className={styles.compactSummary}>{copy.compactSummary}</p>
+
+                <div className={styles.booking}>
+                  <ButtonLink
+                    href={href}
+                    stretch
+                    variant={recommended ? "primary" : "secondary"}
+                  >
+                    <span>{copy.bookingAction}</span>
+                    <span aria-hidden="true" className="shrink-0">
+                      →
+                    </span>
+                  </ButtonLink>
+                </div>
+
+                <details className={styles.mobileDetails}>
+                  <summary>
+                    {details.detailsAction}
+                    <span aria-hidden="true" className={styles.detailsIcon} />
+                  </summary>
+                  <p>{copy.description}</p>
+                  <OfferBenefits benefits={copy.benefits} />
+                </details>
+              </article>
             ))}
-          </ol>
-        </section>
-
-        <section
-          aria-labelledby="trial-booking-title"
-          className="mt-16 border-t-2 border-brand bg-panel px-5 py-10 sm:mt-20 sm:px-10 sm:py-14 lg:flex lg:items-end lg:justify-between lg:gap-12"
-        >
-          <div className="max-w-3xl">
-            <p className="font-display text-sm font-bold tracking-[0.22em] text-brand uppercase">
-              {details.bookingEyebrow}
-            </p>
-            <h2
-              className="mt-4 font-display text-4xl leading-none font-extrabold uppercase sm:text-6xl"
-              id="trial-booking-title"
-            >
-              {details.bookingTitle}
-            </h2>
-            <p className="mt-5 max-w-2xl text-base leading-7 text-copy-muted">
-              {details.bookingDescription}
-            </p>
           </div>
 
-          <div className="mt-8 shrink-0 lg:mt-0 lg:max-w-sm">
-            <ButtonLink href={trialSessionPassCheckoutUrl} stretch>
-              {details.bookingAction}
-              <span aria-hidden="true">→</span>
-            </ButtonLink>
-            <p className="mt-4 text-sm leading-6 text-copy-muted">
-              {details.secureNotice}
-            </p>
-          </div>
+          <p className="mt-4 text-center text-xs leading-5 text-copy-muted">
+            {details.secureNotice}
+          </p>
         </section>
       </Container>
     </div>

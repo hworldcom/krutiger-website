@@ -65,7 +65,7 @@ const de = {
       eyebrow: "Dein Einstieg",
       title: "Probetraining bei KRUTIGER",
       description:
-        "Lerne authentisches Muay Thai in drei Trainingseinheiten kennen – ohne Vorerfahrung und ohne eigene Ausrüstung.",
+        "Lerne unser Gym kennen und finde deinen Einstieg ins Muay Thai.",
     },
     training: {
       navigationLabel: "Training",
@@ -450,33 +450,38 @@ const de = {
   },
   trialPage: {
     offerEyebrow: "Das Angebot",
-    offerTitle: "3 Trainings für 20 €",
-    offerDescription:
-      "Mit dem Probetrainingspass kannst du KRUTIGER, unser Team und unterschiedliche Trainingseinheiten in Ruhe kennenlernen.",
-    benefits: [
-      {
-        title: "Drei Trainingseinheiten",
-        description:
-          "Nutze drei Einheiten, um das Training und unsere Community kennenzulernen.",
-      },
-      {
-        title: "Keine Erfahrung nötig",
-        description:
-          "Das Probetraining ist für Einsteiger geeignet. Unsere Trainer führen dich durch die Grundlagen.",
-      },
-      {
-        title: "Ausrüstung ausleihen",
-        description:
-          "Die benötigte Ausrüstung kannst du für deine ersten Einheiten vor Ort ausleihen.",
-      },
-    ],
-    bookingEyebrow: "Bereit für dein erstes Training?",
-    bookingTitle: "Probetrainingspass buchen",
-    bookingDescription:
-      "Über den Button gelangst du zu bSport. Dort erstellst du dein Konto oder meldest dich an und schließt die Buchung ab.",
-    bookingAction: "Jetzt über bSport buchen",
-    secureNotice:
-      "Konto, Buchung und Zahlung werden sicher über bSport abgewickelt.",
+    offerTitle: "Wähle deinen Einstieg",
+    recommendedBadge: "Empfohlen für Einsteiger",
+    detailsAction: "Details ansehen",
+    trialPass: {
+      title: "Trial Pass",
+      price: "30 €",
+      audience: "Ideal, wenn du ganz neu im Muay Thai bist.",
+      description:
+        "Mit dem Trial Pass lernst du den Sport in Ruhe kennen. Du trainierst mehrmals, probierst verschiedene Einheiten aus und bekommst ein echtes Gefühl für Muay Thai, das Training und unsere Community.",
+      benefits: [
+        "3 Trainings, gültig für 14 Tage",
+        "Unsere Trainer führen dich Schritt für Schritt durch die Grundlagen",
+        "Der beste Weg, um herauszufinden, ob Muay Thai dein Sport ist",
+      ],
+      compactSummary: "3 Trainings · 14 Tage gültig",
+      bookingAction: "Trial Pass buchen",
+    },
+    singleSession: {
+      title: "Einzelnes Probetraining",
+      price: "15 €",
+      audience: "Ideal, wenn du Muay Thai schon kennst.",
+      description:
+        "Du hast schon trainiert und willst wissen, ob unser Gym zu dir passt? Dann komm zu einem einzelnen Training und lerne Team, Trainer und Atmosphäre kennen.",
+      benefits: [
+        "Ein Training deiner Wahl",
+        "Bis zu 3-mal buchbar",
+        "Perfekt für einen ersten Eindruck vom Gym",
+      ],
+      compactSummary: "1 Training · bis zu 3-mal buchbar",
+      bookingAction: "Probetraining buchen",
+    },
+    secureNotice: "Buchung und Zahlung sicher über bSport.",
   },
   integrations: {
     schedule: {
