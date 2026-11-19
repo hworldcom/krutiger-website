@@ -10,6 +10,9 @@ export type MonthlyPass = Readonly<{
 export const trialSessionPassCheckoutUrl =
   "https://backoffice.bsport.io/customer/payment/pass/795677/?membership=6720&force=true";
 
+export const singleTrialSessionPassCheckoutUrl =
+  "https://backoffice.bsport.io/customer/payment/pass/818953/?membership=6720&force=true";
+
 export const kidsTrialSessionPassCheckoutUrl =
   "https://backoffice.bsport.io/customer/payment/pass/814783/?membership=6720&force=true";
 

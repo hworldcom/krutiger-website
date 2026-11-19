@@ -64,8 +64,7 @@ const en = {
       navigationLabel: "Trial training",
       eyebrow: "Your first step",
       title: "Trial training at KRUTIGER",
-      description:
-        "Discover authentic Muay Thai across three training sessions—with no previous experience or personal equipment required.",
+      description: "Get to know our gym and find your way into Muay Thai.",
     },
     training: {
       navigationLabel: "Training",
@@ -450,33 +449,38 @@ const en = {
   },
   trialPage: {
     offerEyebrow: "The offer",
-    offerTitle: "3 classes for €20",
-    offerDescription:
-      "The trial pass gives you time to get to know KRUTIGER, our team, and different training sessions.",
-    benefits: [
-      {
-        title: "Three training sessions",
-        description:
-          "Use three sessions to experience the training and meet our community.",
-      },
-      {
-        title: "No experience needed",
-        description:
-          "The trial is suitable for beginners. Our coaches will guide you through the foundations.",
-      },
-      {
-        title: "Borrow equipment",
-        description:
-          "You can borrow the equipment you need on site for your first sessions.",
-      },
-    ],
-    bookingEyebrow: "Ready for your first class?",
-    bookingTitle: "Book your trial pass",
-    bookingDescription:
-      "The button takes you to bSport, where you can create an account or sign in and complete your booking.",
-    bookingAction: "Book now through bSport",
-    secureNotice:
-      "Your account, booking, and payment are handled securely by bSport.",
+    offerTitle: "Choose your first step",
+    recommendedBadge: "Recommended for beginners",
+    detailsAction: "View details",
+    trialPass: {
+      title: "Trial Pass",
+      price: "€30",
+      audience: "Ideal if you’re completely new to Muay Thai.",
+      description:
+        "The Trial Pass lets you discover the sport at your own pace. Train several times, try different classes, and get a real feel for Muay Thai, the training, and our community.",
+      benefits: [
+        "3 training sessions, valid for 14 days",
+        "Our coaches guide you through the basics step by step",
+        "The best way to find out whether Muay Thai is your sport",
+      ],
+      compactSummary: "3 sessions · valid for 14 days",
+      bookingAction: "Book Trial Pass",
+    },
+    singleSession: {
+      title: "Single trial session",
+      price: "€15",
+      audience: "Ideal if you already know Muay Thai.",
+      description:
+        "Have you trained before and want to see whether our gym is right for you? Join a single session and get to know our team, coaches, and atmosphere.",
+      benefits: [
+        "One training session of your choice",
+        "Can be booked up to 3 times",
+        "Perfect for a first impression of the gym",
+      ],
+      compactSummary: "1 session · book up to 3 times",
+      bookingAction: "Book trial session",
+    },
+    secureNotice: "Secure booking and payment through bSport.",
   },
   integrations: {
     schedule: {

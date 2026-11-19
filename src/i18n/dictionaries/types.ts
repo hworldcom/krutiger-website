@@ -283,20 +283,23 @@ export type ContactPageCopy = Readonly<{
   }>;
 }>;
 
-type TrialBenefitCopy = Readonly<{
+export type TrialOfferCopy = Readonly<{
   title: string;
+  price: string;
+  audience: string;
   description: string;
+  benefits: readonly [string, string, string];
+  compactSummary: string;
+  bookingAction: string;
 }>;
 
 export type TrialPageCopy = Readonly<{
   offerEyebrow: string;
   offerTitle: string;
-  offerDescription: string;
-  benefits: readonly [TrialBenefitCopy, TrialBenefitCopy, TrialBenefitCopy];
-  bookingEyebrow: string;
-  bookingTitle: string;
-  bookingDescription: string;
-  bookingAction: string;
+  recommendedBadge: string;
+  detailsAction: string;
+  trialPass: TrialOfferCopy;
+  singleSession: TrialOfferCopy;
   secureNotice: string;
 }>;
 
